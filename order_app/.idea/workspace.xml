@@ -7,35 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6953594-20c3-47c3-b185-5526bffa5bb0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/screens/homescreen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/menuscreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-ExtraBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-ExtraLight.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/Dosis-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/Dosis/OFL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fonts/fontello.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/menu_flutter_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mainpage.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/homescreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/homescreen.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -65,12 +39,21 @@
       <file leaf-file-name="mainpage.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="99" column="29" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
+            <state relative-caret-position="296">
+              <caret line="47" column="23" lean-forward="true" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#264#3291#0" />
+                <element signature="e#404#1196#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="69" column="15" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -78,9 +61,19 @@
       <file leaf-file-name="homescreen.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+            <state relative-caret-position="9">
+              <caret line="35" column="44" lean-forward="true" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menuscreen.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state />
           </provider>
         </entry>
       </file>
@@ -105,6 +98,7 @@
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/screens/mainpage.dart" />
         <option value="$PROJECT_DIR$/lib/screens/homescreen.dart" />
+        <option value="$PROJECT_DIR$/lib/screens/menuscreen.dart" />
       </list>
     </option>
   </component>
@@ -237,7 +231,7 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003928" side_tool="true" weight="0.32954547" />
-      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32954547" />
+      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32899022" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23615634" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32899022" />
@@ -246,7 +240,7 @@
       <window_info id="Captures" order="2" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18067557" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18067557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -265,6 +259,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
@@ -363,13 +362,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/mainpage.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -392,19 +384,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="99" column="29" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
+        <state relative-caret-position="296">
+          <caret line="47" column="23" lean-forward="true" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#264#3291#0" />
+            <element signature="e#404#1196#0" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="69" column="15" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        <state relative-caret-position="9">
+          <caret line="35" column="44" lean-forward="true" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
