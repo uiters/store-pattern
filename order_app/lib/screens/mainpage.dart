@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
+import './../UI/theme.dart';
+import './homescreen.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  var _title = '';
+  int _screenNumber = 0;
   Drawer _buildDrawer(BuildContext context) {
     return new Drawer(
       child: new ListView(
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     new Image.asset(
-                      'images/menu1.png',
+                      'assets/images/menu1.png',
                       width: 110.0,
                       height: 110.0,
                       fit: BoxFit.cover,
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Home', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._title = 'This is Home';
+                this._screenNumber = 0;
               });
               Navigator.pop(context);
             },
@@ -49,7 +50,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('History', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._title = '';
+                this._screenNumber = 1;
               });
               Navigator.pop(context);
             },
@@ -59,7 +60,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Notifications', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._title = '';
+                this._screenNumber = 2;
               });
               Navigator.pop(context);
             },
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._title = '';
+                this._screenNumber = 3;
               });
               Navigator.pop(context);
             },
@@ -85,7 +86,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._title = 'This is Search';
+                this._screenNumber = 4;
               });
               Navigator.pop(context);
             },
@@ -94,7 +95,12 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
+  Widget _buildScreen(BuildContext context) {
+    switch (this._screenNumber) {
+      case 0: return new HomeScreen();
+      default: return null;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,12 +121,7 @@ class _MainPageState extends State<MainPage> {
                     onPressed: null)
               ],
             ),
-            body: new Center(
-              child: new Text(
-                this._title,
-                style: new TextStyle(fontSize: 25.0),
-              ),
-            ),
+            body: _buildScreen(context),
             drawer: this._buildDrawer(context)));
   }
 }

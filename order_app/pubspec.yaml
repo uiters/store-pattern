@@ -38,19 +38,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/menu1.png
-    - images/menu2.png
-    - images/menu3.png
-    - images/menu4.png
-    - images/menu5.png
-    - images/menu7.png
-    - images/menu8.png
-    - images/menu9.png
-    - images/menu10.png
-    - images/menu11.png
-    - images/menu12.png
-    - images/menu13.png
-    - images/menu14.png
+      - assets/images/menu1.png
+      - assets/images/menu2.png
+      - assets/images/menu3.png
+      - assets/images/menu4.png
+      - assets/images/menu5.png
+      - assets/images/menu7.png
+      - assets/images/menu8.png
+      - assets/images/menu9.png
+      - assets/images/menu10.png
+      - assets/images/menu11.png
+      - assets/images/menu12.png
+      - assets/images/menu13.png
+      - assets/images/menu14.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
@@ -64,20 +64,20 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-       - family: fontello
-         fonts:
-           - asset: fonts/fontello.ttf
-       - family: Dosis
-         fonts:
-           - asset: fonts/Dosis/Dosis-Regular.ttf
-             weight: 400
-           - asset: fonts/Dosis/Dosis-Medium.ttf
-             weight: 500
-           - asset: fonts/Dosis/Dosis-SemiBold.ttf
-             weight: 600
-           - asset: fonts/Dosis/Dosis-Bold.ttf
-             weight: 800
-           - asset: fonts/Dosis/Dosis-ExtraBold.ttf
-             weight: 900
+     - family: fontello
+       fonts:
+         - asset: assets/fonts/fontello.ttf
+     - family: Dosis
+       fonts:
+         - asset: assets/fonts/Dosis/Dosis-Regular.ttf
+           weight: 400
+         - asset: assets/fonts/Dosis/Dosis-Medium.ttf
+           weight: 500
+         - asset: assets/fonts/Dosis/Dosis-SemiBold.ttf
+           weight: 600
+         - asset: assets/fonts/Dosis/Dosis-Bold.ttf
+           weight: 800
+         - asset: assets/fonts/Dosis/Dosis-ExtraBold.ttf
+           weight: 900
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
