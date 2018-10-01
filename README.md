@@ -13,6 +13,8 @@ For help getting started with Flutter, view our online [documentation](https://f
 ## Authors
 
 * **Nguyen Duy Cuong** - *Initial work* - [ndc07](https://github.com/ndc07)
+* **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212)
+* **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
