@@ -142,6 +142,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         controller: _textController,
                         onChanged: null,
                         onSubmitted: null,
+                        style: _itemStyle,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Enter your food...',
                             hintStyle: _itemStyle
