@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './../UI/theme.dart';
+import './menuscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,21 +16,41 @@ class _HomeScreenState extends State<HomeScreen> {
             border: Border.all(color: fontColorLight.withOpacity(0.2))),
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
-          itemExtent: 70.0,
+          itemExtent: 100.0,
           itemCount: 20,
-          itemBuilder: (_, index) => _buildTableRow(context))
+          itemBuilder: (_, index) => _buildTableRow(context)),
     );
   }
   
   Widget _buildTableRow(BuildContext context) {
-    return new Container(
-      child: new Row(
-        children: <Widget>[
-          new Expanded(child: _buildTable(context)),
-          new Expanded(child: _buildTable(context)),
-          new Expanded(child: _buildTable(context)),
-        ],
+    return GestureDetector(
+      onTap: () {
+        _pushMenuScreen();
+      },
+      child: new Container(
+        child: new Row(
+          children: <Widget>[
+            new Expanded(child: _buildTable(context)),
+            new Expanded(child: _buildTable(context)),
+            new Expanded(child: _buildTable(context)),
+          ],
+        ),
       ),
+    );
+  }
+
+  void _pushMenuScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Select Foods',style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
+              iconTheme: new IconThemeData(color: accentColor),
+              centerTitle: true,
+            ),
+            body: new MenuScreen(),
+        );
+      }),
     );
   }
   
@@ -43,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: new Icon(Icons.people, size: 16.0,),
+              child: new Icon(Icons.people, size: 20.0,),
             ),
             new Expanded(child: new Container()),
             Padding(
