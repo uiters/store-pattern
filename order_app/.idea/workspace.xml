@@ -10,9 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6953594-20c3-47c3-b185-5526bffa5bb0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/screens/cartscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/cartscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/cartscreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/homescreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/homescreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mainpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mainpage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/menuscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/menuscreen.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -46,8 +46,8 @@
       <file leaf-file-name="mainpage.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+            <state relative-caret-position="318">
+              <caret line="147" column="14" selection-start-line="142" selection-start-column="12" selection-end-line="147" selection-end-column="14" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -64,38 +64,41 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="homescreen.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="109" column="9" lean-forward="true" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="menuscreen.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="182" column="1" selection-start-line="182" selection-start-column="1" selection-end-line="182" selection-end-column="1" />
+            <state relative-caret-position="220">
+              <caret line="144" column="41" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#995#1189#0" />
                 <element signature="e#1231#3535#0" />
-                <element signature="e#3660#5545#0" />
+                <element signature="e#5333#5809#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="homescreen.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
+      <file leaf-file-name="cartscreen.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="106" column="1" selection-start-line="106" selection-start-column="1" selection-end-line="106" selection-end-column="1" />
+            <state relative-caret-position="254">
+              <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cartscreen.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -120,9 +123,9 @@
         <option value="$PROJECT_DIR$/lib/mainpage.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/screens/mainpage.dart" />
-        <option value="$PROJECT_DIR$/lib/screens/cartscreen.dart" />
-        <option value="$PROJECT_DIR$/lib/screens/menuscreen.dart" />
         <option value="$PROJECT_DIR$/lib/screens/homescreen.dart" />
+        <option value="$PROJECT_DIR$/lib/screens/menuscreen.dart" />
+        <option value="$PROJECT_DIR$/lib/screens/cartscreen.dart" />
       </list>
     </option>
   </component>
@@ -156,6 +159,12 @@
               <item name="order_app" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="order_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="order_app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="UI" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -265,7 +274,7 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5011783" side_tool="true" weight="0.23615634" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32736155" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49882168" weight="0.2931596" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49882168" visible="true" weight="0.2931596" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32899022" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.24918567" />
       <window_info anchor="right" id="Flutter Outline" order="3" weight="0.3299293" />
@@ -273,12 +282,12 @@
       <window_info id="Captures" order="2" weight="0.3299293" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49674267" visible="true" weight="0.18067557" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49769586" visible="true" weight="0.18067557" />
       <window_info id="Structure" order="1" sideWeight="0.5010661" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" weight="0.3299293" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" order="2" sideWeight="0.50325733" side_tool="true" visible="true" weight="0.18067557" />
+      <window_info id="Favorites" order="2" sideWeight="0.50230414" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Flutter Inspector" order="3" weight="0.3299293" />
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49960724" weight="0.32899022" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -344,7 +353,7 @@
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#995#1189#0" />
             <element signature="e#1231#3535#0" />
-            <element signature="e#3660#5545#0" />
+            <element signature="e#5333#5809#0" />
           </folding>
         </state>
       </provider>
@@ -391,7 +400,7 @@
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#995#1189#0" />
             <element signature="e#1231#3535#0" />
-            <element signature="e#3660#5545#0" />
+            <element signature="e#5333#5809#0" />
           </folding>
         </state>
       </provider>
@@ -490,8 +499,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+        <state relative-caret-position="318">
+          <caret line="147" column="14" selection-start-line="142" selection-start-column="12" selection-end-line="147" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/UI/theme.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="109" column="9" lean-forward="true" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -500,28 +526,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="182" column="1" selection-start-line="182" selection-start-column="1" selection-end-line="182" selection-end-column="1" />
+        <state relative-caret-position="220">
+          <caret line="144" column="41" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#995#1189#0" />
             <element signature="e#1231#3535#0" />
-            <element signature="e#3660#5545#0" />
+            <element signature="e#5333#5809#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="106" column="1" selection-start-line="106" selection-start-column="1" selection-end-line="106" selection-end-column="1" />
+        <state relative-caret-position="254">
+          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

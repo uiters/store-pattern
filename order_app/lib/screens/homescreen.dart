@@ -37,6 +37,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildTable(BuildContext context) {
+    return new Container(
+        padding: EdgeInsets.zero,
+        margin: EdgeInsets.zero,
+        child: new Card(
+          color: primaryColor,
+          child: new Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Icon(Icons.people, size: 20.0,),
+              ),
+              new Expanded(child: new Container()),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new Text(
+                  '01',
+                  style: const TextStyle(
+                      color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+    );
+  }
+
   void _pushMenuScreen() {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
@@ -72,36 +100,14 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
           ),
           body: new CartScreen(),
+//          floatingActionButton: new FloatingActionButton(
+//            onPressed: () {},
+//            child: new Icon(Icons.payment),
+//            tooltip: 'Payment',
+//            backgroundColor: fontColor,
+//          ),
         );
       }),
-    );
-  }
-
-  Widget _buildTable(BuildContext context) {
-    return new Container(
-        padding: EdgeInsets.zero,
-        margin: EdgeInsets.zero,
-        child: new Card(
-          color: primaryColor,
-          child: new Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new Icon(Icons.people, size: 20.0,),
-              ),
-              new Expanded(child: new Container()),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: new Text(
-                  '01',
-                  style: const TextStyle(
-                      color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
-                  ),
-                ),
-              )
-            ],
-          ),
-        )
     );
   }
 }

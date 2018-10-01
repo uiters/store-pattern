@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './../UI/theme.dart';
 import './homescreen.dart';
+import './cartscreen.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -118,10 +119,35 @@ class _MainPageState extends State<MainPage> {
                         const IconData(0xe807, fontFamily: 'fontello'),
                         size: 22.0,
                         color: accentColor),
-                    onPressed: null)
+                    onPressed: () {
+                      _pushCartScreen();
+                    }
+                    ),
               ],
             ),
             body: _buildScreen(context),
             drawer: this._buildDrawer(context)));
+  }
+
+  void _pushCartScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Cart',
+              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: accentColor),
+            centerTitle: true,
+          ),
+          body: new CartScreen(),
+//          floatingActionButton: new FloatingActionButton(
+//            onPressed: () {},
+//            child: new Icon(Icons.payment),
+//            tooltip: 'Payment',
+//            backgroundColor: fontColor,
+//          ),
+        );
+      }),
+    );
   }
 }
