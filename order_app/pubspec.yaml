@@ -64,9 +64,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: fontello
-       fonts:
-         - asset: assets/fonts/fontello.ttf
      - family: Dosis
        fonts:
          - asset: assets/fonts/Dosis/Dosis-Regular.ttf
