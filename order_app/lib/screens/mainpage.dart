@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './../UI/theme.dart';
 import './homescreen.dart';
-import './cartscreen.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -116,7 +115,7 @@ class _MainPageState extends State<MainPage> {
               actions: <Widget>[
                 new IconButton(
                     icon: new Icon(
-                        const IconData(0xe807, fontFamily: 'fontello'),
+                        Icons.notifications,
                         size: 22.0,
                         color: accentColor),
                     onPressed: () {
@@ -139,7 +138,7 @@ class _MainPageState extends State<MainPage> {
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new CartScreen(),
+          body: new Text('Notifications'),
 //          floatingActionButton: new FloatingActionButton(
 //            onPressed: () {},
 //            child: new Icon(Icons.payment),
