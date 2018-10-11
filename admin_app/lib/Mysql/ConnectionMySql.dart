@@ -13,11 +13,11 @@ class MySqlConnection{
     return _instance;
   }
 
+    ///executeNoneQuery without or with parameter
+    ///
+    ///return Future<bool>
   Future<bool> executeNoneQuery(String query, {List parameter}) async {
-    /**
-     * executeNoneQuery without or with parameter
-     * return true or false
-     */
+
     if(parameter != null)
       query = _addParameter(query,  parameter);
     http.Response response = await http.post(
@@ -28,11 +28,12 @@ class MySqlConnection{
     return number > 0;
   }
 
+
+    ///executeNoneQuery without or with parameter
+    ///
+    ///return Future<List>
   Future<List> executeQuery(String query, {List parameter}) async {
-    /**
-     * executeNoneQuery without or with parameter
-     * return List Object
-     */
+
     if(parameter != null)
       query = _addParameter(query,  parameter);
     http.Response response = await http.post(
