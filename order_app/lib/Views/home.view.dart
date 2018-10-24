@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:mvc_pattern/mvc_pattern.dart';
 
+import './../Models/home.model.dart';
 import './../Controllers/home.controller.dart';
 
 import './../Contants/theme.dart';
@@ -8,39 +10,67 @@ import './cart.view.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+    State<StatefulWidget> createState() {
+      return new _HomeScreenState();
+    }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  List<TableData> tables = Controller.instance.tables;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
       child: new ListView.builder(
           itemExtent: 100.0,
-          itemCount: 20,
-          itemBuilder: (context, index) => _buildTableRow(context)),
+          itemCount: (tables.length / 3).ceil(),
+          itemBuilder: (context, index) => _buildTableRow(context, index)),
     );
   }
 
-  Widget _buildTableRow(BuildContext context) {
+  Widget _buildTableRow(BuildContext context, int index) {
+    List<TableData> indexes = [];
+    
+    int end = (index + 1) * 3;
+    if (end > tables.length -1) end = tables.length;
+    int begin = index * 3;
+
+    for (int i = begin; i < end; i++) {
+      indexes.add(tables[i]);
+    }
+
+
     return GestureDetector(
       onTap: () {
         _pushMenuScreen();
       },
       child: new Container(
         child: new Row(
-          children: <Widget>[
-            new Expanded(child: _buildTable(context)),
-            new Expanded(child: _buildTable(context)),
-            new Expanded(child: _buildTable(context)),
-          ],
+          children: _generateRow(context, indexes)
         ),
       ),
     );
   }
 
-  Widget _buildTable(BuildContext context) {
+  List<Widget> _generateRow(BuildContext context, List<TableData> indexes) {
+    List<Widget> items = [];
+
+    for (int i = 0; i < indexes.length; i++) {
+      Expanded expanded = new Expanded(child: _buildTable(context, indexes[i]),);
+      items.add(expanded);
+    }
+
+    for (int i = 0; i < 3 - indexes.length; i++) {
+      Expanded expanded = new Expanded(child: new Container());
+      items.add(expanded);
+    }
+
+    return items;
+  }
+
+  Widget _buildTable(BuildContext context, TableData table) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
@@ -50,13 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: new Icon(Icons.people, size: 20.0,),
+                child: new Icon(
+                  table.status == 1 ? Icons.people : Icons.people_outline, 
+                  size: 20.0,
+                  color: table.status == 1 ? accentColor : fontColorLight,
+                  ),
               ),
               new Expanded(child: new Container()),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0, right: 8.0),
                 child: new Text(
-                  '01',
+                  table.name,
                   style: const TextStyle(
                       color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
                   ),
