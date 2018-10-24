@@ -24,7 +24,9 @@ class MySqlConnection{
       URL_EXECUTE,
       body : { ID_EXECUTENONEQUERY : query },
     );
-    int number = int.parse(response.body);
+    int number = 0;
+    if(response.statusCode == 200)
+      number = int.parse(response.body);
     return number > 0;
   }
 
@@ -40,7 +42,12 @@ class MySqlConnection{
       URL_EXECUTE,
       body : { ID_EXECUTENONEQUERY : query },
     );
-    List listObject = json.decode(response.body);
+    List listObject;
+
+    if(response.statusCode == 200)
+      listObject = json.decode(response.body);
+    else listObject = null;
+
     return listObject;
   }
 
