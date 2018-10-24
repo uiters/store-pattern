@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import './../UI/theme.dart';
-import './menuscreen.dart';
-import './cartscreen.dart';
+
+import './../Controllers/home.controller.dart';
+
+import './../Contants/theme.dart';
+import './menu.view.dart';
+import './cart.view.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: new ListView.builder(
           itemExtent: 100.0,
           itemCount: 20,
-          itemBuilder: (_, index) => _buildTableRow(context)),
+          itemBuilder: (context, index) => _buildTableRow(context)),
     );
   }
 

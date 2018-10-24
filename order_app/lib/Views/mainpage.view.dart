@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './../UI/theme.dart';
-import './homescreen.dart';
+import './../Contants/theme.dart';
+import './home.view.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
