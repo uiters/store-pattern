@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../Contants/theme.dart';
+import './../Constants/theme.dart';
 import './home.view.dart';
 
 class MainPage extends StatefulWidget {
