@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import './../Models/home.model.dart';
 import './../Controllers/home.controller.dart';
 
-import './../Contants/theme.dart';
+import './../Constants/theme.dart';
 import './menu.view.dart';
 import './cart.view.dart';
 
@@ -17,20 +17,32 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  List<TableData> tables = Controller.instance.tables;
+  Future<List<TableData>> tables = Controller.instance.tables;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
-      child: new ListView.builder(
-          itemExtent: 100.0,
-          itemCount: (tables.length / 3).ceil(),
-          itemBuilder: (context, index) => _buildTableRow(context, index)),
+      child: FutureBuilder<List<TableData>>(
+        future: tables,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+
+          return snapshot.hasData
+            ? new ListView.builder(
+              itemExtent: 100.0,
+              itemCount: (snapshot.data.length / 3).ceil(),
+              itemBuilder: (context, index) => _buildTableRow(context, index, snapshot.data)
+            )
+            : Center(child: CircularProgressIndicator());
+        },
+      ),
+      
+      
     );
   }
 
-  Widget _buildTableRow(BuildContext context, int index) {
+  Widget _buildTableRow(BuildContext context, int index, List<TableData> tables) {
     List<TableData> indexes = [];
     
     int end = (index + 1) * 3;

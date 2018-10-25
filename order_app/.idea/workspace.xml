@@ -10,177 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6953594-20c3-47c3-b185-5526bffa5bb0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../admin_app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/libraries/Flutter_for_Android.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/.metadata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/admin_app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/admin_app_android.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/java/com/example/adminapp/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/android/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-ExtraBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-ExtraLight.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/Dosis-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/fonts/Dosis/OFL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/assets/images/menu_flutter_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Flutter/Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Flutter/Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/AppDelegate.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/AppDelegate.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/ios/Runner/main.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/lib/UI/theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/lib/screens/mainpage.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/pubspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin_app/test/widget_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/libraries/Flutter_for_Android.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/.metadata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/java/com/example/kitchenapp/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/android/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Flutter/Debug.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Flutter/Release.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/AppDelegate.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/AppDelegate.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/ios/Runner/main.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/kitchen_app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/kitchen_app_android.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/pubspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kitchen_app/test/widget_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Contants/theme.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Controllers/home.controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controllers/home.controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Models/home.model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/home.model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/cart.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/cart.view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/home.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/home.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/mainpage.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/mainpage.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/menu.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/menu.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -198,10 +39,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="187">
               <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -210,11 +51,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <file leaf-file-name="connectServer.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Models/connectServer.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
+            <state>
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.model.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/Models/home.model.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -257,6 +112,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,34 +123,48 @@
             <path>
               <item name="order_app" type="b2602c69:ProjectViewProjectNode" />
               <item name="order_app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="order_app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="order_app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="order_app" type="b2602c69:ProjectViewProjectNode" />
               <item name="order_app" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="Models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="order_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="order_app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="Views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
-        <option name="show-excluded-files" value="false" />
       </pane>
       <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="order_app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="order_app" type="e9137016:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="order_app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="order_app" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="flutter.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -388,6 +258,7 @@
       <window_info id="Build Variants" order="2" sideWeight="0.5010661" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5011783" side_tool="true" weight="0.23615634" />
+      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32736155" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49882168" weight="0.2931596" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32899022" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.24837662" />
@@ -396,7 +267,7 @@
       <window_info id="Captures" order="2" weight="0.32954547" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49769586" weight="0.18030304" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49769586" visible="true" weight="0.18030304" />
       <window_info id="Structure" order="1" sideWeight="0.5010661" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" weight="0.3299293" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -411,7 +282,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32736155" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -423,23 +293,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart" />
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
@@ -584,9 +437,21 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Downloads/flutter_linux_v0.7.3-beta/flutter/packages/flutter/lib/src/rendering/stack.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/UI/theme.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart" />
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="187">
           <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -594,17 +459,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/UI/theme.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart" />
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+    <entry file="file://$PROJECT_DIR$/lib/Models/connectServer.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
+        <state>
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/screens/mainpage.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/Models/home.model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

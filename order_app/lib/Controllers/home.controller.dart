@@ -11,6 +11,6 @@ class Controller {
     return _instance;
   }
 
-  List<TableData> get tables => Model.instance.tables;
+  Future<List<TableData>> get tables => Model.instance.tables;
 
 }
