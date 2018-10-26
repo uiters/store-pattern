@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:mvc_pattern/mvc_pattern.dart';
 
-import './../Models/home.model.dart';
+import './../Models/home.model.dart' as model;
 import './../Controllers/home.controller.dart';
 
 import './../Constants/theme.dart';
@@ -17,13 +16,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Future<List<TableData>> tables = Controller.instance.tables;
+  Future<List<model.Table>> tables = Controller.instance.tables;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
-      child: FutureBuilder<List<TableData>>(
+      child: FutureBuilder<List<model.Table>>(
         future: tables,
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
@@ -37,13 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
             : Center(child: CircularProgressIndicator());
         },
       ),
-      
-      
+
     );
   }
 
-  Widget _buildTableRow(BuildContext context, int index, List<TableData> tables) {
-    List<TableData> indexes = [];
+  Widget _buildTableRow(BuildContext context, int index, List<model.Table> tables) {
+    List<model.Table> indexes = [];
     
     int end = (index + 1) * 3;
     if (end > tables.length -1) end = tables.length;
@@ -66,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  List<Widget> _generateRow(BuildContext context, List<TableData> indexes) {
+  List<Widget> _generateRow(BuildContext context, List<model.Table> indexes) {
     List<Widget> items = [];
 
     for (int i = 0; i < indexes.length; i++) {
@@ -82,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return items;
   }
 
-  Widget _buildTable(BuildContext context, TableData table) {
+  Widget _buildTable(BuildContext context, model.Table table) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,

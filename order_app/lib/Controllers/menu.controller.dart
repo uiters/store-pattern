@@ -1,7 +1,6 @@
-import './../Models/home.model.dart';
+import './../Models/menu.model.dart';
 
 class Controller {
-
   static Controller _instance;
 
   static Controller get instance {
@@ -9,6 +8,5 @@ class Controller {
     return _instance;
   }
 
-  Future<List<Table>> get tables => Model.instance.tables;
-
+  Future<List<FoodCategory>> get foodCategories => Model.instance.foodCategories;
 }
