@@ -1,3 +1,5 @@
+// import 'package:mvc_pattern/mvc_pattern.dart';
+
 import './../Models/home.model.dart';
 
 class Controller {
@@ -9,6 +11,6 @@ class Controller {
     return _instance;
   }
 
-  Future<List<Table>> get tables => Model.instance.tables;
+  Future<List<TableData>> get tables => Model.instance.tables;
 
 }
