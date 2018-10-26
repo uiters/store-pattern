@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import './connectServer.dart';
+import './../Constants/queries.dart';
 
 class Model {
 
@@ -12,41 +11,36 @@ class Model {
     return _instance;
   }
 
-  Future<List<TableData>> get tables => getTables();
+  Future<List<Table>> get tables => getTables();
 
-  static Future<List<TableData>> getTables() async {
-    String query = 'CALL `USP_GetTables`();';
-    Future<List> futureTables = MySqlConnection.instance.executeQuery(query);
-    return parse(futureTables);//(futureTables as List).map((json) => TableData.fromJson(json)).toList();
+  static Future<List<Table>> getTables() async {
+    Future<List> futureTables = MySqlConnection.instance.executeQuery(QUERY_GET_TABLES);
+    return parse(futureTables);
   }
 
-  static Future<List<TableData>> parse(Future<List> tables) async  {
+  static Future<List<Table>> parse(Future<List> tables) async  {
 
-    List<TableData> tableDatas = [];
+    List<Table> futureTables = [];
     await tables.then((values){
-      values.forEach((f){
-        tableDatas.add(TableData.fromJson(f));
+      values.forEach((value){
+        futureTables.add(Table.fromJson(value));
       });
     });
-    return tableDatas;
-  }
+    return futureTables;
 
-  static List<TableData> parseTables(dynamic responseString) {    
-    final parsed = json.decode(responseString).cast<Map<String, dynamic>>();
-
-    return parsed.map<TableData>((json) => TableData.fromJson(json)).toList();
   }
 
 }
 
-class TableData {
+class Table {
   int id;
   String name;
   int status;
 
-  TableData({this.id, this.name, this.status});
 
-  TableData.fromJson(Map<String, dynamic> json)
+  Table({this.id, this.name, this.status});
+
+  Table.fromJson(Map<String, dynamic> json)
   : this.id = int.parse(json['ID']),
     this.name = json['Name'],
     this.status = int.parse(json['Status']);

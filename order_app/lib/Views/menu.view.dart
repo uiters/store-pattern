@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import './../Controllers/menu.controller.dart';
+import './../Models/menu.model.dart' as model;
+
 import './../Constants/theme.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -122,8 +126,8 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildFilterFood(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(
+      color: fontColor, fontFamily: 'Dosis', fontSize: 16.0);
     return new Container(
       decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
@@ -162,22 +166,39 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           Expanded(
             flex: 1,
-            child: new DropdownButton(
-                items: [
-                  new DropdownMenuItem(child: new Text(
-                    'Donec mollis tellus et', style: _itemStyle,)),
-                  new DropdownMenuItem(
-                      child: new Text('Donec nisi sem', style: _itemStyle,)),
-                  new DropdownMenuItem(
-                      child: new Text('Mauris posuere', style: _itemStyle,)),
-                  new DropdownMenuItem(
-                      child: new Text('Ut faucibus', style: _itemStyle,)),
-                ],
-                onChanged: null
+            child: FutureBuilder<List<model.FoodCategory>>(
+              future: Controller.instance.foodCategories,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
+
+                return snapshot.hasData
+                  ? _buildFoodCategories(snapshot.data, _itemStyle)
+                  : Center(child: CircularProgressIndicator());
+              },
             ),
+             
           )
         ],
       ),
+    );
+  }
+
+  Widget _buildFoodCategories(List<model.FoodCategory> foodCategories, TextStyle _itemStyle) {
+    List<DropdownMenuItem> items = [];
+
+    for (int i = 0; i < foodCategories.length; i++) {
+      DropdownMenuItem item = new DropdownMenuItem(
+        child: new Text(
+          foodCategories[i].name,
+          style: _itemStyle,
+        ),
+      );
+
+      items.add(item);
+    }
+    return new DropdownButton(
+        items: items,
+        onChanged: null
     );
   }
 
