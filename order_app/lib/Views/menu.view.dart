@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import './../Controllers/menu.controller.dart';
 import './../Models/menu.model.dart' as model;
-
 import './../Constants/theme.dart';
 
 class MenuScreen extends StatefulWidget {

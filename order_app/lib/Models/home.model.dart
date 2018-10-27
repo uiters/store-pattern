@@ -27,7 +27,6 @@ class Model {
       });
     });
     return futureTables;
-
   }
 
 }
@@ -36,7 +35,6 @@ class Table {
   int id;
   String name;
   int status;
-
 
   Table({this.id, this.name, this.status});
 
