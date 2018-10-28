@@ -11,3 +11,10 @@ const String QUERY_GET_TABLES = 'CALL `USP_GetTables`();';
 const String QUERY_GET_FOOD_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
 
 ///////////////////////////////////////////////////////////////
+
+// Queries for Food
+
+// Get foods
+const String QUERY_GET_FOODS = 'CALL `USP_GetFoods`();';
+
+///////////////////////////////////////////////////////////////

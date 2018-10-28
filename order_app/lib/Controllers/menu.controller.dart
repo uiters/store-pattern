@@ -9,4 +9,6 @@ class Controller {
   }
 
   Future<List<FoodCategory>> get foodCategories => Model.instance.foodCategories;
+  Future<List<Food>> get foods => Model.instance.foods;
+
 }

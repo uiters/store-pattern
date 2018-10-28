@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './../Controllers/menu.controller.dart';
 import './../Models/menu.model.dart' as model;
+
 import './../Constants/theme.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -10,6 +11,9 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
+  Future<List<model.Food>> foods = Controller.instance.foods;
+
   TextEditingController _textController = new TextEditingController();
 
   @override
@@ -18,39 +22,76 @@ class _MenuScreenState extends State<MenuScreen> {
       child: Column(
         children: <Widget>[
           _buildFilterFood(context),
-          _buildListFoods(context)
+          FutureBuilder<List<model.Food>>(
+            future: foods,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+
+              return snapshot.hasData
+                ? _buildListFoods(context, snapshot.data)
+                : Center(child: CircularProgressIndicator());
+            },
+          ),
         ],
       ),
     );
   }
 
 
-  Widget _buildListFoods(BuildContext context) {
+  Widget _buildListFoods(BuildContext context, List<model.Food> foods) {
     return Expanded(
       child: new Container(
         width: double.infinity,
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
             itemExtent: 175.0,
-            itemCount: 20,
-            itemBuilder: (_, index) => _buildFoodRow(context)
+            itemCount: (foods.length / 2).ceil(),
+            itemBuilder: (_, index) => _buildFoodRow(context, index, foods)
         ),
       ),
     );
   }
 
-  Widget _buildFoodRow(BuildContext context) {
-    return new Container(
-      child: new Row(
-        children: <Widget>[
-          new Expanded(child: _buildFood(context)),
-          new Expanded(child: _buildFood(context)),
-        ],
+  Widget _buildFoodRow(BuildContext context, int index, List<model.Food> foods) {
+    List<model.Food> indexes = [];
+
+    int end = (index + 1) * 2;
+    if (end > foods.length -1) end = foods.length;
+    int begin = index * 2;
+
+    for (int i = begin; i < end; i++) {
+      indexes.add(foods[i]);
+    }
+
+    return GestureDetector(
+      onTap: () {
+        // TO DO
+      },
+      child: new Container(
+        child: new Row(
+          children: _generateRow(context, indexes)
+        ),
       ),
     );
   }
 
-  Widget _buildFood(BuildContext context) {
+  List<Widget> _generateRow(BuildContext context, List<model.Food> indexes) {
+    List<Widget> items = [];
+
+    for (int i = 0; i < indexes.length; i++) {
+      Expanded expanded = new Expanded(child: _buildFood(context, indexes[i]),);
+      items.add(expanded);
+    }
+
+    for (int i = 0; i < 2 - indexes.length; i++) {
+      Expanded expanded = new Expanded(child: new Container());
+      items.add(expanded);
+    }
+
+    return items;
+  }
+
+  Widget _buildFood(BuildContext context, model.Food food) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
@@ -59,7 +100,7 @@ class _MenuScreenState extends State<MenuScreen> {
           child: new Column(
             children: <Widget>[
               new Text(
-                'Pizza',
+                food.name,
                 style: const TextStyle(
                     color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
                 ),
@@ -67,8 +108,8 @@ class _MenuScreenState extends State<MenuScreen> {
               new Row(
                 children: <Widget>[
                   new Expanded(child: new Container()),
-                  new Image.asset(
-                    'assets/images/menu8.png',
+                  new Image.memory(
+                    food.image,
                     width: 122.0,
                     height: 122.0,
                     fit: BoxFit.cover,
@@ -110,7 +151,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ],
               ),
               new Text(
-                '\$15',
+                food.price.toString() + '\$',
                 style: const TextStyle(
                     color: fontColor,
                     fontFamily: 'Dosis',
