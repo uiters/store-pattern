@@ -4,6 +4,7 @@ import './../Models/home.model.dart' as model;
 import './../Controllers/home.controller.dart';
 
 import './../Constants/theme.dart';
+
 import './menu.view.dart';
 import './cart.view.dart';
 
@@ -36,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
             : Center(child: CircularProgressIndicator());
         },
       ),
-
     );
   }
 
