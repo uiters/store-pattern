@@ -35,4 +35,10 @@ class Controller {
     }
     return -1;
   }
+
+  Future<List<Food>> searchFoods(String keyword) async {
+    List<Food> _foods = await foods;
+    return _foods.where((_food) => _food.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1).toList();
+  }
+
 }
