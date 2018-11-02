@@ -15,7 +15,6 @@ class _MenuScreenState extends State<MenuScreen> {
   Future<List<model.FoodCategory>> futureCategories = Controller.instance.foodCategories;
   Future<List<model.Food>> futureFoods = Controller.instance.foods;
 
-  // List<DropdownMenuItem> items;
   String _currentCategory;
 
   TextEditingController _textController = new TextEditingController();
@@ -262,7 +261,7 @@ class _MenuScreenState extends State<MenuScreen> {
         onChanged: (selectedCategory) {
           setState(() {
             _currentCategory = selectedCategory;
-            // futureFoods = Controller.instance.filterFoods(selectedCategory);
+            futureFoods = Controller.instance.filterFoods(selectedCategory);
           });
         }
     );

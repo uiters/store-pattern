@@ -8,14 +8,24 @@ class Controller {
     return _instance;
   }
 
-  Future<List<FoodCategory>> get foodCategories => Model.instance.foodCategories;
-  Future<List<Food>> get foods => Model.instance.foods;
+  Future<List<FoodCategory>> _foodCategories;
+  Future<List<Food>> _foods;
+
+  Future<List<FoodCategory>> get foodCategories {
+    if (_foodCategories == null) _foodCategories = Model.instance.foodCategories;
+    return _foodCategories;
+  }
+
+  Future<List<Food>> get foods {
+    if (_foods == null) _foods = Model.instance.foods;
+    return _foods;
+  } 
 
   Future<List<Food>> filterFoods(String category) async {
     List<Food> _foods = await foods;
     int idCategory = await getIdCategory(category);
     if (idCategory == -1) return _foods;
-    return _foods.where((_food) => _food.idFoodCategory == idCategory);
+    return _foods.where((_food) => _food.idFoodCategory == idCategory).toList();
   }
 
   Future<int> getIdCategory(String category) async {
