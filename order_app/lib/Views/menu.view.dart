@@ -203,7 +203,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         style: _itemStyle,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Enter your food...',
-                            hintStyle: _itemStyle
+                            hintStyle: _itemStyle,
                         )
                     )
                 ),
@@ -214,7 +214,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.search, color: fontColorLight, size: 16.0,),
                       onPressed: () {
                         setState(() {
-                          futureFoods = Controller.instance.searchFoods(_keyword);
+                          futureFoods = Controller.instance.searchFoods(futureFoods, _keyword);
                         });
                       },
                     )
@@ -271,6 +271,9 @@ class _MenuScreenState extends State<MenuScreen> {
           setState(() {
             _currentCategory = selectedCategory;
             futureFoods = Controller.instance.filterFoods(selectedCategory);
+
+            // clear keyword
+            _textController.text = '';
           });
         }
     );
