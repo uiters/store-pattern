@@ -16,6 +16,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Future<List<model.Food>> futureFoods = Controller.instance.foods;
 
   String _currentCategory;
+  String _keyword;
 
   TextEditingController _textController = new TextEditingController();
 
@@ -193,7 +194,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 new Flexible(
                     child: new TextField(
                         controller: _textController,
-                        onChanged: null,
+                        onChanged: (text) {
+                          setState(() {
+                            _keyword = text;
+                          });
+                        },
                         onSubmitted: null,
                         style: _itemStyle,
                         decoration: InputDecoration.collapsed(
@@ -207,7 +212,11 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: new IconButton(
                       icon: new Icon(
                         Icons.search, color: fontColorLight, size: 16.0,),
-                      onPressed: null,
+                      onPressed: () {
+                        setState(() {
+                          futureFoods = Controller.instance.searchFoods(_keyword);
+                        });
+                      },
                     )
                 )
               ],
