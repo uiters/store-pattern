@@ -130,7 +130,12 @@ class _MenuScreenState extends State<MenuScreen> {
                       new IconButton(
                         icon: new Icon(
                           Icons.remove, size: 16.0, color: fontColorLight,),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            if (food.quantity > 1)
+                            food.quantity--;
+                          });
+                        },
                       ),
                       new Container(
                           decoration: new BoxDecoration(
@@ -140,20 +145,25 @@ class _MenuScreenState extends State<MenuScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                            child: new Text('2',
-                                style: new TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Dosis',
-                                  fontSize: 16.0,
-                                ),
-                                textAlign: TextAlign.center
+                            child: new Text(
+                              food.quantity.toString(),
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Dosis',
+                                fontSize: 16.0,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           )
                       ),
                       new IconButton(
                         icon: new Icon(
                           Icons.add, size: 16.0, color: fontColorLight,),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            food.quantity++;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -161,7 +171,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ],
               ),
               new Text(
-                food.price.toString() + '\$',
+                '\$' + food.price.toString(),
                 style: const TextStyle(
                     color: fontColor,
                     fontFamily: 'Dosis',

@@ -81,6 +81,7 @@ class Food {
   String name;
   int idFoodCategory;
   double price;
+  int quantity;
   Uint8List image;
 
   Food({
@@ -88,6 +89,7 @@ class Food {
     this.name,
     this.idFoodCategory,
     this.price,
+    this.quantity,
     this.image
   });
 
@@ -96,6 +98,7 @@ class Food {
     this.name = json['Name'];
     this.idFoodCategory = int.parse(json['IDCategory']);
     this.price = double.parse(json['Price']);
+    this.quantity = 1;
     this.image = base64.decode(json['Image']);
   }
 }
