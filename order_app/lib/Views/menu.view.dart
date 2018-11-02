@@ -12,9 +12,19 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
 
-  Future<List<model.Food>> foods = Controller.instance.foods;
+  Future<List<model.FoodCategory>> futureCategories = Controller.instance.foodCategories;
+  Future<List<model.Food>> futureFoods = Controller.instance.foods;
+
+  // List<DropdownMenuItem> items;
+  String _currentCategory;
 
   TextEditingController _textController = new TextEditingController();
+
+  @override
+    void initState() {
+      _currentCategory = 'All';
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,7 @@ class _MenuScreenState extends State<MenuScreen> {
         children: <Widget>[
           _buildFilterFood(context),
           FutureBuilder<List<model.Food>>(
-            future: foods,
+            future: futureFoods,
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
 
@@ -207,7 +217,7 @@ class _MenuScreenState extends State<MenuScreen> {
           Expanded(
             flex: 1,
             child: FutureBuilder<List<model.FoodCategory>>(
-              future: Controller.instance.foodCategories,
+              future: futureCategories,
               builder: (context, snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
 
@@ -224,10 +234,19 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildFoodCategories(List<model.FoodCategory> foodCategories, TextStyle _itemStyle) {
-    List<DropdownMenuItem> items = [];
+    List<DropdownMenuItem> items = [
+      new DropdownMenuItem(
+        value: 'All',
+        child: new Text(
+          'All',
+          style: _itemStyle,
+        ),
+      )
+    ];
 
     for (int i = 0; i < foodCategories.length; i++) {
       DropdownMenuItem item = new DropdownMenuItem(
+        value: foodCategories[i].name,
         child: new Text(
           foodCategories[i].name,
           style: _itemStyle,
@@ -236,9 +255,16 @@ class _MenuScreenState extends State<MenuScreen> {
 
       items.add(item);
     }
+
     return new DropdownButton(
+        value: _currentCategory,
         items: items,
-        onChanged: null
+        onChanged: (selectedCategory) {
+          setState(() {
+            _currentCategory = selectedCategory;
+            // futureFoods = Controller.instance.filterFoods(selectedCategory);
+          });
+        }
     );
   }
 
