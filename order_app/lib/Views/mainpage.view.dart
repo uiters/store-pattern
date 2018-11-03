@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import './../Constants/theme.dart';
+
 import './home.view.dart';
+import './cart.view.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -123,7 +126,7 @@ class _MainPageState extends State<MainPage> {
               actions: <Widget>[
                 new IconButton(
                     icon: new Icon(
-                        Icons.notifications,
+                        Icons.shopping_cart,
                         size: 22.0,
                         color: accentColor),
                     onPressed: () {
@@ -146,13 +149,7 @@ class _MainPageState extends State<MainPage> {
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new Text('Notifications'),
-//          floatingActionButton: new FloatingActionButton(
-//            onPressed: () {},
-//            child: new Icon(Icons.payment),
-//            tooltip: 'Payment',
-//            backgroundColor: fontColor,
-//          ),
+          body: new CartScreen(),
         );
       }),
     );

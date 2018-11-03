@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 import './../Controllers/menu.controller.dart';
 import './../Models/menu.model.dart' as model;
+import './../Models/home.model.dart' as _model;
 
 import './../Constants/theme.dart';
 
 class MenuScreen extends StatefulWidget {
+  MenuScreen({key, this.table}):super(key: key);
+
+  final _model.Table table;
+
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }

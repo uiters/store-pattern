@@ -19,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<List<model.Table>> tables = Controller.instance.tables;
 
+  model.Table _selectedTable;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildTable(BuildContext context, model.Table table) {
     return new GestureDetector(
       onTap: () {
-        _pushMenuScreen();
+        _pushMenuScreen(table);
+        setState(() {
+          _selectedTable = table;
+        });
       },
       child: new Container(
         padding: EdgeInsets.zero,
@@ -112,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _pushMenuScreen() {
+  void _pushMenuScreen(model.Table table) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -122,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new MenuScreen(),
+          body: new MenuScreen(table: table),
           floatingActionButton: new FloatingActionButton(
             onPressed: () {
               _pushCartScreen();
