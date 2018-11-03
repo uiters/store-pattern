@@ -9,6 +9,11 @@ class Controller {
     return _instance;
   }
 
-  Future<List<Table>> get tables => Model.instance.tables;
+  Future<List<Table>> _tables;
+
+  Future<List<Table>> get tables {
+    if (_tables == null) _tables = Model.instance.tables;
+    return _tables;
+  }
 
 }
