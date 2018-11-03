@@ -192,7 +192,11 @@ packages:
       name: mvc_pattern
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD:order_app/pubspec.lock
     version: "0.0.13"
+=======
+    version: "0.0.14"
+>>>>>>> admin_app:admin_app/pubspec.lock
   node_preamble:
     dependency: transitive
     description:
