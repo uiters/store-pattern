@@ -8,6 +8,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _screenNumber = 0;
+  
   Drawer _buildDrawer(BuildContext context) {
     return new Drawer(
       child: new ListView(
@@ -37,7 +38,9 @@ class _MainPageState extends State<MainPage> {
               decoration: new BoxDecoration(color: primaryColor)),
           new ListTile(
             leading: new Icon(Icons.home, color: fontColorLight, size: 19.0,),
-            title: new Text('Home', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            title: new Text(
+              'Home', 
+              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
                 this._screenNumber = 0;
