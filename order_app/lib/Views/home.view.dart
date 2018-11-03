@@ -52,16 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
 
-    return GestureDetector(
-      onTap: () {
-        _pushMenuScreen();
-      },
-      child: new Container(
+    return new Container(
         child: new Row(
           children: _generateRow(context, indexes)
         ),
-      ),
-    );
+      );
   }
 
   List<Widget> _generateRow(BuildContext context, List<model.Table> indexes) {
@@ -81,7 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildTable(BuildContext context, model.Table table) {
-    return new Container(
+    return new GestureDetector(
+      onTap: () {
+        _pushMenuScreen();
+      },
+      child: new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
         child: new Card(
@@ -109,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         )
+      ),
     );
   }
 
@@ -147,12 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
           ),
           body: new CartScreen(),
-//          floatingActionButton: new FloatingActionButton(
-//            onPressed: () {},
-//            child: new Icon(Icons.payment),
-//            tooltip: 'Payment',
-//            backgroundColor: fontColor,
-//          ),
         );
       }),
     );

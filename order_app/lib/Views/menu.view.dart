@@ -73,16 +73,11 @@ class _MenuScreenState extends State<MenuScreen> {
       indexes.add(foods[i]);
     }
 
-    return GestureDetector(
-      onTap: () {
-        // TO DO
-      },
-      child: new Container(
+    return new Container(
         child: new Row(
           children: _generateRow(context, indexes)
         ),
-      ),
-    );
+      );
   }
 
   List<Widget> _generateRow(BuildContext context, List<model.Food> indexes) {
@@ -132,7 +127,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           Icons.remove, size: 16.0, color: fontColorLight,),
                         onPressed: () {
                           setState(() {
-                            if (food.quantity > 1)
+                            if (food.quantity > 0)
                             food.quantity--;
                           });
                         },
