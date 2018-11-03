@@ -8,7 +8,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _screenNumber = 0;
-  
+  String _screenName = '';
+
   Drawer _buildDrawer(BuildContext context) {
     return new Drawer(
       child: new ListView(
@@ -44,6 +45,7 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               setState(() {
                 this._screenNumber = 0;
+                this._screenName = 'HOME';
               });
               Navigator.pop(context);
             },
@@ -54,6 +56,7 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               setState(() {
                 this._screenNumber = 1;
+                this._screenName = 'HISTORY';
               });
               Navigator.pop(context);
             },
@@ -64,6 +67,7 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               setState(() {
                 this._screenNumber = 2;
+                this._screenName = 'NOTIFICATIONS';
               });
               Navigator.pop(context);
             },
@@ -74,6 +78,7 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               setState(() {
                 this._screenNumber = 3;
+                this._screenName = 'SETTING';
               });
               Navigator.pop(context);
             },
@@ -90,6 +95,7 @@ class _MainPageState extends State<MainPage> {
             onTap: () {
               setState(() {
                 this._screenNumber = 4;
+                this._screenName = 'ABOUT';
               });
               Navigator.pop(context);
             },
@@ -110,7 +116,7 @@ class _MainPageState extends State<MainPage> {
         child: new Scaffold(
             appBar: new AppBar(
               title: new Text(
-                'HOME',
+                _screenName,
                 style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
               ),
               iconTheme: new IconThemeData(color: accentColor),
