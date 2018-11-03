@@ -20,7 +20,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   mvc_pattern: ^0.0.13
+<<<<<<< HEAD:order_app/pubspec.yaml
   http: ^0.12.0
+=======
+  http: ^0.11.3+17
+>>>>>>> admin_app:admin_app/pubspec.yaml
 
 dev_dependencies:
   flutter_test:
