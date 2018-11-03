@@ -8,7 +8,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _screenNumber = 0;
-  String _screenName = '';
+  String _screenName = 'HOME';
 
   Drawer _buildDrawer(BuildContext context) {
     return new Drawer(
@@ -72,6 +72,11 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
+
+
+          new Divider(
+            indent: 16.0,
+          ),
           new ListTile(
             leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
@@ -82,12 +87,6 @@ class _MainPageState extends State<MainPage> {
               });
               Navigator.pop(context);
             },
-          ),
-
-
-
-          new Divider(
-            indent: 16.0,
           ),
           new ListTile(
             leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
