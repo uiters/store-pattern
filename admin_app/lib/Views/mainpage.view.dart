@@ -73,7 +73,7 @@ class _MainPageState extends State<MainPage> {
           ),
           new ListTile(
             leading: new Icon(Icons.table_chart, color: fontColorLight, size: 19.0,),
-            title: new Text('TABLE', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            title: new Text('Table', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
                 this._screenNumber = 3;
