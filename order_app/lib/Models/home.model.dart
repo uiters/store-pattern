@@ -107,6 +107,10 @@ class Table {
     if (index != -1) {
       foods.remove(foods[index]);
     }
+
+    if (foods.length == 0) {
+      this.status = -1;
+    }
   }
 
   int findIndexFood(menu.Food food) {

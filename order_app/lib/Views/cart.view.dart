@@ -90,7 +90,11 @@ class _CartScreenState extends State<CartScreen> {
                       size: 16.0,
                       color: fontColorLight,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        widget.table.subFood(food);
+                      });
+                    },
                   ),
                   new Container(
                     decoration: new BoxDecoration(
@@ -115,7 +119,11 @@ class _CartScreenState extends State<CartScreen> {
                       size: 16.0,
                       color: fontColorLight,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        widget.table.addFood(food);
+                      });
+                    },
                   ),
                 ],
               ),
@@ -126,7 +134,11 @@ class _CartScreenState extends State<CartScreen> {
                   size: 20.0,
                   color: fontColorLight,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    widget.table.deleteFood(food);
+                  });
+                },
               ),
               new Expanded(child: new Container()),
             ],
