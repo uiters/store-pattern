@@ -186,6 +186,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+<<<<<<< HEAD
   mvc_pattern:
     dependency: "direct main"
     description:
@@ -197,6 +198,8 @@ packages:
 =======
     version: "0.0.14"
 >>>>>>> admin_app:admin_app/pubspec.lock
+=======
+>>>>>>> origin/order_app
   node_preamble:
     dependency: transitive
     description:

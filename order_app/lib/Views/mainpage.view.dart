@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import './../Constants/theme.dart';
+
 import './home.view.dart';
+import './cart.view.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -8,7 +11,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _screenNumber = 0;
-  String _screenName = '';
+  String _screenName = 'HOME';
 
   Drawer _buildDrawer(BuildContext context) {
     return new Drawer(
@@ -72,6 +75,11 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
+
+
+          new Divider(
+            indent: 16.0,
+          ),
           new ListTile(
             leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
@@ -82,12 +90,6 @@ class _MainPageState extends State<MainPage> {
               });
               Navigator.pop(context);
             },
-          ),
-
-
-
-          new Divider(
-            indent: 16.0,
           ),
           new ListTile(
             leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
@@ -124,7 +126,7 @@ class _MainPageState extends State<MainPage> {
               actions: <Widget>[
                 new IconButton(
                     icon: new Icon(
-                        Icons.notifications,
+                        Icons.shopping_cart,
                         size: 22.0,
                         color: accentColor),
                     onPressed: () {
@@ -147,13 +149,7 @@ class _MainPageState extends State<MainPage> {
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new Text('Notifications'),
-//          floatingActionButton: new FloatingActionButton(
-//            onPressed: () {},
-//            child: new Icon(Icons.payment),
-//            tooltip: 'Payment',
-//            backgroundColor: fontColor,
-//          ),
+          body: new CartScreen(),
         );
       }),
     );
