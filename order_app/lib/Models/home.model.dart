@@ -122,4 +122,15 @@ class Table {
     }
     return -1;
   }
+
+  double getTotalPrice() {
+    double totalPrice = 0.0;
+
+    for (var food in foods) {
+      totalPrice += food.price * food.quantity;
+    }
+
+    return totalPrice;
+  }
+
 }

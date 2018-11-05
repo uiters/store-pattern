@@ -147,18 +147,20 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildControls(BuildContext context) {
-    TextStyle _itemStyle =
-        new TextStyle(color: fontColor, fontFamily: 'Dosis', fontSize: 16.0);
-    TextStyle _itemStyleBold = new TextStyle(
-        color: fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.bold);
+
+    TextStyle _itemStyle = new TextStyle(
+      color: fontColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
     return new Container(
       decoration: new BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: fontColorLight.withOpacity(0.2)),
-          color: primaryColor),
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: fontColorLight.withOpacity(0.2)),
+        color: primaryColor
+      ),
       margin: EdgeInsets.only(top: 2.0, bottom: 7.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
       child: new Column(
@@ -167,11 +169,11 @@ class _CartScreenState extends State<CartScreen> {
             children: <Widget>[
               new Text(
                 'Total price: ',
-                style: _itemStyleBold,
+                style: _itemStyle,
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$400',
+                '\$' + widget.table.getTotalPrice().toString(),
                 style: _itemStyle,
               )
             ],
@@ -181,7 +183,7 @@ class _CartScreenState extends State<CartScreen> {
             children: <Widget>[
               new Text(
                 'Discount: ',
-                style: _itemStyleBold,
+                style: _itemStyle,
               ),
               new Expanded(child: Container()),
               new Container(
@@ -203,7 +205,7 @@ class _CartScreenState extends State<CartScreen> {
             children: <Widget>[
               new Text(
                 'Final total price: ',
-                style: _itemStyleBold,
+                style: _itemStyle,
               ),
               new Expanded(child: Container()),
               new Text(
@@ -215,13 +217,13 @@ class _CartScreenState extends State<CartScreen> {
           new Divider(),
           new Container(
             alignment: Alignment(0.0, 0.0),
-            color: fontColorLight,
+            color: Color.fromARGB(255, 243, 73, 73),
             padding: const EdgeInsets.all(8.0),
             margin: const EdgeInsets.only(bottom: 8.0),
             width: double.infinity,
             child: new Text(
               'Checkout',
-              style: _itemStyleBold,
+              style: _itemStyle,
             ),
           )
         ],
