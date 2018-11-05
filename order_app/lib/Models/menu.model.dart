@@ -84,14 +84,14 @@ class Food {
   int quantity;
   Uint8List image;
 
-  Food({
-    this.id,
-    this.name,
-    this.idFoodCategory,
-    this.price,
-    this.quantity,
-    this.image
-  });
+  Food(Food _food) {
+    this.id = _food.id;
+    this.name = _food.name;
+    this.idFoodCategory = _food.idFoodCategory;
+    this.price = _food.price;
+    this.quantity = _food.quantity;
+    this.image = _food.image;
+  }
 
   Food.fromJson(Map<String, dynamic> json) {
     this.id = int.parse(json['ID']);

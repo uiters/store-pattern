@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import './../Controllers/menu.controller.dart';
-import './../Models/menu.model.dart' as model;
-import './../Models/home.model.dart' as _model;
+
+import './../Models/menu.model.dart' as menu;
+import './../Models/home.model.dart' as home;
 
 import './../Constants/theme.dart';
 
 class MenuScreen extends StatefulWidget {
   MenuScreen({key, this.table}):super(key: key);
 
-  final _model.Table table;
+  final home.Table table;
 
   @override
   _MenuScreenState createState() => _MenuScreenState();
@@ -17,8 +18,8 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
 
-  Future<List<model.FoodCategory>> futureCategories = Controller.instance.foodCategories;
-  Future<List<model.Food>> futureFoods = Controller.instance.foods;
+  Future<List<menu.FoodCategory>> futureCategories = Controller.instance.foodCategories;
+  Future<List<menu.Food>> futureFoods = Controller.instance.foods;
 
   String _currentCategory;
   String _keyword;
@@ -37,7 +38,7 @@ class _MenuScreenState extends State<MenuScreen> {
       child: Column(
         children: <Widget>[
           _buildFilterFood(context),
-          FutureBuilder<List<model.Food>>(
+          FutureBuilder<List<menu.Food>>(
             future: futureFoods,
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
@@ -53,7 +54,10 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
 
-  Widget _buildListFoods(BuildContext context, List<model.Food> foods) {
+  Widget _buildListFoods(BuildContext context, List<menu.Food> _foods) {
+
+    List<menu.Food> foods = widget.table.combineFoods(_foods);
+
     return Expanded(
       child: new Container(
         width: double.infinity,
@@ -67,8 +71,8 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget _buildFoodRow(BuildContext context, int index, List<model.Food> foods) {
-    List<model.Food> indexes = [];
+  Widget _buildFoodRow(BuildContext context, int index, List<menu.Food> foods) {
+    List<menu.Food> indexes = [];
 
     int end = (index + 1) * 2;
     if (end > foods.length -1) end = foods.length;
@@ -85,11 +89,11 @@ class _MenuScreenState extends State<MenuScreen> {
       );
   }
 
-  List<Widget> _generateRow(BuildContext context, List<model.Food> indexes) {
+  List<Widget> _generateRow(BuildContext context, List<menu.Food> indexes) {
     List<Widget> items = [];
 
     for (int i = 0; i < indexes.length; i++) {
-      Expanded expanded = new Expanded(child: _buildFood(context, indexes[i]),);
+      Expanded expanded = new Expanded(child: _buildFood(context, indexes[i]));
       items.add(expanded);
     }
 
@@ -101,87 +105,94 @@ class _MenuScreenState extends State<MenuScreen> {
     return items;
   }
 
-  Widget _buildFood(BuildContext context, model.Food food) {
+  Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
-        padding: EdgeInsets.zero,
-        margin: EdgeInsets.zero,
-        child: new Card(
-          color: primaryColor,
-          child: new Column(
-            children: <Widget>[
-              new Text(
-                food.name,
-                style: const TextStyle(
-                    color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
-                ),
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
+      child: new Card(
+        color: primaryColor,
+        child: new Column(
+          children: <Widget>[
+            new Text(
+              food.name,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
               ),
-              new Row(
-                children: <Widget>[
-                  new Expanded(child: new Container()),
-                  new Image.memory(
-                    food.image,
-                    width: 122.0,
-                    height: 122.0,
-                    fit: BoxFit.cover,
-                  ),
-                  new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new IconButton(
-                        icon: new Icon(
-                          Icons.remove, size: 16.0, color: fontColorLight,),
-                        onPressed: () {
-                          setState(() {
-                            if (food.quantity > 0)
-                            food.quantity--;
-                          });
-                        },
+            ),
+            new Expanded(child: new Container(),),
+            new Row(
+              children: <Widget>[
+                new Expanded(child: new Container()),
+                new Image.memory(
+                  food.image,
+                  width: 122.0,
+                  height: 122.0,
+                  fit: BoxFit.cover,
+                ),
+                new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new IconButton(
+                      icon: new Icon(
+                        Icons.remove, 
+                        size: 16.0, 
+                        color: fontColorLight,
                       ),
-                      new Container(
-                          decoration: new BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: fontColor
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                            child: new Text(
-                              food.quantity.toString(),
-                              style: new TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Dosis',
-                                fontSize: 16.0,
-                              ),
-                              textAlign: TextAlign.center,
+                      onPressed: () {
+                        setState(() {
+                          widget.table.subFood(food);
+                        });
+                      },
+                    ),
+                    new Container(
+                        decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: fontColor
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
+                          child: new Text(
+                            food.quantity.toString(),
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Dosis',
+                              fontSize: 16.0,
                             ),
-                          )
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                    ),
+                    new IconButton(
+                      icon: new Icon(
+                        Icons.add, 
+                        size: 16.0, 
+                        color: fontColorLight,
                       ),
-                      new IconButton(
-                        icon: new Icon(
-                          Icons.add, size: 16.0, color: fontColorLight,),
-                        onPressed: () {
-                          setState(() {
-                            food.quantity++;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  new Expanded(child: new Container())
-                ],
+                      onPressed: () {
+                        setState(() {
+                          widget.table.addFood(food);
+                        });
+                      },
+                    ),
+                  ],
+                ),                
+                new Expanded(child: new Container())
+              ],
+            ),
+            new Text(
+              '\$' + food.price.toString(),
+              style: const TextStyle(
+                  color: fontColor,
+                  fontFamily: 'Dosis',
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold
               ),
-              new Text(
-                '\$' + food.price.toString(),
-                style: const TextStyle(
-                    color: fontColor,
-                    fontFamily: 'Dosis',
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-            ],
-          ),
-        )
+            ),
+          ],
+        ),
+      )
     );
   }
 
@@ -234,7 +245,7 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           Expanded(
             flex: 1,
-            child: FutureBuilder<List<model.FoodCategory>>(
+            child: FutureBuilder<List<menu.FoodCategory>>(
               future: futureCategories,
               builder: (context, snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
@@ -251,7 +262,7 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  Widget _buildFoodCategories(List<model.FoodCategory> foodCategories, TextStyle _itemStyle) {
+  Widget _buildFoodCategories(List<menu.FoodCategory> foodCategories, TextStyle _itemStyle) {
     List<DropdownMenuItem> items = [
       new DropdownMenuItem(
         value: 'All',

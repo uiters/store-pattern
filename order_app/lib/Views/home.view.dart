@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../Models/home.model.dart' as model;
+import './../Models/home.model.dart' as home;
 import './../Controllers/home.controller.dart';
 
 import './../Constants/theme.dart';
@@ -17,33 +17,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Future<List<model.Table>> tables = Controller.instance.tables;
+  Future<List<home.Table>> futureTables = Controller.instance.tables;
 
-  model.Table _selectedTable;
+  home.Table _selectedTable;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
-      child: FutureBuilder<List<model.Table>>(
-        future: tables,
+      child: FutureBuilder<List<home.Table>>(
+        future: futureTables,
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
-
-          return snapshot.hasData
-            ? new ListView.builder(
+          if (snapshot.hasData) {
+            return new ListView.builder(
               itemExtent: 100.0,
               itemCount: (snapshot.data.length / 3).ceil(),
               itemBuilder: (context, index) => _buildTableRow(context, index, snapshot.data)
-            )
-            : Center(child: CircularProgressIndicator());
+            );
+          }
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
   }
 
-  Widget _buildTableRow(BuildContext context, int index, List<model.Table> tables) {
-    List<model.Table> indexes = [];
+  Widget _buildTableRow(BuildContext context, int index, List<home.Table> tables) {
+    List<home.Table> indexes = [];
     
     int end = (index + 1) * 3;
     if (end > tables.length -1) end = tables.length;
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   }
 
-  List<Widget> _generateRow(BuildContext context, List<model.Table> indexes) {
+  List<Widget> _generateRow(BuildContext context, List<home.Table> indexes) {
     List<Widget> items = [];
 
     for (int i = 0; i < indexes.length; i++) {
@@ -77,13 +77,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return items;
   }
 
-  Widget _buildTable(BuildContext context, model.Table table) {
+  Widget _buildTable(BuildContext context, home.Table table) {
     return new GestureDetector(
       onTap: () {
-        _pushMenuScreen(table);
         setState(() {
           _selectedTable = table;
         });
+        _pushMenuScreen(table);
       },
       child: new Container(
         padding: EdgeInsets.zero,
@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   table.status == 1 ? Icons.people : Icons.people_outline, 
                   size: 20.0,
                   color: table.status == 1 ? accentColor : fontColorLight,
-                  ),
+                ),
               ),
               new Expanded(child: new Container()),
               Padding(
@@ -117,13 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _pushMenuScreen(model.Table table) {
+  void _pushMenuScreen(home.Table table) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Select Foods',
-              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
+            title: new Text('Select Foods for ' + _selectedTable.name,
+              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
+              overflow: TextOverflow.ellipsis,
+            ),
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
