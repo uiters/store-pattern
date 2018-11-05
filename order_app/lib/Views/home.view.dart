@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Select Foods for ' + _selectedTable.name,
+            title: new Text('Menu ~ ' + _selectedTable.name,
               style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
               overflow: TextOverflow.ellipsis,
             ),
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: new MenuScreen(table: table),
           floatingActionButton: new FloatingActionButton(
             onPressed: () {
-              _pushCartScreen();
+              _pushCartScreen(table);
             },
             child: new Icon(Icons.add_shopping_cart),
             tooltip: 'Add To Cart',
@@ -143,17 +143,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _pushCartScreen() {
+  void _pushCartScreen(home.Table table) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Cart',
+            title: new Text('Cart ~ ' + _selectedTable.name,
               style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new CartScreen(),
+          body: new CartScreen(table: table),
         );
       }),
     );

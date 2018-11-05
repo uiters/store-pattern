@@ -55,6 +55,7 @@ class Table {
 
   List<menu.Food> combineFoods(List<menu.Food> _menuFoods) {
     List<menu.Food> menuFoods = List<menu.Food>.from(_menuFoods);
+
     if (foods != null)
     for (var i = 0; i < foods.length; i++) {
       for (var j = 0; j < menuFoods.length; j++) {
@@ -64,13 +65,8 @@ class Table {
         }
       }
     }
-    return menuFoods;
-  }
 
-  void clearMenuFoods(List<menu.Food> menuFoods) {
-    for (var i = 0; i < menuFoods.length; i++) {
-      menuFoods[i].quantity = 0;
-    }
+    return menuFoods;
   }
 
   void addFood(menu.Food food) {
@@ -85,6 +81,10 @@ class Table {
     } else { // update food
       foods[index].quantity++;
     }
+
+    if (foods.length > 0) {
+      this.status = 1;
+    }
   }
 
   void subFood(menu.Food food) {
@@ -96,12 +96,20 @@ class Table {
         deleteFood(foods[index]);
       }
     }
+
+    if (foods.length == 0) {
+      this.status = -1;
+    }
   }
 
   void deleteFood(menu.Food food) {
     int index = findIndexFood(food);
     if (index != -1) {
       foods.remove(foods[index]);
+    }
+
+    if (foods.length == 0) {
+      this.status = -1;
     }
   }
 
@@ -114,4 +122,15 @@ class Table {
     }
     return -1;
   }
+
+  double getTotalPrice() {
+    double totalPrice = 0.0;
+
+    for (var food in foods) {
+      totalPrice += food.price * food.quantity;
+    }
+
+    return totalPrice;
+  }
+
 }
