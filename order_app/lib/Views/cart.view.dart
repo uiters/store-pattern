@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+
+import './../Models/home.model.dart' as home;
+import './../Models/menu.model.dart' as menu;
+
 import './../Constants/theme.dart';
 
 class CartScreen extends StatefulWidget {
+  CartScreen({key, this.table}):super(key: key);
+
+  final home.Table table;
+
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+  
   TextEditingController _textController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,13 +37,13 @@ class _CartScreenState extends State<CartScreen> {
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
             itemExtent: 130.0,
-            itemCount: 20,
-            itemBuilder: (_, index) => _buildFood(context)),
+            itemCount: widget.table.foods.length,
+            itemBuilder: (_, index) => _buildFood(context, widget.table.foods[index])),
       ),
     );
   }
 
-  Widget _buildFood(BuildContext context) {
+  Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
@@ -43,8 +53,8 @@ class _CartScreenState extends State<CartScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Expanded(child: new Container()),
-              new Image.asset(
-                'assets/images/menu4.png',
+              new Image.memory(
+                food.image,
                 width: 120.0,
                 height: 120.0,
                 fit: BoxFit.cover,
@@ -54,12 +64,13 @@ class _CartScreenState extends State<CartScreen> {
                 children: <Widget>[
                   new Expanded(child: new Container()),
                   new Text(
-                    'Pizza',
+                    food.name,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: fontColor, fontFamily: 'Dosis', fontSize: 20.0),
                   ),
                   new Text(
-                    '\$15',
+                    '\$' + food.price.toString(),
                     style: const TextStyle(
                         color: fontColor,
                         fontFamily: 'Dosis',
@@ -82,20 +93,22 @@ class _CartScreenState extends State<CartScreen> {
                     onPressed: () {},
                   ),
                   new Container(
-                      decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: fontColor),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                        child: new Text('2',
-                            style: new TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Dosis',
-                              fontSize: 16.0,
-                            ),
-                            textAlign: TextAlign.center),
-                      )),
+                    decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: fontColor),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
+                      child: new Text(
+                        food.quantity.toString(),
+                        style: new TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Dosis',
+                          fontSize: 16.0,
+                        ),
+                        textAlign: TextAlign.center
+                      ),
+                    )
+                  ),
                   new IconButton(
                     icon: new Icon(
                       Icons.add,
