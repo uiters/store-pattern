@@ -1,14 +1,17 @@
 # Store Management
 
-Store Management App with Flutter ❤️ MySql ❤️ PHP.
-
+🍔🍟🍕🍺 Store Management App with Flutter, MySql and PHP.
 ![](https://img.shields.io/badge/platform-android-lightgreen.svg)![](https://img.shields.io/badge/platform-ios-lightgreen.svg)
 
-## Getting Started
+## Contents
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* [Installation](#installation)
+* [Documents](#documents)
+* [Bugs and Issues](#bugs-and-issues)
+* [Authors](#authors)
+* [License](#license)
 
-## Usage
+## Installation
 
 ## Documents
 
@@ -20,12 +23,10 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Authors
 
-* **Nguyen Duy Cuong** - *Initial work* - [ndc07](https://github.com/ndc07)
-* **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212)
-* **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07) 💎
+* **Vi Chi Thien** - [yeutham212](https://github.com/yeutham212) 🐶
+* **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998) 🐷
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+[MIT](https://github.com/ndc07/store-management/blob/master/LICENSE)

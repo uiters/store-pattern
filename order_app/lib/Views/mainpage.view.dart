@@ -115,28 +115,29 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: new Scaffold(
-            appBar: new AppBar(
-              title: new Text(
-                _screenName,
-                style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
-              ),
-              iconTheme: new IconThemeData(color: accentColor),
-              centerTitle: true,
-              actions: <Widget>[
-                new IconButton(
-                    icon: new Icon(
-                        Icons.shopping_cart,
-                        size: 22.0,
-                        color: accentColor),
-                    onPressed: () {
-                      _pushCartScreen();
-                    }
-                    ),
-              ],
+      child: new Scaffold(
+        appBar: new AppBar(
+          title: new Text(
+            _screenName,
+            style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
+          ),
+          iconTheme: new IconThemeData(color: accentColor),
+          centerTitle: true,
+          actions: <Widget>[
+            new IconButton(
+              icon: new Icon(
+                Icons.shopping_cart,
+                size: 22.0,
+                color: accentColor),
+              onPressed: () {
+                _pushCartScreen();
+              }
             ),
-            body: _buildScreen(context),
-            drawer: this._buildDrawer(context)));
+          ],
+        ),
+        body: _buildScreen(context),
+        drawer: this._buildDrawer(context))
+      );
   }
 
   void _pushCartScreen() {
