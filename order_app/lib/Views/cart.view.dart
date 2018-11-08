@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './../Controllers/cart.controller.dart';
+import './../Models/cart.model.dart' as cart;
 import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
 
@@ -16,7 +18,14 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   
+  double _discount;
   TextEditingController _textController = new TextEditingController();
+
+  @override
+    void initState() {
+      _discount = 0.0;
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -190,12 +199,23 @@ class _CartScreenState extends State<CartScreen> {
                 width: 35.0,
                 alignment: Alignment(1.0, 0.0),
                 child: new TextField(
-                    controller: _textController,
-                    style: _itemStyle,
-                    onChanged: null,
-                    onSubmitted: null,
-                    decoration: InputDecoration.collapsed(
-                        hintText: '0%', hintStyle: _itemStyle)),
+                  controller: _textController,
+                  style: _itemStyle,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    if (double.parse(value) > 100 || double.parse(value) < 0) {
+                      _textController.clear();
+                      value = '0.0';
+                    }
+                    
+                    setState(() {
+                      _discount = double.parse(value);
+                    }); 
+                  },
+                  onSubmitted: null,
+                  decoration: InputDecoration.collapsed(
+                    hintText: '0%', hintStyle: _itemStyle)
+                  ),
               ),
 
             ],
@@ -209,25 +229,41 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$360',
+                '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toString(),
                 style: _itemStyle,
               )
             ],
           ),
           new Divider(),
-          new Container(
-            alignment: Alignment(0.0, 0.0),
-            color: Color.fromARGB(255, 243, 73, 73),
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(bottom: 8.0),
-            width: double.infinity,
-            child: new Text(
-              'Checkout',
-              style: _itemStyle,
+          new GestureDetector(
+            onTap: () {
+              _checkOut();
+            },
+            child: new Container(
+              alignment: Alignment(0.0, 0.0),
+              color: Color.fromARGB(255, 243, 73, 73),
+              padding: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.only(bottom: 8.0),
+              width: double.infinity,
+              child: new Text(
+                'Checkout',
+                style: _itemStyle,
+              ),
             ),
           )
         ],
       ),
     );
   }
+
+  void _checkOut() async {
+    home.Table table = widget.table;
+    await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+    int idBill = await Controller.instance.getIdBillMax();
+    print(idBill);
+    // for (var food in table.foods) {
+    //   Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
+    // }
+  }
+
 }

@@ -1,5 +1,5 @@
 import './connectServer.dart';
-import './../Constants/queries.dart';
+import './../Constants/queries.dart' as queries;
 
 import './menu.model.dart' as menu;
 
@@ -16,7 +16,7 @@ class Model {
   Future<List<Table>> get tables => getTables();
 
   static Future<List<Table>> getTables() async {
-    Future<List> futureTables = MySqlConnection.instance.executeQuery(QUERY_GET_TABLES);
+    Future<List> futureTables = MySqlConnection.instance.executeQuery(queries.GET_TABLES);
     return parse(futureTables);
   }
 
@@ -38,8 +38,7 @@ class Table {
   String name;
   int status;
   List<menu.Food> _foods;
-
-  Table({this.id, this.name, this.status});
+  DateTime dateCheckIn;
 
   Table.fromJson(Map<String, dynamic> json) {
     this.id = int.parse(json['ID']);
@@ -84,6 +83,10 @@ class Table {
 
     if (foods.length > 0) {
       this.status = 1;
+    }
+
+    if(this.dateCheckIn == null) {
+      this.dateCheckIn = DateTime.now();
     }
   }
 

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import './connectServer.dart';
-import './../Constants/queries.dart';
+import './../Constants/queries.dart' as queries;
 
 class Model {
 
@@ -21,14 +21,14 @@ class Model {
 
   static Future<List<FoodCategory>> getFoodCategories() async {
 
-    Future<List> futureFoodCategories = MySqlConnection.instance.executeQuery(QUERY_GET_FOOD_CATEGORIES);
+    Future<List> futureFoodCategories = MySqlConnection.instance.executeQuery(queries.GET_FOOD_CATEGORIES);
     return parseFoodCate(futureFoodCategories);
 
   }
 
   static Future<List<Food>> getFoods() async {
 
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(QUERY_GET_FOODS);
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_FOODS);
     return parseFood(futureFoods);
 
   }
