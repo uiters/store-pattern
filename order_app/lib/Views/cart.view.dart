@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import './../Controllers/cart.controller.dart';
-import './../Models/cart.model.dart' as cart;
 import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
 
 import './../Constants/theme.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table}):super(key: key);
+  CartScreen({key, this.table, this.menuContext}):super(key: key);
 
   final home.Table table;
+  final BuildContext menuContext;
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -237,7 +237,7 @@ class _CartScreenState extends State<CartScreen> {
           new Divider(),
           new GestureDetector(
             onTap: () {
-              _checkOut();
+              _checkOut(context);
             },
             child: new Container(
               alignment: Alignment(0.0, 0.0),
@@ -256,14 +256,81 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  void _checkOut() async {
-    home.Table table = widget.table;
-    await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
-    int idBill = await Controller.instance.getIdBillMax();
-    print(idBill);
-    // for (var food in table.foods) {
-    //   Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
-    // }
+  void _checkOut(BuildContext cartContext) async {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: new TextStyle(
+              color: accentColor, 
+              fontFamily: 'Dosis', 
+              fontSize: 19.0,
+              fontWeight: FontWeight.w600
+            ),  
+          ),
+          content: new Text(
+            'Do you want to checkout for ' + widget.table.name + '?',
+            style: new TextStyle(
+              color: fontColor, 
+              fontFamily: 'Dosis', 
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500
+            ),  
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: new TextStyle(
+                  color: Colors.blueAccent, 
+                  fontFamily: 'Dosis', 
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600
+                ),  
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+                Navigator.of(cartContext).pop();
+                Navigator.of(widget.menuContext).pop();
+
+                home.Table table = widget.table;
+                setState(() {
+                  table.status = -1;
+                  table.foods.clear();
+                });
+
+                await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+                int idBill = await Controller.instance.getIdBillMax();
+                for (var food in table.foods) {
+                  await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
+                }
+
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: new TextStyle(
+                  color: Colors.redAccent, 
+                  fontFamily: 'Dosis', 
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600
+                ),    
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+
   }
 
 }
