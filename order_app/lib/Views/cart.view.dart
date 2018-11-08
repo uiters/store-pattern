@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './../Controllers/cart.controller.dart';
+import './../Models/cart.model.dart' as cart;
 import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
 
@@ -233,19 +235,35 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
           new Divider(),
-          new Container(
-            alignment: Alignment(0.0, 0.0),
-            color: Color.fromARGB(255, 243, 73, 73),
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(bottom: 8.0),
-            width: double.infinity,
-            child: new Text(
-              'Checkout',
-              style: _itemStyle,
+          new GestureDetector(
+            onTap: () {
+              _checkOut();
+            },
+            child: new Container(
+              alignment: Alignment(0.0, 0.0),
+              color: Color.fromARGB(255, 243, 73, 73),
+              padding: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.only(bottom: 8.0),
+              width: double.infinity,
+              child: new Text(
+                'Checkout',
+                style: _itemStyle,
+              ),
             ),
           )
         ],
       ),
     );
   }
+
+  void _checkOut() async {
+    home.Table table = widget.table;
+    await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+    int idBill = await Controller.instance.getIdBillMax();
+    print(idBill);
+    // for (var food in table.foods) {
+    //   Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
+    // }
+  }
+
 }

@@ -1,20 +1,35 @@
 // Queries for Table
 
 // Get tables
-const String QUERY_GET_TABLES = 'CALL `USP_GetTables`();';
+const String GET_TABLES = 'CALL `USP_GetTables`();';
 
 ///////////////////////////////////////////////////////////////
 
 // Queries for Food Category
 
 // Get food categories
-const String QUERY_GET_FOOD_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
+const String GET_FOOD_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
 
 ///////////////////////////////////////////////////////////////
 
 // Queries for Food
 
 // Get foods
-const String QUERY_GET_FOODS = 'CALL `USP_GetFoods`();';
+const String GET_FOODS = 'CALL `USP_GetFoods`();';
+
+///////////////////////////////////////////////////////////////
+
+// Queries for Bill
+
+// Insert Bill
+const String INSERT_BILL = 'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_thien4chan , @_Status );';
+
+const String GET_ID_MAX = 'CALL `USP_GetIdMax`();';
+///////////////////////////////////////////////////////////////
+
+// Queries for BillDetail
+
+// Insert BillDetail
+const String INSERT_BILL_DETAIL = 'CALL `USP_InsertBillInfo`( @_IDBill , @_IDFood , @_Quantity );';
 
 ///////////////////////////////////////////////////////////////
