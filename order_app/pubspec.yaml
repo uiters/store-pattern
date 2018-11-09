@@ -27,7 +27,11 @@ dependencies:
 =======
 >>>>>>> origin/order_app
   http: ^0.11.3+17
+<<<<<<< HEAD
 >>>>>>> admin_app:admin_app/pubspec.yaml
+=======
+  flutter_local_notifications: ^0.4.0
+>>>>>>> 6e75cff08825f239961cafd9d3f1290563d18107
 
 dev_dependencies:
   flutter_test:
