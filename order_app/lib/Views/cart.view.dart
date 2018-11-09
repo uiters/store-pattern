@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import './../Controllers/cart.controller.dart';
 
@@ -18,14 +19,21 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   double _discount;
   TextEditingController _textController = new TextEditingController();
 
   @override
     void initState() {
       _discount = 0.0;
+
       super.initState();
+
+      flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+      var android = new AndroidInitializationSettings('app_icon');
+      var ios = new IOSInitializationSettings();
+      var initSetting = new InitializationSettings(android, ios);
+      flutterLocalNotificationsPlugin.initialize(initSetting);
     }
 
   @override
@@ -239,8 +247,7 @@ class _CartScreenState extends State<CartScreen> {
           new Divider(),
           new GestureDetector(
             onTap: () {
-              if (widget.table.foods.length > 0)
-                _checkOut(context);
+              if (widget.table.foods.length > 0) _checkOut(context);
               else _error(context);
 
             },
@@ -318,6 +325,8 @@ class _CartScreenState extends State<CartScreen> {
                 Navigator.of(cartContext).pop();
                 Navigator.of(widget.menuContext).pop();
 
+                _showNotification();
+
                 home.Table table = widget.table;
                 setState(() {
                   table.status = -1;
@@ -346,6 +355,34 @@ class _CartScreenState extends State<CartScreen> {
       }
     );
 
+  }
+
+  Future _showNotification() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Successful checkout at ' + widget.table.name + '!!!', 
+      platformChannelSpecifics,
+      payload: 'item x'
+    );
+  }
+
+  Future onSelectNotification(String payload) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return new AlertDialog(
+          title: Text("PayLoad"),
+          content: Text("Payload : $payload"),
+        );
+      },
+    );
   }
 
 }
