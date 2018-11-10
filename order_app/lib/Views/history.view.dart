@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import './../Models/home.model.dart' as home;
+
 import './invoice.view.dart';
+import './editInvoice.view.dart';
 
 import './../Constants/theme.dart' as theme;
 
@@ -97,11 +100,29 @@ class _HistoryScreenState extends State<HistoryScreen> {
             actions: <Widget>[
               new IconButton(
                 icon: new Icon(Icons.edit, size: 18.0,),
-                onPressed: () {},
+                onPressed: () {
+                  _pushEditInvoiceScreen();
+                },
               )
             ],
           ),
           body: new InvoiceScreen(),
+        );
+      }),
+    );
+  }
+
+  void _pushEditInvoiceScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Edit Invoice • ',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new EditInvoice(),
         );
       }),
     );
