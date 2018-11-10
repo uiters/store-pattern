@@ -187,7 +187,7 @@ class _CartScreenState extends State<CartScreen> {
           new Row(
             children: <Widget>[
               new Text(
-                'Total price: ',
+                'Subtotal: ',
                 style: _itemStyle,
               ),
               new Expanded(child: Container()),
@@ -234,7 +234,7 @@ class _CartScreenState extends State<CartScreen> {
           new Row(
             children: <Widget>[
               new Text(
-                'Final total price: ',
+                'Total: ',
                 style: _itemStyle,
               ),
               new Expanded(child: Container()),
