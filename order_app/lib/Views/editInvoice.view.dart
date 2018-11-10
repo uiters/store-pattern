@@ -8,17 +8,13 @@ import './../Models/menu.model.dart' as menu;
 
 import './../Constants/theme.dart' as theme;
 
-class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table, this.menuContext}):super(key: key);
-
-  final home.Table table;
-  final BuildContext menuContext;
+class EditInvoice extends StatefulWidget {
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  _EditInvoiceState createState() => _EditInvoiceState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _EditInvoiceState extends State<EditInvoice> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   double _discount;
   TextEditingController _textController = new TextEditingController();
@@ -55,13 +51,13 @@ class _CartScreenState extends State<CartScreen> {
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
             itemExtent: 130.0,
-            itemCount: widget.table.foods.length,
-            itemBuilder: (_, index) => _buildFood(context, widget.table.foods[index])),
+            itemCount: 20,
+            itemBuilder: (_, index) => _buildFood(context)),
       ),
     );
   }
 
-  Widget _buildFood(BuildContext context, menu.Food food) {
+  Widget _buildFood(BuildContext context) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
@@ -71,8 +67,8 @@ class _CartScreenState extends State<CartScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Expanded(child: new Container()),
-              new Image.memory(
-                food.image,
+              new Image.asset(
+                'assets/images/menu7.png',
                 width: 120.0,
                 height: 120.0,
                 fit: BoxFit.cover,
@@ -82,13 +78,13 @@ class _CartScreenState extends State<CartScreen> {
                 children: <Widget>[
                   new Expanded(child: new Container()),
                   new Text(
-                    food.name,
+                    'Food 1',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
                   ),
                   new Text(
-                    '\$' + food.price.toString(),
+                    '\$200',
                     style: const TextStyle(
                         color: theme.fontColor,
                         fontFamily: 'Dosis',
@@ -110,7 +106,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        widget.table.subFood(food);
+                        // widget.table.subFood(food);
                       });
                     },
                   ),
@@ -122,7 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
                       child: new Text(
-                        food.quantity.toString(),
+                        '4',
                         style: new TextStyle(
                           color: Colors.white,
                           fontFamily: 'Dosis',
@@ -140,7 +136,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        widget.table.addFood(food);
+                        // widget.table.addFood(food);
                       });
                     },
                   ),
@@ -155,7 +151,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 onPressed: () {
                   setState(() {
-                    widget.table.deleteFood(food);
+                    // widget.table.deleteFood(food);
                   });
                 },
               ),
@@ -192,7 +188,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + widget.table.getTotalPrice().toString(),
+                '\$800',
                 style: _itemStyle,
               )
             ],
@@ -239,7 +235,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toString(),
+                '\$900',
                 style: _itemStyle,
               )
             ],
@@ -247,8 +243,8 @@ class _CartScreenState extends State<CartScreen> {
           new Divider(),
           new GestureDetector(
             onTap: () {
-              if (widget.table.foods.length > 0) _checkOut(context);
-              else _error(context);
+              // if (widget.table.foods.length > 0) _checkOut(context);
+              // else _error(context);
 
             },
             child: new Container(
@@ -258,7 +254,7 @@ class _CartScreenState extends State<CartScreen> {
               margin: const EdgeInsets.only(bottom: 8.0),
               width: double.infinity,
               child: new Text(
-                'Checkout',
+                'Save change',
                 style: _itemStyle,
               ),
             ),
@@ -278,7 +274,7 @@ class _CartScreenState extends State<CartScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
+            'Can\'t be checkout for ' + 'widget.table.name' + '!' + '\nPlease select foods!',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -309,7 +305,7 @@ class _CartScreenState extends State<CartScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to be checkout for ' + widget.table.name + '?',
+            'Do you want to be checkout for ' + 'widget.table.name' + '?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -323,21 +319,21 @@ class _CartScreenState extends State<CartScreen> {
                 /* Pop screens */
                 Navigator.of(context).pop();
                 Navigator.of(cartContext).pop();
-                Navigator.of(widget.menuContext).pop();
+                // Navigator.of(widget.menuContext).pop();
 
                 _showNotification();
 
-                home.Table table = widget.table;
-                setState(() {
-                  table.status = -1;
-                  table.foods.clear();
-                });
+                // home.Table table = widget.table;
+                // setState(() {
+                //   table.status = -1;
+                //   table.foods.clear();
+                // });
 
-                await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
-                int idBill = await Controller.instance.getIdBillMax();
-                for (var food in table.foods) {
-                  await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
-                }
+                // await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+                // int idBill = await Controller.instance.getIdBillMax();
+                // for (var food in table.foods) {
+                //   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
+                // }
 
               },
             ),
@@ -367,7 +363,7 @@ class _CartScreenState extends State<CartScreen> {
     await flutterLocalNotificationsPlugin.show(
       0, 
       'Notification', 
-      'Successful checkout at ' + widget.table.name + '!!!', 
+      'Successful checkout at ' + 'widget.table.name' + '!!!', 
       platformChannelSpecifics,
       payload: 'item x'
     );

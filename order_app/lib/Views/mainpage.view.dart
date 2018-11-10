@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './../Constants/theme.dart';
 
 import './home.view.dart';
-import './cart.view.dart';
+import './history.view.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -109,6 +109,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 0: return new HomeScreen();
+      case 1: return new HistoryScreen();
       default: return null;
     }
   }
@@ -123,36 +124,10 @@ class _MainPageState extends State<MainPage> {
           ),
           iconTheme: new IconThemeData(color: accentColor),
           centerTitle: true,
-          actions: <Widget>[
-            new IconButton(
-              icon: new Icon(
-                Icons.shopping_cart,
-                size: 22.0,
-                color: accentColor),
-              onPressed: () {
-                _pushCartScreen();
-              }
-            ),
-          ],
         ),
         body: _buildScreen(context),
         drawer: this._buildDrawer(context))
       );
   }
 
-  void _pushCartScreen() {
-    Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Cart',
-              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: accentColor),
-            centerTitle: true,
-          ),
-          body: new CartScreen(),
-        );
-      }),
-    );
-  }
 }
