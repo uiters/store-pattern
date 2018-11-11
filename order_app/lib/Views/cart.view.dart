@@ -325,13 +325,14 @@ class _CartScreenState extends State<CartScreen> {
                 Navigator.of(cartContext).pop();
                 Navigator.of(widget.menuContext).pop();
 
-                _showNotification();
+                home.Table table = new home.Table(widget.table);
 
-                home.Table table = widget.table;
                 setState(() {
-                  table.status = -1;
-                  table.foods.clear();
+                  widget.table.status = -1;
+                  widget.table.foods.clear();
                 });
+
+                _showNotification();
 
                 await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
                 int idBill = await Controller.instance.getIdBillMax();

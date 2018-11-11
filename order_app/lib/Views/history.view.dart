@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import './../Models/history.model.dart' as history;
 import './../Models/home.model.dart' as home;
+
+import './../Controllers/history.controller.dart';
 
 import './invoice.view.dart';
 import './editInvoice.view.dart';
@@ -16,18 +19,30 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
 
+  Future<List<history.BillPlus>> bills = Controller.instance.bills;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
-      child: new ListView.builder(
-        itemExtent: 80.0,
-        itemCount: 20,
-        itemBuilder: (_, index) => _buildTable(context)),
+      child: new FutureBuilder(
+        future: bills,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasData) {
+            return new ListView.builder(
+              itemExtent: 80.0,
+              itemCount: snapshot.data.length,
+              itemBuilder: (_, index) => _buildTable(context, snapshot.data[index])
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      )
     );
   }
   
-  Widget _buildTable(BuildContext context) {
+  Widget _buildTable(BuildContext context, history.BillPlus bill) {
     return new Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,
@@ -38,7 +53,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         children: <Widget>[
           new Expanded(child: new Container()),
           new Text(
-            'Table 1',
+            bill.table.name,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.accentColor, 
@@ -117,7 +132,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Edit Invoice • ',
+            title: new Text('Edit Invoice • Table 1',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
