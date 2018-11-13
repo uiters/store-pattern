@@ -21,7 +21,6 @@ class Model {
   }
 
   static Future<List<Table>> parse(Future<List> tables) async  {
-
     List<Table> futureTables = [];
     await tables.then((values){
       values.forEach((value){
@@ -30,7 +29,6 @@ class Model {
     });
     return futureTables;
   }
-
 }
 
 class Table {
@@ -39,6 +37,22 @@ class Table {
   int status;
   List<menu.Food> _foods;
   DateTime dateCheckIn;
+
+  Table.noneParametter() {
+    this.id = -1;
+    this.name = '';
+    this.status = -1;
+    this._foods = new List<menu.Food>();    
+    this.dateCheckIn = DateTime.now();
+  }
+
+  Table(Table clone) {
+    this.id = clone.id;
+    this.name = clone.name;
+    this.status = clone.status;
+    this._foods = clone.foods.map((food) => new menu.Food(food)).toList();
+    this.dateCheckIn = clone.dateCheckIn;
+  }
 
   Table.fromJson(Map<String, dynamic> json) {
     this.id = int.parse(json['ID']);
@@ -50,6 +64,10 @@ class Table {
   List<menu.Food> get foods {
     if (_foods == null) _foods = new List<menu.Food>();
     return _foods;
+  }
+
+  void addFoods(Future<List<menu.Food>> _foods) async { // Add BillDetail for table
+    this.foods.addAll(await _foods);
   }
 
   List<menu.Food> combineFoods(List<menu.Food> _menuFoods) {

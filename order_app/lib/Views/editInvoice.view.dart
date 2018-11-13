@@ -170,6 +170,13 @@ class _EditInvoiceState extends State<EditInvoice> {
       fontWeight: FontWeight.w500
     );
 
+    TextStyle _itemStyle2 = new TextStyle(
+      color: theme.fontColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
     return new Container(
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
@@ -236,7 +243,7 @@ class _EditInvoiceState extends State<EditInvoice> {
               new Expanded(child: Container()),
               new Text(
                 '\$900',
-                style: _itemStyle,
+                style: _itemStyle2,
               )
             ],
           ),

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import './../Models/history.model.dart' as history;
+import './../Models/menu.model.dart' as menu;
 
 import './../Constants/theme.dart' as theme;
 
 class InvoiceScreen extends StatefulWidget {
+  InvoiceScreen({key, this.bill}) : super(key: key);
+
+  final history.BillPlus bill;
+
   _InvoiceScreenState createState() => _InvoiceScreenState();
 }
 
@@ -26,20 +34,26 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       child: new Row(
         children: <Widget>[
           Expanded(child: Container(),),
-          new Text(
-            'Table 1',
-            style: new TextStyle(
-              color: theme.accentColor, 
-              fontFamily: 'Dosis',
-              fontSize: 20.0,
-              fontWeight: FontWeight.w500,
-            ),
+          new Card(
+            color: Colors.lightBlueAccent,
+            child: new Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new Text(
+                widget.bill.table.name,
+                style: new TextStyle(
+                  color: theme.fontColor, 
+                  fontFamily: 'Dosis',
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
           ),
           Expanded(child: Container(),),
           new Column(
             children: <Widget>[
               new Text(
-                'ID# 12349',
+                'ID# ' + widget.bill.id.toString(),
                 style: new TextStyle(
                   color: theme.fontColor, 
                   fontFamily: 'Dosis', 
@@ -48,7 +62,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 ),
               ),
               new Text(
-                '4:58 PM, Nov 10',
+                new DateFormat('yyyy-MM-dd HH:mm:ss').format(widget.bill.dateCheckOut),
                 style: new TextStyle(
                   color: theme.fontColor, 
                   fontFamily: 'Dosis', 
@@ -70,14 +84,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
           itemExtent: 60.0,
-          itemCount: 10,
-          itemBuilder: (_, index) => _buildFood()
+          itemCount: widget.bill.table.foods.length,
+          itemBuilder: (_, index) => _buildFood(widget.bill.table.foods[index])
         ),
       ),
     );
   }
 
-  Widget _buildFood() {
+  Widget _buildFood(menu.Food food) {
     return new Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,
@@ -88,7 +102,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
         children: <Widget>[
           new Expanded(child: new Container()),
           new Text(
-            'Food 1',
+            food.name,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.accentColor, 
@@ -98,9 +112,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$20',
+            '\$' + food.price.toString(),
             style: const TextStyle(
-              color: theme.fontColor,
+              color: theme.fontColorLight,
               fontFamily: 'Dosis',
               fontSize: 14.0,
               fontWeight: FontWeight.w600
@@ -108,9 +122,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '4',
+            food.quantity.toString(),
             style: const TextStyle(
-              color: theme.fontColor,
+              color: theme.fontColorLight,
               fontFamily: 'Dosis',
               fontSize: 15.0,
               fontWeight: FontWeight.w500
@@ -118,9 +132,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$80',
+            '\$' + (food.quantity * food.price).toString(),
             style: const TextStyle(
-              color: theme.fontColor,
+              color: Colors.redAccent,
               fontFamily: 'Dosis',
               fontSize: 14.0,
               fontWeight: FontWeight.w500
@@ -136,6 +150,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   Widget _buildFooter() {
     TextStyle _itemStyle = new TextStyle(
       color: theme.fontColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
+    TextStyle _itemStyle2 = new TextStyle(
+      color: Colors.redAccent, 
       fontFamily: 'Dosis', 
       fontSize: 16.0,
       fontWeight: FontWeight.w500
@@ -159,7 +180,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$1000',
+                '\$' + widget.bill.totalPrice.toString(),
                 style: _itemStyle,
               )
             ],
@@ -173,7 +194,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '10%',
+                widget.bill.discount.toString() + '%',
                 style: _itemStyle,
               )
             ],
@@ -187,8 +208,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$900',
-                style: _itemStyle,
+                '\$' + (widget.bill.totalPrice * (1 - widget.bill.discount / 100)).toString(),
+                style: _itemStyle2,
               )
             ],
           ),

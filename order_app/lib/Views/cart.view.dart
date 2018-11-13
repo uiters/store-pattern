@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 
 import './../Controllers/cart.controller.dart';
 
@@ -174,6 +175,13 @@ class _CartScreenState extends State<CartScreen> {
       fontWeight: FontWeight.w500
     );
 
+    TextStyle _itemStyle2 = new TextStyle(
+      color: Colors.redAccent, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
     return new Container(
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
@@ -240,7 +248,7 @@ class _CartScreenState extends State<CartScreen> {
               new Expanded(child: Container()),
               new Text(
                 '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toString(),
-                style: _itemStyle,
+                style: _itemStyle2,
               )
             ],
           ),
@@ -325,15 +333,23 @@ class _CartScreenState extends State<CartScreen> {
                 Navigator.of(cartContext).pop();
                 Navigator.of(widget.menuContext).pop();
 
-                _showNotification();
+                home.Table table = new home.Table(widget.table);
 
-                home.Table table = widget.table;
                 setState(() {
-                  table.status = -1;
-                  table.foods.clear();
+                  widget.table.status = -1;
+                  widget.table.foods.clear();
                 });
 
-                await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+                _showNotification();
+
+                await Controller.instance.insertBill(
+                  table.id, 
+                  table.dateCheckIn, 
+                  DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                  _discount, 
+                  table.getTotalPrice(),
+                  1
+                );
                 int idBill = await Controller.instance.getIdBillMax();
                 for (var food in table.foods) {
                   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:intl/intl.dart';
+
+import './../Models/history.model.dart' as history;
 import './../Models/home.model.dart' as home;
+
+import './../Controllers/history.controller.dart';
 
 import './invoice.view.dart';
 import './editInvoice.view.dart';
@@ -16,18 +22,30 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
 
+  Future<List<history.BillPlus>> bills = Controller.instance.bills;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(5.0),
-      child: new ListView.builder(
-        itemExtent: 80.0,
-        itemCount: 20,
-        itemBuilder: (_, index) => _buildTable(context)),
+      child: new FutureBuilder(
+        future: bills,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasData) {
+            return new ListView.builder(
+              itemExtent: 80.0,
+              itemCount: snapshot.data.length,
+              itemBuilder: (_, index) => _buildTable(context, snapshot.data[index])
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      )
     );
   }
   
-  Widget _buildTable(BuildContext context) {
+  Widget _buildTable(BuildContext context, history.BillPlus bill) {
     return new Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,
@@ -38,19 +56,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
         children: <Widget>[
           new Expanded(child: new Container()),
           new Text(
-            'Table 1',
+            bill.table.name,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.accentColor, 
-              fontFamily: 'Dosis', 
+              fontFamily: 'Dosis',
               fontSize: 20.0
             ),
           ),
           new Expanded(child: new Container()),
           new Text(
-            '2 hours ago',
+            timeago.format(
+              bill.dateCheckOut, 
+              locale: 'en', 
+              clock: DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now()))
+            ),
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: theme.fontColor,
+              color: theme.fontColorLight,
               fontFamily: 'Dosis',
               fontSize: 13.0,
               fontWeight: FontWeight.w600
@@ -58,9 +81,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$250',
+            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toString(),
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: theme.fontColor,
+              color: Colors.redAccent,
               fontFamily: 'Dosis',
               fontSize: 14.0,
               fontWeight: FontWeight.w500
@@ -78,7 +102,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 fontWeight: FontWeight.w500)
               ),
             onPressed: () {
-              _pushInvoiceScreen();
+              _pushInvoiceScreen(bill);
             },
           ),
           new Expanded(child: new Container()),
@@ -88,7 +112,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  void _pushInvoiceScreen() {
+  void _pushInvoiceScreen(history.BillPlus bill) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -106,7 +130,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               )
             ],
           ),
-          body: new InvoiceScreen(),
+          body: new InvoiceScreen(bill: bill),
         );
       }),
     );
@@ -117,7 +141,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Edit Invoice • ',
+            title: new Text('Edit Invoice • Table 1',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,

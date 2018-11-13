@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: new Icon(
                   table.status == 1 ? Icons.people : Icons.people_outline, 
                   size: 20.0,
-                  color: table.status == 1 ? accentColor : fontColorLight,
+                  color: table.status == 1 ? Colors.redAccent : Colors.redAccent,
                 ),
               ),
               new Expanded(child: new Container()),
@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: new Text(
                   table.name,
                   style: const TextStyle(
-                      color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
+                      color: fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
                   ),
                 ),
               )

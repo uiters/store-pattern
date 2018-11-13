@@ -98,7 +98,7 @@ class Food {
     this.name = json['Name'];
     this.idFoodCategory = int.parse(json['IDCategory']);
     this.price = double.parse(json['Price']);
-    this.quantity = 0;
-    this.image = base64.decode(json['Image']);
+    this.quantity = json['Quantity'] != null ? int.parse(json['Quantity']) : 0;
+    this.image = json['Image'] != null ? base64.decode(json['Image']) : base64.decode(json['Data']);
   }
 }
