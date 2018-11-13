@@ -34,5 +34,5 @@ const String GET_BILLS = 'CALL `USP_GetBills`( @currentDate );';
 // Insert BillDetail
 const String INSERT_BILL_DETAIL = 'CALL `USP_InsertBillInfo`( @_IDBill , @_IDFood , @_Quantity );';
 
-const String GET_BILLDETAIL_BY_TABLE = 'CALL `USP_GetBillDetalByTable`( @idTable );';
+const String GET_BILLDETAIL_BY_BILL = 'CALL `USP_GetBillDetailByBill`( @id );';
 ///////////////////////////////////////////////////////////////

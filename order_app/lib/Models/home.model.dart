@@ -38,6 +38,14 @@ class Table {
   List<menu.Food> _foods;
   DateTime dateCheckIn;
 
+  Table.noneParametter() {
+    this.id = -1;
+    this.name = '';
+    this.status = -1;
+    this._foods = new List<menu.Food>();    
+    this.dateCheckIn = DateTime.now();
+  }
+
   Table(Table clone) {
     this.id = clone.id;
     this.name = clone.name;

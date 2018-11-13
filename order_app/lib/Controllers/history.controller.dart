@@ -8,10 +8,11 @@ class Controller {
     return _instance;
   }
 
-   Future<List<BillPlus>> _bills;
+  Future<List<BillPlus>> _bills;
 
   Future<List<BillPlus>> get bills {
     if (_bills == null) _bills = Model.instance.getListBill();
     return _bills;
   }
+
 }

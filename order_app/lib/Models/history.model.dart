@@ -16,15 +16,15 @@ class Model {
   Future<List<BillPlus>> getListBill() async {
     Future<List> futureBills = MySqlConnection.instance.executeQuery(
       queries.GET_BILLS,
-      parameter: [new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)]
+      parameter: [DateTime.now()]
     );
     return parseBillPlus(futureBills);
   }
 
-  Future<List<menu.Food>> getBillDetailByTable(int idTable) async {
+  Future<List<menu.Food>> getBillDetailByTable(int idBill) async {
     Future<List> futureFoods = MySqlConnection.instance.executeQuery(
-      queries.GET_BILLDETAIL_BY_TABLE,
-      parameter: [idTable]
+      queries.GET_BILLDETAIL_BY_BILL,
+      parameter: [idBill]
     );
     return parseFood(futureFoods);
   }
@@ -64,9 +64,10 @@ class BillPlus {
     this.discount = double.parse(json['Discount']);
     this.totalPrice = double.parse(json['TotalPrice']);
 
+    this.table = new home.Table.noneParametter();
     this.table.id = int.parse(json['IDTable']);
     this.table.name = json['Name'];
-    this.table.addFoods(Model.instance.getBillDetailByTable(this.table.id));
+    // this.table.addFoods(Model.instance.getBillDetailByTable(this.id));
   }
 
 }

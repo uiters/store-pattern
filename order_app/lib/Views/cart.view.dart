@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 
 import './../Controllers/cart.controller.dart';
 
@@ -334,7 +335,14 @@ class _CartScreenState extends State<CartScreen> {
 
                 _showNotification();
 
-                await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+                await Controller.instance.insertBill(
+                  table.id, 
+                  table.dateCheckIn, 
+                  DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                  _discount, 
+                  table.getTotalPrice(),
+                  1
+                );
                 int idBill = await Controller.instance.getIdBillMax();
                 for (var food in table.foods) {
                   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);

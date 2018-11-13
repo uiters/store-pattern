@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:intl/intl.dart';
+
 import './../Models/history.model.dart' as history;
 import './../Models/home.model.dart' as home;
 
@@ -63,7 +66,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '2 hours ago',
+            timeago.format(
+              bill.dateCheckOut, 
+              locale: 'en', 
+              clock: DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now()))
+            ),
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.fontColor,
               fontFamily: 'Dosis',
@@ -73,7 +81,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$250',
+            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toString(),
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.fontColor,
               fontFamily: 'Dosis',
