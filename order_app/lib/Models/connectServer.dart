@@ -43,7 +43,6 @@ class MySqlConnection{
       URL_EXECUTE,
       body : { ID_EXECUTEQUERY : query },
     );
-    print(response.body);
     if(response.statusCode == 200)
       return json.decode(response.body);
     return null;

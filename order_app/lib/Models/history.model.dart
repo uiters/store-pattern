@@ -67,7 +67,7 @@ class BillPlus {
     this.table = new home.Table.noneParametter();
     this.table.id = int.parse(json['IDTable']);
     this.table.name = json['Name'];
-    // this.table.addFoods(Model.instance.getBillDetailByTable(this.id));
+    this.table.addFoods(Model.instance.getBillDetailByTable(this.id));
   }
 
 }

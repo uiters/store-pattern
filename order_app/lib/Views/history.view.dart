@@ -60,7 +60,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: theme.accentColor, 
-              fontFamily: 'Dosis', 
+              fontFamily: 'Dosis',
               fontSize: 20.0
             ),
           ),
@@ -73,7 +73,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: theme.fontColor,
+              color: theme.fontColorLight,
               fontFamily: 'Dosis',
               fontSize: 13.0,
               fontWeight: FontWeight.w600
@@ -84,7 +84,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toString(),
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-              color: theme.fontColor,
+              color: Colors.redAccent,
               fontFamily: 'Dosis',
               fontSize: 14.0,
               fontWeight: FontWeight.w500
@@ -102,7 +102,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 fontWeight: FontWeight.w500)
               ),
             onPressed: () {
-              _pushInvoiceScreen();
+              _pushInvoiceScreen(bill);
             },
           ),
           new Expanded(child: new Container()),
@@ -112,7 +112,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  void _pushInvoiceScreen() {
+  void _pushInvoiceScreen(history.BillPlus bill) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -130,7 +130,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               )
             ],
           ),
-          body: new InvoiceScreen(),
+          body: new InvoiceScreen(bill: bill),
         );
       }),
     );

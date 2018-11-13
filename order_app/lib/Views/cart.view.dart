@@ -175,6 +175,13 @@ class _CartScreenState extends State<CartScreen> {
       fontWeight: FontWeight.w500
     );
 
+    TextStyle _itemStyle2 = new TextStyle(
+      color: Colors.redAccent, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
     return new Container(
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
@@ -241,7 +248,7 @@ class _CartScreenState extends State<CartScreen> {
               new Expanded(child: Container()),
               new Text(
                 '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toString(),
-                style: _itemStyle,
+                style: _itemStyle2,
               )
             ],
           ),
