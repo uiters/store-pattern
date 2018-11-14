@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import './../Controllers/cart.controller.dart';
-
-import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
+import './../Models/history.model.dart' as history;
 
 import './../Constants/theme.dart' as theme;
 
 class EditInvoice extends StatefulWidget {
+  EditInvoice({key, this.bill}) : super(key: key);
+
+  final history.BillPlus bill;
 
   @override
   _EditInvoiceState createState() => _EditInvoiceState();
@@ -21,7 +22,7 @@ class _EditInvoiceState extends State<EditInvoice> {
 
   @override
     void initState() {
-      _discount = 0.0;
+      _discount = widget.bill.discount;
 
       super.initState();
 
@@ -51,13 +52,13 @@ class _EditInvoiceState extends State<EditInvoice> {
         margin: EdgeInsets.all(5.0),
         child: new ListView.builder(
             itemExtent: 130.0,
-            itemCount: 20,
-            itemBuilder: (_, index) => _buildFood(context)),
+            itemCount: widget.bill.table.foods.length,
+            itemBuilder: (_, index) => _buildFood(context, widget.bill.table.foods[index])),
       ),
     );
   }
 
-  Widget _buildFood(BuildContext context) {
+  Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
@@ -67,8 +68,8 @@ class _EditInvoiceState extends State<EditInvoice> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Expanded(child: new Container()),
-              new Image.asset(
-                'assets/images/menu7.png',
+              new Image.memory(
+                food.image,
                 width: 120.0,
                 height: 120.0,
                 fit: BoxFit.cover,
@@ -78,13 +79,13 @@ class _EditInvoiceState extends State<EditInvoice> {
                 children: <Widget>[
                   new Expanded(child: new Container()),
                   new Text(
-                    'Food 1',
+                    food.name,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
                   ),
                   new Text(
-                    '\$200',
+                    '\$' + food.price.toString(),
                     style: const TextStyle(
                         color: theme.fontColor,
                         fontFamily: 'Dosis',
@@ -118,7 +119,7 @@ class _EditInvoiceState extends State<EditInvoice> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
                       child: new Text(
-                        '4',
+                        food.quantity.toString(),
                         style: new TextStyle(
                           color: Colors.white,
                           fontFamily: 'Dosis',
@@ -171,7 +172,7 @@ class _EditInvoiceState extends State<EditInvoice> {
     );
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: theme.fontColor, 
+      color: Colors.redAccent, 
       fontFamily: 'Dosis', 
       fontSize: 16.0,
       fontWeight: FontWeight.w500
@@ -195,7 +196,7 @@ class _EditInvoiceState extends State<EditInvoice> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$800',
+                '\$' + widget.bill.totalPrice.toStringAsFixed(2),
                 style: _itemStyle,
               )
             ],
@@ -227,8 +228,10 @@ class _EditInvoiceState extends State<EditInvoice> {
                   },
                   onSubmitted: null,
                   decoration: InputDecoration.collapsed(
-                    hintText: '0%', hintStyle: _itemStyle)
-                  ),
+                    hintText: _discount.toString() + '%', 
+                    hintStyle: _itemStyle
+                  )
+                ),
               ),
 
             ],
@@ -242,7 +245,7 @@ class _EditInvoiceState extends State<EditInvoice> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$900',
+                '\$' + (widget.bill.totalPrice * (1 - _discount / 100)).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],

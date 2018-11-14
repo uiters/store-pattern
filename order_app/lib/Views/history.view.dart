@@ -4,7 +4,6 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:intl/intl.dart';
 
 import './../Models/history.model.dart' as history;
-import './../Models/home.model.dart' as home;
 
 import './../Controllers/history.controller.dart';
 
@@ -125,7 +124,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               new IconButton(
                 icon: new Icon(Icons.edit, size: 18.0,),
                 onPressed: () {
-                  _pushEditInvoiceScreen();
+                  _pushEditInvoiceScreen(bill);
                 },
               )
             ],
@@ -136,17 +135,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  void _pushEditInvoiceScreen() {
+  void _pushEditInvoiceScreen(history.BillPlus bill) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text('Edit Invoice • Table 1',
+            title: new Text('Edit Invoice • ' + bill.table.name,
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditInvoice(),
+          body: new EditInvoice(bill: bill),
         );
       }),
     );
