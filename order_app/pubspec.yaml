@@ -23,6 +23,8 @@ dependencies:
   flutter_local_notifications: ^0.4.0
   timeago: ^2.0.9
   intl: ^0.15.7
+  dbcrypt: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:

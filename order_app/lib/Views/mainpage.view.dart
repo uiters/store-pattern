@@ -6,6 +6,10 @@ import './history.view.dart';
 import './../Constants/theme.dart';
 
 class MainPage extends StatefulWidget {
+  MainPage({key, this.context}) : super(key: key);
+
+  final BuildContext context;
+
   _MainPageState createState() => _MainPageState();
 }
 
@@ -95,11 +99,8 @@ class _MainPageState extends State<MainPage> {
             leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
             title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
-              setState(() {
-                this._screenNumber = 4;
-                this._screenName = 'LOGOUT';
-              });
               Navigator.pop(context);
+              Navigator.pop(widget.context);
             },
           )
         ],

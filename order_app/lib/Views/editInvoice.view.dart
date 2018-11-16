@@ -274,94 +274,94 @@ class _EditInvoiceState extends State<EditInvoice> {
     );
   }
 
-  void _error(BuildContext cartContext) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Can\'t be checkout for ' + 'widget.table.name' + '!' + '\nPlease select foods!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(cartContext).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-  }
+  // void _error(BuildContext cartContext) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: new Text(
+  //           'Error',
+  //           style: theme.errorTitleStyle
+  //         ),
+  //         content: new Text(
+  //           'Can\'t be checkout for ' + 'widget.table.name' + '!' + '\nPlease select foods!',
+  //           style: theme.contentStyle 
+  //         ),
+  //         actions: <Widget>[
+  //           new FlatButton(
+  //             child: new Text(
+  //               'Ok',
+  //               style: theme.okButtonStyle 
+  //             ),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //               Navigator.of(cartContext).pop();
+  //             },
+  //           )
+  //         ],
+  //       );
+  //     }
+  //   );
+  // }
 
-  void _checkOut(BuildContext cartContext) async {
+  // void _checkOut(BuildContext cartContext) async {
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Confirm',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Do you want to be checkout for ' + 'widget.table.name' + '?',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: new Text(
+  //           'Confirm',
+  //           style: theme.titleStyle
+  //         ),
+  //         content: new Text(
+  //           'Do you want to be checkout for ' + 'widget.table.name' + '?',
+  //           style: theme.contentStyle 
+  //         ),
+  //         actions: <Widget>[
+  //           new FlatButton(
+  //             child: new Text(
+  //               'Ok',
+  //               style: theme.okButtonStyle 
+  //             ),
+  //             onPressed: () async {
 
-                /* Pop screens */
-                Navigator.of(context).pop();
-                Navigator.of(cartContext).pop();
-                // Navigator.of(widget.menuContext).pop();
+  //               /* Pop screens */
+  //               Navigator.of(context).pop();
+  //               Navigator.of(cartContext).pop();
+  //               // Navigator.of(widget.menuContext).pop();
 
-                _showNotification();
+  //               _showNotification();
 
-                // home.Table table = widget.table;
-                // setState(() {
-                //   table.status = -1;
-                //   table.foods.clear();
-                // });
+  //               // home.Table table = widget.table;
+  //               // setState(() {
+  //               //   table.status = -1;
+  //               //   table.foods.clear();
+  //               // });
 
-                // await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
-                // int idBill = await Controller.instance.getIdBillMax();
-                // for (var food in table.foods) {
-                //   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
-                // }
+  //               // await Controller.instance.insertBill(table.id, table.dateCheckIn, DateTime.now(), _discount, table.getTotalPrice(), 1);
+  //               // int idBill = await Controller.instance.getIdBillMax();
+  //               // for (var food in table.foods) {
+  //               //   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
+  //               // }
 
-              },
-            ),
-            new FlatButton(
-              child: new Text(
-                'Cancel',
-                style: theme.cancelButtonStyle  
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+  //             },
+  //           ),
+  //           new FlatButton(
+  //             child: new Text(
+  //               'Cancel',
+  //               style: theme.cancelButtonStyle  
+  //             ),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           )
+  //         ],
+  //       );
+  //     }
+  //   );
 
-  }
+  // }
 
   Future _showNotification() async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(

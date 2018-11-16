@@ -283,7 +283,7 @@ class _CartScreenState extends State<CartScreen> {
         return AlertDialog(
           title: new Text(
             'Error',
-            style: theme.titleStyle
+            style: theme.errorTitleStyle
           ),
           content: new Text(
             'Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
