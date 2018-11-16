@@ -12,6 +12,12 @@ const TextStyle titleStyle =  TextStyle(
   fontSize: 19.0,
   fontWeight: FontWeight.w600
 );
+const TextStyle errorTitleStyle =  TextStyle(
+  color: Colors.redAccent,
+  fontFamily: 'Dosis',
+  fontSize: 19.0,
+  fontWeight: FontWeight.w600
+);
 const TextStyle contentStyle =  TextStyle(
   color: fontColor, 
   fontFamily: 'Dosis', 

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-import './../Constants/theme.dart';
-
 import './home.view.dart';
 import './history.view.dart';
 
+import './../Constants/theme.dart';
+
 class MainPage extends StatefulWidget {
+  MainPage({key, this.context}) : super(key: key);
+
+  final BuildContext context;
+
   _MainPageState createState() => _MainPageState();
 }
 
@@ -65,12 +69,12 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
-            leading: new Icon(Icons.notifications, color: fontColorLight, size: 19.0,),
-            title: new Text('Notifications', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            leading: new Icon(Icons.person, color: fontColorLight, size: 19.0,),
+            title: new Text('My Profile', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
                 this._screenNumber = 2;
-                this._screenName = 'NOTIFICATIONS';
+                this._screenName = 'MY PROFILE';
               });
               Navigator.pop(context);
             },
@@ -92,14 +96,11 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
-            leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
-            title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
+            title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
-              setState(() {
-                this._screenNumber = 4;
-                this._screenName = 'ABOUT';
-              });
               Navigator.pop(context);
+              Navigator.pop(widget.context);
             },
           )
         ],

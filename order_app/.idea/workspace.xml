@@ -10,16 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6953594-20c3-47c3-b185-5526bffa5bb0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Controllers/login.controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Models/login.model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Contants/theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Controllers/home.controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controllers/home.controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/home.model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/home.model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/cart.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/cart.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/home.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/home.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Constants/queries.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/queries.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Models/connectServer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/connectServer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/editInvoice.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/editInvoice.view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/login.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/login.view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/mainpage.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/mainpage.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/menu.view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/menu.view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_app_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/order_app_android.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -39,11 +39,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="menu.controller.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/Controllers/menu.controller.dart">
+      <file leaf-file-name="login.view.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Views/login.view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+            <state relative-caret-position="714">
+              <caret line="105" column="6" lean-forward="true" selection-start-line="105" selection-start-column="6" selection-end-line="105" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="recognizer.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/gestures/recognizer.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -87,7 +99,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -104,6 +115,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -138,13 +150,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/flutter/bin/cache/dart-sdk/bin" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -238,20 +250,21 @@
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" sideWeight="0.5010661" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5011783" side_tool="true" weight="0.23615634" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49882168" weight="0.2931596" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" weight="0.32899022" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5015129" side_tool="true" weight="0.53637904" />
+      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32736155" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4977307" weight="0.2927242" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32899022" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.24837662" />
       <window_info anchor="right" id="Flutter Outline" order="3" weight="0.32954547" />
       <window_info anchor="bottom" id="Logcat" order="7" weight="0.32899022" />
       <window_info id="Captures" order="2" weight="0.32954547" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49769586" visible="true" weight="0.18003026" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49769586" visible="true" weight="0.18003026" />
       <window_info id="Structure" order="1" sideWeight="0.5010661" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" weight="0.3299293" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49848714" weight="0.6152542" />
       <window_info id="Favorites" order="2" sideWeight="0.50230414" side_tool="true" weight="0.18067557" />
       <window_info anchor="right" id="Flutter Inspector" order="3" weight="0.32954547" />
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49960724" weight="0.19869708" />
@@ -262,7 +275,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32736155" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -270,18 +282,17 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Views/login.view.dart</url>
+          <line>75</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/screens/menuscreen.dart" />
     <entry file="file://$PROJECT_DIR$/lib/screens/cartscreen.dart" />
     <entry file="file://$PROJECT_DIR$/lib/screens/homescreen.dart" />
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
@@ -433,7 +444,24 @@
     <entry file="file://$PROJECT_DIR$/lib/Controllers/menu.controller.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Views/login.view.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="105" column="6" lean-forward="true" selection-start-line="105" selection-start-column="6" selection-end-line="105" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/gestures/recognizer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
         </state>
       </provider>
     </entry>

@@ -17,7 +17,7 @@ class MySqlConnection{
 
   Future<bool> executeNoneQuery(String query, {List parameter}) async {
 
-    if(parameter != null){
+    if(parameter != null) {
       query = _addParameter(query, parameter);
     }
 
@@ -36,8 +36,9 @@ class MySqlConnection{
 
   Future<List> executeQuery(String query, {List parameter}) async {
 
-    if(parameter != null)
+    if(parameter != null) {
       query = _addParameter(query, parameter);
+    }
       
     http.Response response = await http.post(
       URL_EXECUTE,

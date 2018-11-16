@@ -180,7 +180,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + widget.bill.totalPrice.toString(),
+                '\$' + widget.bill.totalPrice.toStringAsFixed(2),
                 style: _itemStyle,
               )
             ],
@@ -208,7 +208,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + (widget.bill.totalPrice * (1 - widget.bill.discount / 100)).toString(),
+                '\$' + (widget.bill.totalPrice * (1 - widget.bill.discount / 100)).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],

@@ -36,3 +36,10 @@ const String INSERT_BILL_DETAIL = 'CALL `USP_InsertBillInfo`( @_IDBill , @_IDFoo
 
 const String GET_BILLDETAIL_BY_BILL = 'CALL `USP_GetBillDetailByBill`( @id );';
 ///////////////////////////////////////////////////////////////
+
+// Queries for Account
+
+// Check login
+const String LOGIN = 'CALL USP_Login( @username )';
+
+///////////////////////////////////////////////////////////////

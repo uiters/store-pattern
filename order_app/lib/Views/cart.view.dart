@@ -200,7 +200,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + widget.table.getTotalPrice().toString(),
+                '\$' + widget.table.getTotalPrice().toStringAsFixed(2),
                 style: _itemStyle,
               )
             ],
@@ -247,7 +247,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toString(),
+                '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],
@@ -283,7 +283,7 @@ class _CartScreenState extends State<CartScreen> {
         return AlertDialog(
           title: new Text(
             'Error',
-            style: theme.titleStyle
+            style: theme.errorTitleStyle
           ),
           content: new Text(
             'Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',

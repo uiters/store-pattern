@@ -23,6 +23,8 @@ dependencies:
   flutter_local_notifications: ^0.4.0
   timeago: ^2.0.9
   intl: ^0.15.7
+  dbcrypt: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +44,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+      - assets/images/logo.png
       - assets/images/menu1.png
       - assets/images/menu2.png
       - assets/images/menu3.png
