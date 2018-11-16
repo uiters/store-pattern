@@ -29,15 +29,15 @@ class Controller {
 
   Future<void> _saveFile(int id, Uint8List image) async => Model.instance.saveImage(id, image);
   Future<void> _deleteFile(int id) async => Model.instance.delete(id);
-  void _link(Food food, Uint8List image) => food.image = image;
-
+  static void _link(Food food, Uint8List image) => food.image = image;
+   
   Future<List<Food>> _combineFoodsImages() async {
     Map<int, Uint8List> images = await this._images;
     List<Food> foods = await Model.instance.foods;
     int idImage = 0;
+   
     for (int i = 0; i < foods.length; ++i) {
       idImage = foods[i].idImange;
-      _link(foods[i], images[idImage]);
     }
 
     return foods;
