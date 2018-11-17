@@ -1,9 +1,9 @@
 <?php
 require_once 'Model/Verifier.php';
-$token = $_SERVER['HTTP_TOKEN'] == null ? null : $_SERVER['HTTP_TOKEN'];
+$token = isset($_SERVER['HTTP_TOKEN']) ? $_SERVER['HTTP_TOKEN'] : null;
 
-$query = $_POST['query'] == null ? null : $_POST['query'];
-$noneQuery = $_POST['noneQuery'] == null ? null : $_POST['noneQuery'];
+$query = isset($_POST['query']) ? $_POST['query'] : null;
+$noneQuery = isset($_POST['noneQuery']) ? $_POST['noneQuery'] : null;
 
 $verifier = new Verifier($token, $query ,$noneQuery );
 $verifier->builder();

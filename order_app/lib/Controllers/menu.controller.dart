@@ -9,37 +9,38 @@ class Controller {
     return _instance;
   }
 
-  Future<List<Food>> images;
+  Future<List<Food>> _foods;
+  Future<Map<int, Uint8List>> _images;
+
   
-
-  Future<List<FoodCategory>> get foodCategories => Model.instance.foodCategories;
   Future<List<Food>> get foods {
-    if(images == null)
-      images = _combineFoodsImages();
-    return images;
+    if(_foods == null)
+    {
+      _images = _syncMySqlWithFile();
+      _foods = _combineFoodsImages(_images, Model.instance.foods);
+    }
+    return _foods;
   }
-
-
-
-  Future<Map<int, Uint8List>> get _images => _syncMySqlWithFile();
+ 
   Future<Map<int, Uint8List>> get _imagesFile => Model.instance.imagesFile;
-  Future<List> get _idImagesMySQL => Model.instance.idImagesMySQL;
-
-  Future<Uint8List> _getImageByID(int id) => Model.instance.getImageById(id);
+  Future<List> get _idImagesMySQL             => Model.instance.idImagesMySQL;
+  Future<Uint8List> _getImageByID(int id)     => Model.instance.getImageById(id);
+  void _combine(Food food, Uint8List image)   => food.image = image;
 
   Future<void> _saveFile(int id, Uint8List image) async => Model.instance.saveImage(id, image);
-  Future<void> _deleteFile(int id) async => Model.instance.delete(id);
-  static void _link(Food food, Uint8List image) => food.image = image;
-   
-  Future<List<Food>> _combineFoodsImages() async {
-    Map<int, Uint8List> images = await this._images;
-    List<Food> foods = await Model.instance.foods;
-    int idImage = 0;
-   
-    for (int i = 0; i < foods.length; ++i) {
-      idImage = foods[i].idImange;
-    }
+  Future<void> _deleteFile(int id)                async => Model.instance.delete(id);
 
+  Future<List<FoodCategory>> get foodCategories => Model.instance.foodCategories;
+   
+  Future<List<Food>> _combineFoodsImages(Future<Map<int, Uint8List>> futureImages, Future<List<Food>> futureFoods) async {
+    
+    Map<int, Uint8List> images = await futureImages;
+    List<Food> foods=  await futureFoods;
+    print('start combine');
+    for (int i = 0; i < foods.length; ++i) {
+      _combine(foods[i], images[foods[i].idImange]);
+    }
+    print('end combine');
     return foods;
   }
 

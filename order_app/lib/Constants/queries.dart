@@ -15,7 +15,7 @@ const String QUERY_GET_FOOD_CATEGORIES = 'CALL USP_GetFoodCategories()';
 /// Queries for Food
 ///
 /// Get foods
-const String QUERY_GET_FOODS = 'CALL USP_GetFoods()';
+const String QUERY_GET_FOODS = 'CALL USP_GetFoods1()';
 
 // ////////////////////////////////////////////////////////////
 

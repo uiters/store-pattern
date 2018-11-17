@@ -19,7 +19,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   mvc_pattern: ^0.0.13
-  http: ^0.12.0
+  http: ^0.11.3+17
   path_provider: ^0.4.1
   
 dev_dependencies:
