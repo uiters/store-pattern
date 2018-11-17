@@ -60,7 +60,7 @@ class Account {
     address = json['Address'];
     phone = json['PhoneNumber'];
     birthday = DateTime.parse(json['BirthDay']);
-    accountType = json['Name'];
-    image = base64.decode(json['Data']);
+    accountType = json['Name'] != null ? json['Name'] : '';
+    image = json['Data'] != null ? base64.decode(json['Data']) : null;
   }
 }

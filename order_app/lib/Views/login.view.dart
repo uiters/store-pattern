@@ -12,8 +12,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Account account;
-
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
 
@@ -25,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColorLight, 
+      color: theme.fontColor, 
       fontFamily: 'Dosis', 
       fontSize: 16.0,
       fontWeight: FontWeight.w500
@@ -85,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (await Controller.instance.login(_username.trim(), _password.trim())) {
             Navigator.of(context).push(
               new MaterialPageRoute(builder: (context) {
-                return new MainPage(context: context,);
+                return new MainPage(context: context, account: Controller.instance.account,);
               }),
             );
             _clear();

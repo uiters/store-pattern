@@ -52,14 +52,28 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           Expanded(child: Container(),),
           new Column(
             children: <Widget>[
-              new Text(
-                'ID# ' + widget.bill.id.toString(),
-                style: new TextStyle(
-                  color: theme.fontColor, 
-                  fontFamily: 'Dosis', 
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w500
-                ),
+              new Row(
+                children: <Widget>[
+                  new Text(
+                    'ID# ' + widget.bill.id.toString() + '       ',
+                    style: new TextStyle(
+                      color: theme.fontColor, 
+                      fontFamily: 'Dosis', 
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  
+                  new Text(
+                    widget.bill.account.displayName,
+                    style: new TextStyle(
+                      color: theme.accentColor, 
+                      fontFamily: 'Dosis', 
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w600
+                    ),
+                  )
+                ],
               ),
               new Text(
                 new DateFormat('yyyy-MM-dd HH:mm:ss').format(widget.bill.dateCheckOut),

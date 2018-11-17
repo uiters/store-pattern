@@ -22,7 +22,7 @@ const String GET_FOODS = 'CALL `USP_GetFoods`();';
 // Queries for Bill
 
 // Insert Bill
-const String INSERT_BILL = 'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_thien4chan , @_Status );';
+const String INSERT_BILL = 'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_TotalPrice , @_Status , @_Username );';
 
 const String GET_ID_MAX = 'CALL `USP_GetIdMax`();';
 

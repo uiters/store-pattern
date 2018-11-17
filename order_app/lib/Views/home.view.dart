@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './../Models/login.model.dart';
 import './../Models/home.model.dart' as home;
 import './../Controllers/home.controller.dart';
 
@@ -9,6 +10,10 @@ import './menu.view.dart';
 import './cart.view.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen({key, this.account}) : super(key: key);
+
+  final Account account;
+
   @override
     State<StatefulWidget> createState() {
       return new _HomeScreenState();
@@ -153,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
             iconTheme: new IconThemeData(color: accentColor),
             centerTitle: true,
           ),
-          body: new CartScreen(table: table, menuContext: context),
+          body: new CartScreen(table: table, menuContext: context, account: widget.account,),
         );
       }),
     );

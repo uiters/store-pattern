@@ -3,15 +3,18 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
 import './../Controllers/cart.controller.dart';
+import './../Controllers/history.controller.dart' as historyController;
 
+import './../Models/login.model.dart';
 import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
 
 import './../Constants/theme.dart' as theme;
 
 class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table, this.menuContext}):super(key: key);
+  CartScreen({key, this.table, this.menuContext, this.account}):super(key: key);
 
+  final Account account;
   final home.Table table;
   final BuildContext menuContext;
 
@@ -348,9 +351,21 @@ class _CartScreenState extends State<CartScreen> {
                   DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
                   _discount, 
                   table.getTotalPrice(),
-                  1
+                  1,
+                  widget.account.username
                 );
+                
                 int idBill = await Controller.instance.getIdBillMax();
+
+                historyController.Controller.instance.addBill(
+                  idBill, 
+                  table, 
+                  DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                  _discount, 
+                  table.getTotalPrice(), 
+                  widget.account
+                );
+
                 for (var food in table.foods) {
                   await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
                 }

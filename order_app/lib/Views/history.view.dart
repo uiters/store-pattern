@@ -80,7 +80,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toString(),
+            bill.account.username,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: theme.fontColorLight,
+              fontFamily: 'Dosis',
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600
+            ),
+          ),
+          new Expanded(child: new Container()),
+          new Text(
+            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toStringAsFixed(2),
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.redAccent,

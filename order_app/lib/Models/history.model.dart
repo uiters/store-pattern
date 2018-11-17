@@ -3,6 +3,7 @@ import './../Constants/queries.dart' as queries;
 
 import './home.model.dart' as home;
 import './menu.model.dart' as menu;
+import './login.model.dart' as login;
 
 class Model {
 
@@ -57,6 +58,16 @@ class BillPlus {
   DateTime dateCheckOut;
   double discount;
   double totalPrice;
+  login.Account account;
+
+  BillPlus({
+    this.id,
+    this.table,
+    this.dateCheckOut,
+    this.discount,
+    this.totalPrice,
+    this.account
+  });
 
   BillPlus.fromJson(Map<String, dynamic> json) {
     this.id = int.parse(json['ID']);
@@ -68,6 +79,8 @@ class BillPlus {
     this.table.id = int.parse(json['IDTable']);
     this.table.name = json['Name'];
     this.table.addFoods(Model.instance.getBillDetailByTable(this.id));
+
+    this.account = new login.Account.fromJson(json);
   }
 
 }
