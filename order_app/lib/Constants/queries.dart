@@ -27,6 +27,8 @@ const String INSERT_BILL = 'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @
 const String GET_ID_MAX = 'CALL `USP_GetIdMax`();';
 
 const String GET_BILLS = 'CALL `USP_GetBills`( @currentDate );';
+
+const String DELETE_BILL = 'CALL `USP_DelBill`( @id );';
 ///////////////////////////////////////////////////////////////
 
 // Queries for BillDetail

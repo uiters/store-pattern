@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
@@ -28,17 +29,17 @@ class _CartScreenState extends State<CartScreen> {
   TextEditingController _textController = new TextEditingController();
 
   @override
-    void initState() {
-      _discount = 0.0;
+  void initState() {
+    _discount = 0.0;
 
-      super.initState();
+    super.initState();
 
-      flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-      var android = new AndroidInitializationSettings('app_icon');
-      var ios = new IOSInitializationSettings();
-      var initSetting = new InitializationSettings(android, ios);
-      flutterLocalNotificationsPlugin.initialize(initSetting);
-    }
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('app_icon');
+    var ios = new IOSInitializationSettings();
+    var initSetting = new InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+  }
 
   @override
   Widget build(BuildContext context) {

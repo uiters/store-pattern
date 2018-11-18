@@ -22,7 +22,14 @@ class Model {
     return parseBillPlus(futureBills);
   }
 
-  Future<List<menu.Food>> getBillDetailByTable(int idBill) async {
+  Future<bool> deleteBill(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_BILL,
+      parameter: [id]
+    );
+  }
+
+  Future<List<menu.Food>> getBillDetailByBill(int idBill) async {
     Future<List> futureFoods = MySqlConnection.instance.executeQuery(
       queries.GET_BILLDETAIL_BY_BILL,
       parameter: [idBill]
@@ -78,7 +85,7 @@ class BillPlus {
     this.table = new home.Table.noneParametter();
     this.table.id = int.parse(json['IDTable']);
     this.table.name = json['Name'];
-    this.table.addFoods(Model.instance.getBillDetailByTable(this.id));
+    this.table.addFoods(Model.instance.getBillDetailByBill(this.id));
 
     this.account = new login.Account.fromJson(json);
   }

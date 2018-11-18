@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './../Models/login.model.dart';
 import './../Controllers/login.controller.dart';
 
 import './mainpage.view.dart';
@@ -29,6 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
       fontWeight: FontWeight.w500
     );
 
+    TextStyle _itemStyle2 = new TextStyle(
+      color: theme.fontColorLight, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
@@ -48,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       decoration: InputDecoration(
         hintText: 'Username',
-        hintStyle: _itemStyle,
+        hintStyle: _itemStyle2,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -63,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: _itemStyle,
+        hintStyle: _itemStyle2,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),

@@ -28,8 +28,12 @@ class Controller {
     );
 
     await this.bills.then((values) {
-      values.add(bill);
+      values.insert(0, bill);
     });
+  }
+
+  Future<bool> deleteBill(int id) {
+    return history.Model.instance.deleteBill(id);
   }
 
 }
