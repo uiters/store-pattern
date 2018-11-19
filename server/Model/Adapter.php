@@ -1,10 +1,10 @@
 <?php
 class Adapter
 {
-    private static $server  = ''; //server name
-    private static $user    = ''; //user name
-    private static $pass    = ''; //pass user
-    private static $dbname  = ''; //database name
+    private $server  = ''; //server name
+    private $user    = ''; //user name
+    private $pass    = ''; //pass user
+    private $dbname  = ''; //database name
 
     public function __construct() {
     }
@@ -12,12 +12,11 @@ class Adapter
 
     public function executeNoneQuery($noneQuery)
     {
-        $connect = new mysqli($server, $user, $pass, $dbname);
+        $connect = new mysqli($this->server, $this->user, $this->pass, $this->dbname);
         try
         {
-            $stmt = $connect->prepare($noneQuery);
-            $data = $stmt->execute();
-            $stmt->close();
+            $connect->set_charset('UTF8');
+            $data = $connect->query($noneQuery);
             $connect->close();
             return $data ? 1 : 0;
         }
@@ -29,22 +28,19 @@ class Adapter
 
     public function executeQuery($query)
     {
-        $connect = new mysqli($server, $user, $pass, $dbname);
+        $connect = new mysqli($this->server, $this->user, $this->pass, $this->dbname);
         try{
             $connect->set_charset('UTF8');
-            $stmt = $connect->prepare($query);
-            $stmt->execute();
-            $data = $stmt->get_result();
+            $data = $connect->query($query);
             $rows = array();
-            while($array = $data->fetch_assoc()) {
-                $rows[] = $array;
+             while($array = $data->fetch_assoc()) {
+               $rows[] = $array;
             }
 
             $data->close();
-            $stmt->close();
             $connect->close();
 
-            return $rows;
+            var_dump($rows);
         }
         catch(Exception $e)
         {
