@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:intl/intl.dart';
 
@@ -8,7 +9,6 @@ import './../Models/history.model.dart' as history;
 import './../Controllers/history.controller.dart';
 
 import './invoice.view.dart';
-import './editInvoice.view.dart';
 
 import './../Constants/theme.dart' as theme;
 
@@ -20,8 +20,19 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-
   Future<List<history.BillPlus>> bills = Controller.instance.bills;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('app_icon');
+    var ios = new IOSInitializationSettings();
+    var initSetting = new InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +91,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           new Expanded(child: new Container()),
           new Text(
-            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toString(),
+            bill.account.username,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: theme.fontColorLight,
+              fontFamily: 'Dosis',
+              fontSize: 14.0,
+              fontWeight: FontWeight.w600
+            ),
+          ),
+          new Expanded(child: new Container()),
+          new Text(
+            '\$' + (bill.totalPrice * (1 - bill.discount / 100)).toStringAsFixed(2),
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.redAccent,
@@ -122,9 +144,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
             centerTitle: true,
             actions: <Widget>[
               new IconButton(
-                icon: new Icon(Icons.edit, size: 18.0,),
+                icon: new Icon(Icons.delete, size: 18.0,),
                 onPressed: () {
-                  _pushEditInvoiceScreen(bill);
+                  _checkOut(context, bill);
                 },
               )
             ],
@@ -135,19 +157,85 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  void _pushEditInvoiceScreen(history.BillPlus bill) {
-    Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Edit Invoice • ' + bill.table.name,
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: theme.accentColor),
-            centerTitle: true,
+  void _checkOut(BuildContext invoiceContext, history.BillPlus bill) async {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
           ),
-          body: new EditInvoice(bill: bill),
+          content: new Text(
+            'Do you want to delete invoice #' + bill.id.toString() + ' • ' + bill.table.name + '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+                Navigator.of(invoiceContext).pop();
+
+                setState(() {
+                    bills.then((values) {
+                    values.remove(bill);
+                  });
+                });
+
+                _showNotification(bill);
+
+                Controller.instance.deleteBill(bill.id);
+
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
         );
-      }),
+      }
+    );
+
+  }
+
+  Future _showNotification(history.BillPlus bill) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Delete the invoice #' + bill.id.toString() + ' • ' + bill.table.name + ' successfully!!!', 
+      platformChannelSpecifics,
+      payload: 'item x'
+    );
+  }
+
+  Future onSelectNotification(String payload) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return new AlertDialog(
+          title: Text("PayLoad"),
+          content: Text("Payload : $payload"),
+        );
+      },
     );
   }
 

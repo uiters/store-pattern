@@ -10,10 +10,10 @@ class Model {
     return _instance;
   }
 
-  Future<bool> insertBill(int idTable, DateTime dateCheckIn, DateTime dateCheckOut, double discount, double totalPrice, int status) {
+  Future<bool> insertBill(int idTable, DateTime dateCheckIn, DateTime dateCheckOut, double discount, double totalPrice, int status, String username) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.INSERT_BILL, 
-      parameter: [idTable, dateCheckIn, dateCheckOut, discount, totalPrice, status]
+      parameter: [idTable, dateCheckIn, dateCheckOut, discount, totalPrice, status, username]
     ); 
   }
 
@@ -50,7 +50,7 @@ class Bill {
   int status;
 
   Bill.fromJson(Map<String, dynamic> json) {
-    this.id = int.parse(json['ID']);
+    this.id = json['ID'] != null ? int.parse(json['ID']) : -1;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : -1;
     this.dateCheckIn = json['DateCheckIn'] != null ? DateTime.parse(json['DateCheckIn']) :DateTime.now();
     this.dateCheckOut = json['DateCheckOut'] != null ? DateTime.parse(json['DateCheckOut']) : DateTime.now();

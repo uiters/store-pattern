@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import './home.view.dart';
 import './history.view.dart';
 
+import './../Models/login.model.dart';
+
 import './../Constants/theme.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({key, this.context}) : super(key: key);
+  MainPage({key, this.context, this.account}) : super(key: key);
 
   final BuildContext context;
+  final Account account;
 
   _MainPageState createState() => _MainPageState();
 }
@@ -27,18 +30,26 @@ class _MainPageState extends State<MainPage> {
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    new Image.asset(
-                      'assets/images/menu1.png',
-                      width: 110.0,
-                      height: 110.0,
-                      fit: BoxFit.cover,
+                    new Container(
+                      width: 90.0,
+                      height: 90.0,
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new MemoryImage(
+                            widget.account.image,
+                          )
+                        )
+                      )
                     ),
                     new Text(
-                      'Order App',
+                      widget.account.displayName,
+                      overflow: TextOverflow.ellipsis,
                       style: new TextStyle(
                           color: accentColor,
                           fontFamily: 'Dosis',
-                          fontSize: 21.0),
+                          fontSize: 20.0),
                     ),
                   ],
                 ),
@@ -109,7 +120,7 @@ class _MainPageState extends State<MainPage> {
   }
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
-      case 0: return new HomeScreen();
+      case 0: return new HomeScreen(account: widget.account,);
       case 1: return new HistoryScreen();
       default: return null;
     }

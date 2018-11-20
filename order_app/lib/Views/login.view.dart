@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './../Models/login.model.dart';
 import './../Controllers/login.controller.dart';
 
 import './mainpage.view.dart';
@@ -12,8 +11,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Account account;
-
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
 
@@ -25,6 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
+      color: theme.fontColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0,
+      fontWeight: FontWeight.w500
+    );
+
+    TextStyle _itemStyle2 = new TextStyle(
       color: theme.fontColorLight, 
       fontFamily: 'Dosis', 
       fontSize: 16.0,
@@ -50,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       decoration: InputDecoration(
         hintText: 'Username',
-        hintStyle: _itemStyle,
+        hintStyle: _itemStyle2,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -65,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: _itemStyle,
+        hintStyle: _itemStyle2,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
@@ -85,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (await Controller.instance.login(_username.trim(), _password.trim())) {
             Navigator.of(context).push(
               new MaterialPageRoute(builder: (context) {
-                return new MainPage(context: context,);
+                return new MainPage(context: context, account: Controller.instance.account,);
               }),
             );
             _clear();
