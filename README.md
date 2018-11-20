@@ -30,3 +30,4 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 ## License
 
 [MIT](https://github.com/ndc07/store-management/blob/master/LICENSE)
+
