@@ -128,7 +128,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   food.image,
                   width: 122.0,
                   height: 122.0,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
                 new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -213,20 +213,20 @@ class _MenuScreenState extends State<MenuScreen> {
             child: new Row(
               children: <Widget>[
                 new Flexible(
-                    child: new TextField(
-                        controller: _textController,
-                        onChanged: (text) {
-                          setState(() {
-                            _keyword = text;
-                          });
-                        },
-                        onSubmitted: null,
-                        style: _itemStyle,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Enter your food...',
-                            hintStyle: _itemStyle,
-                        )
+                  child: new TextField(
+                    controller: _textController,
+                    onChanged: (text) {
+                      setState(() {
+                        _keyword = text;
+                      });
+                    },
+                    onSubmitted: null,
+                    style: _itemStyle,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'Enter your food...',
+                        hintStyle: _itemStyle,
                     )
+                  )
                 ),
                 new Container(
                     margin: const EdgeInsets.symmetric(horizontal: 4.0),

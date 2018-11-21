@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './home.view.dart';
 import './history.view.dart';
+import './profile.view.dart';
 
 import './../Models/login.model.dart';
 
@@ -122,6 +123,7 @@ class _MainPageState extends State<MainPage> {
     switch (this._screenNumber) {
       case 0: return new HomeScreen(account: widget.account,);
       case 1: return new HistoryScreen();
+      case 2: return new ProfileScreen(account: widget.account,);
       default: return null;
     }
   }
