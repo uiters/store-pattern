@@ -13,3 +13,7 @@ DELIMITER ;
 
 CREATE PROCEDURE USP_Login1(`user` VARCHAR(32))
     SELECT Password FROM `ACCOUNT` WHERE `Username` = `user` LIMIT 1;
+
+
+CREATE PROCEDURE USP_CheckToken(`token1` VARCHAR(100))
+    SELECT * FROM `AUTHENTICATION` WHERE `Token` = `token1`;

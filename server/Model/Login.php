@@ -26,7 +26,7 @@ class Login{
 
     public function builder($header)
     {
-        if($header == null || $this->invalid($header))
+        if($header == null || $this->_invalid($header))
             http_response_code(404);//Not found
         else
         {
@@ -68,7 +68,7 @@ class Login{
             }
         }
     }
-    public static function invalid($header)
+    private function _invalid($header)
     {
         $listString = explode('.', $header);
         if(count($listString) < 2)
@@ -99,11 +99,11 @@ class Login{
 
     private function _createToken()
     {
-        $this->timeOut = $this->getDateOut();
+        $this->timeOut = $this->_getDateOut();
         return hash_hmac('sha256', $this->user, time());
     }
 
-    private function getDateOut()
+    private function _getDateOut()
     {
         return date("Y-m-d H:i:s", time() + 2592000); // 3600 * 24 * 30 = 2592000 = 30 days
     }
