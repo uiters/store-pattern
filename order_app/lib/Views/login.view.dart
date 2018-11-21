@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 logo,
                 SizedBox(height: 48.0),
                 email,
-                SizedBox(height: 8.0),
+                SizedBox(height: 10.0),
                 password,
                 SizedBox(height: 24.0),
                 loginButton,

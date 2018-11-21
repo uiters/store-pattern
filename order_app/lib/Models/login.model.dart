@@ -17,24 +17,20 @@ class Model {
   }
 
   Future<Account> login(String username) async {
-
     Future<List> futureAccount = MySqlConnection.instance.executeQuery(
       queries.LOGIN,
       parameter: [username]
     );
     return parseAccount(futureAccount);
-
   }
 
   Future<Account> parseAccount(Future<List> accounts) async  {
-
     Account account;
     await accounts.then((values){
       if (values.length > 0)
       account = Account.fromJson(values[0]);
     });
     return account;
-
   }
   
 }
