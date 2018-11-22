@@ -1,9 +1,13 @@
+///////////////////////////////////////////////////////////////
+
 // Queries for Account
 
 // Check login
-const String LOGIN = 'CALL USP_Login( @username )';
+const String LOGIN = 'CALL USP_LoginAdmin( @username )';
 
 ///////////////////////////////////////////////////////////////
+
+
 
 ///Query Insert Table
 ///
