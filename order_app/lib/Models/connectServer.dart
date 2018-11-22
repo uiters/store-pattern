@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -16,11 +17,11 @@ class MySqlConnection{
 
 
   Future<bool> executeNoneQuery(String query, {List parameter}) async {
-
+    
     if(parameter != null) {
       query = _addParameter(query, parameter);
     }
-
+    print('executeNoneQuery $query');
     http.Response response = await http.post(
       URL_EXECUTE,
       body : { ID_EXECUTENONEQUERY : query },
@@ -35,11 +36,11 @@ class MySqlConnection{
 
 
   Future<List> executeQuery(String query, {List parameter}) async {
-
     if(parameter != null) {
       query = _addParameter(query, parameter);
     }
-      
+    print('executeQuery $query');
+
     http.Response response = await http.post(
       URL_EXECUTE,
       body : { ID_EXECUTEQUERY : query },
@@ -50,25 +51,28 @@ class MySqlConnection{
 
   }
 
-
-  static String _addParameter(String query, List parameter) {
-
+  String _addParameter(String query, List parameter) {
+    /**To return a query have added paramete ralready
+     * 
+     * query = "call USP_Proc( @a , @b , @c )"
+     * 
+     *  parameter = ["123" , "123" , 123 ]
+     * 
+     *  After call  addParameter
+     * so result query = "call USP_Proc( '123' , '123' , 123 )"
+     * */
     List<String> list = query.split(' ');
     query = "";
     int i = 0;
-
     list.forEach((String element) {
-      if (element.contains('@')) {
-        if (parameter[i] is String || parameter[i] is DateTime)
+      if (element.contains('@')){
+        if ((parameter[i] is String || parameter[i] is DateTime) && parameter.length > i)
           query +=  "\'" + parameter[i++].toString() +"\'";
         else query += parameter[i++].toString();
       }
         else query += element;
       query += " ";
-    });
-
+      });
     return query;
-
   }
-
 }

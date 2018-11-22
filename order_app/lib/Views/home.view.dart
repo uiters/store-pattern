@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './../Models/login.model.dart';
 import './../Models/home.model.dart' as home;
+
 import './../Controllers/home.controller.dart';
 
 import './../Constants/theme.dart';
@@ -22,9 +23,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Future<List<home.Table>> futureTables = Controller.instance.tables;
+  Future<List<home.Table>> futureTables;
 
   home.Table _selectedTable;
+
+  @override
+    void initState() {
+      futureTables = Controller.instance.tables;
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 20.0,
                   color: table.status == 1 ? Colors.redAccent : Colors.redAccent,
                 ),
+
               ),
               new Expanded(child: new Container()),
               Padding(
@@ -112,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   table.name,
                   style: const TextStyle(
                       color: fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
+
                   ),
                 ),
               )

@@ -88,6 +88,7 @@ class _MainPageState extends State<MainPage> {
               setState(() {
                 this._screenNumber = 2;
                 this._screenName = 'MY PROFILE';
+
               });
               Navigator.pop(context);
             },
@@ -113,6 +114,7 @@ class _MainPageState extends State<MainPage> {
               setState(() {
                 this._screenNumber = 3;
                 this._screenName = 'SETTINGS';
+
               });
               Navigator.pop(context);
             },
@@ -156,5 +158,4 @@ class _MainPageState extends State<MainPage> {
         drawer: this._buildDrawer(context))
       );
   }
-
 }
