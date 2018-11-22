@@ -19,6 +19,7 @@ class CartScreen extends StatefulWidget {
   final home.Table table;
   final BuildContext menuContext;
 
+
   @override
   _CartScreenState createState() => _CartScreenState();
 }
@@ -40,6 +41,7 @@ class _CartScreenState extends State<CartScreen> {
     var initSetting = new InitializationSettings(android, ios);
     flutterLocalNotificationsPlugin.initialize(initSetting);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +173,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildControls(BuildContext context) {
-
     TextStyle _itemStyle = new TextStyle(
       color: theme.fontColor, 
       fontFamily: 'Dosis', 
@@ -278,7 +279,6 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
   void _error(BuildContext cartContext) {
     showDialog(
       context: context,
@@ -415,5 +415,4 @@ class _CartScreenState extends State<CartScreen> {
       },
     );
   }
-
 }

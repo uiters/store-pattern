@@ -94,6 +94,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
     for (int i = 0; i < indexes.length; i++) {
       Expanded expanded = new Expanded(child: _buildFood(context, indexes[i]));
+
       items.add(expanded);
     }
 
