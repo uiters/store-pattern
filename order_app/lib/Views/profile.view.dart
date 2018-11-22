@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'dart:async';
 
 import './../Models/login.model.dart' as login;
+import './../Controllers/profile.controller.dart';
 
 import './../Constants/theme.dart' as theme;
 
@@ -14,27 +18,19 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   TextEditingController _displayNameController = new TextEditingController();
   TextEditingController _idCardController = new TextEditingController();
   TextEditingController _addressController = new TextEditingController();
   TextEditingController _phoneController = new TextEditingController();
   TextEditingController _accountTypeController = new TextEditingController();
-  TextEditingController _sexController = new TextEditingController();
   TextEditingController _birthDayController = new TextEditingController();
   TextEditingController _newPassController = new TextEditingController();
   TextEditingController _newPassConfirmController = new TextEditingController();
   TextEditingController _oldPassController = new TextEditingController();
 
-  String _displayName = '';
-  String _idCard = '';
-  String _address = '';
-  String _phone = '';
-  String _accountType = '';
   String _sex;
-  String _birthDay;
-  String _newPass = '';
-  String _newPassConfirm = '';
-  String _oldPass = '';
 
   @override
     void initState() {
@@ -49,6 +45,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _birthDayController.text = account.birthday.toString().split(' ')[0];
       
       super.initState();
+
+      flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+      var android = new AndroidInitializationSettings('app_icon');
+      var ios = new IOSInitializationSettings();
+      var initSetting = new InitializationSettings(android, ios);
+      flutterLocalNotificationsPlugin.initialize(initSetting);
     }
 
   @override
@@ -63,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     TextStyle _itemStyle2 = new TextStyle(
       color: theme.accentColor, 
       fontFamily: 'Dosis', 
-      fontSize: 18.0,
+      fontSize: 17.0,
       fontWeight: FontWeight.w500
     );
 
@@ -97,9 +99,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget displayName = new TextField(
       controller: _displayNameController,
       style: _itemStyle,
-      onChanged: (value) {
-        _displayName = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Display name:',
         labelStyle: _itemStyle2
@@ -109,9 +108,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget idCard = new TextField(
       controller: _idCardController,
       style: _itemStyle,
-      onChanged: (value) {
-        _idCard = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Id card:',
         labelStyle: _itemStyle2
@@ -121,9 +117,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget address = new TextField(
       controller: _addressController,
       style: _itemStyle,
-      onChanged: (value) {
-        _address = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Address:',
         labelStyle: _itemStyle2
@@ -133,9 +126,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget phone = new TextField(
       controller: _phoneController,
       style: _itemStyle,
-      onChanged: (value) {
-        _phone = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Phone:',
         labelStyle: _itemStyle2
@@ -145,10 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget accountType = new TextField(
       controller: _accountTypeController,
       style: _itemStyle,
-      onChanged: (value) {
-        _accountType = value;
-      },
       decoration: new InputDecoration(
+        enabled: false,
         labelText: 'Account Type:',
         labelStyle: _itemStyle2
       ),
@@ -175,10 +163,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: new TextField(
             controller: _birthDayController,
             style: _itemStyle,
-            onChanged: (value) {
-              // _birthDay = value;
-            },
             decoration: new InputDecoration(
+              enabled: false,
               labelText: 'Birthday:',
               labelStyle: _itemStyle2
             ),
@@ -200,14 +186,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: SizedBox(
         width: double.infinity,
         child: new RaisedButton(
-        color: Colors.redAccent,
-        child: new Text(
-          'Save Change',
-          style: _itemStyle,
-        ),
-        onPressed: () {
-
-        },
+          color: Colors.redAccent,
+          child: new Text(
+            'Save Change',
+            style: _itemStyle,
+          ),
+          onPressed: () {
+            _changeInfo();
+          },
         ),
       ),
     );
@@ -216,9 +202,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       controller: _oldPassController,
       obscureText: true,
       style: _itemStyle,
-      onChanged: (value) {
-        _oldPass = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Old password:',
         labelStyle: _itemStyle2
@@ -229,9 +212,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       obscureText: true,
       controller: _newPassController,
       style: _itemStyle,
-      onChanged: (value) {
-        _newPass = value;
-      },
       decoration: new InputDecoration(
         labelText: 'New password:',
         labelStyle: _itemStyle2
@@ -242,9 +222,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       obscureText: true,
       controller: _newPassConfirmController,
       style: _itemStyle,
-      onChanged: (value) {
-        _newPassConfirm = value;
-      },
       decoration: new InputDecoration(
         labelText: 'Confirm new password:',
         labelStyle: _itemStyle2
@@ -256,14 +233,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     child: SizedBox(
       width: double.infinity,
       child: new RaisedButton(
-      color: Colors.redAccent,
-      child: new Text(
-        'Change Password',
-        style: _itemStyle,
-      ),
-      onPressed: () {
-
-      },
+        color: Colors.redAccent,
+        child: new Text(
+          'Change Password',
+          style: _itemStyle,
+        ),
+        onPressed: () {
+          if (Controller.instance.equalPass(widget.account.password, _oldPassController.text))
+            _changePass();
+          else {
+            _oldPassController.clear();
+            _errorPass();
+          }
+        },
       ),
     ),
     );
@@ -319,14 +301,276 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void _changeInfo() {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to change infomations for this account?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+
+                _showNotificationInfo();
+                
+                Controller.instance.updateInfo(
+                  widget.account.username, 
+                  _displayNameController.text, 
+                  _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1), 
+                  DateTime.parse(_birthDayController.text), 
+                  _idCardController.text, 
+                  _addressController.text, 
+                  _phoneController.text
+                );
+
+                login.Account account = widget.account;
+
+                account.displayName = _displayNameController.text;
+                account.sex = _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1);
+                account.birthday = DateTime.parse(_birthDayController.text);
+                account.idCard = _idCardController.text;
+                account.address = _addressController.text;
+                account.phone = _phoneController.text;
+
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+
+  }
+
+  Future _showNotificationInfo() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Change information success!', 
+      platformChannelSpecifics,
+      payload: 'item x'
+    );
+  }
+
+  void _changePass() {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to change password for this account?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+
+                if (_newPassConfirmController.text == _newPassController.text && _newPassController.text == '') {
+                  _warningNewPass();
+                  return;
+                }
+
+                if (_newPassConfirmController.text == _newPassController.text) {
+                  _showNotificationPass();
+                
+                  Controller.instance.updatePassword(
+                    widget.account.username,
+                    _newPassController.text
+                  );
+                  
+                  login.Account account = widget.account;
+
+                  account.password = Controller.instance.toHashPass(_newPassController.text);
+                } else {
+                  _errorNewPass();
+                }
+                
+                _oldPassController.clear();
+                _newPassConfirmController.clear();
+                _newPassController.clear();
+                
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+
+  }
+
+  Future _showNotificationPass() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Change password success!', 
+      platformChannelSpecifics,
+      payload: 'item x'
+    );
+  }
+
+  void _errorPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'Password incorrect.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _errorNewPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'New password does not match the confirm password.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _warningNewPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'Invalid new password.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  Future onSelectNotification(String payload) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return new AlertDialog(
+          title: Text("PayLoad"),
+          content: Text("Payload : $payload"),
+        );
+      },
+    );
+  }
+
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
         context: context,
-        initialDate: new DateTime.now().subtract(new Duration(days: 366 * 18)),
+        initialDate: widget.account.birthday,
         firstDate: new DateTime(1975),
         lastDate: new DateTime(2019)
     );
-    if(picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildSex(TextStyle _itemStyle) {
@@ -350,8 +594,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onChanged: (value) {
           setState(() {
             _sex = value;
-            // clear keyword
-            _sexController.text = '';
           });
         }
     );

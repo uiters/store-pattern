@@ -75,44 +75,40 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 24.0),
-      child: new GestureDetector(
-        onTap: () async {
-          if (_password == '' || _username == '') {
-            _notification('Error', 'Invalid user name or password. Please try again.');
-            return;
-          }
-          setState(() {
-            _load = true;
-          });
-          if (await Controller.instance.login(_username.trim(), _password.trim())) {
-            Navigator.of(context).push(
-              new MaterialPageRoute(builder: (context) {
-                return new MainPage(context: context, account: Controller.instance.account,);
-              }),
-            );
-            _clear();
-          } else {
-            _notification('Error', 'Username or Password is incorrect!');
-            _clear();
-          }
-          setState(() {
-            _load = false;
-          });
-        },
-        child: new Container(
-          alignment: Alignment(0.0, 0.0),
-          color: Color.fromARGB(255, 243, 73, 73),
-          padding: const EdgeInsets.all(8.0),
-          margin: const EdgeInsets.only(bottom: 8.0),
-          width: double.infinity,
+    final loginButton = new Container(
+      child: SizedBox(
+        width: double.infinity,
+        child: new RaisedButton(
+          color: Colors.redAccent,
           child: new Text(
             'Login',
             style: _itemStyle,
           ),
+          onPressed: () async {
+            if (_password == '' || _username == '') {
+              _notification('Error', 'Invalid user name or password. Please try again.');
+              return;
+            }
+            setState(() {
+              _load = true;
+            });
+            if (await Controller.instance.login(_username.trim(), _password.trim())) {
+              Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) {
+                  return new MainPage(context: context, account: Controller.instance.account,);
+                }),
+              );
+              _clear();
+            } else {
+              _notification('Error', 'Username or Password is incorrect!');
+              _clear();
+            }
+            setState(() {
+              _load = false;
+            });
+          },
         ),
-      )
+      ),
     );
 
     final forgotLabel = FlatButton(
