@@ -44,4 +44,7 @@ const String GET_BILLDETAIL_BY_BILL = 'CALL `USP_GetBillDetailByBill`( @id );';
 // Check login
 const String LOGIN = 'CALL USP_Login( @username )';
 
+// Update info
+const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
+
 ///////////////////////////////////////////////////////////////
