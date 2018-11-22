@@ -27,35 +27,36 @@ class _MainPageState extends State<MainPage> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           new DrawerHeader(
-              child: new Container(
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new Container(
-                      width: 90.0,
-                      height: 90.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new MemoryImage(
-                            widget.account.image,
-                          )
+            child: new Container(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Container(
+                    width: 90.0,
+                    height: 90.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: new MemoryImage(
+                          widget.account.image,
                         )
                       )
-                    ),
-                    new Text(
-                      widget.account.displayName,
-                      overflow: TextOverflow.ellipsis,
-                      style: new TextStyle(
-                          color: accentColor,
-                          fontFamily: 'Dosis',
-                          fontSize: 20.0),
-                    ),
-                  ],
-                ),
+                    )
+                  ),
+                  new Text(
+                    widget.account.displayName,
+                    overflow: TextOverflow.ellipsis,
+                    style: new TextStyle(
+                        color: accentColor,
+                        fontFamily: 'Dosis',
+                        fontSize: 20.0),
+                  ),
+                ],
               ),
-              decoration: new BoxDecoration(color: primaryColor)),
+            ),
+            decoration: new BoxDecoration(color: primaryColor)
+          ),
           new ListTile(
             leading: new Icon(Icons.home, color: fontColorLight, size: 19.0,),
             title: new Text(
