@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+
+import './../Models/login.model.dart';
+
 import './../Constants/theme.dart';
 
 class MainPage extends StatefulWidget {
+  MainPage({key, this.context, this.account}) : super(key: key);
+
+  final BuildContext context;
+  final Account account;
+
   _MainPageState createState() => _MainPageState();
 }
 
@@ -62,11 +70,11 @@ class _MainPageState extends State<MainPage> {
           ),
           new ListTile(
             leading: new Icon(Icons.category, color: fontColorLight, size: 19.0,),
-            title: new Text('Categories', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            title: new Text('Category', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
                 this._screenNumber = 2;
-                this._screenName = 'CATEGORIESS';
+                this._screenName = 'CATEGORY';
               });
               Navigator.pop(context);
             },
@@ -82,7 +90,14 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-
+          new ListTile(
+            leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
+            title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pop(widget.context);
+            },
+          ),
 
 
           new Divider(
@@ -115,10 +130,10 @@ class _MainPageState extends State<MainPage> {
     );
   }
   Widget _buildScreen(BuildContext context) {
-    // switch (this._screenNumber) {
+    switch (this._screenNumber) {
       
-    //   default: return null;
-    // }
+      default: return null;
+    }
   }
   @override
   Widget build(BuildContext context) {
