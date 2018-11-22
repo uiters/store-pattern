@@ -233,14 +233,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     child: SizedBox(
       width: double.infinity,
       child: new RaisedButton(
-      color: Colors.redAccent,
-      child: new Text(
-        'Change Password',
-        style: _itemStyle,
-      ),
-      onPressed: () {
-
-      },
+        color: Colors.redAccent,
+        child: new Text(
+          'Change Password',
+          style: _itemStyle,
+        ),
+        onPressed: () {
+          if (Controller.instance.equalPass(widget.account.password, _oldPassController.text))
+            _changePass();
+          else {
+            _oldPassController.clear();
+            _errorPass();
+          }
+        },
       ),
     ),
     );
@@ -332,11 +337,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _addressController.text, 
                   _phoneController.text
                 );
-                
+
                 login.Account account = widget.account;
 
                 account.displayName = _displayNameController.text;
-          
                 account.sex = _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1);
                 account.birthday = DateTime.parse(_birthDayController.text);
                 account.idCard = _idCardController.text;
@@ -374,6 +378,176 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'Change information success!', 
       platformChannelSpecifics,
       payload: 'item x'
+    );
+  }
+
+  void _changePass() {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to change password for this account?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+
+                if (_newPassConfirmController.text == _newPassController.text && _newPassController.text == '') {
+                  _warningNewPass();
+                  return;
+                }
+
+                if (_newPassConfirmController.text == _newPassController.text) {
+                  _showNotificationPass();
+                
+                  Controller.instance.updatePassword(
+                    widget.account.username,
+                    _newPassController.text
+                  );
+                  
+                  login.Account account = widget.account;
+
+                  account.password = Controller.instance.toHashPass(_newPassController.text);
+                } else {
+                  _errorNewPass();
+                }
+                
+                _oldPassController.clear();
+                _newPassConfirmController.clear();
+                _newPassController.clear();
+                
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+
+  }
+
+  Future _showNotificationPass() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Change password success!', 
+      platformChannelSpecifics,
+      payload: 'item x'
+    );
+  }
+
+  void _errorPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'Password incorrect.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _errorNewPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'New password does not match the confirm password.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _warningNewPass() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Error',
+            style: theme.errorTitleStyle
+          ),
+          content: new Text(
+            'Invalid new password.' + '\nPlease try again!',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 

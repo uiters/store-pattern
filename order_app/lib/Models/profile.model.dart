@@ -19,5 +19,12 @@ class Model {
       parameter: [username, displayName, sex, birthday, idCard, address, phone]
     );
   }
+
+  Future<bool> updatePassword(String username, String newPass) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_ACC_PASS,
+      parameter: [username, newPass]
+    );
+  }
   
 }
