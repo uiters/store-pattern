@@ -27,18 +27,37 @@
 
 ## Contents
 
+* [Features](#features)
 * [Installation](#installation)
 * [Documents](#documents)
+* [Build with](#build-with)
 * [Some Screens](#some-screens)
 * [Bugs and Issues](#bugs-and-issues)
 * [Authors](#authors)
 * [License](#license)
+
+## Features
+
+* Ordering foods by table.
+* Checkout, preview & print invoice.
+* Profile feature.
+* Manage food & category.
+* Manage table.
+* Manage account.
+* Sales report.
 
 ## Installation
 
 ## Documents
 
 For help getting started with Flutter, view our online [documentation](https://flutter.io/).
+
+## Build with
+
+* [Flutter](https://flutter.io/)
+* [Dart programming language](https://www.dartlang.org/)
+* [PHP 7](http://php.net/manual/en/migration70.new-features.php)
+* [MySQL](https://www.mysql.com/)
 
 ## Some Screens
 
