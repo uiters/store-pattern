@@ -27,35 +27,36 @@ class _MainPageState extends State<MainPage> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           new DrawerHeader(
-              child: new Container(
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new Container(
-                      width: 90.0,
-                      height: 90.0,
-                      decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new MemoryImage(
-                            widget.account.image,
-                          )
+            child: new Container(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Container(
+                    width: 90.0,
+                    height: 90.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: new MemoryImage(
+                          widget.account.image,
                         )
                       )
-                    ),
-                    new Text(
-                      widget.account.displayName,
-                      overflow: TextOverflow.ellipsis,
-                      style: new TextStyle(
-                          color: accentColor,
-                          fontFamily: 'Dosis',
-                          fontSize: 20.0),
-                    ),
-                  ],
-                ),
+                    )
+                  ),
+                  new Text(
+                    widget.account.displayName,
+                    overflow: TextOverflow.ellipsis,
+                    style: new TextStyle(
+                        color: accentColor,
+                        fontFamily: 'Dosis',
+                        fontSize: 20.0),
+                  ),
+                ],
               ),
-              decoration: new BoxDecoration(color: primaryColor)),
+            ),
+            decoration: new BoxDecoration(color: primaryColor)
+          ),
           new ListTile(
             leading: new Icon(Icons.home, color: fontColorLight, size: 19.0,),
             title: new Text(
@@ -92,27 +93,39 @@ class _MainPageState extends State<MainPage> {
             },
           ),
 
-
-          new Divider(
-            indent: 16.0,
-          ),
-          new ListTile(
-            leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
-            title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
-            onTap: () {
-              setState(() {
-                this._screenNumber = 3;
-                this._screenName = 'SETTING';
-              });
-              Navigator.pop(context);
-            },
-          ),
           new ListTile(
             leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
             title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               Navigator.pop(context);
               Navigator.pop(widget.context);
+            },
+          ),
+
+          new Divider(
+            indent: 16.0,
+          ),
+
+          new ListTile(
+            leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
+            title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 3;
+                this._screenName = 'SETTINGS';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          new ListTile(
+            leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
+            title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 4;
+                this._screenName = 'ABOUT';
+              });
+              Navigator.pop(context);
             },
           )
         ],

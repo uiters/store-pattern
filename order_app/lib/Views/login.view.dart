@@ -35,12 +35,26 @@ class _LoginScreenState extends State<LoginScreen> {
       fontWeight: FontWeight.w500
     );
 
+    TextStyle _itemStyle3 = new TextStyle(
+      color: theme.accentColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 28.0,
+      fontWeight: FontWeight.w400,
+    );
+
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
         child: Image.asset('assets/images/logo.png'),
+      ),
+    );
+
+    final title = new Center(
+      child: new Text(
+        'Order App',
+        style: _itemStyle3,
       ),
     );
 
@@ -154,6 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.only(left: 24.0, right: 24.0),
               children: <Widget>[
                 logo,
+                SizedBox(height: 15.0),
+                title,
                 SizedBox(height: 48.0),
                 email,
                 SizedBox(height: 10.0),
