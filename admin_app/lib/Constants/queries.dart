@@ -1,3 +1,9 @@
+// Queries for Account
+
+// Check login
+const String LOGIN = 'CALL USP_Login( @username )';
+
+///////////////////////////////////////////////////////////////
 
 ///Query Insert Table
 ///
