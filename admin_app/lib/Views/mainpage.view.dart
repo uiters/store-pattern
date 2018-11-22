@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './../Models/login.model.dart';
 
+import './profile.view.dart';
+
 import './../Constants/theme.dart';
 
 class MainPage extends StatefulWidget {
@@ -23,27 +25,36 @@ class _MainPageState extends State<MainPage> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           new DrawerHeader(
-              child: new Container(
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new Image.asset(
-                      'assets/images/menu2.png',
-                      width: 110.0,
-                      height: 110.0,
-                      fit: BoxFit.cover,
-                    ),
-                    new Text(
-                      'Admin App',
-                      style: new TextStyle(
-                          color: accentColor,
-                          fontFamily: 'Dosis',
-                          fontSize: 21.0),
-                    ),
-                  ],
-                ),
+            child: new Container(
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Container(
+                    width: 90.0,
+                    height: 90.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: new MemoryImage(
+                          widget.account.image,
+                        )
+                      )
+                    )
+                  ),
+                  new Text(
+                    widget.account.displayName,
+                    overflow: TextOverflow.ellipsis,
+                    style: new TextStyle(
+                        color: accentColor,
+                        fontFamily: 'Dosis',
+                        fontSize: 20.0),
+                  ),
+                ],
               ),
-              decoration: new BoxDecoration(color: primaryColor)),
+            ),
+            decoration: new BoxDecoration(color: primaryColor)
+          ),
           new ListTile(
             leading: new Icon(Icons.dashboard, color: fontColorLight, size: 19.0,),
             title: new Text(
@@ -91,6 +102,17 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
+            leading: new Icon(Icons.person, color: fontColorLight, size: 19.0,),
+            title: new Text('My Profile', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 4;
+                this._screenName = 'MY PROFILE';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          new ListTile(
             leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
             title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
@@ -99,16 +121,16 @@ class _MainPageState extends State<MainPage> {
             },
           ),
 
-
           new Divider(
             indent: 16.0,
           ),
+
           new ListTile(
             leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 4;
+                this._screenNumber = 5;
                 this._screenName = 'SETTINGS';
               });
               Navigator.pop(context);
@@ -119,7 +141,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 5;
+                this._screenNumber = 6;
                 this._screenName = 'ABOUT';
               });
               Navigator.pop(context);
@@ -131,34 +153,25 @@ class _MainPageState extends State<MainPage> {
   }
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
-      
+      case 4: return new ProfileScreen(account: widget.account,);
       default: return null;
     }
   }
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: new Scaffold(
-            appBar: new AppBar(
-              title: new Text(
-                _screenName,
-                style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
-              ),
-              iconTheme: new IconThemeData(color: accentColor),
-              centerTitle: true,
-              actions: <Widget>[
-                new IconButton(
-                    icon: new Icon(
-                        Icons.notifications,
-                        size: 22.0,
-                        color: accentColor),
-                    onPressed: () {
-                      
-                    }
-                    ),
-              ],
-            ),
-            body: _buildScreen(context),
-            drawer: this._buildDrawer(context)));
+      child: new Scaffold(
+        appBar: new AppBar(
+          title: new Text(
+            _screenName,
+            style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
+          ),
+          iconTheme: new IconThemeData(color: accentColor),
+          centerTitle: true,
+        ),
+        body: _buildScreen(context),
+        drawer: this._buildDrawer(context)
+      )
+    );
   }
 }

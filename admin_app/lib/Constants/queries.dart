@@ -4,6 +4,10 @@
 
 // Check login
 const String LOGIN = 'CALL USP_LoginAdmin( @username )';
+// Update info
+const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
+// Update password
+const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );';
 
 ///////////////////////////////////////////////////////////////
 
