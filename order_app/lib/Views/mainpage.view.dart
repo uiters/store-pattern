@@ -92,27 +92,39 @@ class _MainPageState extends State<MainPage> {
             },
           ),
 
-
-          new Divider(
-            indent: 16.0,
-          ),
-          new ListTile(
-            leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
-            title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
-            onTap: () {
-              setState(() {
-                this._screenNumber = 3;
-                this._screenName = 'SETTING';
-              });
-              Navigator.pop(context);
-            },
-          ),
           new ListTile(
             leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
             title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               Navigator.pop(context);
               Navigator.pop(widget.context);
+            },
+          ),
+
+          new Divider(
+            indent: 16.0,
+          ),
+
+          new ListTile(
+            leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
+            title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 3;
+                this._screenName = 'SETTINGS';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          new ListTile(
+            leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
+            title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 4;
+                this._screenName = 'ABOUT';
+              });
+              Navigator.pop(context);
             },
           )
         ],
