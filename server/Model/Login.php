@@ -16,85 +16,142 @@ require_once 'Adapter.php';
 class Login{
     private $user = null;
     private $pass = null;
-    private $adaper = null;
+    private $adapter = null;
     private $row = null;
     private $timeOut = null;
     public function __construct()
     {
-        $this->adaper = new Adapter();
+        $this->adapter = new Adapter();
     }
 
-    public function builder($header)
+    public function builder($header, $body)
     {
-        if($header == null || $this->_invalid($header))
+        $header = $this->_valid($header);
+        $body = $this->_valid($body);
+
+        if($header == null && $body == null)
             http_response_code(404);//Not found
         else
         {
-            date_default_timezone_set("Asia/Ho_Chi_Minh");
-            $body = explode('.', $header)[0];
-            try
+            if($header != null)
             {
-                $data = json_decode(base64_decode($body));
-                $this->user = $data->user;
-                $this->pass = $data->pass;
-                if($this->_login() == false)
+                date_default_timezone_set("Asia/Ho_Chi_Minh");
+                $data = json_decode($header);
+                $this->user = isset($data->user) ? $data->user : null;
+                $this->pass = isset($data->pass) ? $data->pass : null;
+                if($this->user == null || $this->pass == null || $this->_login() == false)
                     http_response_code(401);//unauthorized
                 else
                 {
                     $token = $this->_createToken();
-
-                    $json = [   
-                                'Username'     => $this->user,
-                                'DisplayName'  => $this->row['DisplayName'],
-                                'Sex'          => $this->row['Sex'],
-                                'IDCard'       => $this->row['IDCard'],
-                                'Address'      => $this->row['Address'],
-                                'PhoneNumber'  => $this->row['PhoneNumber'],
-                                'BirthDay'     => $this->row['BirthDay'],
-                                'IDAccountType'=> $this->row['IDAccountType'],
-                                'IDImage'      => $this->row['IDImage'],
-                                'Token'        => $token,
-                                'TimeOut'      => $this->timeOut
-                            ];
-
+                    $json = $this->_getJson($token);
                     echo json_encode($json);
-
                     $this->_saveToken($token);
                 }
             }
-            catch(Exception $e)
+            else
             {
-                http_response_code(404);
+                $token = $body;
+                $status = $this->_verify($token);
+                switch ($status) {
+                case 0:
+                    http_response_code(401);//unauthorized
+                    break;
+                case -1:
+                    $this->_updateToken($token);
+                case 1:
+                    $this->row = $this->_getInfo($this->row['Username']);
+                    $json = $this->_getJson($token);
+                    echo json_encode($json);
+                    break;
+                default:
+                    http_response_code(401);//unauthorized
+                    break;
+                }
             }
         }
     }
-    private function _invalid($header)
+
+    private function _getJson($token)
     {
-        $listString = explode('.', $header);
+        return [   
+            'status'       => 200,
+            'Username'     => $this->row['Username'],
+            'DisplayName'  => $this->row['DisplayName'],
+            'Sex'          => $this->row['Sex'],
+            'IDCard'       => $this->row['IDCard'],
+            'Address'      => $this->row['Address'],
+            'PhoneNumber'  => $this->row['PhoneNumber'],
+            'BirthDay'     => $this->row['BirthDay'],
+            'IDAccountType'=> $this->row['IDAccountType'],
+            'IDImage'      => $this->row['IDImage'],
+            'Token'        => $token,
+            'TimeOut'      => $this->timeOut
+        ];
+    }
+
+    private function _updateToken($token)
+    {
+        $$this->timeOut = $this->_getDateOut();
+        $user = $this->row['Username'];
+        $noneQuery = "call USP_SaveToken('$user', '$token', '$$this->timeOut')";
+        $this->adapter->executeNoneQuery($noneQuery);
+    }
+
+    private function _verify($token)
+    {
+        $queryVery = "call USP_CheckToken('$token')";
+        $this->row = $this->adapter->executeQuery($queryVery);
+        if(count($this->row) < 1)
+            return 0; // unauthorized
+        $this->row = $this->row[0];
+        $this->timeOut = $this->row['TimeOut'];
+
+        if(strtotime($this->timeOut) > time())
+            return 1; // OK
+        else return -1;// expired token
+    }
+
+    private function _valid($str) //try decode base64
+    {
+        if($str == null)
+            return null;
+        $listString = explode('.', $str);
         if(count($listString) < 2)
-            return true;
+            return null;
         else
         {
             $key = hash_hmac('sha256', $listString[0], 'flutter');
             if($key == $listString[1])
-                return false;
-            else return true;
+                return base64_decode($listString[0]);
+            else return null;
         }  
     }
 
     private function _login()
     {
-        $queryLogin = "call USP_Login1('$this->user');";//------------
-        $this->row = $this->adaper->executeQuery($queryLogin)[0];
-        if($this->row['Password'] == $this->pass)
+        $this->row = $this->_getInfo($this->user);
+        if($this->row == null)
+            return false;
+        $hash = $this->row['Password'];
+        if(password_verify($this->pass, $hash))
             return true;
         else return false;
+    }
+
+    private function _getInfo($user)
+    {
+        $queryLogin = "call USP_Login1('$user');";//------------
+        $rows = $this->adapter->executeQuery($queryLogin);
+        if(count($rows) < 1)
+            return null;
+        return $rows[0];
     }
 
     private function _saveToken($token)
     {
         $noneQuery = "call USP_SaveToken('$this->user', '$token', '$this->timeOut')";
-        $this->adaper->executeNoneQuery($noneQuery);
+        $this->adapter->executeNoneQuery($noneQuery);
     }
 
     private function _createToken()

@@ -46,8 +46,8 @@ class Verifier{
             {
                 //$idType = $row['IDAccountType'];
                 //if(!checkPermit()) http_response_code(401) // 401 UNAUTHORIZED: 
-                if($check == -1) // expired token
-                    $this->_updateToken();
+                // if($check == -1) // expired token
+                //     $this->_updateToken();
                 if($this->noneQuery != null) 
                     $data = $this->adapter->executeNoneQuery($this->noneQuery);
                 else $data = json_encode($this->adapter->executeQuery($this->query));

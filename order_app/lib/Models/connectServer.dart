@@ -10,46 +10,83 @@ class MySqlConnection{
   MySqlConnection._();
   static final instance = new MySqlConnection._();
 
-  String token = '71140d8cfef118324a2fa9218b958c6f02b5f83e6810fb8c665f0cd7ef919043';
+  String token;
   final secretKey = new Hmac(sha256, utf8.encode('flutter'));
 
-  Future<dynamic> executeQuery(String query, {List parameter}) async  {
+  Future<List> executeQuery(String query, {List parameter}) async  {
     if(parameter != null)
       query = _addParameter(query, parameter);
-    String code = _encode(token);
-    print(code);
-    String query1 = _encode(query);
-    print(query1);
 
     var respone = await http.post(
       URL_EXECUTE,
-      headers:{ ID_TOKEN : code},
-      body: {ID_EXECUTEQUERY : query1},
+      headers:{ ID_TOKEN : _encode(token)},
+      body: {ID_EXECUTEQUERY : _encode(query)},
     );
+
     if(respone.statusCode == 200) //OK
-      return json.decode(respone.body);
-    else return null;
+      return [
+        200,//satus
+        json.decode(respone.body)
+      ];//ok
+    else if(respone.statusCode == 401) // Unauthorized
+      return [401]; // unauthorized
+    else throw Exception('Not identify');
   }
 
-  Future<bool> excecuteNoneQuery(String query, {List parameter}) async {
+  Future<Map> login({String user, String pass, String token}) async  {
+    if(token == null){
+      Map<String, dynamic> data = {};
+      data['user'] = user;
+      data['pass'] = pass;
+
+      String jsonLogin = json.encode(data);
+      String encode = _encode(jsonLogin);
+      var respone = await http.post(
+        URL_LOGIN,
+        headers: {ID_LOGIN : encode}
+      );
+      return _getValueLogin(respone);
+    }
+    else{
+      String encode = _encode(token);
+      var respone = await http.post(
+        URL_LOGIN,
+        body: {ID_LOGIN : encode}
+      );
+      return _getValueLogin(respone);
+    }
+  }
+
+  Map _getValueLogin(http.Response respone) {
+    if(respone.statusCode == 200)
+    {
+        Map<String, dynamic> data = json.decode(respone.body);
+        token = data['Token'];
+        return data;
+    }
+      else
+        return json.decode("{'status' : '401'}");
+  }
+
+
+  Future<int> excecuteNoneQuery(String query, {List parameter}) async {
     if(parameter != null)
       query = _addParameter(query, parameter);
 
-    String code = _encode(token);
-    print(code);
-    String query1 = _encode(query);
-    print(query1);
-
     var respone = await http.post(
       URL_EXECUTE,
-      headers:{ ID_TOKEN : code },
-      body: {ID_EXECUTENONEQUERY : query1 },
+      headers:{ ID_TOKEN : _encode(token) },
+      body: {ID_EXECUTENONEQUERY : _encode(query) },
     );
 
     int number = 0;
     if(respone.statusCode == 200) //OK
       number = int.parse(respone.body);
-    return number > 0;
+    else if(respone.statusCode == 401) // Unauthorized
+      number = -99;
+    else throw Exception('Not identify');
+
+    return number;
   }
 
   String _encode(String str)

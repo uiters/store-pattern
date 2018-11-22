@@ -40,7 +40,7 @@ class Adapter
             $data->close();
             $connect->close();
 
-            var_dump($rows);
+            return $rows;
         }
         catch(Exception $e)
         {
