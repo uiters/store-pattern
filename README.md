@@ -25,7 +25,7 @@
 </td>
 </tr></table></div>
 
-## Contents
+## 📑 Contents
 
 * [Features](#features)
 * [Installation](#installation)
@@ -36,7 +36,7 @@
 * [Authors](#authors)
 * [License](#license)
 
-## Features
+## ✨ Features
 
 * Ordering foods by table.
 * Checkout, preview & print invoice.
@@ -46,20 +46,20 @@
 * Manage account.
 * Sales report.
 
-## Installation
+## ⚙️ Installation
 
-## Documents
+## 📒 Documents
 
 For help getting started with Flutter, view our online [documentation](https://flutter.io/).
 
-## Build with
+## ⚔️ Build with
 
 * [Flutter](https://flutter.io/)
-* [Dart programming language](https://www.dartlang.org/)
+* [Dart](https://www.dartlang.org/)
 * [PHP 7](http://php.net/manual/en/migration70.new-features.php)
 * [MySQL](https://www.mysql.com/)
 
-## Some Screens
+## 🖼️ Some Screens
 
 ### `Order App`
 
@@ -105,17 +105,17 @@ For help getting started with Flutter, view our online [documentation](https://f
 
 ### `Admin App`
 
-## Bugs and Issues
+## 🐞 Bugs and Issues
 
 Have a bug or an issue with this project? [Open a new issue](https://github.com/ndc07/store-management/issues) here on GitHub.
 
-## Authors
+## 👀 Authors
 
 * **Nguyen Duy Cuong** - [ndc07](https://github.com/ndc07) 💎
 * **Vi Chi Thien** - [tvc12](https://github.com/tvc12) 🐶
 * **Le Huu Thang** - [lhthang1998](https://github.com/lhthang1998) 🐷
 
-## License
+## ©️ License
 
 [MIT](https://github.com/ndc07/store-management/blob/master/LICENSE)
 
