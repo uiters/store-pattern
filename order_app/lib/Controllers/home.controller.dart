@@ -15,5 +15,4 @@ class Controller {
     if (_tables == null) _tables = Model.instance.tables;
     return _tables;
   }
-
 }
