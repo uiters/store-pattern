@@ -70,11 +70,9 @@ class Controller {
     
     Map<int, Uint8List> images = await futureImages;
     List<Food> foods=  await futureFoods;
-    print('start combine');
     for (int i = 0; i < foods.length; ++i) {
       _combine(foods[i], images[foods[i].idImange]);
     }
-    print('end combine');
     return foods;
   }
 
@@ -86,16 +84,13 @@ class Controller {
     for(int i = 0; i < idImagesMySQL.length; ++i)
     {
       id = int.parse(idImagesMySQL[i]['ID']); // id in database
-      print("ID = $id ");
       if(imagesFile[id] == null)
       {
-        print('Null');
         final temp = await _getImageByID(id);
         _saveFile(id, temp); // save async image in database to file
         images[id] = temp;
       }else
       {
-        print('Not Null');        
         images[id] = imagesFile[id];
         imagesFile.remove(id); // remove async image exists in database
       }
