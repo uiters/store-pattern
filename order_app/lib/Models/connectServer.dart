@@ -21,7 +21,7 @@ class MySqlConnection{
     if(parameter != null) {
       query = _addParameter(query, parameter);
     }
-    print('executeNoneQuery $query');
+    
     http.Response response = await http.post(
       URL_EXECUTE,
       body : { ID_EXECUTENONEQUERY : query },
@@ -39,7 +39,6 @@ class MySqlConnection{
     if(parameter != null) {
       query = _addParameter(query, parameter);
     }
-    print('executeQuery $query');
 
     http.Response response = await http.post(
       URL_EXECUTE,

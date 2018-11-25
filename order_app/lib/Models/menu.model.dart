@@ -46,7 +46,6 @@ class Model {
       directory.listSync().forEach((enity) {
         if(enity is File){
           File file = enity; 
-          print(enity);
           idImage = parseID(basename(file.path));
           image = file.readAsBytesSync();
           futureImages[idImage] = image;
