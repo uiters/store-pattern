@@ -36,3 +36,15 @@ const TextStyle cancelButtonStyle =  TextStyle(
   fontSize: 16.0,
   fontWeight: FontWeight.w600
 );
+const TextStyle headTable =  TextStyle(
+  color: fontColor, 
+  fontFamily: 'Dosis', 
+  fontSize: 15.0,
+  fontWeight: FontWeight.w600
+);
+const TextStyle contentTable =  TextStyle(
+  color: fontColorLight, 
+  fontFamily: 'Dosis', 
+  fontSize: 14.0,
+  fontWeight: FontWeight.w500
+);

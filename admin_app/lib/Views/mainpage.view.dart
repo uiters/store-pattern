@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './../Models/login.model.dart';
 
 import './profile.view.dart';
+import './category.view.dart';
 
 import './../Constants/theme.dart';
 
@@ -102,11 +103,22 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
+            leading: new Icon(Icons.account_circle, color: fontColorLight, size: 19.0,),
+            title: new Text('Account', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 4;
+                this._screenName = 'ACCOUNT';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          new ListTile(
             leading: new Icon(Icons.person, color: fontColorLight, size: 19.0,),
             title: new Text('My Profile', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 4;
+                this._screenNumber = 5;
                 this._screenName = 'MY PROFILE';
               });
               Navigator.pop(context);
@@ -130,7 +142,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 5;
+                this._screenNumber = 6;
                 this._screenName = 'SETTINGS';
               });
               Navigator.pop(context);
@@ -141,7 +153,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 6;
+                this._screenNumber = 7;
                 this._screenName = 'ABOUT';
               });
               Navigator.pop(context);
@@ -153,7 +165,8 @@ class _MainPageState extends State<MainPage> {
   }
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
-      case 4: return new ProfileScreen(account: widget.account,);
+      case 2: return new CategoryScreen();
+      case 5: return new ProfileScreen(account: widget.account,);
       default: return null;
     }
   }

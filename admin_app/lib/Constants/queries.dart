@@ -11,6 +11,12 @@ const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );
 
 ///////////////////////////////////////////////////////////////
 
+// Queries for Category
+
+// Get categories
+const String GET_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
+
+///////////////////////////////////////////////////////////////
 
 
 ///Query Insert Table
