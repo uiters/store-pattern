@@ -4,6 +4,9 @@ import './../Models/category.model.dart' as category;
 
 import './../Controllers/category.controller.dart';
 
+import './addCategory.view.dart';
+import './editCategory.view.dart';
+
 import './../Constants/theme.dart' as theme;
 
 class CategoryScreen extends StatefulWidget {
@@ -36,7 +39,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 new Text('Add', style: theme.contentTable,)
               ],
             ),
-            onPressed: () {},
+            onPressed: () {
+              _pushAddCategoryScreen();
+            },
           ),
           new Container(width: 30.0,),
           new Flexible(
@@ -76,11 +81,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
               scrollDirection: Axis.vertical,
               children: <Widget>[
                 new Table(
-                  // defaultColumnWidth: FlexColumnWidth(0.42),
+                  defaultColumnWidth: FlexColumnWidth(4.0),
                   columnWidths: {
-                    0: FlexColumnWidth(0.125),
-                    // 1: FlexColumnWidth(0.325),
-                    2: FlexColumnWidth(0.55)
+                    0: FlexColumnWidth(1.0),
+                    2: FlexColumnWidth(5.0)
                   },
                   border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                   children: _buildListRow(snapshot.data)
@@ -174,7 +178,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     new Text('Edit', style: theme.contentTable,)
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  _pushEditCategoryScreen();
+                },
               ),
               new RaisedButton(
                 color: Colors.redAccent,
@@ -185,12 +191,48 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     new Text('Delete', style: theme.contentTable,)
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+
+                },
               ),
             ],
           ),
         )
       ]
+    );
+  }
+
+  void _pushAddCategoryScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Add Category',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new AddCategoryScreen(),
+        );
+      }),
+    );
+  }
+
+  void _pushEditCategoryScreen() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Edit Category',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new EditCategoryScreen(),
+        );
+      }),
     );
   }
 }

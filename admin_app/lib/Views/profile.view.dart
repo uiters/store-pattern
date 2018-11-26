@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     TextStyle _itemStyle2 = new TextStyle(
       color: theme.accentColor, 
       fontFamily: 'Dosis', 
-      fontSize: 17.0,
+      fontSize: 18.0,
       fontWeight: FontWeight.w500
     );
 

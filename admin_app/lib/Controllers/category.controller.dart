@@ -15,4 +15,8 @@ class Controller {
     if (_categories == null) _categories = Model.instance.getCategories();
     return _categories;
   }
+
+  Future<bool> insertCategory(String name) {
+    return Model.instance.insertCategory(name);
+  }
 }

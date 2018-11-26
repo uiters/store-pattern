@@ -20,6 +20,13 @@ class Model {
     return parseCategory(futureCategories);
   }
 
+  Future<bool> insertCategory(String name) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.INSERT_CATEGORY,
+      parameter: [name]
+    );
+  }
+
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {
     List<Category> categories = [];
     await futureCategories.then((values) {

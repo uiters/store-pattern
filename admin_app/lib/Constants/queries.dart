@@ -16,6 +16,8 @@ const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );
 // Get categories
 const String GET_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
 
+const String INSERT_CATEGORY = 'CALL `USP_InsertFoodCatetory`( @_Name );';
+
 ///////////////////////////////////////////////////////////////
 
 
