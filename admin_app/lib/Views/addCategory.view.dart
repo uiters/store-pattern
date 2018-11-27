@@ -111,9 +111,10 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 style: theme.okButtonStyle 
               ),
               onPressed: () {
+                String name = _nameController.text;
                 _nameController.clear();
                 Navigator.of(context).pop();
-                cateController.Controller.instance.insertCategory(_nameController.text);
+                cateController.Controller.instance.insertCategory(name);
               },
             )
           ],

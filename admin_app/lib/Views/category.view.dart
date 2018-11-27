@@ -19,7 +19,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     const TextStyle _itemStyle = TextStyle(
-      color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+      color: theme.fontColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 16.0
+    );
+    
     Widget controls = new Container(
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
@@ -69,39 +73,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
     );
 
-    Container table = new Container(
-      padding: const EdgeInsets.all(7.0),
-      child:  new FutureBuilder<List<category.Category>>(
-        future: categories,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          if (snapshot.hasData) {
-            return new ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
-                new Table(
-                  defaultColumnWidth: FlexColumnWidth(4.0),
-                  columnWidths: {
-                    0: FlexColumnWidth(1.0),
-                    2: FlexColumnWidth(5.0)
-                  },
-                  border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
-                  children: _buildListRow(snapshot.data)
-                )
-              ],
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      )
+    Widget table = new FutureBuilder<List<category.Category>>(
+      future: categories,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasData) {
+          return _buildTable(snapshot.data);
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
 
-    return Column(
-      children: <Widget>[
-        controls,
-        table
-      ],
+    return Container(
+      child: Column(
+        children: <Widget>[
+          controls,
+          table
+        ],
+      ),
     );
   }
 
@@ -113,6 +102,30 @@ class _CategoryScreenState extends State<CategoryScreen> {
       listRow.add(_buildTableData(item));
     }
     return listRow;
+  }
+
+  Widget _buildTable(List<category.Category> categories) {
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(7.0),
+        child: new ListView(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              new Table(
+                defaultColumnWidth: FlexColumnWidth(4.0),
+                columnWidths: {
+                  0: FlexColumnWidth(1.0),
+                  2: FlexColumnWidth(5.0)
+                },
+                border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
+                children: _buildListRow(categories)
+              ),
+            ],
+          )
+      ),
+    );
   }
 
   TableRow _buildTableHead() {
@@ -179,7 +192,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 onPressed: () {
-                  _pushEditCategoryScreen();
+                  _pushEditCategoryScreen(category);
                 },
               ),
               new RaisedButton(
@@ -219,7 +232,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  void _pushEditCategoryScreen() {
+  void _pushEditCategoryScreen(category.Category category) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -230,7 +243,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditCategoryScreen(),
+          body: new EditCategoryScreen(category: category),
         );
       }),
     );

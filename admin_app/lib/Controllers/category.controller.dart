@@ -19,4 +19,5 @@ class Controller {
   Future<bool> insertCategory(String name) {
     return Model.instance.insertCategory(name);
   }
+
 }

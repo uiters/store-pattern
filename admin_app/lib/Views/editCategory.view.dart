@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
+import './../Models/category.model.dart' as cate;
+
 import './../Constants/theme.dart' as theme;
 
 class EditCategoryScreen extends StatefulWidget {
+  EditCategoryScreen({key, this.category}) : super(key: key);
+
+  final cate.Category category;
+
   _EditCategoryScreenState createState() => _EditCategoryScreenState();
 }
 
@@ -10,6 +16,13 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   TextEditingController _idController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
   
+  @override
+    void initState() {
+      _idController.text = widget.category.id.toString();
+      _nameController.text = widget.category.name;
+      super.initState();
+    }
+
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(

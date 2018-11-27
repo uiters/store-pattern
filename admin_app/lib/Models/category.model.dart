@@ -15,7 +15,7 @@ class Model {
   
   Future<List<Category>> getCategories() async {
     Future<List> futureCategories = MySqlConnection.instance.executeQuery(
-      queries.GET_CATEGORIES,
+      queries.GET_CATEGORIES
     );
     return parseCategory(futureCategories);
   }
@@ -30,11 +30,7 @@ class Model {
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {
     List<Category> categories = [];
     await futureCategories.then((values) {
-      if (values.length > 0)
-      for (var item in values) {
-        Category category = new Category.fromJson(item);
-        categories.add(category);
-      }
+      values.forEach((value) => categories.add(new Category.fromJson(value)));
     });
     return categories;
   }
