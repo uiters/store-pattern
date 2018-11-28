@@ -10,6 +10,7 @@ import './../Controllers/history.controller.dart';
 
 import './invoice.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class HistoryScreen extends StatefulWidget {
@@ -178,20 +179,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 style: theme.okButtonStyle 
               ),
               onPressed: () async {
-
                 /* Pop screens */
                 Navigator.of(context).pop();
                 Navigator.of(invoiceContext).pop();
 
-                setState(() {
-                    bills.then((values) {
+                if (await Controller.instance.deleteBill(bill.id)) {
+                  bills.then((values) {
                     values.remove(bill);
                   });
-                });
 
-                _showNotification(bill);
-
-                Controller.instance.deleteBill(bill.id);
+                  _showNotification(bill);
+                } else errorDialog(
+                    this.context, 
+                    'Delete the invoice #' + bill.id.toString() + ' • ' + bill.table.name + '.\nPlease try again!'
+                  );
 
               },
             ),
