@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './../Controllers/category.controller.dart' as cateController;
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AddCategoryScreen extends StatefulWidget {
@@ -87,7 +88,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     );
   }
 
-   void _createCategory() async {
+  void _createCategory() async {
 
     showDialog(
       context: context,
@@ -98,7 +99,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want create new category ?',
+            'Do you want to create new category ?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -111,78 +112,21 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 /* Pop screens */
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
-                  await cateController.Controller.instance.insertCategory(_nameController.text);
-                  cateController.Controller.instance.reloadCategories();
-                  _createSuccessful();
+                  if (await cateController.Controller.instance.insertCategory(_nameController.text)) {
+                    cateController.Controller.instance.reloadCategories();
+                    successDialog(this.context, 'Create food category success!');
+                    _nameController.clear();
+                  }
+                  else errorDialog(this.context, 'Create new category failed.' + '\nPlease try again!');
                   return;
                 }
-                _warningName();
+                errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');
               },
             ),
             new FlatButton(
               child: new Text(
                 'Cancel',
                 style: theme.cancelButtonStyle  
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-
-  }
-
-  void _createSuccessful() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Notification',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Create food category success!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () async {
-                _nameController.clear();
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-  }
-
-  void _warningName() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            'Invalid name.' + '\nPlease try again!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
               ),
               onPressed: () {
                 Navigator.of(context).pop();

@@ -27,6 +27,8 @@ class Model {
     );
   }
 
+  
+
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {
     List<Category> categories = [];
     await futureCategories.then((values) {
