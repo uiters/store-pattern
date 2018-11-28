@@ -113,14 +113,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
               ),
-              new Expanded(child: new Container()),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0, right: 8.0),
-                child: new Text(
-                  table.name,
-                  style: const TextStyle(
-                      color: fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
+              // new Expanded(child: new Container()),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0, bottom: 30.0, right: 8.0),
+                  child: new Text(
+                    table.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
 
+                    ),
                   ),
                 ),
               )

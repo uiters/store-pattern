@@ -10,6 +10,7 @@ import './../Models/login.model.dart';
 import './../Models/home.model.dart' as home;
 import './../Models/menu.model.dart' as menu;
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class CartScreen extends StatefulWidget {
@@ -42,7 +43,6 @@ class _CartScreenState extends State<CartScreen> {
     flutterLocalNotificationsPlugin.initialize(initSetting);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,106 +70,107 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
-        padding: EdgeInsets.zero,
-        margin: EdgeInsets.zero,
-        child: new Card(
-          color: theme.primaryColor,
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Expanded(child: new Container()),
-              new Image.memory(
-                food.image,
-                width: 120.0,
-                height: 120.0,
-                fit: BoxFit.cover,
-              ),
-              new Expanded(child: new Container()),
-              new Column(
-                children: <Widget>[
-                  new Expanded(child: new Container()),
-                  new Text(
-                    food.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
-                  ),
-                  new Text(
-                    '\$' + food.price.toString(),
-                    style: const TextStyle(
-                        color: theme.fontColor,
-                        fontFamily: 'Dosis',
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  new Expanded(child: new Container())
-                ],
-              ),
-              new Expanded(child: new Container()),
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new IconButton(
-                    icon: new Icon(
-                      Icons.remove,
-                      size: 16.0,
-                      color: theme.fontColorLight,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.table.subFood(food);
-                      });
-                    },
-                  ),
-                  new Container(
-                    decoration: new BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: theme.fontColor
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                      child: new Text(
-                        food.quantity.toString(),
-                        style: new TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Dosis',
-                          fontSize: 16.0,
-                        ),
-                        textAlign: TextAlign.center
-                      ),
-                    )
-                  ),
-                  new IconButton(
-                    icon: new Icon(
-                      Icons.add,
-                      size: 16.0,
-                      color: theme.fontColorLight,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.table.addFood(food);
-                      });
-                    },
-                  ),
-                ],
-              ),
-              new Expanded(child: new Container()),
-              new IconButton(
-                icon: new Icon(
-                  Icons.delete,
-                  size: 20.0,
-                  color: theme.fontColorLight,
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
+      child: new Card(
+        color: theme.primaryColor,
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Expanded(child: new Container()),
+            new Image.memory(
+              food.image,
+              width: 120.0,
+              height: 120.0,
+              fit: BoxFit.cover,
+            ),
+            new Expanded(child: new Container()),
+            new Column(
+              children: <Widget>[
+                new Expanded(child: new Container()),
+                new Text(
+                  food.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
                 ),
-                onPressed: () {
-                  setState(() {
-                    widget.table.deleteFood(food);
-                  });
-                },
+                new Text(
+                  '\$' + food.price.toString(),
+                  style: const TextStyle(
+                      color: theme.fontColor,
+                      fontFamily: 'Dosis',
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                new Expanded(child: new Container())
+              ],
+            ),
+            new Expanded(child: new Container()),
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new IconButton(
+                  icon: new Icon(
+                    Icons.remove,
+                    size: 16.0,
+                    color: theme.fontColorLight,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      widget.table.subFood(food);
+                    });
+                  },
+                ),
+                new Container(
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: theme.fontColor
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
+                    child: new Text(
+                      food.quantity.toString(),
+                      style: new TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Dosis',
+                        fontSize: 16.0,
+                      ),
+                      textAlign: TextAlign.center
+                    ),
+                  )
+                ),
+                new IconButton(
+                  icon: new Icon(
+                    Icons.add,
+                    size: 16.0,
+                    color: theme.fontColorLight,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      widget.table.addFood(food);
+                    });
+                  },
+                ),
+              ],
+            ),
+            new Expanded(child: new Container()),
+            new IconButton(
+              icon: new Icon(
+                Icons.delete,
+                size: 20.0,
+                color: theme.fontColorLight,
               ),
-              new Expanded(child: new Container()),
-            ],
-          ),
-        ));
+              onPressed: () {
+                setState(() {
+                  widget.table.deleteFood(food);
+                });
+              },
+            ),
+            new Expanded(child: new Container()),
+          ],
+        ),
+      )
+    );
   }
 
   Widget _buildControls(BuildContext context) {
@@ -310,7 +311,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _checkOut(BuildContext cartContext) async {
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -338,14 +338,7 @@ class _CartScreenState extends State<CartScreen> {
 
                 home.Table table = new home.Table(widget.table);
 
-                setState(() {
-                  widget.table.status = -1;
-                  widget.table.foods.clear();
-                });
-
-                _showNotification();
-
-                await Controller.instance.insertBill(
+                if (await Controller.instance.insertBill(
                   table.id, 
                   table.dateCheckIn, 
                   DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
@@ -353,22 +346,31 @@ class _CartScreenState extends State<CartScreen> {
                   table.getTotalPrice(),
                   1,
                   widget.account.username
-                );
-                
-                int idBill = await Controller.instance.getIdBillMax();
+                )) {
 
-                historyController.Controller.instance.addBill(
-                  idBill, 
-                  table, 
-                  DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                  _discount, 
-                  table.getTotalPrice(), 
-                  widget.account
-                );
+                  int idBill = await Controller.instance.getIdBillMax();
 
-                for (var food in table.foods) {
-                  await Controller.instance.insertBillDetail(idBill, food.id, food.quantity);
-                }
+                  historyController.Controller.instance.addBill(
+                    idBill, 
+                    table, 
+                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                    _discount, 
+                    table.getTotalPrice(), 
+                    widget.account
+                  );
+
+                  for (var food in table.foods) {
+                    if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
+                      errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                      return;
+                    }
+                  }
+
+                  widget.table.status = -1;
+                  widget.table.foods.clear();
+
+                  _showNotification();
+                } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
 
               },
             ),
@@ -385,7 +387,6 @@ class _CartScreenState extends State<CartScreen> {
         );
       }
     );
-
   }
 
   Future _showNotification() async {

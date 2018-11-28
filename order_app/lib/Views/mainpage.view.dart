@@ -154,6 +154,7 @@ class _MainPageState extends State<MainPage> {
           iconTheme: new IconThemeData(color: accentColor),
           centerTitle: true,
         ),
+        resizeToAvoidBottomPadding: false,
         body: _buildScreen(context),
         drawer: this._buildDrawer(context))
       );

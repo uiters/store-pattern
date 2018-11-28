@@ -7,6 +7,7 @@ import 'dart:async';
 import './../Models/login.model.dart' as login;
 import './../Controllers/profile.controller.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class ProfileScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     TextStyle _itemStyle2 = new TextStyle(
       color: theme.accentColor, 
       fontFamily: 'Dosis', 
-      fontSize: 17.0,
+      fontSize: 18.0,
       fontWeight: FontWeight.w500
     );
 
@@ -243,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _changePass();
           else {
             _oldPassController.clear();
-            _errorPass();
+            errorDialog(context, 'Password incorrect.' + '\nPlease try again!');
           }
         },
       ),
@@ -302,7 +303,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _changeInfo() {
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -322,13 +322,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: theme.okButtonStyle 
               ),
               onPressed: () async {
-
                 /* Pop screens */
                 Navigator.of(context).pop();
-
-                _showNotificationInfo();
                 
-                Controller.instance.updateInfo(
+                if (await Controller.instance.updateInfo(
                   widget.account.username, 
                   _displayNameController.text, 
                   _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1), 
@@ -336,17 +333,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _idCardController.text, 
                   _addressController.text, 
                   _phoneController.text
-                );
+                ) ) {
+                  successDialog(this.context, 'Change information success!');
 
-                login.Account account = widget.account;
-
-                account.displayName = _displayNameController.text;
-                account.sex = _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1);
-                account.birthday = DateTime.parse(_birthDayController.text);
-                account.idCard = _idCardController.text;
-                account.address = _addressController.text;
-                account.phone = _phoneController.text;
-
+                  login.Account account = widget.account;
+                  account.displayName = _displayNameController.text;
+                  account.sex = _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1);
+                  account.birthday = DateTime.parse(_birthDayController.text);
+                  account.idCard = _idCardController.text;
+                  account.address = _addressController.text;
+                  account.phone = _phoneController.text;
+                } else errorDialog(this.context, 'Change information failed.' + '\nPlease try again!');
               },
             ),
             new FlatButton(
@@ -362,27 +359,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       }
     );
-
-  }
-
-  Future _showNotificationInfo() async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      'your channel id', 'your channel name', 'your channel description',
-      importance: Importance.Max, priority: Priority.High);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
-      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-      0, 
-      'Notification', 
-      'Change information success!', 
-      platformChannelSpecifics,
-      payload: 'item x'
-    );
   }
 
   void _changePass() {
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -407,29 +386,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.of(context).pop();
 
                 if (_newPassConfirmController.text == _newPassController.text && _newPassController.text == '') {
-                  _warningNewPass();
+                  errorDialog(this.context, 'Invalid new password.' + '\nPlease try again!');
                   return;
                 }
 
                 if (_newPassConfirmController.text == _newPassController.text) {
-                  _showNotificationPass();
-                
-                  Controller.instance.updatePassword(
+                  // Check updatePassword                
+                  if (await Controller.instance.updatePassword(
                     widget.account.username,
                     _newPassController.text
-                  );
+                  )) {
+                    login.Account account = widget.account;
+                    account.password = Controller.instance.toHashPass(_newPassController.text);
+                    successDialog(this.context, 'Change password success!');
+                  } else errorDialog(this.context, 'Change password failed.' + '\nPlease try again!');
                   
-                  login.Account account = widget.account;
-
-                  account.password = Controller.instance.toHashPass(_newPassController.text);
-                } else {
-                  _errorNewPass();
-                }
+                } else errorDialog(this.context, 'New password does not match the confirm password.' + '\nPlease try again!');
                 
                 _oldPassController.clear();
                 _newPassConfirmController.clear();
                 _newPassController.clear();
-                
               },
             ),
             new FlatButton(
@@ -444,122 +420,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         );
       }
-    );
-
-  }
-
-  Future _showNotificationPass() async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      'your channel id', 'your channel name', 'your channel description',
-      importance: Importance.Max, priority: Priority.High);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
-      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-      0, 
-      'Notification', 
-      'Change password success!', 
-      platformChannelSpecifics,
-      payload: 'item x'
-    );
-  }
-
-  void _errorPass() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            'Password incorrect.' + '\nPlease try again!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-  }
-
-  void _errorNewPass() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            'New password does not match the confirm password.' + '\nPlease try again!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-  }
-
-  void _warningNewPass() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            'Invalid new password.' + '\nPlease try again!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
-  }
-
-  Future onSelectNotification(String payload) async {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return new AlertDialog(
-          title: Text("PayLoad"),
-          content: Text("Payload : $payload"),
-        );
-      },
     );
   }
 
