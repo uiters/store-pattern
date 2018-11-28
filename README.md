@@ -70,6 +70,11 @@ For help getting started with Flutter, view our online [documentation](https://f
 </td>
 <td style="text-align: center">
   <a href="https://github.com/ndc07/store-management/tree/master/order_app">
+<img src="https://user-images.githubusercontent.com/34389409/49172727-64efe780-f374-11e8-8a93-e4c603615d40.png" width="200"/>
+  </a>
+</td>
+<td style="text-align: center">
+  <a href="https://github.com/ndc07/store-management/tree/master/order_app">
 <img src="https://user-images.githubusercontent.com/34389409/48913037-dd086a00-eea9-11e8-927a-1056286dabfa.png" width="200" />
   </a>
 </td>
@@ -78,17 +83,17 @@ For help getting started with Flutter, view our online [documentation](https://f
 <img src="https://user-images.githubusercontent.com/34389409/48913050-e691d200-eea9-11e8-89e7-bce901825865.png" width="200"/>
   </a>
 </td>
+</tr></table></div>
+
+<div style="text-align: center"><table><tr>
 <td style="text-align: center">
   <a href="https://github.com/ndc07/store-management/tree/master/order_app">
 <img src="https://user-images.githubusercontent.com/34389409/48913060-ebef1c80-eea9-11e8-8754-cef221812efe.png" width="200"/>
   </a>
 </td>
-</tr></table></div>
-
-<div style="text-align: center"><table><tr>
-  <td style="text-align: center">
-  <a href="https://github.com/ndc07/store-management/tree/master/order_app">
-    <img src="https://user-images.githubusercontent.com/34389409/48913066-eeea0d00-eea9-11e8-8546-10091f647594.png" width="200"/></a>
+<td style="text-align: center">
+<a href="https://github.com/ndc07/store-management/tree/master/order_app">
+  <img src="https://user-images.githubusercontent.com/34389409/48913066-eeea0d00-eea9-11e8-8546-10091f647594.png" width="200"/></a>
 </td>
 <td style="text-align: center">
   <a href="https://github.com/ndc07/store-management/tree/master/order_app">
