@@ -20,4 +20,8 @@ class Controller {
     return Model.instance.insertCategory(name);
   }
 
+  void reloadCategories() {
+    _categories = Model.instance.getCategories();
+  }
+
 }

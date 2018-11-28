@@ -229,7 +229,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           body: new AddCategoryScreen(),
         );
       }),
-    );
+    ).then((value) {
+      setState(() {
+        categories = Controller.instance.categories;
+      });
+    });
   }
 
   void _pushEditCategoryScreen(category.Category category) {

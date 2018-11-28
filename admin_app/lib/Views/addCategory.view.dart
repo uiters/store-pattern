@@ -64,11 +64,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             style: _itemStyle,
           ),
           onPressed: () {
-            if (_nameController.text.trim() != '') {
               _createCategory();
-              return;
-            }
-            _warningName();
           },
         ),
       ),
@@ -91,7 +87,55 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     );
   }
 
-  void _createCategory() {
+   void _createCategory() async {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want create new category ?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (_nameController.text.trim() != '') {
+                  await cateController.Controller.instance.insertCategory(_nameController.text);
+                  cateController.Controller.instance.reloadCategories();
+                  _createSuccessful();
+                  return;
+                }
+                _warningName();
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+
+  }
+
+  void _createSuccessful() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -110,11 +154,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 'Ok',
                 style: theme.okButtonStyle 
               ),
-              onPressed: () {
-                String name = _nameController.text;
+              onPressed: () async {
                 _nameController.clear();
                 Navigator.of(context).pop();
-                cateController.Controller.instance.insertCategory(name);
               },
             )
           ],
