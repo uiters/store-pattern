@@ -28,4 +28,9 @@ class Controller {
     _tables = Model.instance.getTables();
   }
 
+  Future<List<Table>> searchTables(String name) async {
+    List<Table> items = await tables;
+    return items.where((item) => item.name.toLowerCase().indexOf(name.toLowerCase()) != -1).toList();
+  }
+
 }
