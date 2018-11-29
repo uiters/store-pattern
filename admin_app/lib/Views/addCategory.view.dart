@@ -89,7 +89,6 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   }
 
   void _createCategory() async {
-
     showDialog(
       context: context,
       builder: (BuildContext context) {

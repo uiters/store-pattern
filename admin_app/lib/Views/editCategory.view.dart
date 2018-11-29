@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import './../Models/category.model.dart' as cate;
 
+import './../Controllers/category.controller.dart' as cateController;
+
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class EditCategoryScreen extends StatefulWidget {
@@ -69,7 +72,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
             style: _itemStyle,
           ),
           onPressed: () {
-            
+            _updateCategory();
           },
         ),
       ),
@@ -89,6 +92,54 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
         ],
         )
        ),
+    );
+  }
+
+  void _updateCategory() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to update this category ?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (_nameController.text.trim() != '') {
+                  if (await cateController.Controller.instance.updateCategory(widget.category.id, _nameController.text)) {
+                    cateController.Controller.instance.reloadCategories();
+                    successDialog(this.context, 'Update food category success!');
+                  }
+                  else errorDialog(this.context, 'Update food category failed.' + '\nPlease try again!');
+                  return;
+                }
+                errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 }

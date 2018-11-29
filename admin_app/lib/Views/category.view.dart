@@ -250,6 +250,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           body: new EditCategoryScreen(category: category),
         );
       }),
-    );
+    ).then((value) {
+      setState(() {
+        categories = Controller.instance.categories;
+      });
+    });
   }
 }

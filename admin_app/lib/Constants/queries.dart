@@ -18,6 +18,8 @@ const String GET_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
 
 const String INSERT_CATEGORY = 'CALL `USP_InsertFoodCatetory`( @_Name );';
 
+const String UPDATE_CATEGORY = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
+
 ///////////////////////////////////////////////////////////////
 
 
