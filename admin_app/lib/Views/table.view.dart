@@ -16,6 +16,8 @@ class TableScreen extends StatefulWidget {
 class _TableScreenState extends State<TableScreen> {
   Future<List<model.Table>> tables = Controller.instance.tables;
 
+  TextEditingController _keywordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     const TextStyle _itemStyle = TextStyle(
@@ -50,6 +52,7 @@ class _TableScreenState extends State<TableScreen> {
           new Container(width: 30.0,),
           new Flexible(
             child: new TextField(
+              controller: _keywordController,
               onChanged: (text) {},
               onSubmitted: null,
               style: _itemStyle,
@@ -65,7 +68,9 @@ class _TableScreenState extends State<TableScreen> {
                 icon: new Icon(
                   Icons.search, color: theme.fontColorLight, size: 16.0,),
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    tables = Controller.instance.searchTables(_keywordController.text);
+                  });
                 },
               )
           )
