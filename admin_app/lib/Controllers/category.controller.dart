@@ -28,4 +28,10 @@ class Controller {
     _categories = Model.instance.getCategories();
   }
 
+  Future<List<Category>> searchCategories(String keyword) async {
+    List<Category> items = await categories;
+    if (keyword.trim() == '') return items;
+    return items.where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
+  }
+
 }

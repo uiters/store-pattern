@@ -28,9 +28,10 @@ class Controller {
     _tables = Model.instance.getTables();
   }
 
-  Future<List<Table>> searchTables(String name) async {
+  Future<List<Table>> searchTables(String keyword) async {
     List<Table> items = await tables;
-    return items.where((item) => item.name.toLowerCase().indexOf(name.toLowerCase()) != -1).toList();
+    if (keyword.trim() == '') return items;
+    return items.where((item) => item.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1).toList();
   }
 
 }

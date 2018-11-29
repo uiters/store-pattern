@@ -15,6 +15,7 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   Future<List<category.Category>> categories = Controller.instance.categories;
+  TextEditingController _keywordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           new Container(width: 30.0,),
           new Flexible(
             child: new TextField(
+              controller: _keywordController,
               onChanged: (text) {},
               onSubmitted: null,
               style: _itemStyle,
@@ -65,7 +67,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 icon: new Icon(
                   Icons.search, color: theme.fontColorLight, size: 16.0,),
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    categories = Controller.instance.searchCategories(_keywordController.text);
+                  });
                 },
               )
           )
