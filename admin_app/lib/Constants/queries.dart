@@ -2,18 +2,16 @@
 
 // Queries for Account
 
-// Check login
 const String LOGIN = 'CALL USP_LoginAdmin( @username )';
-// Update info
+
 const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
-// Update password
+
 const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );';
 
 ///////////////////////////////////////////////////////////////
 
 // Queries for Category
 
-// Get categories
 const String GET_CATEGORIES = 'CALL `USP_GetFoodCategories`();';
 
 const String INSERT_CATEGORY = 'CALL `USP_InsertFoodCatetory`( @_Name );';
@@ -21,6 +19,17 @@ const String INSERT_CATEGORY = 'CALL `USP_InsertFoodCatetory`( @_Name );';
 const String UPDATE_CATEGORY = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
 
 ///////////////////////////////////////////////////////////////
+
+// Queries for Table
+
+const String GET_TABLES = 'CALL `USP_GetTables`();';
+
+const String INSERT_TABLE = 'CALL `USP_InsertTable`( @Nametable );';
+
+const String UPDATE_TABLE = 'CALL USP_UpdateTable( @ID , @_Name , @_Status );';
+
+///////////////////////////////////////////////////////////////
+
 
 
 ///Query Insert Table
