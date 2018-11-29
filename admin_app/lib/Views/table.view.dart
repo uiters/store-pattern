@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import './../Models/category.model.dart' as category;
+import './../Models/table.model.dart' as model;
 
-import './../Controllers/category.controller.dart';
+import './../Controllers/table.controller.dart';
 
-import './addCategory.view.dart';
-import './editCategory.view.dart';
+import './addTable.view.dart';
+import './editTable.view.dart';
 
 import './../Constants/theme.dart' as theme;
 
-class CategoryScreen extends StatefulWidget {
-  _CategoryScreenState createState() => _CategoryScreenState();
+class TableScreen extends StatefulWidget {
+  _TableScreenState createState() => _TableScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
-  Future<List<category.Category>> categories = Controller.instance.categories;
+class _TableScreenState extends State<TableScreen> {
+  Future<List<model.Table>> tables = Controller.instance.tables;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ],
             ),
             onPressed: () {
-              _pushAddCategoryScreen();
+              _pushAddTableScreen();
             },
           ),
           new Container(width: 30.0,),
@@ -54,7 +54,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
-                  hintText: 'Enter your category...',
+                  hintText: 'Enter your table...',
                   hintStyle: _itemStyle,
               )
             )
@@ -73,8 +73,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
     );
 
-    Widget table = new FutureBuilder<List<category.Category>>(
-      future: categories,
+    Widget table = new FutureBuilder<List<model.Table>>(
+      future: tables,
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
         if (snapshot.hasData) {
@@ -94,17 +94,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<category.Category> categories) {
+  List<TableRow> _buildListRow(List<model.Table> tables) {
     List<TableRow> listRow = [
       _buildTableHead()
     ];
-    for (var item in categories) {
+    for (var item in tables) {
       listRow.add(_buildTableData(item));
     }
     return listRow;
   }
 
-  Widget _buildTable(List<category.Category> categories) {
+  Widget _buildTable(List<model.Table> tables) {
     return Expanded(
       child: Container(
         width: double.infinity,
@@ -120,7 +120,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   2: FlexColumnWidth(5.0)
                 },
                 border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
-                children: _buildListRow(categories)
+                children: _buildListRow(tables)
               ),
             ],
           )
@@ -159,14 +159,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  TableRow _buildTableData(category.Category category) {
+  TableRow _buildTableData(model.Table table) {
     return new TableRow(
       children: [
         new TableCell(
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(category.id.toString(), style: theme.contentTable,),
+              new Text(table.id.toString(), style: theme.contentTable,),
             ],
           ),
         ),
@@ -174,7 +174,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(category.name, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(table.name, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -192,7 +192,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 onPressed: () {
-                  _pushEditCategoryScreen(category);
+                  _pushEditTableScreen(table);
                 },
               ),
               new RaisedButton(
@@ -215,13 +215,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  void _pushAddCategoryScreen() {
+  void _pushAddTableScreen() {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Add Category',
+              'Add Table',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
@@ -231,28 +231,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
       }),
     ).then((value) {
       setState(() {
-        categories = Controller.instance.categories;
+        tables = Controller.instance.tables;
       });
     });
   }
 
-  void _pushEditCategoryScreen(category.Category category) {
+  void _pushEditTableScreen(model.Table table) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Edit Category',
+              'Edit Table',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditCategoryScreen(category: category),
+          body: new EditCategoryScreen(table: table),
         );
       }),
     ).then((value) {
       setState(() {
-        categories = Controller.instance.categories;
+        tables = Controller.instance.tables;
       });
     });
   }

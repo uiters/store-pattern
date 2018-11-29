@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './../Controllers/login.controller.dart';
 
-import './mainpage.view.dart';
+import './mainPage.view.dart';
 
 import './../Constants/theme.dart' as theme;
 
@@ -160,7 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       body: new Stack(
         children: <Widget>[
           new Center(

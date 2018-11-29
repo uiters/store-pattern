@@ -27,7 +27,12 @@ class Model {
     );
   }
 
-  
+  Future<bool> updateCategory(int id, String name) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_CATEGORY,
+      parameter: [id, name]
+    );
+  }
 
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {
     List<Category> categories = [];

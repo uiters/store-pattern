@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './../Controllers/category.controller.dart' as cateController;
+import './../Controllers/table.controller.dart' as tableController;
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -61,11 +61,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
         child: new RaisedButton(
           color: Colors.redAccent,
           child: new Text(
-            'Create Category',
+            'Create Table',
             style: _itemStyle,
           ),
           onPressed: () {
-              _createCategory();
+              _createTable();
           },
         ),
       ),
@@ -88,7 +88,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     );
   }
 
-  void _createCategory() async {
+  void _createTable() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -98,7 +98,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to create new category ?',
+            'Do you want to create new table?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -111,12 +111,12 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 /* Pop screens */
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
-                  if (await cateController.Controller.instance.insertCategory(_nameController.text)) {
-                    cateController.Controller.instance.reloadCategories();
-                    successDialog(this.context, 'Create food category success!');
+                  if (await tableController.Controller.instance.insertTable(_nameController.text)) {
+                    tableController.Controller.instance.reloadTables();
+                    successDialog(this.context, 'Create table success!');
                     _nameController.clear();
                   }
-                  else errorDialog(this.context, 'Create new category failed.' + '\nPlease try again!');
+                  else errorDialog(this.context, 'Create table failed.' + '\nPlease try again!');
                   return;
                 }
                 errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

@@ -20,6 +20,10 @@ class Controller {
     return Model.instance.insertCategory(name);
   }
 
+  Future<bool> updateCategory(int id, String name) {
+    return Model.instance.updateCategory(id, name);
+  }
+
   void reloadCategories() {
     _categories = Model.instance.getCategories();
   }

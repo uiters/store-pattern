@@ -4,6 +4,7 @@ import './../Models/login.model.dart';
 
 import './profile.view.dart';
 import './category.view.dart';
+import './table.view.dart';
 
 import './../Constants/theme.dart';
 
@@ -177,6 +178,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 2: return new CategoryScreen();
+      case 3: return new TableScreen();
       case 6: return new ProfileScreen(account: widget.account,);
       default: return null;
     }

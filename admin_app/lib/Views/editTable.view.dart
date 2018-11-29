@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
-import './../Controllers/category.controller.dart' as cateController;
+import './../Models/table.model.dart' as model;
+
+import './../Controllers/table.controller.dart' as tableController;
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
-class AddCategoryScreen extends StatefulWidget {
-  _AddCategoryScreenState createState() => _AddCategoryScreenState();
+class EditCategoryScreen extends StatefulWidget {
+  EditCategoryScreen({key, this.table}) : super(key: key);
+
+  final model.Table table;
+
+  _EditCategoryScreenState createState() => _EditCategoryScreenState();
 }
 
-class _AddCategoryScreenState extends State<AddCategoryScreen> {
+class _EditCategoryScreenState extends State<EditCategoryScreen> {
   TextEditingController _idController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
   
   @override
     void initState() {
-      _idController.text = '  ';
+      _idController.text = widget.table.id.toString();
+      _nameController.text = widget.table.name;
       super.initState();
     }
 
@@ -40,7 +47,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
       controller: _idController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Auto-ID:',
+        labelText: 'ID:',
         labelStyle: _itemStyle2
       ),
     );
@@ -54,18 +61,18 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
       ),
     );
 
-    Widget create = Container(
+    Widget saveChange = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
         child: new RaisedButton(
           color: Colors.redAccent,
           child: new Text(
-            'Create Category',
+            'Save Change',
             style: _itemStyle,
           ),
           onPressed: () {
-              _createCategory();
+            _updateTable();
           },
         ),
       ),
@@ -81,14 +88,14 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
         children: <Widget>[
           id,
           name,
-          create
+          saveChange
         ],
         )
        ),
     );
   }
 
-  void _createCategory() async {
+  void _updateTable() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -98,7 +105,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to create new category ?',
+            'Do you want to update this table ?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -111,12 +118,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 /* Pop screens */
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
-                  if (await cateController.Controller.instance.insertCategory(_nameController.text)) {
-                    cateController.Controller.instance.reloadCategories();
-                    successDialog(this.context, 'Create food category success!');
-                    _nameController.clear();
+                  if (await tableController.Controller.instance.updateTable(widget.table.id, _nameController.text)) {
+                    tableController.Controller.instance.reloadTables();
+                    successDialog(this.context, 'Update table success!');
                   }
-                  else errorDialog(this.context, 'Create new category failed.' + '\nPlease try again!');
+                  else errorDialog(this.context, 'Update table failed.' + '\nPlease try again!');
                   return;
                 }
                 errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');
