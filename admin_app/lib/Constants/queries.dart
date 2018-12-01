@@ -26,10 +26,19 @@ const String GET_TABLES = 'CALL `USP_GetTables`();';
 
 const String INSERT_TABLE = 'CALL `USP_InsertTable`( @Nametable );';
 
-const String UPDATE_TABLE = 'CALL USP_UpdateTable( @ID , @_Name , @_Status );';
+const String UPDATE_TABLE = 'CALL `USP_UpdateTable`( @ID , @_Name , @_Status );';
 
 ///////////////////////////////////////////////////////////////
 
+// Queries for Account Types
+
+const String GET_ACCTYPES = 'CALL `USP_GetAccountTypes`();';
+
+const String INSERT_ACCTYPE = 'CALL `USP_InsertAccType`( @_Name );';
+
+const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
+
+///////////////////////////////////////////////////////////////
 
 
 ///Query Insert Table
