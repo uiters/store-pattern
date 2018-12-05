@@ -13,6 +13,13 @@ class Model {
     return _instance;
   }
 
+  Future<bool> updateAvatar(String username, String image) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_ACC_AVATAR,
+      parameter: [username, image]
+    );
+  }
+
   Future<bool> updateInfo(String username, String displayName, int sex, DateTime birthday, String idCard, String address, String phone) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.UPDATE_ACC_INFO,

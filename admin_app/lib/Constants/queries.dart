@@ -8,6 +8,8 @@ const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayNam
 
 const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );';
 
+const String UPDATE_ACC_AVATAR = 'CALL `USP_UpdateAccAvatar`( @username , @image )';
+
 ///////////////////////////////////////////////////////////////
 
 // Queries for Category
