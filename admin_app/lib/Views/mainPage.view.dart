@@ -6,6 +6,7 @@ import './profile.view.dart';
 import './category.view.dart';
 import './table.view.dart';
 import './accountType.view..dart';
+import './food.view.dart';
 
 import './../Constants/theme.dart';
 
@@ -178,6 +179,7 @@ class _MainPageState extends State<MainPage> {
   }
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
+      case 1: return new FoodScreen();
       case 2: return new CategoryScreen();
       case 3: return new TableScreen();
       case 5: return new AccountTypeScreen();
