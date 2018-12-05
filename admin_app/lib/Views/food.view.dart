@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './../Models/food.model.dart' as food;
 
+import './../Views/foodDetail.view.dart';
+
 import './../Controllers/food.controller.dart';
 
 import './../Constants/theme.dart' as theme;
@@ -42,7 +44,7 @@ class _FoodScreenState extends State<FoodScreen> {
               ],
             ),
             onPressed: () {
-              _pushAddCategoryScreen();
+              _pushAddFoodScreen();
             },
           ),
           new Container(width: 30.0,),
@@ -221,7 +223,7 @@ class _FoodScreenState extends State<FoodScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
                 onPressed: () {
-                  _pushEditCategoryScreen(food);
+                  _pushEditFoodScreen(food);
                 },
               ),
               new IconButton(
@@ -235,7 +237,7 @@ class _FoodScreenState extends State<FoodScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
                 onPressed: () {
-
+                  _pushDetailsFoodScreen(food);
                 },
               ),
             ],
@@ -245,7 +247,7 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  void _pushAddCategoryScreen() {
+  void _pushAddFoodScreen() {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -266,7 +268,7 @@ class _FoodScreenState extends State<FoodScreen> {
     });
   }
 
-  void _pushEditCategoryScreen(food.Food food) {
+  void _pushEditFoodScreen(food.Food food) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
@@ -285,5 +287,22 @@ class _FoodScreenState extends State<FoodScreen> {
         foods = Controller.instance.foods;
       });
     });
+  }
+
+  void _pushDetailsFoodScreen(food.Food food) {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Food Details',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new FoodDetailScreen(food: food,)
+        );
+      }),
+    );
   }
 }
