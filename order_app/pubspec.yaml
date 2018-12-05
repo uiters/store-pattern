@@ -25,6 +25,7 @@ dependencies:
   intl: ^0.15.7
   dbcrypt: ^1.0.0
   path_provider: ^0.4.1
+  image_picker: ^0.4.10
 
 dev_dependencies:
   flutter_test:

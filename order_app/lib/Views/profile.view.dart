@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -5,7 +8,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 
 import './../Models/login.model.dart' as login;
+
 import './../Controllers/profile.controller.dart';
+import './../Controllers/login.controller.dart' as loginController;
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -33,26 +38,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String _sex;
 
+  File _image;
+
   @override
-    void initState() {
-      login.Account account = widget.account;
+  void initState() {
+    login.Account account = widget.account;
 
-      _displayNameController.text = account.displayName;
-      _idCardController.text = account.idCard;
-      _addressController.text = account.address;
-      _phoneController.text = account.phone;
-      _accountTypeController.text = account.accountType;
-      _sex = account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
-      _birthDayController.text = account.birthday.toString().split(' ')[0];
-      
-      super.initState();
+    _displayNameController.text = account.displayName;
+    _idCardController.text = account.idCard;
+    _addressController.text = account.address;
+    _phoneController.text = account.phone;
+    _accountTypeController.text = account.accountType;
+    _sex = account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
+    _birthDayController.text = account.birthday.toString().split(' ')[0];
+    
+    super.initState();
 
-      flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-      var android = new AndroidInitializationSettings('app_icon');
-      var ios = new IOSInitializationSettings();
-      var initSetting = new InitializationSettings(android, ios);
-      flutterLocalNotificationsPlugin.initialize(initSetting);
-    }
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('app_icon');
+    var ios = new IOSInitializationSettings();
+    var initSetting = new InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(initSetting);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +79,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     Widget avatar = new Column(
       children: <Widget>[
-        new Container(
-          width: 100.0,
-          height: 100.0,
-          decoration: new BoxDecoration(
-            shape: BoxShape.circle,
-            image: new DecorationImage(
-              fit: BoxFit.fill,
-              image: new MemoryImage(
-                widget.account.image,
+        new GestureDetector(
+          onTap: () async {
+            var image = await Controller.instance.getImage();
+            setState(() {
+              _image = image;
+            });
+            if (_image != null) {
+              
+              if (await Controller.instance.updateAvatar(
+                widget.account.username, 
+                base64Encode(_image.readAsBytesSync())
+              )) {
+                successDialog(context, 'Upload avatar successfully!');
+
+                setState(() {
+                  widget.account.image = _image.readAsBytesSync();
+                  loginController.Controller.instance.account.image = _image.readAsBytesSync();   
+                });
+              } else errorDialog(context, 'Upload avatar failed!');
+
+            } else errorDialog(context, 'Image is null.\nPlease try again!');
+            
+          },
+          child: new Container(
+            width: 100.0,
+            height: 100.0,
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              image: new DecorationImage(
+                fit: BoxFit.fill,
+                image: _image == null 
+                ? new MemoryImage(
+                  widget.account.image,
+                )
+                : new FileImage(_image)
               )
             )
-          )
+          ),
         ),
         new Text(
           widget.account.username,

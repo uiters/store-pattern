@@ -156,7 +156,9 @@ class _MainPageState extends State<MainPage> {
         ),
         resizeToAvoidBottomPadding: false,
         body: _buildScreen(context),
-        drawer: this._buildDrawer(context))
-      );
+        drawer: this._buildDrawer(context)
+      )
+    );
   }
+
 }
