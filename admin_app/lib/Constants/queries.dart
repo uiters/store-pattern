@@ -42,6 +42,15 @@ const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 
 ///////////////////////////////////////////////////////////////
 
+// Queries for Food
+
+const String GET_FOODS = 'CALL `USP_GetFoodsPlus`();';
+
+const String INSERT_FOOD = 'CALL `USP_InsertFoodCatetory`( @_Name );';
+
+const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
+
+///////////////////////////////////////////////////////////////
 
 ///Query Insert Table
 ///
