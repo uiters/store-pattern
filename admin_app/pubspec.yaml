@@ -21,14 +21,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   http: ^0.11.3+17
   flutter_local_notifications: ^0.4.0
-  timeago: ^2.0.9
-  intl: ^0.15.7
   dbcrypt: ^1.0.0
-<<<<<<< HEAD:order_app/pubspec.yaml
-  path_provider: ^0.4.1
-=======
   image_picker: ^0.4.10
->>>>>>> 5f7ed76c1da0e6402575c51f675f28e0c7e6380c:admin_app/pubspec.yaml
 
 dev_dependencies:
   flutter_test:
@@ -49,19 +43,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/images/logo.png
-      - assets/images/menu1.png
-      - assets/images/menu2.png
-      - assets/images/menu3.png
-      - assets/images/menu4.png
-      - assets/images/menu5.png
-      - assets/images/menu7.png
-      - assets/images/menu8.png
-      - assets/images/menu9.png
-      - assets/images/menu10.png
-      - assets/images/menu11.png
-      - assets/images/menu12.png
-      - assets/images/menu13.png
-      - assets/images/menu14.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
@@ -89,4 +70,3 @@ flutter:
            weight: 900
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
-

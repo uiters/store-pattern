@@ -74,6 +74,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
+<<<<<<< HEAD:order_app/pubspec.lock
   intl:
     dependency: "direct main"
     description:
@@ -81,6 +82,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.15.7"
+=======
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.10"
+>>>>>>> 5f7ed76c1da0e6402575c51f675f28e0c7e6380c:admin_app/pubspec.lock
   matcher:
     dependency: transitive
     description:
