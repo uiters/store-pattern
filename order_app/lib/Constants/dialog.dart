@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './theme.dart' as theme;
 
 void errorDialog(BuildContext context, String message) {
+  if (context != null)
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -31,6 +32,7 @@ void errorDialog(BuildContext context, String message) {
 }
 
 void successDialog(BuildContext context, String message) {
+  if (context != null)
   showDialog(
     context: context,
     builder: (BuildContext context) {
