@@ -24,11 +24,8 @@ dependencies:
   timeago: ^2.0.9
   intl: ^0.15.7
   dbcrypt: ^1.0.0
-<<<<<<< HEAD:order_app/pubspec.yaml
   path_provider: ^0.4.1
-=======
   image_picker: ^0.4.10
->>>>>>> 5f7ed76c1da0e6402575c51f675f28e0c7e6380c:admin_app/pubspec.yaml
 
 dev_dependencies:
   flutter_test:
@@ -89,4 +86,3 @@ flutter:
            weight: 900
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
-
