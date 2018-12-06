@@ -22,7 +22,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
   @override
   void initState() {
     Food food = widget.food;
-
+   
     _idController.text = food.id.toString();
     _nameController.text = food.name;
     _categoryController.text = food.category;
@@ -49,7 +49,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
 
     Widget avatar = new Column(
       children: <Widget>[
-        widget.food.image == null
+        widget.food.image.isEmpty
         ? new Image.asset(
           'assets/images/food.png',
           width: 122.0,

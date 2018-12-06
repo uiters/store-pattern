@@ -235,9 +235,14 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     _category.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : ''
                   )) {
-                    cateController.Controller.instance.reloadCategories();
+                    foodController.Controller.instance.reloadFoods();
                     successDialog(this.context, 'Create food success!');
                     _nameController.clear();
+                    _priceController.clear();
+                    _category.name = '';
+                    setState(() {
+                      _image = null;
+                    });
                   }
                   else errorDialog(this.context, 'Create new food failed.' + '\nPlease try again!');
                   return;
