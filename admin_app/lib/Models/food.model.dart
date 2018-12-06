@@ -23,10 +23,10 @@ class Model {
     return parseFood(futureFoods);
   }
 
-  Future<bool> insertFood(String name) {
+  Future<bool> insertFood(String name, double price, int idCategory, String image) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.INSERT_FOOD,
-      parameter: [name]
+      parameter: [name, price, idCategory, image]
     );
   }
 
@@ -60,6 +60,6 @@ class Food {
     this.category = json['CategoryName'];
     this.price = double.parse(json['Price']);
     this.idImange = int.parse(json['IdImage']);
-    this.image = base64.decode(json['Image']);
+    this.image = json['Image'] != null ? base64.decode(json['Image']) : null;
   }
 }

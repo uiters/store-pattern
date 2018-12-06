@@ -46,7 +46,7 @@ const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 
 const String GET_FOODS = 'CALL `USP_GetFoodsPlus`();';
 
-const String INSERT_FOOD = 'CALL `USP_InsertFoodCatetory`( @_Name );';
+const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory , @image )';
 
 const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
 

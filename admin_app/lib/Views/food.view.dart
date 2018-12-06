@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import './../Models/food.model.dart' as food;
 
-import './../Views/foodDetail.view.dart';
+import './foodDetail.view.dart';
+import './addFood.view.dart';
 
 import './../Controllers/food.controller.dart';
 
@@ -258,7 +259,7 @@ class _FoodScreenState extends State<FoodScreen> {
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          // body: new AddCategoryScreen(),
+          body: new AddFoodScreen(),
         );
       }),
     ).then((value) {
