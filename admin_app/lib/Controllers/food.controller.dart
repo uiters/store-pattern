@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
+
 import './../Models/food.model.dart';
 
 class Controller {
@@ -16,8 +20,8 @@ class Controller {
     return _foods;
   }
 
-  Future<bool> insertFood(String name) {
-    return Model.instance.insertFood(name);
+  Future<bool> insertFood(String name, double price, int idCategory, String image) {
+    return Model.instance.insertFood(name, price, idCategory, image);
   }
 
   Future<bool> updateFood(int id, String name) {
@@ -32,6 +36,10 @@ class Controller {
     List<Food> items = await foods;
     if (keyword.trim() == '') return items;
     return items.where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
+  }
+
+  Future<File> getImage() async {
+    return await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
 }

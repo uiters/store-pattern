@@ -49,12 +49,19 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
 
     Widget avatar = new Column(
       children: <Widget>[
-        new Image.memory(
-        widget.food.image,
-        width: 122.0,
-        height: 122.0,
-        fit: BoxFit.fill,
-      ),
+        widget.food.image == null
+        ? new Image.asset(
+          'assets/images/food.png',
+          width: 122.0,
+          height: 122.0,
+          fit: BoxFit.fill,
+        )
+        : new Image.memory(
+          widget.food.image,
+          width: 122.0,
+          height: 122.0,
+          fit: BoxFit.fill,
+        ),
       ],
     );
 

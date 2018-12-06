@@ -26,6 +26,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
+  TextEditingController _usernameController = new TextEditingController();
   TextEditingController _displayNameController = new TextEditingController();
   TextEditingController _idCardController = new TextEditingController();
   TextEditingController _addressController = new TextEditingController();
@@ -44,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     login.Account account = widget.account;
 
+    _usernameController.text = account.username;
     _displayNameController.text = account.displayName;
     _idCardController.text = account.idCard;
     _addressController.text = account.address;
@@ -79,8 +81,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     Widget avatar = new Column(
       children: <Widget>[
-        new GestureDetector(
-          onTap: () async {
+        new Container(
+          width: 100.0,
+          height: 100.0,
+          decoration: new BoxDecoration(
+            shape: BoxShape.circle,
+            image: new DecorationImage(
+              fit: BoxFit.fill,
+              image: _image == null 
+              ? new MemoryImage(
+                widget.account.image,
+              )
+              : new FileImage(_image)
+            )
+          )
+        ),
+        new Container(height: 15.0,),
+        new RaisedButton(
+          color: Colors.lightBlueAccent,
+          child: new Text(
+            'Select Image',
+            style: _itemStyle,
+          ),
+          onPressed: () async {
             var image = await Controller.instance.getImage();
             setState(() {
               _image = image;
@@ -100,34 +123,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               } else errorDialog(context, 'Upload avatar failed!');
 
             } else errorDialog(context, 'Image is null.\nPlease try again!');
-            
           },
-          child: new Container(
-            width: 100.0,
-            height: 100.0,
-            decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-              image: new DecorationImage(
-                fit: BoxFit.fill,
-                image: _image == null 
-                ? new MemoryImage(
-                  widget.account.image,
-                )
-                : new FileImage(_image)
-              )
-            )
-          ),
-        ),
-        new Text(
-          widget.account.username,
-          overflow: TextOverflow.ellipsis,
-          style: new TextStyle(
-            color: theme.accentColor,
-            fontFamily: 'Dosis',
-            fontSize: 20.0
-          ),
-        ),
+        )
       ],
+    );
+
+    Widget username = new TextField(
+      enabled: false,
+      controller: _usernameController,
+      style: _itemStyle,
+      decoration: new InputDecoration(
+        labelText: 'Username:',
+        labelStyle: _itemStyle2
+      ),
     );
 
     Widget displayName = new TextField(
@@ -300,6 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: <Widget>[
+                    username,
                     displayName,
                     sex,
                     birthDay,
