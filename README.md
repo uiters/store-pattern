@@ -126,9 +126,9 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## Team
 
-| [![Jade Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) |
-| :---: | :---: |
-| [Jade Nguyen](https://github.com/jade28) | [Thien Chi Vi](https://github.com/tvc12) |
+| [![Cuong Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) | [![Thang Huu Le](https://github.com/lhthang1998.png?size=100)](https://github.com/lhthang1998) |
+| :---: | :---: | :---: |
+| [Cuong Nguyen](https://github.com/jade28) | [Thien Chi Vi](https://github.com/tvc12) | [Thang Huu Le](https://github.com/lhthang1998) |
 
 ## License
 

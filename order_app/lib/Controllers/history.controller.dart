@@ -17,6 +17,20 @@ class Controller {
     return _bills;
   }
 
+  void removeBill(int id) async {
+    int index = findIndex(await bills, id);
+    (await bills).removeAt(index);
+  }
+
+  int findIndex(List<history.BillPlus> bills, int id) {
+    int i = 0;
+    for (var item in bills) {
+      if (item.id == id) return i;
+      i++;
+    }
+    return -1;
+  }
+
   void addBill(int id, home.Table table, DateTime dateCheckout, double discount, double totalPrice, login.Account account) async {
     history.BillPlus bill = new history.BillPlus(
       id: id,

@@ -22,7 +22,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Future<List<menu.Food>> futureFoods = Controller.instance.foods;
 
   String _currentCategory;
-  String _keyword;
+  String _selectedCategory;
 
   TextEditingController _textController = new TextEditingController();
 
@@ -216,9 +216,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 new Flexible(
                   child: new TextField(
                     controller: _textController,
-                    onChanged: (text) {
+                    onChanged: (keyword) {
                       setState(() {
-                        _keyword = text;
+                        futureFoods = Controller.instance.searchFoods(_selectedCategory, keyword);
                       });
                     },
                     onSubmitted: null,
@@ -229,18 +229,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     )
                   )
                 ),
-                new Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: new IconButton(
-                      icon: new Icon(
-                        Icons.search, color: fontColorLight, size: 16.0,),
-                      onPressed: () {
-                        setState(() {
-                          futureFoods = Controller.instance.searchFoods(futureFoods, _keyword);
-                        });
-                      },
-                    )
-                )
               ],
             ),
           ),
@@ -290,6 +278,7 @@ class _MenuScreenState extends State<MenuScreen> {
         value: _currentCategory,
         items: items,
         onChanged: (selectedCategory) {
+          _selectedCategory = selectedCategory;
           setState(() {
             _currentCategory = selectedCategory;
             futureFoods = Controller.instance.filterFoods(selectedCategory);
