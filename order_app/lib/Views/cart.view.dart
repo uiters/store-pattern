@@ -344,7 +344,7 @@ class _CartScreenState extends State<CartScreen> {
                   DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
                   _discount, 
                   table.getTotalPrice(),
-                  1,
+                  0,
                   widget.account.username
                 )) {
 

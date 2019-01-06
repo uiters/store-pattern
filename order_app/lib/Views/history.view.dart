@@ -147,7 +147,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               new IconButton(
                 icon: new Icon(Icons.delete, size: 18.0,),
                 onPressed: () {
-                  _checkOut(context, bill);
+                  _deleteInvoice(context, bill);
                 },
               )
             ],
@@ -155,10 +155,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
           body: new InvoiceScreen(bill: bill),
         );
       }),
-    );
+    ).then((value) {
+      setState(() {
+        bills = Controller.instance.bills;
+      });
+    });
   }
 
-  void _checkOut(BuildContext invoiceContext, history.BillPlus bill) async {
+  void _deleteInvoice(BuildContext invoiceContext, history.BillPlus bill) async {
 
     showDialog(
       context: context,
@@ -181,6 +185,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
+                Controller.instance.removeBill(bill.id);
                 Navigator.of(invoiceContext).pop();
 
                 if (await Controller.instance.deleteBill(bill.id)) {
