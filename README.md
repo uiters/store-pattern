@@ -58,6 +58,21 @@
 
 ## Install
 
+Clone this project:
+```
+$ git clone https://github.com/jade28/store-pattern.git
+```
+cd `store-pattern`:
+```
+$ cd store-pattern
+```
+Install packages for `flutter` apps:
+```
+$ flutter packages get
+```
+
+Enjoy 👍
+
 ## Documents
 
 For help getting started with Flutter, view our online [documentation](https://flutter.io/).
