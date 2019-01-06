@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import './../Models/category.model.dart' as cate;
+import './../Models/food.model.dart';
 
 import './../Controllers/food.controller.dart' as foodController;
 import './../Controllers/category.controller.dart' as cateController;
@@ -11,11 +12,15 @@ import './../Controllers/category.controller.dart' as cateController;
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
-class AddFoodScreen extends StatefulWidget {
-  _AddFoodScreenState createState() => _AddFoodScreenState();
+class EditFoodScreen extends StatefulWidget {
+  EditFoodScreen({key, this.food}) : super(key: key);
+
+  final Food food;
+
+  _EditFoodScreenState createState() => _EditFoodScreenState();
 }
 
-class _AddFoodScreenState extends State<AddFoodScreen> {
+class _EditFoodScreenState extends State<EditFoodScreen> {
   Future<List<cate.Category>> categories = cateController.Controller.instance.categories;
 
   TextEditingController _idController = new TextEditingController();
@@ -28,7 +33,12 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
 
   @override
     void initState() {
-      _idController.text = ' ';
+      Food food = widget.food;
+   
+      _idController.text = food.id.toString();
+      _nameController.text = food.name;
+      _priceController.text = food.price.toString();
+
       super.initState();
     }
 
@@ -133,18 +143,18 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       ),
     );
 
-    Widget addFood = Container(
+    Widget editFood = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
         child: new RaisedButton(
           color: Colors.redAccent,
           child: new Text(
-            'Add Food',
+            'Update Food',
             style: _itemStyle,
           ),
           onPressed: () {
-            _createFood();
+            _editFood();
           },
         ),
       ),
@@ -170,7 +180,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     name,
                     category,
                     price,
-                    addFood
+                    editFood
                   ],
                 ),
               ),
@@ -194,6 +204,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       items.add(item);
     }
 
+    // _category = categories[findIndexCategory(categories, widget.food.name)];
+
+
     return new DropdownButton(
         value: _category,
         items: items,
@@ -205,7 +218,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
   }
 
-  void _createFood() async {
+  void _editFood() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -215,7 +228,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to create new food?',
+            'Do you want to update this food?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -236,14 +249,14 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     _image != null ? base64Encode(_image.readAsBytesSync()) : ''
                   )) {
                     foodController.Controller.instance.reloadFoods();
-                    successDialog(this.context, 'Create food success!');
+                    successDialog(this.context, 'Update food success!');
                     _nameController.clear();
                     _priceController.clear();
                     setState(() {
                       _image = null;
                     });
                   }
-                  else errorDialog(this.context, 'Create new food failed.' + '\nPlease try again!');
+                  else errorDialog(this.context, 'Update food failed.' + '\nPlease try again!');
                   return;
                 }
                 errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
@@ -264,4 +277,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
   }
   
+  int findIndexCategory(List<cate.Category> categories, String name) {
+    for (var i = 0; i < categories.length; i++) {
+      if (categories[i].name == name) return i;
+    }
+    return -1;
+  }
 }

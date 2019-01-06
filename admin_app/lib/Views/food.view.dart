@@ -4,6 +4,7 @@ import './../Models/food.model.dart' as food;
 
 import './foodDetail.view.dart';
 import './addFood.view.dart';
+import './editFood.view.dart';
 
 import './../Controllers/food.controller.dart';
 
@@ -52,7 +53,11 @@ class _FoodScreenState extends State<FoodScreen> {
           new Flexible(
             child: new TextField(
               controller: _keywordController,
-              onChanged: (text) {},
+              onChanged: (keyword) {
+                setState(() {
+                  foods = Controller.instance.searchFoods(keyword);
+                });
+              },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
@@ -61,18 +66,6 @@ class _FoodScreenState extends State<FoodScreen> {
               )
             )
           ),
-          new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                icon: new Icon(
-                  Icons.search, color: theme.fontColorLight, size: 16.0,),
-                onPressed: () {
-                  setState(() {
-                    foods = Controller.instance.searchFoods(_keywordController.text);
-                  });
-                },
-              )
-          )
         ],
       ),
     );
@@ -275,12 +268,12 @@ class _FoodScreenState extends State<FoodScreen> {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Edit Food',
+              'Update Food',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          // body: new EditCategoryScreen(category: category),
+          body: new EditFoodScreen(food: food),
         );
       }),
     ).then((value) {

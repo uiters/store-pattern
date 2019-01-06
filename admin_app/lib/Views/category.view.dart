@@ -52,7 +52,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           new Flexible(
             child: new TextField(
               controller: _keywordController,
-              onChanged: (text) {},
+              onChanged: (text) {
+                setState(() {
+                  categories = Controller.instance.searchCategories(text);
+                });
+              },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
@@ -61,18 +65,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
               )
             )
           ),
-          new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                icon: new Icon(
-                  Icons.search, color: theme.fontColorLight, size: 16.0,),
-                onPressed: () {
-                  setState(() {
-                    categories = Controller.instance.searchCategories(_keywordController.text);
-                  });
-                },
-              )
-          )
         ],
       ),
     );
