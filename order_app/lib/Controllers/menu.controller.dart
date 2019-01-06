@@ -38,9 +38,10 @@ class Controller {
     return -1;
   }
 
-  Future<List<Food>> searchFoods(Future<List<Food>> foods, String keyword) async {
-    List<Food> _foods = await foods;
-    return _foods.where((_food) => _food.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1).toList();
+  Future<List<Food>> searchFoods(String selectedCategory, String keyword) async {
+    List<Food> _foods = await filterFoods(selectedCategory);
+    if (keyword.trim() == '') return _foods;
+    return _foods.where((_food) => _food.name.toLowerCase().indexOf(keyword.trim().toLowerCase()) != -1).toList();
   }
 
   Future<List<Food>> _foods;
