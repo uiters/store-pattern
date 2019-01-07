@@ -47,7 +47,7 @@ class _EditAccountTypeScreenState extends State<EditAccountTypeScreen> {
       controller: _idController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'ID:',
+        labelText: 'ID:*',
         labelStyle: _itemStyle2
       ),
     );

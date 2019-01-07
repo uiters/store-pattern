@@ -95,7 +95,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       controller: _idController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Auto-ID:',
+        labelText: 'Auto-ID:*',
         labelStyle: _itemStyle2
       ),
     );

@@ -113,8 +113,8 @@ class _AccountScreenState extends State<AccountScreen> {
               new Table(
                 defaultColumnWidth: FlexColumnWidth(2.0),
                 columnWidths: {
-                  1: FlexColumnWidth(3.0),
-                  3: FlexColumnWidth(3.0)
+                  1: FlexColumnWidth(2.5),
+                  3: FlexColumnWidth(3.5)
                 },
                 border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                 children: _buildListRow(accs)
@@ -211,9 +211,16 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               new IconButton(
                 color: Colors.redAccent,
-                icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
+                icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
                 onPressed: () {
                   
+                },
+              ),
+              new IconButton(
+                color: Colors.redAccent,
+                icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
+                onPressed: () {
+                  _pushDetailsAccountScreen(acc);
                 },
               ),
             ],
@@ -229,7 +236,7 @@ class _AccountScreenState extends State<AccountScreen> {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Add Account Type',
+              'Add Account',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
@@ -250,7 +257,7 @@ class _AccountScreenState extends State<AccountScreen> {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Edit Account Type',
+              'Edit Account',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
@@ -263,5 +270,22 @@ class _AccountScreenState extends State<AccountScreen> {
         accs = Controller.instance.accs;
       });
     });
+  }
+
+  void _pushDetailsAccountScreen(Account acc) {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Details Account',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new AccountDetailScreen(account: acc),
+        );
+      }),
+    );
   }
 }

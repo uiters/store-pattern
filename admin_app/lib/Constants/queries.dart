@@ -56,7 +56,7 @@ const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
 
 const String GET_ACCS = 'CALL `USP_GetAccounts`();';
 
-const String INSERT_ACC = 'CALL `USP_InsertAcc`( @_Name );';
+const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image )';
 
 const String UPDATE_ACC = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 

@@ -20,8 +20,8 @@ class Controller {
     return _accs;
   }
 
-  Future<bool> insertAcc(String name) {
-    return Model.instance.insertAcc(name);
+  Future<bool> insertAcc(String username, String password, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return Model.instance.insertAcc(username, password, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image);
   }
 
   Future<bool> updateAcc(int id, String name) {

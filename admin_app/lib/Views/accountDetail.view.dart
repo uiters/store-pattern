@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import './../Models/account.model.dart';
@@ -87,6 +85,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       controller: _displayNameController,
       style: _itemStyle,
       decoration: new InputDecoration(
+        enabled: false,
         labelText: 'Display name:',
         labelStyle: _itemStyle2
       ),
@@ -96,6 +95,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       controller: _idCardController,
       style: _itemStyle,
       decoration: new InputDecoration(
+        enabled: false,
         labelText: 'Id card:',
         labelStyle: _itemStyle2
       ),
@@ -105,6 +105,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       controller: _addressController,
       style: _itemStyle,
       decoration: new InputDecoration(
+        enabled: false,
         labelText: 'Address:',
         labelStyle: _itemStyle2
       ),
@@ -114,6 +115,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       controller: _phoneController,
       style: _itemStyle,
       decoration: new InputDecoration(
+        enabled: false,
         labelText: 'Phone:',
         labelStyle: _itemStyle2
       ),

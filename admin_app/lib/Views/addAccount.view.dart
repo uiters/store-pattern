@@ -2,18 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import './../Models/account.model.dart';
-
 import './../Controllers/account.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AddAccountScreen extends StatefulWidget {
-  AddAccountScreen({key, this.acc}) : super(key: key);
-
-  final Account acc;
-
   _AddAccountScreenState createState() => _AddAccountScreenState();
 }
 
@@ -55,7 +49,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       children: <Widget>[
         _image == null 
         ? new Image.asset(
-            'assets/images/food.png',
+            'assets/images/account.png',
             width: 122.0,
             height: 122.0,
             fit: BoxFit.fill,
@@ -88,7 +82,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       controller: _usernameController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Username:',
+        labelText: 'Username:*',
         labelStyle: _itemStyle2
       ),
     );
@@ -229,7 +223,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to create new account ?',
+            'Do you want to create new account?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -271,7 +265,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
         context: context,
-        initialDate: widget.acc.birthday,
+        initialDate: new DateTime.now().subtract(new Duration(days: 365 * 18)),
         firstDate: new DateTime(1975),
         lastDate: new DateTime(2019)
     );

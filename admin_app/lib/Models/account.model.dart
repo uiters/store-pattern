@@ -23,10 +23,10 @@ class Model {
     return parseAcc(futureAccs);
   }
 
-  Future<bool> insertAcc(String name) {
+  Future<bool> insertAcc(String username, String password, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.INSERT_ACC,
-      parameter: [name]
+      parameter: [username, password, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image]
     );
   }
 
@@ -35,6 +35,10 @@ class Model {
       queries.UPDATE_ACC,
       parameter: [id, name]
     );
+  }
+
+  Future<bool> isUsernameExists(String username) {
+    
   }
 
   Future<List<Account>> parseAcc(Future<List> futureAccs) async  {

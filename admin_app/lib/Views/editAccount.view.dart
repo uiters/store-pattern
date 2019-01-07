@@ -65,7 +65,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       children: <Widget>[
         _image == null 
         ? new Image.asset(
-            'assets/images/food.png',
+            'assets/images/account.png',
             width: 122.0,
             height: 122.0,
             fit: BoxFit.fill,
@@ -98,7 +98,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       controller: _usernameController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Username:',
+        labelText: 'Username:*',
         labelStyle: _itemStyle2
       ),
     );
