@@ -52,6 +52,16 @@ const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
 
 ///////////////////////////////////////////////////////////////
 
+// Queries for Account
+
+const String GET_ACCS = 'CALL `USP_GetAccounts`();';
+
+const String INSERT_ACC = 'CALL `USP_InsertAcc`( @_Name );';
+
+const String UPDATE_ACC = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
+
+///////////////////////////////////////////////////////////////
+
 ///Query Insert Table
 ///
 ///USP_InsertTable( @Nametable ) 
