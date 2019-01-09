@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/jade28/store-pattern">
-    <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50490248-a4c2f100-0a3e-11e9-981c-467922006966.png" width="400">
+    <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50757659-a7211880-1292-11e9-9e41-6621e988fff8.png" width="400">
   </a>
   <br>🍔🍟 Store Pattern 🍕🍺<br>
 </h1>
@@ -10,7 +10,7 @@
 </h4>
 
 <p align="center">
-  <a href="https://travis-ci.org/jade28/store-pattern.svg?branch=master">
+  <a href="https://travis-ci.org/jade28/store-pattern">
     <img src="https://travis-ci.org/jade28/store-pattern.svg?branch=master"/>
   </a>
   
