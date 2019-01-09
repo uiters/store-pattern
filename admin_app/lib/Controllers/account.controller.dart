@@ -36,8 +36,8 @@ class Controller {
     );
   }
 
-  Future<bool> updateAcc(int id, String name) {
-    return Model.instance.updateAcc(id, name);
+  Future<bool> resetAcc(username) {
+    return Model.instance.resetAcc(username);
   }
 
   Future<bool> isUsernameExists(String username) async {

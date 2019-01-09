@@ -10,6 +10,12 @@ const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );
 
 const String UPDATE_ACC_AVATAR = 'CALL `USP_UpdateAccAvatar`( @username , @image )';
 
+const String GET_ACCS = 'CALL `USP_GetAccounts`();';
+
+const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
+
+const String RESET_ACC = '';
+
 ///////////////////////////////////////////////////////////////
 
 // Queries for Category
@@ -49,15 +55,5 @@ const String GET_FOODS = 'CALL `USP_GetFoodsPlus`();';
 const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory , @image )';
 
 const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
-
-///////////////////////////////////////////////////////////////
-
-// Queries for Account
-
-const String GET_ACCS = 'CALL `USP_GetAccounts`();';
-
-const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
-
-const String UPDATE_ACC = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 
 ///////////////////////////////////////////////////////////////

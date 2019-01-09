@@ -30,10 +30,10 @@ class Model {
     );
   }
 
-  Future<bool> updateAcc(int id, String name) {
+  Future<bool> resetAcc(String username) {
     return MySqlConnection.instance.executeNoneQuery(
-      queries.UPDATE_ACC,
-      parameter: [id, name]
+      queries.RESET_ACC,
+      parameter: [username]
     );
   }
 
