@@ -125,7 +125,14 @@ class _MenuScreenState extends State<MenuScreen> {
             new Row(
               children: <Widget>[
                 new Expanded(child: new Container()),
-                new Image.memory(
+                food.image.isEmpty
+                ? new Image.asset(
+                  'assets/images/food.png',
+                  width: 122.0,
+                  height: 122.0,
+                  fit: BoxFit.fill,
+                )
+                : new Image.memory(
                   food.image,
                   width: 122.0,
                   height: 122.0,
