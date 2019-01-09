@@ -40,7 +40,7 @@ class _AddAccountTypeScreenState extends State<AddAccountTypeScreen> {
       controller: _idController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Auto-ID:',
+        labelText: 'Auto-ID:*',
         labelStyle: _itemStyle2
       ),
     );

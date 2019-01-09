@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
-import './../Models/food.model.dart' as food;
+import './../Models/account.model.dart';
 
-import './foodDetail.view.dart';
-import './addFood.view.dart';
-import './editFood.view.dart';
+import './../Controllers/account.controller.dart';
 
-import './../Controllers/food.controller.dart';
+import './addAccount.view.dart';
+import './accountDetail.view.dart';
 
 import './../Constants/theme.dart' as theme;
 
-class FoodScreen extends StatefulWidget {
-  _FoodScreenState createState() => _FoodScreenState();
+class AccountScreen extends StatefulWidget {
+  _AccountScreenState createState() => _AccountScreenState();
 }
 
-class _FoodScreenState extends State<FoodScreen> {
-  Future<List<food.Food>> foods = Controller.instance.foods;
+class _AccountScreenState extends State<AccountScreen> {
+  Future<List<Account>> accs = Controller.instance.accs;
   TextEditingController _keywordController = new TextEditingController();
 
   @override
@@ -46,22 +45,22 @@ class _FoodScreenState extends State<FoodScreen> {
               ],
             ),
             onPressed: () {
-              _pushAddFoodScreen();
+              _pushAddAccountScreen();
             },
           ),
           new Container(width: 30.0,),
           new Flexible(
             child: new TextField(
               controller: _keywordController,
-              onChanged: (keyword) {
+              onChanged: (text) {
                 setState(() {
-                  foods = Controller.instance.searchFoods(keyword);
+                  accs = Controller.instance.searchAccs(_keywordController.text);
                 });
               },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
-                  hintText: 'Enter your food...',
+                  hintText: 'Enter your username...',
                   hintStyle: _itemStyle,
               )
             )
@@ -70,8 +69,8 @@ class _FoodScreenState extends State<FoodScreen> {
       ),
     );
 
-    Widget table = new FutureBuilder<List<food.Food>>(
-      future: foods,
+    Widget table = new FutureBuilder<List<Account>>(
+      future: accs,
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
         if (snapshot.hasData) {
@@ -91,17 +90,17 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<food.Food> foods) {
+  List<TableRow> _buildListRow(List<Account> accs) {
     List<TableRow> listRow = [
       _buildTableHead()
     ];
-    for (var item in foods) {
+    for (var item in accs) {
       listRow.add(_buildTableData(item));
     }
     return listRow;
   }
 
-  Widget _buildTable(List<food.Food> foods) {
+  Widget _buildTable(List<Account> accs) {
     return Expanded(
       child: Container(
         width: double.infinity,
@@ -113,13 +112,11 @@ class _FoodScreenState extends State<FoodScreen> {
               new Table(
                 defaultColumnWidth: FlexColumnWidth(2.0),
                 columnWidths: {
-                  0: FlexColumnWidth(0.5),
-                  1: FlexColumnWidth(3.0),
-                  3: FlexColumnWidth(1.5),
-                  4: FlexColumnWidth(3.0)
+                  1: FlexColumnWidth(2.5),
+                  3: FlexColumnWidth(3.5)
                 },
                 border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
-                children: _buildListRow(foods)
+                children: _buildListRow(accs)
               ),
             ],
           )
@@ -134,7 +131,7 @@ class _FoodScreenState extends State<FoodScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text('ID', style: theme.headTable,),
+              new Text('Username', style: theme.headTable,),
             ],
           ),
         ),
@@ -142,7 +139,7 @@ class _FoodScreenState extends State<FoodScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text('Name', style: theme.headTable,),
+              new Text('Display Name', style: theme.headTable,),
             ],
           ),
         ),
@@ -150,15 +147,7 @@ class _FoodScreenState extends State<FoodScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text('Category', style: theme.headTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('Price', style: theme.headTable,),
+              new Text('Account Type', style: theme.headTable,),
             ],
           ),
         ),
@@ -174,14 +163,14 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  TableRow _buildTableData(food.Food food) {
+  TableRow _buildTableData(Account acc) {
     return new TableRow(
       children: [
         new TableCell(
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(food.id.toString(), style: theme.contentTable,),
+              new Text(acc.username.toString(), style: theme.contentTable,),
             ],
           ),
         ),
@@ -189,7 +178,7 @@ class _FoodScreenState extends State<FoodScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(food.name, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.displayName, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -197,15 +186,7 @@ class _FoodScreenState extends State<FoodScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(food.category, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('\$'+food.price.toString(), style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.accountType, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -215,13 +196,6 @@ class _FoodScreenState extends State<FoodScreen> {
             children: <Widget>[
               new IconButton(
                 color: Colors.redAccent,
-                icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
-                onPressed: () {
-                  _pushEditFoodScreen(food);
-                },
-              ),
-              new IconButton(
-                color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
 
@@ -229,9 +203,16 @@ class _FoodScreenState extends State<FoodScreen> {
               ),
               new IconButton(
                 color: Colors.redAccent,
+                icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
+                onPressed: () {
+                  resetAccount();
+                },
+              ),
+              new IconButton(
+                color: Colors.redAccent,
                 icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
                 onPressed: () {
-                  _pushDetailsFoodScreen(food);
+                  _pushDetailsAccountScreen(acc);
                 },
               ),
             ],
@@ -241,60 +222,43 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  void _pushAddFoodScreen() {
+  void resetAccount() { // only reset password
+    
+  }
+
+  void _pushAddAccountScreen() {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Add Food',
+              'Add Account',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new AddFoodScreen(),
+          body: new AddAccountScreen(),
         );
       }),
     ).then((value) {
       setState(() {
-        foods = Controller.instance.foods;
+        accs = Controller.instance.accs;
       });
     });
   }
 
-  void _pushEditFoodScreen(food.Food food) {
+  void _pushDetailsAccountScreen(Account acc) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Update Food',
+              'Details Account',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditFoodScreen(food: food),
-        );
-      }),
-    ).then((value) {
-      setState(() {
-        foods = Controller.instance.foods;
-      });
-    });
-  }
-
-  void _pushDetailsFoodScreen(food.Food food) {
-    Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
-              'Food Details',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: theme.accentColor),
-            centerTitle: true,
-          ),
-          body: new FoodDetailScreen(food: food,)
+          body: new AccountDetailScreen(account: acc),
         );
       }),
     );

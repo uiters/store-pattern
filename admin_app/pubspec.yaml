@@ -23,6 +23,7 @@ dependencies:
   flutter_local_notifications: ^0.4.0
   dbcrypt: ^1.0.0
   image_picker: ^0.4.10
+  test: ^1.5.1+1
 
 dev_dependencies:
   flutter_test:
@@ -42,8 +43,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/images/logo.png
-      - assets/images/food.png
+    - assets/images/logo.png
+    - assets/images/food.png
+    - assets/images/account.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -53,7 +53,11 @@ class _TableScreenState extends State<TableScreen> {
           new Flexible(
             child: new TextField(
               controller: _keywordController,
-              onChanged: (text) {},
+              onChanged: (text) {
+                setState(() {
+                  tables = Controller.instance.searchTables(_keywordController.text);
+                });
+              },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
@@ -62,18 +66,6 @@ class _TableScreenState extends State<TableScreen> {
               )
             )
           ),
-          new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                icon: new Icon(
-                  Icons.search, color: theme.fontColorLight, size: 16.0,),
-                onPressed: () {
-                  setState(() {
-                    tables = Controller.instance.searchTables(_keywordController.text);
-                  });
-                },
-              )
-          )
         ],
       ),
     );

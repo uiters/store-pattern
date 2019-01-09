@@ -15,28 +15,39 @@ class Model {
     }
     return _instance;
   }
+  
+  Future<List<Account>> getAccs() async {
+    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
+      queries.GET_ACCS
+    );
+    return parseAcc(futureAccs);
+  }
 
-  Future<Account> login(String username) async {
-    Future<List> futureAccount = MySqlConnection.instance.executeQuery(
-      queries.LOGIN,
+  Future<bool> insertAcc(String username, String password, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.INSERT_ACC,
+      parameter: [username, password, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image]
+    );
+  }
+
+  Future<bool> resetAcc(String username) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.RESET_ACC,
       parameter: [username]
     );
-    return parseAccount(futureAccount);
   }
 
-  Future<Account> parseAccount(Future<List> accounts) async  {
-    Account account;
-    await accounts.then((values){
-      if (values.length > 0)
-      account = Account.fromJson(values[0]);
+  Future<List<Account>> parseAcc(Future<List> futureAccs) async  {
+    List<Account> accs = [];
+    await futureAccs.then((values) {
+      values.forEach((value) => accs.add(new Account.fromJson(value)));
     });
-    return account;
+    return accs;
   }
-  
 }
 
 class Account {
-  String username;
+   String username;
   String displayName;
   String password;
   int sex;
@@ -46,6 +57,7 @@ class Account {
   DateTime birthday;
   String accountType;
   Uint8List image;
+  int idImange;
 
   Account.fromJson(Map<String, dynamic> json) {
     username = json['Username'];
@@ -58,5 +70,7 @@ class Account {
     birthday = json['BirthDay'] != null ? DateTime.parse(json['BirthDay']) : DateTime.now().subtract(new Duration(days: 365 * 18));
     accountType = json['Name'] != null ? json['Name'] : '';
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
+    idImange = int.parse(json['IDImage']);
   }
+
 }

@@ -7,6 +7,7 @@ import './category.view.dart';
 import './table.view.dart';
 import './accountType.view..dart';
 import './food.view.dart';
+import './account.view.dart';
 
 import './../Constants/theme.dart';
 
@@ -39,8 +40,12 @@ class _MainPageState extends State<MainPage> {
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                       image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image: new MemoryImage(
+                        fit: BoxFit.fill, 
+                        image: widget.account.image.isEmpty ?
+                        new AssetImage(
+                          'assets/images/account.png',
+                        ) :
+                        new MemoryImage(
                           widget.account.image,
                         )
                       )
@@ -182,6 +187,7 @@ class _MainPageState extends State<MainPage> {
       case 1: return new FoodScreen();
       case 2: return new CategoryScreen();
       case 3: return new TableScreen();
+      case 4: return new AccountScreen();
       case 5: return new AccountTypeScreen();
       case 6: return new ProfileScreen(account: widget.account,);
       default: return null;
