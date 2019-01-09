@@ -57,7 +57,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       children: <Widget>[
         widget.account.image.isEmpty
         ? new Image.asset(
-          'assets/images/food.png',
+          'assets/images/account.png',
           width: 122.0,
           height: 122.0,
           fit: BoxFit.fill,

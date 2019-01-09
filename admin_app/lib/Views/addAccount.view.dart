@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import './../Models/accountType.model.dart' as accType;
+
+import './../Controllers/accountType.controller.dart' as accTypeController;
 import './../Controllers/account.controller.dart';
 
 import './../Constants/dialog.dart';
@@ -12,17 +16,19 @@ class AddAccountScreen extends StatefulWidget {
 }
 
 class _AddAccountScreenState extends State<AddAccountScreen> {
+  Future<List<accType.AccountType>> accTypes = accTypeController.Controller.instance.accTypes;
+
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _displayNameController = new TextEditingController();
   TextEditingController _idCardController = new TextEditingController();
   TextEditingController _addressController = new TextEditingController();
   TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _accountTypeController = new TextEditingController();
   TextEditingController _birthDayController = new TextEditingController();
 
+  accType.AccountType _accType;
   String _sex;
-
   File _image;
+  bool _isUsernameExists = false;
   
   @override
     void initState() {
@@ -40,6 +46,13 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
 
     TextStyle _itemStyle2 = new TextStyle(
       color: theme.accentColor, 
+      fontFamily: 'Dosis', 
+      fontSize: 18.0,
+      fontWeight: FontWeight.w500
+    );
+
+    TextStyle _itemStyle3 = new TextStyle(
+      color: Colors.redAccent, 
       fontFamily: 'Dosis', 
       fontSize: 18.0,
       fontWeight: FontWeight.w500
@@ -78,13 +91,18 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     );
 
     Widget username = new TextField(
-      enabled: false,
       controller: _usernameController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: 'Username:*',
-        labelStyle: _itemStyle2
+        labelText: _isUsernameExists ? 'Username already exists. Try again.' : 'Username:*',
+        labelStyle: _isUsernameExists ? _itemStyle3 : _itemStyle2
       ),
+      onChanged: (value) async {
+        bool result = await Controller.instance.isUsernameExists(value);
+        setState(() {
+          _isUsernameExists = result;
+        });
+      },
     );
 
     Widget displayName = new TextField(
@@ -123,14 +141,28 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       ),
     );
 
-    Widget accountType = new TextField(
-      controller: _accountTypeController,
-      style: _itemStyle,
-      decoration: new InputDecoration(
-        enabled: false,
-        labelText: 'Account Type:',
-        labelStyle: _itemStyle2
+    Widget accountType = new Row(
+      children: <Widget>[
+        new Text(
+          'Account Type:  ',
+          style: new TextStyle(
+            color: theme.accentColor, 
+            fontFamily: 'Dosis', 
+            fontSize: 13.0,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        FutureBuilder<List<accType.AccountType>>(
+        future: accTypes,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasData) {
+            return _buildAccTypes(_itemStyle, snapshot.data);
+          }
+          return Center(child: CircularProgressIndicator());
+        },
       ),
+      ],
     );
 
     Widget sex = new Row(
@@ -155,7 +187,6 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             controller: _birthDayController,
             style: _itemStyle,
             decoration: new InputDecoration(
-              enabled: false,
               labelText: 'Birthday:',
               labelStyle: _itemStyle2
             ),
@@ -163,7 +194,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         ),
         new RaisedButton(
           child: new Text(
-            'Change birthday',
+            'Select birthday',
             style: _itemStyle,
           ), onPressed: () {
             _selectDate();
@@ -213,6 +244,30 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     );
   }
 
+  Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {
+    List<DropdownMenuItem> items = [];
+    for (int i = 0; i < accTypes.length; i++) {
+      DropdownMenuItem item = new DropdownMenuItem(
+        value: accTypes[i],
+        child: new Text(
+          accTypes[i].name,
+          style: _itemStyle,
+        ),
+      );
+      items.add(item);
+    }
+
+    return new DropdownButton(
+        value: _accType,
+        items: items,
+        onChanged: (value) {
+          setState(() {
+            _accType = value;
+          });
+        }
+    );
+  }
+
   void _createAcc() async {
     showDialog(
       context: context,
@@ -235,16 +290,30 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
-                // if (_nameController.text.trim() != '') {
-                //   if (await Controller.instance.insertAccType(_nameController.text)) {
-                //     Controller.instance.reloadAccTypes();
-                //     successDialog(this.context, 'Create new account success!');
-                //     _nameController.clear();
-                //   }
-                //   else errorDialog(this.context, 'Create new account failed.' + '\nPlease try again!');
-                //   return;
-                // }
-                errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');
+                if ( _usernameController.text.trim() != '' &&
+                  _accType != null &&
+                  !_isUsernameExists
+                 ) {
+                  if (await Controller.instance.insertAcc(
+                    _usernameController.text.trim(),
+                    _usernameController.text.trim(),
+                    _displayNameController.text.trim(),
+                    _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1),
+                    _idCardController.text.trim(),
+                    _addressController.text.trim(),
+                    _phoneController.text.trim(),
+                    _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                    _accType.id,
+                    _image != null ? base64Encode(_image.readAsBytesSync()) : '',
+                  )) {
+                    Controller.instance.reloadAccs();
+                    successDialog(this.context, 'Create new account success!');
+                    clearDataWidget();
+                  }
+                  else errorDialog(this.context, 'Create new account failed.' + '\nPlease try again!');
+                  return;
+                }
+                errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
               },
             ),
             new FlatButton(
@@ -260,6 +329,17 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         );
       }
     );
+  }
+
+  void clearDataWidget() {
+    setState(() {
+      _image = null;
+    });
+    _usernameController.clear();
+    _displayNameController.clear();
+    _idCardController.clear();
+    _addressController.clear();
+    _phoneController.clear();
   }
 
   Future _selectDate() async {

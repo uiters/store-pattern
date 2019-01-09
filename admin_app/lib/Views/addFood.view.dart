@@ -227,7 +227,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
-
                 if (_nameController.text.trim() != '' && _priceController.text.trim() != '' && _category.name.trim() != '') {
                   if (await foodController.Controller.instance.insertFood(
                     _nameController.text.trim(),
@@ -237,6 +236,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                   )) {
                     foodController.Controller.instance.reloadFoods();
                     successDialog(this.context, 'Create food success!');
+                    // clear data widget
                     _nameController.clear();
                     _priceController.clear();
                     setState(() {

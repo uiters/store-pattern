@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:image_picker/image_picker.dart';
 
 import './../Models/account.model.dart';
@@ -21,11 +22,30 @@ class Controller {
   }
 
   Future<bool> insertAcc(String username, String password, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
-    return Model.instance.insertAcc(username, password, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image);
+    return Model.instance.insertAcc(
+      username, 
+      new DBCrypt().hashpw(password, new DBCrypt().gensalt()), 
+      displayname, 
+      sex, 
+      idCard, 
+      address, 
+      phoneNumber, 
+      birthday, 
+      idAccountType, 
+      image
+    );
   }
 
   Future<bool> updateAcc(int id, String name) {
     return Model.instance.updateAcc(id, name);
+  }
+
+  Future<bool> isUsernameExists(String username) async {
+    List<Account> accounts = await accs;
+    for (var account in accounts) {
+      if (account.username == username) return true;
+    }
+    return false;
   }
 
   void reloadAccs() {

@@ -37,10 +37,6 @@ class Model {
     );
   }
 
-  Future<bool> isUsernameExists(String username) {
-    
-  }
-
   Future<List<Account>> parseAcc(Future<List> futureAccs) async  {
     List<Account> accs = [];
     await futureAccs.then((values) {
@@ -65,16 +61,16 @@ class Account {
 
   Account.fromJson(Map<String, dynamic> json) {
     username = json['Username'];
-    displayName = json['DisplayName'];
+    displayName = json['DisplayName'] != null ? json['DisplayName'] : '';
     password = json['Password'];
-    sex = int.parse(json['Sex']);
-    idCard = json['IDCard'];
-    address = json['Address'];
-    phone = json['PhoneNumber'];
-    birthday = DateTime.parse(json['BirthDay']);
+    sex = json['Sex'] != null ? int.parse(json['Sex']) : -1;
+    idCard = json['IDCard'] != null ? json['IDCard'] : '';
+    address = json['Address'] != null ? json['Address'] : '';
+    phone = json['PhoneNumber'] != null ? json['PhoneNumber'] : '';
+    birthday = json['BirthDay'] != null ? DateTime.parse(json['BirthDay']) : DateTime.now().subtract(new Duration(days: 365 * 18));
     accountType = json['Name'] != null ? json['Name'] : '';
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
-    this.idImange = int.parse(json['IDImage']);
+    idImange = int.parse(json['IDImage']);
   }
 
 }
