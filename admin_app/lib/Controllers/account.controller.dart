@@ -36,8 +36,11 @@ class Controller {
     );
   }
 
-  Future<bool> resetAcc(username) {
-    return Model.instance.resetAcc(username);
+  Future<bool> resetAcc(String username, String defaultPass) {
+    return Model.instance.resetAcc(
+      username,
+      new DBCrypt().hashpw(username, new DBCrypt().gensalt())
+    );
   }
 
   Future<bool> isUsernameExists(String username) async {

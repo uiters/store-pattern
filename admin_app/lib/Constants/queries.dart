@@ -14,7 +14,7 @@ const String GET_ACCS = 'CALL `USP_GetAccounts`();';
 
 const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
 
-const String RESET_ACC = '';
+const String RESET_ACC = UPDATE_ACC_PASS;
 
 ///////////////////////////////////////////////////////////////
 

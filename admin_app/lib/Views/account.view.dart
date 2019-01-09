@@ -7,6 +7,7 @@ import './../Controllers/account.controller.dart';
 import './addAccount.view.dart';
 import './accountDetail.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AccountScreen extends StatefulWidget {
@@ -205,7 +206,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
                 onPressed: () {
-                  resetAccount();
+                  resetAccount(acc.username);
                 },
               ),
               new IconButton(
@@ -222,8 +223,47 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  void resetAccount() { // only reset password
-    
+  void resetAccount(String username) { // only reset password
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to reset this account: ' + username+ '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (await Controller.instance.resetAcc(username, username)) {
+                  successDialog(this.context, 'Reset this account: ' + username+ ' success!');
+                }
+                else errorDialog(this.context, 'Reset this account: ' + username+ ' failed.' + '\nPlease try again!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
   }
 
   void _pushAddAccountScreen() {
