@@ -10,8 +10,8 @@
 </h4>
 
 <p align="center">
-  <a href="#">
-    <img src="https://img.shields.io/appveyor/ci/gruntjs/grunt.svg"/>
+  <a href="https://travis-ci.org/jade28/store-pattern.svg?branch=master">
+    <img src="https://travis-ci.org/jade28/store-pattern.svg?branch=master"/>
   </a>
   
    <a href="#">
