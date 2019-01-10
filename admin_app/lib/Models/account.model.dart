@@ -30,6 +30,13 @@ class Model {
     );
   }
 
+  Future<bool> updateAcc(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_ACC,
+      parameter: [username, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image]
+    );
+  }
+
   Future<bool> resetAcc(String username, String defaultPass) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.RESET_ACC,
@@ -56,6 +63,7 @@ class Account {
   String phone;
   DateTime birthday;
   String accountType;
+  int idAccountType;
   Uint8List image;
   int idImange;
 
@@ -69,6 +77,7 @@ class Account {
     phone = json['PhoneNumber'] != null ? json['PhoneNumber'] : '';
     birthday = json['BirthDay'] != null ? DateTime.parse(json['BirthDay']) : DateTime.now().subtract(new Duration(days: 365 * 18));
     accountType = json['Name'] != null ? json['Name'] : '';
+    idAccountType = int.parse(json['IDAccountType']);
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
     idImange = int.parse(json['IDImage']);
   }

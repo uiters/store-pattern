@@ -49,6 +49,7 @@ class Model {
 class Food {
   int id;
   String name;
+  int idCategory;
   String category;
   double price;
   int idImange;
@@ -57,6 +58,7 @@ class Food {
   Food.fromJson(Map<String, dynamic> json) {
     this.id = int.parse(json['IdFood']);
     this.name = json['FoodName'];
+    this.idCategory = int.parse(json['IDCategory']);
     this.category = json['CategoryName'];
     this.price = double.parse(json['Price']);
     this.idImange = int.parse(json['IdImage']);

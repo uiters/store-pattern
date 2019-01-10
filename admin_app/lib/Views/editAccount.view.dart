@@ -3,19 +3,24 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import './../Models/account.model.dart';
 import './../Models/accountType.model.dart' as accType;
 
-import './../Controllers/accountType.controller.dart' as accTypeController;
 import './../Controllers/account.controller.dart';
+import './../Controllers/accountType.controller.dart' as accTypeController;
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
-class AddAccountScreen extends StatefulWidget {
-  _AddAccountScreenState createState() => _AddAccountScreenState();
+class EditAccountScreen extends StatefulWidget {
+  EditAccountScreen({key, this.acc}) : super(key: key);
+
+  final Account acc;
+
+  _EditAccountScreenState createState() => _EditAccountScreenState();
 }
 
-class _AddAccountScreenState extends State<AddAccountScreen> {
+class _EditAccountScreenState extends State<EditAccountScreen> {
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _displayNameController = new TextEditingController();
   TextEditingController _idCardController = new TextEditingController();
@@ -27,10 +32,18 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
   accType.AccountType _accType;
   String _sex;
   File _image;
-  bool _isUsernameExists = false;
-  
+
   @override
     void initState() {
+      Account account = widget.acc;
+      _accType = new accType.AccountType(account.idAccountType, account.accountType);
+      _usernameController.text = account.username;
+      _displayNameController.text = account.displayName;
+      _idCardController.text = account.idCard;
+      _addressController.text = account.address;
+      _phoneController.text = account.phone;
+      _sex = account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
+      _birthDayController.text = account.birthday.toString().split(' ')[0];
       super.initState();
     }
 
@@ -50,28 +63,29 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       fontWeight: FontWeight.w500
     );
 
-    TextStyle _itemStyle3 = new TextStyle(
-      color: Colors.redAccent, 
-      fontFamily: 'Dosis', 
-      fontSize: 18.0,
-      fontWeight: FontWeight.w500
-    );
-
     Widget avatar = new Column(
       children: <Widget>[
         _image == null 
-        ? new Image.asset(
+        ? (widget.acc.image.isEmpty
+          ? new Image.asset(
             'assets/images/account.png',
             width: 122.0,
             height: 122.0,
             fit: BoxFit.fill,
-        )
-        : new Image.file(
-            _image,
+          )
+          : new Image.memory(
+            widget.acc.image,
             width: 122.0,
             height: 122.0,
             fit: BoxFit.fill,
-          ),
+          )
+        )
+        : new Image.file(
+          _image,
+          width: 122.0,
+          height: 122.0,
+          fit: BoxFit.fill,
+        ),
         new Container(height: 15.0,),
         new RaisedButton(
           color: Colors.lightBlueAccent,
@@ -90,18 +104,13 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     );
 
     Widget username = new TextField(
+      enabled: false,
       controller: _usernameController,
       style: _itemStyle,
       decoration: new InputDecoration(
-        labelText: _isUsernameExists ? 'Username already exists. Try again.' : 'Username:*',
-        labelStyle: _isUsernameExists ? _itemStyle3 : _itemStyle2
+        labelText: 'Username:*',
+        labelStyle: _itemStyle2
       ),
-      onChanged: (value) async {
-        bool result = await Controller.instance.isUsernameExists(value);
-        setState(() {
-          _isUsernameExists = result;
-        });
-      },
     );
 
     Widget displayName = new TextField(
@@ -186,6 +195,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             controller: _birthDayController,
             style: _itemStyle,
             decoration: new InputDecoration(
+              enabled: false,
               labelText: 'Birthday:',
               labelStyle: _itemStyle2
             ),
@@ -193,7 +203,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         ),
         new RaisedButton(
           child: new Text(
-            'Select birthday',
+            'Change birthday',
             style: _itemStyle,
           ), onPressed: () {
             _selectDate();
@@ -202,18 +212,18 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       ],
     );
 
-    Widget create = Container(
+    Widget saveChange = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
         child: new RaisedButton(
           color: Colors.redAccent,
           child: new Text(
-            'Create Account',
+            'Save Change',
             style: _itemStyle,
           ),
           onPressed: () {
-              _createAcc();
+            _updateAcc(widget.acc.username);
           },
         ),
       ),
@@ -223,51 +233,27 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       child: new Container(
         padding: const EdgeInsets.all(10.0),
         child: new ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            avatar,
-            username,
-            displayName,
-            sex,
-            birthDay,
-            idCard,
-            address,
-            phone,
-            accountType,
-            create
-          ],
+        shrinkWrap: true,
+        padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          avatar,
+          username,
+          displayName,
+          sex,
+          birthDay,
+          idCard,
+          address,
+          phone,
+          accountType,
+          saveChange
+        ],
         )
        ),
     );
   }
 
-  Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {
-    List<DropdownMenuItem> items = [];
-    for (int i = 0; i < accTypes.length; i++) {
-      DropdownMenuItem item = new DropdownMenuItem(
-        value: accTypes[i],
-        child: new Text(
-          accTypes[i].name,
-          style: _itemStyle,
-        ),
-      );
-      items.add(item);
-    }
-
-    return new DropdownButton(
-        value: _accType,
-        items: items,
-        onChanged: (value) {
-          setState(() {
-            _accType = value;
-          });
-        }
-    );
-  }
-
-  void _createAcc() async {
+  void _updateAcc(String username) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -277,7 +263,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to create new account?',
+            'Do you want to update this account: ' + username + '?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -289,12 +275,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
-                if ( _usernameController.text.trim() != '' &&
-                  _accType != null &&
-                  !_isUsernameExists
-                ) {
-                  if (await Controller.instance.insertAcc(
-                    _usernameController.text.trim(),
+                if (await Controller.instance.updateAcc(
                     _usernameController.text.trim(),
                     _displayNameController.text.trim(),
                     _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1),
@@ -306,13 +287,9 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                     _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                   )) {
                     Controller.instance.reloadAccs();
-                    successDialog(this.context, 'Create new account success!');
-                    clearDataWidget();
+                    successDialog(this.context, 'Update this account: ' + username + ' success!');
                   }
-                  else errorDialog(this.context, 'Create new account failed.' + '\nPlease try again!');
-                  return;
-                }
-                errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  else errorDialog(this.context, 'Update this account: ' + username + ' failed.' + '\nPlease try again!');
               },
             ),
             new FlatButton(
@@ -330,25 +307,38 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     );
   }
 
-  void clearDataWidget() {
-    setState(() {
-      _image = null;
-    });
-    _usernameController.clear();
-    _displayNameController.clear();
-    _idCardController.clear();
-    _addressController.clear();
-    _phoneController.clear();
-  }
-
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
         context: context,
-        initialDate: new DateTime.now().subtract(new Duration(days: 365 * 18)),
+        initialDate: widget.acc.birthday,
         firstDate: new DateTime(1975),
         lastDate: new DateTime(2019)
     );
     if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+  }
+
+  Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {
+    List<DropdownMenuItem> items = [];
+    for (int i = 0; i < accTypes.length; i++) {
+      DropdownMenuItem item = new DropdownMenuItem(
+        value: _accType.id == accTypes[i].id ? _accType : accTypes[i],
+        child: new Text(
+          accTypes[i].name,
+          style: _itemStyle,
+        ),
+      );
+      items.add(item);
+    }
+
+    return new DropdownButton(
+        value: _accType,
+        items: items,
+        onChanged: (value) {
+          setState(() {
+            _accType = value;
+          });
+        }
+    );
   }
 
   Widget _buildSex(TextStyle _itemStyle) {

@@ -6,6 +6,7 @@ import './../Controllers/account.controller.dart';
 
 import './addAccount.view.dart';
 import './accountDetail.view.dart';
+import './editAccount.view.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -197,6 +198,13 @@ class _AccountScreenState extends State<AccountScreen> {
             children: <Widget>[
               new IconButton(
                 color: Colors.redAccent,
+                icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
+                onPressed: () {
+                  _pushEditAccountScreen(acc);
+                },
+              ),
+              new IconButton(
+                color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
 
@@ -278,6 +286,27 @@ class _AccountScreenState extends State<AccountScreen> {
             centerTitle: true,
           ),
           body: new AddAccountScreen(),
+        );
+      }),
+    ).then((value) {
+      setState(() {
+        accs = Controller.instance.accs;
+      });
+    });
+  }
+
+   void _pushEditAccountScreen(Account acc) {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Edit Account',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new EditAccountScreen(acc: acc),
         );
       }),
     ).then((value) {

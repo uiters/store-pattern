@@ -36,6 +36,20 @@ class Controller {
     );
   }
 
+  Future<bool> updateAcc(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return Model.instance.updateAcc(
+      username, 
+      displayname, 
+      sex, 
+      idCard, 
+      address, 
+      phoneNumber, 
+      birthday, 
+      idAccountType, 
+      image
+    );
+  }
+
   Future<bool> resetAcc(String username, String defaultPass) {
     return Model.instance.resetAcc(
       username,

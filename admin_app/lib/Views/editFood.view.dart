@@ -21,24 +21,22 @@ class EditFoodScreen extends StatefulWidget {
 }
 
 class _EditFoodScreenState extends State<EditFoodScreen> {
-  Future<List<cate.Category>> categories = cateController.Controller.instance.categories;
-
   TextEditingController _idController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _priceController = new TextEditingController();
 
+  Future<List<cate.Category>> categories = cateController.Controller.instance.categories;
   cate.Category _category;
-
   File _image;
 
   @override
     void initState() {
       Food food = widget.food;
-   
+
       _idController.text = food.id.toString();
       _nameController.text = food.name;
       _priceController.text = food.price.toString();
-
+      _category = new cate.Category(food.idCategory, food.category);
       super.initState();
     }
 
@@ -61,11 +59,20 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
     Widget avatar = new Column(
       children: <Widget>[
         _image == null 
-        ? new Image.asset(
+        ? (
+          widget.food.image.isEmpty
+          ? new Image.asset(
             'assets/images/food.png',
             width: 122.0,
             height: 122.0,
             fit: BoxFit.fill,
+          )
+          : new Image.memory(
+            widget.food.image,
+            width: 122.0,
+            height: 122.0,
+            fit: BoxFit.fill,
+          )
         )
         : new Image.file(
             _image,
@@ -195,7 +202,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
     List<DropdownMenuItem> items = [];
     for (int i = 0; i < categories.length; i++) {
       DropdownMenuItem item = new DropdownMenuItem(
-        value: categories[i],
+        value: _category.id == categories[i].id ? _category : categories[i],
         child: new Text(
           categories[i].name,
           style: _itemStyle,
@@ -203,9 +210,6 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       );
       items.add(item);
     }
-
-    // _category = categories[findIndexCategory(categories, widget.food.name)];
-
 
     return new DropdownButton(
         value: _category,
@@ -276,11 +280,5 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       }
     );
   }
-  
-  int findIndexCategory(List<cate.Category> categories, String name) {
-    for (var i = 0; i < categories.length; i++) {
-      if (categories[i].name == name) return i;
-    }
-    return -1;
-  }
+
 }
