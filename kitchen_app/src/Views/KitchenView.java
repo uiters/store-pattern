@@ -208,7 +208,7 @@ public class KitchenView extends View {
              @Override
              public void mouseClicked(MouseEvent e) {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                 JOptionPane.showMessageDialog(null, "Load Database");
+                 //JOptionPane.showMessageDialog(null, "Load Database");
                  setForeColor();
                  dashboardTitle.setForeground(Color.red);
                  table.clearSelection();
@@ -372,7 +372,7 @@ public class KitchenView extends View {
                 {
                     String idbill=table.getModel().getValueAt(index, 0).toString();
                     int id=Integer.parseInt(idbill);
-                    JOptionPane.showMessageDialog(null, "Load info food trong bill");
+                    //JOptionPane.showMessageDialog(null, "Load info food trong bill");
                     controller.LoadInfo(id);
                     
                 }
