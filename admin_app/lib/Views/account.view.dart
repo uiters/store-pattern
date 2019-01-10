@@ -92,16 +92,6 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<Account> accs) {
-    List<TableRow> listRow = [
-      _buildTableHead()
-    ];
-    for (var item in accs) {
-      listRow.add(_buildTableData(item));
-    }
-    return listRow;
-  }
-
   Widget _buildTable(List<Account> accs) {
     return Expanded(
       child: Container(
@@ -124,6 +114,16 @@ class _AccountScreenState extends State<AccountScreen> {
           )
       ),
     );
+  }
+
+  List<TableRow> _buildListRow(List<Account> accs) {
+    List<TableRow> listRow = [
+      _buildTableHead()
+    ];
+    for (var item in accs) {
+      listRow.add(_buildTableData(item));
+    }
+    return listRow;
   }
 
   TableRow _buildTableHead() {
@@ -172,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.username.toString(), style: theme.contentTable,),
+              new Text(acc.username.toString() ?? '', style: theme.contentTable,),
             ],
           ),
         ),
@@ -180,7 +180,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.displayName, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.displayName ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -188,7 +188,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.accountType, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.accountType ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),

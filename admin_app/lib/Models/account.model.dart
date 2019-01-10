@@ -54,7 +54,7 @@ class Model {
 }
 
 class Account {
-   String username;
+  String username;
   String displayName;
   String password;
   int sex;
@@ -66,6 +66,18 @@ class Account {
   int idAccountType;
   Uint8List image;
   int idImange;
+
+  Account(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, Uint8List image) {
+    this.username = username;
+    this.displayName = displayname;
+    this.sex = sex;
+    this.idCard = idCard;
+    this.address = address;
+    this.phone = phoneNumber;
+    this.birthday = birthday;
+    this.idAccountType = idAccountType;
+    this.image = image;
+  }
 
   Account.fromJson(Map<String, dynamic> json) {
     username = json['Username'];

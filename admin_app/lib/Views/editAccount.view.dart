@@ -286,7 +286,19 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     _accType.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                   )) {
-                    Controller.instance.reloadAccs();
+                    // reload accounts
+                    Controller.instance.updateAccountToLocal(
+                      _usernameController.text.trim(), 
+                      _displayNameController.text.trim(),
+                      _sex == 'Male' ? 1 : (_sex == 'Female' ? 0 : -1),
+                      _idCardController.text.trim(),
+                      _addressController.text.trim(),
+                      _phoneController.text.trim(),
+                      _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                      _accType.id,
+                      _image != null ? base64Encode(_image.readAsBytesSync()) : '',
+                    );
+
                     successDialog(this.context, 'Update this account: ' + username + ' success!');
                   }
                   else errorDialog(this.context, 'Update this account: ' + username + ' failed.' + '\nPlease try again!');

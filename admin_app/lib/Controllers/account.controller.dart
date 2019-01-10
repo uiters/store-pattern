@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:dbcrypt/dbcrypt.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,6 +49,30 @@ class Controller {
       idAccountType, 
       image
     );
+  }
+
+  void insertAccountToLocal(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) async {
+    Account acc = new Account(username, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, base64.decode(image));
+    (await accs).add(acc);
+  }
+
+  void updateAccountToLocal(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) async {
+    int index = await findIndex(username);
+    (await accs)[index].displayName = displayname;
+    (await accs)[index].sex = sex;
+    (await accs)[index].idCard = idCard;
+    (await accs)[index].address = address;
+    (await accs)[index].phone = phoneNumber;
+    (await accs)[index].birthday = birthday;
+    (await accs)[index].idAccountType = idAccountType;
+    (await accs)[index].image = base64.decode(image);
+  }
+
+  Future<int> findIndex(String username) async {
+    for (var i = 0; i < (await accs).length; i++) {
+        if ((await accs)[i].username == username) return i;
+    }
+    return -1;
   }
 
   Future<bool> resetAcc(String username, String defaultPass) {
