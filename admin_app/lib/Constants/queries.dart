@@ -54,8 +54,8 @@ const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 
 const String GET_FOODS = 'CALL `USP_GetFoodsPlus`();';
 
-const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory , @image )';
+const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory , @image );';
 
-const String UPDATE_FOOD = 'CALL `USP_UpdateFoodCategory`( @ID , @Name );';
+const String UPDATE_FOOD = 'CALL `USP_UpdateFood`( @id , @name , @price , @idCategory , @image );';
 
 ///////////////////////////////////////////////////////////////

@@ -24,8 +24,8 @@ class Controller {
     return Model.instance.insertFood(name, price, idCategory, image);
   }
 
-  Future<bool> updateFood(int id, String name) {
-    return Model.instance.updateFood(id, name);
+  Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
+    return Model.instance.updateFood(id, name, price, idCategory, image);
   }
 
   void reloadFoods() {

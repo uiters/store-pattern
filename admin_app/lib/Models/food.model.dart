@@ -30,10 +30,10 @@ class Model {
     );
   }
 
-  Future<bool> updateFood(int id, String name) {
+  Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.UPDATE_FOOD,
-      parameter: [id, name]
+      parameter: [id, name, price, idCategory, image]
     );
   }
 

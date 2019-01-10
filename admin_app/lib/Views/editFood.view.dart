@@ -246,7 +246,8 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
                 Navigator.of(context).pop();
 
                 if (_nameController.text.trim() != '' && _priceController.text.trim() != '' && _category.name.trim() != '') {
-                  if (await foodController.Controller.instance.insertFood(
+                  if (await foodController.Controller.instance.updateFood(
+                    widget.food.id,
                     _nameController.text.trim(),
                     double.parse(_priceController.text.trim()),
                     _category.id,
