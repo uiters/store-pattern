@@ -37,6 +37,13 @@ class Model {
     );
   }
 
+  Future<int> getIDMax() async {
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.GET_ID_FOOD_MAX
+    );
+    return (await parseFood(futureFoods))[0].id;
+  }
+
   Future<List<Food>> parseFood(Future<List> futureFoods) async  {
     List<Food> foods = [];
     await futureFoods.then((values) {
@@ -55,13 +62,22 @@ class Food {
   int idImange;
   Uint8List image;
 
+  Food(int _id, String _name, int _idCategory, String _category, double _price, Uint8List _image) {
+    id = _id;
+    name = _name;
+    idCategory = _idCategory;
+    category = _category;
+    price = _price;
+    image = _image;
+  }
+
   Food.fromJson(Map<String, dynamic> json) {
-    this.id = int.parse(json['IdFood']);
-    this.name = json['FoodName'];
-    this.idCategory = int.parse(json['IDCategory']);
-    this.category = json['CategoryName'];
-    this.price = double.parse(json['Price']);
-    this.idImange = int.parse(json['IdImage']);
+    this.id = json['IdFood'] != null ? int.parse(json['IdFood']) : int.parse(json['ID']);
+    this.name = json['FoodName'] != null ? json['FoodName'] : '';
+    this.idCategory = json['IDCategory'] != null ? int.parse(json['IDCategory']) : -1;
+    this.category = json['CategoryName'] != null ? json['CategoryName'] : '';
+    this.price = json['Price'] != null ? double.parse(json['Price']) : 0.0;
+    this.idImange = json['IdImage'] != null ? int.parse(json['IdImage']) : -1;
     this.image = json['Image'] != null ? base64.decode(json['Image']) : null;
   }
 }

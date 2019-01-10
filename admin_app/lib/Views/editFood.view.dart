@@ -253,10 +253,17 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
                     _category.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : ''
                   )) {
-                    foodController.Controller.instance.reloadFoods();
+                    // reload foods
+                    foodController.Controller.instance.updateFoodToLocal(
+                      widget.food.id,
+                      _nameController.text.trim(), 
+                      _category.id, 
+                      _category.name, 
+                      double.parse(_priceController.text.trim()), 
+                      _image != null ? base64Encode(_image.readAsBytesSync()) : ''
+                    );
+
                     successDialog(this.context, 'Update food success!');
-                    _nameController.clear();
-                    _priceController.clear();
                     setState(() {
                       _image = null;
                     });
