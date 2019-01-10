@@ -118,3 +118,9 @@ const String QUERY_DELETE_PENDING = 'CALL USP_DelPending( @IDBill )';
 /// 
 /// USP_DelBin( @IDCollect , @ID )
 const String QUERY_DELTE_BIN = 'CALL USP_DelBin( @IDCollect , @ID )';
+
+//-------------------------------------------------------------------------------------------------------------------
+
+const String QUERY_GET_REPORT_LASTWEEK  = 'CALL USP_TVC12_GetReport_WEEK()';
+
+const String QUERY_GET_REPORT_TODAY = 'CALL USP_TVC12_GetReport_Today()';
