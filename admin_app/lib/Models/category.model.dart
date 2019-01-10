@@ -47,6 +47,11 @@ class Category {
   int id;
   String name;
 
+  Category(int _id, String _name) {
+    id = _id;
+    name = _name;
+  }
+
   Category.fromJson(Map<String, dynamic> json) {
     id = int.parse(json['ID']);
     name = json['Name'];

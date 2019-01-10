@@ -5,9 +5,10 @@ import './../Models/account.model.dart';
 import './../Controllers/account.controller.dart';
 
 import './addAccount.view.dart';
-import './editAccount.view.dart';
 import './accountDetail.view.dart';
+import './editAccount.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AccountScreen extends StatefulWidget {
@@ -91,16 +92,6 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<Account> accs) {
-    List<TableRow> listRow = [
-      _buildTableHead()
-    ];
-    for (var item in accs) {
-      listRow.add(_buildTableData(item));
-    }
-    return listRow;
-  }
-
   Widget _buildTable(List<Account> accs) {
     return Expanded(
       child: Container(
@@ -123,6 +114,16 @@ class _AccountScreenState extends State<AccountScreen> {
           )
       ),
     );
+  }
+
+  List<TableRow> _buildListRow(List<Account> accs) {
+    List<TableRow> listRow = [
+      _buildTableHead()
+    ];
+    for (var item in accs) {
+      listRow.add(_buildTableData(item));
+    }
+    return listRow;
   }
 
   TableRow _buildTableHead() {
@@ -171,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.username.toString(), style: theme.contentTable,),
+              new Text(acc.username.toString() ?? '', style: theme.contentTable,),
             ],
           ),
         ),
@@ -179,7 +180,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.displayName, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.displayName ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -187,7 +188,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.accountType, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.accountType ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -213,7 +214,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
                 onPressed: () {
-                  
+                  resetAccount(acc.username);
                 },
               ),
               new IconButton(
@@ -227,6 +228,49 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         )
       ]
+    );
+  }
+
+  void resetAccount(String username) { // only reset password
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to reset this account: ' + username+ '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (await Controller.instance.resetAcc(username, username)) {
+                  successDialog(this.context, 'Reset this account: ' + username+ ' success!');
+                }
+                else errorDialog(this.context, 'Reset this account: ' + username+ ' failed.' + '\nPlease try again!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 
@@ -251,7 +295,7 @@ class _AccountScreenState extends State<AccountScreen> {
     });
   }
 
-  void _pushEditAccountScreen(Account acc) {
+   void _pushEditAccountScreen(Account acc) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(

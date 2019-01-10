@@ -30,15 +30,18 @@ class Model {
     );
   }
 
-  Future<bool> updateAcc(int id, String name) {
+  Future<bool> updateAcc(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.UPDATE_ACC,
-      parameter: [id, name]
+      parameter: [username, displayname, sex, idCard, address, phoneNumber, birthday, idAccountType, image]
     );
   }
 
-  Future<bool> isUsernameExists(String username) {
-    
+  Future<bool> resetAcc(String username, String defaultPass) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.RESET_ACC,
+      parameter: [username, defaultPass]
+    );
   }
 
   Future<List<Account>> parseAcc(Future<List> futureAccs) async  {
@@ -51,7 +54,7 @@ class Model {
 }
 
 class Account {
-   String username;
+  String username;
   String displayName;
   String password;
   int sex;
@@ -60,21 +63,35 @@ class Account {
   String phone;
   DateTime birthday;
   String accountType;
+  int idAccountType;
   Uint8List image;
   int idImange;
 
+  Account(String username, String displayname, int sex, String idCard, String address, String phoneNumber, DateTime birthday, int idAccountType, Uint8List image) {
+    this.username = username;
+    this.displayName = displayname;
+    this.sex = sex;
+    this.idCard = idCard;
+    this.address = address;
+    this.phone = phoneNumber;
+    this.birthday = birthday;
+    this.idAccountType = idAccountType;
+    this.image = image;
+  }
+
   Account.fromJson(Map<String, dynamic> json) {
     username = json['Username'];
-    displayName = json['DisplayName'];
+    displayName = json['DisplayName'] != null ? json['DisplayName'] : '';
     password = json['Password'];
-    sex = int.parse(json['Sex']);
-    idCard = json['IDCard'];
-    address = json['Address'];
-    phone = json['PhoneNumber'];
-    birthday = DateTime.parse(json['BirthDay']);
+    sex = json['Sex'] != null ? int.parse(json['Sex']) : -1;
+    idCard = json['IDCard'] != null ? json['IDCard'] : '';
+    address = json['Address'] != null ? json['Address'] : '';
+    phone = json['PhoneNumber'] != null ? json['PhoneNumber'] : '';
+    birthday = json['BirthDay'] != null ? DateTime.parse(json['BirthDay']) : DateTime.now().subtract(new Duration(days: 365 * 18));
     accountType = json['Name'] != null ? json['Name'] : '';
+    idAccountType = int.parse(json['IDAccountType']);
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
-    this.idImange = int.parse(json['IDImage']);
+    idImange = int.parse(json['IDImage']);
   }
 
 }

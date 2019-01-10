@@ -227,7 +227,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
-
                 if (_nameController.text.trim() != '' && _priceController.text.trim() != '' && _category.name.trim() != '') {
                   if (await foodController.Controller.instance.insertFood(
                     _nameController.text.trim(),
@@ -235,8 +234,17 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                     _category.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : ''
                   )) {
-                    foodController.Controller.instance.reloadFoods();
+                    // reload foods
+                    foodController.Controller.instance.insertFoodToLocal(
+                      _nameController.text.trim(), 
+                      _category.id, 
+                      _category.name, 
+                      double.parse(_priceController.text.trim()), 
+                      _image != null ? base64Encode(_image.readAsBytesSync()) : ''
+                    );
+
                     successDialog(this.context, 'Create food success!');
+                    // clear data widget
                     _nameController.clear();
                     _priceController.clear();
                     setState(() {

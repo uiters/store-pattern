@@ -41,8 +41,12 @@ class _MainPageState extends State<MainPage> {
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                       image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image: new MemoryImage(
+                        fit: BoxFit.fill, 
+                        image: widget.account.image.isEmpty ?
+                        new AssetImage(
+                          'assets/images/account.png',
+                        ) :
+                        new MemoryImage(
                           widget.account.image,
                         )
                       )

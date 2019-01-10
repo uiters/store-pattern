@@ -5,8 +5,6 @@ import 'package:intl/intl.dart';
 import './../Controllers/report.controller.dart';
 import './../Models/report.model.dart';
 
-import 'package:flutter_sparkline/flutter_sparkline.dart';
-
 import './../Constants/theme.dart' as theme;
 import 'package:charts_flutter/flutter.dart' as charts;
 
