@@ -453,7 +453,13 @@ public class KitchenView extends View {
                if(index>=0)
                {
                    LoadBill(index);
-                   if(Print()==true) System.out.println("Thành công!");
+                   
+                   if(Print()==true)
+                   {
+                       int id=Integer.parseInt(table.getValueAt(index, 0).toString());
+                       controller.delete(id);
+                       delete(index);
+                   }
                }
                else
                     JOptionPane.showMessageDialog(null, "Bạn chưa chọn hóa đơn nào để in");

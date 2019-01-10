@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,6 +58,12 @@ public class BillModel {
         return listBill;
         
     }
+    
+    public void Print(int index) throws IOException
+    {
+        String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index });
+        if (raw.equals("1")==true) JOptionPane.showMessageDialog(null, "Đã cập nhật thành công");
+    }
     public class Bill
     {
         @SerializedName("ID") 
@@ -87,6 +94,10 @@ public class BillModel {
         }
         
         public Bill(){}
+        public Bill (int id)
+        {
+            this.id=id;
+        }
     }
     
     public class BillInfo {

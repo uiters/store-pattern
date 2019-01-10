@@ -44,7 +44,17 @@ public class BillController extends Controller {
     }
     @Override
     public void delete(Object object){
-      
+      int id = (int)object;
+        _remove(id);
+        CompletableFuture.runAsync(() -> { //runAsync no return value
+            try
+            {
+                   // update
+                model.Print(id);
+            }catch (IOException ex) {
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
     @Override
     public void update(Object object){
@@ -83,6 +93,18 @@ public class BillController extends Controller {
         });
         future.thenAccept(listBills -> view.LoadInfo(listBills));
     }
+    
+ 
+    private void _remove(int item)
+    {
+        for(Bill category : bills){
+            if (category.id == item){
+                bills.remove(category);
+                break;
+            }
+        }
+    }
+        
     
     
 }
