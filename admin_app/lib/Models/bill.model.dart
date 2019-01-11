@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import './connectServer.dart';
 
 import './../Constants/queries.dart' as queries;
@@ -13,19 +15,37 @@ class Model {
     return parseBill(futureFoods);
   }
 
-  Future<List<Bill>> parseBill(Future<List> futureFoods) async  {
-    List<Bill> foods = [];
-    await futureFoods.then((values) {
-      values.forEach((value) => foods.add(new Bill.fromJson(value)));
-    });
-    return foods;
-  }
-
   Future<bool> deleteBill(int id) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.QUERY_DELETE_BILLS,
       parameter: [id]
     );
+  }
+
+  Future<List<Food>> getFoodByBill(int idBill) async {
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.GET_BILLDETAIL_BY_BILL,
+      parameter: [idBill]
+    );
+    return parseFood(futureFoods);
+  }
+
+  Future<List<Bill>> parseBill(Future<List> futureBills) async  {
+    List<Bill> bills = [];
+    await futureBills.then((values) {
+      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+    });
+    return bills;
+  }
+
+   static Future<List<Food>> parseFood(Future<List> foods) async {
+    List<Food> futureFoods = [];
+    await foods.then((values) {
+      values.forEach((value) {
+        futureFoods.add(Food.fromJson(value));
+      });
+    });
+    return futureFoods;
   }
 }
 
@@ -51,5 +71,35 @@ class Bill {
     this.totalPrice = double.parse(json['TotalPrice']);
     this.status = int.parse(json['Status']) > 0 ? 'Paid' : 'Unpaid';
     this.userName = json['Username'];
+  }
+}
+
+class Food {
+  int id;
+  String name;
+  int idFoodCategory;
+  double price;
+  int quantity;
+  int idImange;
+  Uint8List image;
+
+  Food(Food _food) {
+    this.id = _food.id;
+    this.name = _food.name;
+    this.idFoodCategory = _food.idFoodCategory;
+    this.price = _food.price;
+    this.quantity = _food.quantity;
+    this.image = _food.image;
+  }
+
+  Food.fromJson(Map<String, dynamic> json) {
+    this.id = int.parse(json['ID']);
+    this.name = json['Name'];
+    this.idFoodCategory = int.parse(json['IDCategory']);
+    this.price = double.parse(json['Price']);
+    this.quantity = json['Quantity'] != null ? int.parse(json['Quantity']) : 0;
+    //this.image = json['Image'] != null ? base64.decode(json['Image']) : null;
+    this.idImange = int.parse(json['IDImage']);
+    //this.image = base64.decode(json['Image']);
   }
 }

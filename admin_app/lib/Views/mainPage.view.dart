@@ -9,6 +9,7 @@ import './accountType.view..dart';
 import './food.view.dart';
 import './account.view.dart';
 import './dashboard.view.dart';
+import './bill.view.dart';
 
 
 import './../Constants/theme.dart';
@@ -80,7 +81,7 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
-            leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
+            leading: new Icon(Icons.monetization_on, color: fontColorLight, size: 19.0,),
             title: new Text('Bill', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
@@ -198,7 +199,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 0: return new DashBoardScreen();
-      case 1: 
+      case 1: return new BillScreen();
       case 2: return new FoodScreen();
       case 3: return new CategoryScreen();
       case 4: return new TableScreen();
