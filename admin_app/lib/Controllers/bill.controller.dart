@@ -7,7 +7,7 @@ class Controller {
   Future<List<Bill>> _bills;
 
   Future<List<Bill>> get bills {
-    if (_bills == null) _bills = Model.instance.getBills();
+    _bills = Model.instance.getBills();
     return _bills;
   }
 
@@ -16,6 +16,7 @@ class Controller {
   }
 
   Future<List<Bill>> searchFoods(String keyword) async {
+    if(_bills == null) return null;
     List<Bill> items = await _bills;
     if (keyword.trim() == '') return items;
     return items.where((item) => item.nameTable.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();

@@ -44,7 +44,7 @@ class Bill {
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : 0;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : 0;
-    this.nameTable = json['NameTable'] != null ? json['NameTable'] : '';
+    this.nameTable = json['Name'] != null ? json['Name'] : '';
     this.dateCheckIn = DateTime.parse(json['DateCheckIn']);
     this.dateCheckOut = DateTime.parse(json['DateCheckOut']);
     this.discount = double.parse(json['Discount']);

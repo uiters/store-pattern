@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import './../Controllers/report.controller.dart';
 import './../Models/report.model.dart';
-
+import './../Views/bill.view.dart';
 import './../Constants/theme.dart' as theme;
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -83,7 +83,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           )
         ],
       ),
-    ));
+    ),
+    func: () {
+      Navigator.of(context).push(
+        new MaterialPageRoute(builder: (context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text(
+                'Bill',
+                style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+              iconTheme: new IconThemeData(color: theme.accentColor),
+              centerTitle: true,
+            ),
+            body: new BillScreen()
+          );
+        }),
+      );
+    }
+    );
 
     Widget boxChart = _buildTile(Padding(
       padding: const EdgeInsets.all(24.0),
@@ -144,7 +161,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           )
         ],
       ),
-    ));
+    )
+    );
     return Container(
       padding: EdgeInsets.only(left: 12.0, right: 12.0),
       child: new ListView(
@@ -165,12 +183,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
-  Widget _buildTile(Widget child) {
+  Widget _buildTile(Widget child, {Function() func}) {
     return Material(
-        elevation: 14.0,
-        borderRadius: BorderRadius.circular(12.0),
-        shadowColor: Color(0x802196F3),
-        child: child);
+      elevation: 14.0,
+      borderRadius: BorderRadius.circular(12.0),
+      shadowColor: Color(0x802196F3),
+      child: new InkWell(
+        child: child,
+        onTap: func != null ? func  : () => {},
+      ) 
+    );
   }
 
   Widget _buildChart(List<Report> rp) {

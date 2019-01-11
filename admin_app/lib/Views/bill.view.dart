@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import './../Models/bill.model.dart' as food;
+import './../Models/bill.model.dart';
 
 import './billDetail.view.dart';
 
@@ -9,14 +10,14 @@ import './../Controllers/bill.controller.dart';
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
-class FoodScreen extends StatefulWidget {
-  _FoodScreenState createState() => _FoodScreenState();
+class BillScreen extends StatefulWidget {
+  _BillScreenState createState() => _BillScreenState();
 }
 
-class _FoodScreenState extends State<FoodScreen> {
-  Future<List<food.Food>> foods = Controller.instance.foods;
+class _BillScreenState extends State<BillScreen> {
+  Future<List<Bill>> bills = Controller.instance.bills;
   TextEditingController _keywordController = new TextEditingController();
-
+  var format = DateFormat('MM/dd/yy hh:mm');
   @override
   Widget build(BuildContext context) {
     const TextStyle _itemStyle = TextStyle(
@@ -35,32 +36,19 @@ class _FoodScreenState extends State<FoodScreen> {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          new RaisedButton(
-            color: Colors.greenAccent,
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                new Icon(Icons.add, color: theme.fontColorLight, size: 19.0,),
-                new Text('Add', style: theme.contentTable,)
-              ],
-            ),
-            onPressed: () {
-              _pushAddFoodScreen();
-            },
-          ),
           new Container(width: 30.0,),
           new Flexible(
             child: new TextField(
               controller: _keywordController,
               onChanged: (keyword) {
                 setState(() {
-                  foods = Controller.instance.searchFoods(keyword);
+                  bills = Controller.instance.searchFoods(keyword);
                 });
               },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
-                  hintText: 'Enter your food...',
+                  hintText: 'Enter your bill...',
                   hintStyle: _itemStyle,
               )
             )
@@ -69,8 +57,8 @@ class _FoodScreenState extends State<FoodScreen> {
       ),
     );
 
-    Widget table = new FutureBuilder<List<food.Food>>(
-      future: foods,
+    Widget table = new FutureBuilder<List<Bill>>(
+      future: bills,
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
         if (snapshot.hasData) {
@@ -90,7 +78,7 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<food.Food> foods) {
+  List<TableRow> _buildListRow(List<Bill> foods) {
     List<TableRow> listRow = [
       _buildTableHead()
     ];
@@ -100,7 +88,7 @@ class _FoodScreenState extends State<FoodScreen> {
     return listRow;
   }
 
-  Widget _buildTable(List<food.Food> foods) {
+  Widget _buildTable(List<Bill> foods) {
     return Expanded(
       child: Container(
         width: double.infinity,
@@ -111,11 +99,22 @@ class _FoodScreenState extends State<FoodScreen> {
             children: <Widget>[
               new Table(
                 defaultColumnWidth: FlexColumnWidth(2.0),
-                columnWidths: {
+                columnWidths: MediaQuery.of(context).orientation == Orientation.landscape ? {
                   0: FlexColumnWidth(0.5),
-                  1: FlexColumnWidth(3.0),
-                  3: FlexColumnWidth(1.5),
-                  4: FlexColumnWidth(3.0)
+                  1: FlexColumnWidth(1.0),
+                  2: FlexColumnWidth(1.6),
+                  3: FlexColumnWidth(1.6),
+                  4: FlexColumnWidth(1.0),
+                  5: FlexColumnWidth(1.0),
+                  6: FlexColumnWidth(0.8),
+                  7: FlexColumnWidth(0.9),
+                  8: FlexColumnWidth(1.7),
+                } : {
+                  0: FlexColumnWidth(0.5),
+                  1: FlexColumnWidth(1.0),
+                  2: FlexColumnWidth(1.5),
+                  3: FlexColumnWidth(1.0),
+                  //4: FlexColumnWidth(1.0),
                 },
                 border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                 children: _buildListRow(foods)
@@ -127,120 +126,195 @@ class _FoodScreenState extends State<FoodScreen> {
   }
 
   TableRow _buildTableHead() {
+
+    List<TableCell> table = [
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('ID', style: theme.headTable,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Table', style: theme.headTable,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Checkout', style: theme.headTable,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Prices', style: theme.headTable,),
+          ],
+        ),
+      ),
+
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Actions', style: theme.headTable,),
+          ],
+        ),
+      )
+    ];
+    var checkin = new TableCell(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text('Checkin', style: theme.headTable,),
+        ],
+      ),
+    );
+    var discount =  new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Discount', style: theme.headTable,),
+          ],
+        ),
+      );
+    var staff = new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Staff', style: theme.headTable,),
+          ],
+        ),
+      );
+    var status = new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Status', style: theme.headTable,),
+          ],
+        ),
+      );
+      if(MediaQuery.of(context).orientation == Orientation.landscape) {
+        table.insert(table.length - 3, checkin);
+        table.insert(table.length - 2, discount);
+        table.insert(table.length - 1, staff);
+        table.insert(table.length - 1, status);
+      }
     return new TableRow(
-      children: [
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('ID', style: theme.headTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('Name', style: theme.headTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('Category', style: theme.headTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('Price', style: theme.headTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('Actions', style: theme.headTable,),
-            ],
-          ),
-        )
-      ]
+      children: table
     );
   }
 
-  TableRow _buildTableData(food.Food food) {
+  TableRow _buildTableData(Bill bill) {
+    List<TableCell> tableCell = [
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text(bill.id.toString(), style: theme.contentTable,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text(bill.nameTable, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text(format.format(bill.dateCheckOut), style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('\$${bill.totalPrice}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+          ],
+        ),
+      ),
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            new IconButton(
+              color: Colors.redAccent,
+              icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
+              onPressed: () {
+                _deleteBill(bill);
+              },
+            ),
+            new IconButton(
+              color: Colors.redAccent,
+              icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
+              onPressed: () {
+                _pushDetailsBillScreen(bill);
+              },
+            ),
+          ],
+        ),
+      )
+    ];
+    var checkin = new TableCell(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text(format.format(bill.dateCheckIn), style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+        ],
+      ),
+    );
+    var discount = new TableCell(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text('${bill.discount}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+        ],
+      ),
+    );
+
+    var staff = new TableCell(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text('${bill.userName}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+        ],
+      ),
+    );
+    var status = new TableCell(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text('${bill.status}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+        ],
+      ),
+    );
+    if(MediaQuery.of(context).orientation == Orientation.landscape) {
+        tableCell.insert(tableCell.length - 3, checkin);
+        tableCell.insert(tableCell.length - 2, discount);
+        tableCell.insert(tableCell.length - 1, staff);
+        tableCell.insert(tableCell.length - 1, status);
+      }
     return new TableRow(
-      children: [
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text(food.id.toString(), style: theme.contentTable,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text(food.name, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text(food.category, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text('\$'+food.price.toString(), style: theme.contentTable, overflow: TextOverflow.ellipsis,),
-            ],
-          ),
-        ),
-        new TableCell(
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              new IconButton(
-                color: Colors.redAccent,
-                icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
-                onPressed: () {
-                  _pushEditFoodScreen(food);
-                },
-              ),
-              new IconButton(
-                color: Colors.redAccent,
-                icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
-                onPressed: () {
-                  _deleteFood(food);
-                },
-              ),
-              new IconButton(
-                color: Colors.redAccent,
-                icon: new Icon(Icons.info, color: Colors.blueAccent, size: 19.0,),
-                onPressed: () {
-                  _pushDetailsFoodScreen(food);
-                },
-              ),
-            ],
-          ),
-        )
-      ]
+      children: tableCell
     );
   }
 
-  void _deleteFood(food.Food food) {
+  void _deleteBill(Bill bill) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -250,7 +324,7 @@ class _FoodScreenState extends State<FoodScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to delete this food: ' + food.name + '?',
+            'Do you want to delete this bill: ${bill.id}?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -262,17 +336,14 @@ class _FoodScreenState extends State<FoodScreen> {
               onPressed: () async {
                 /* Pop screens */
                 Navigator.of(context).pop();
-                if (!(await Controller.instance.isFoodExists(food.id))) {
-                  if (await Controller.instance.deleteFood(food.id)) {
-                    Controller.instance.deleteFoodToLocal(food.id);
+                  if (await Controller.instance.deleteBill(bill.id)) {
+                    Controller.instance.deleteLocal(bill.id);
                     setState(() {
-                      foods = Controller.instance.foods;
+                      bills = Controller.instance.bills;
                     });
-                    successDialog(this.context, 'Delete this food: ' + food.name + ' success!');
+                    successDialog(this.context, 'Delete this bill: ${bill.id} success!');
                   }
-                  else errorDialog(this.context, 'Delete this food: ' + food.name + ' failed.' + '\nPlease try again!');
-                }
-                else errorDialog(this.context, 'Can\'t delete this food: ' + food.name + '?' + '\nContact with team dev for information!');
+                  else errorDialog(this.context, 'Delete this bill: ${bill.id} failed.' + '\nPlease try again!');
               }
             ),
             new FlatButton(
@@ -290,60 +361,18 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  void _pushAddFoodScreen() {
+  void _pushDetailsBillScreen(Bill bill) {
     Navigator.of(context).push(
       new MaterialPageRoute(builder: (context) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(
-              'Add Food',
+              'Bill Detail',
               style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new AddFoodScreen(),
-        );
-      }),
-    ).then((value) {
-      setState(() {
-        foods = Controller.instance.foods;
-      });
-    });
-  }
-
-  void _pushEditFoodScreen(food.Food food) {
-    Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
-              'Update Food',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: theme.accentColor),
-            centerTitle: true,
-          ),
-          body: new EditFoodScreen(food: food),
-        );
-      }),
-    ).then((value) {
-      setState(() {
-        foods = Controller.instance.foods;
-      });
-    });
-  }
-
-  void _pushDetailsFoodScreen(food.Food food) {
-    Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
-              'Food Details',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: theme.accentColor),
-            centerTitle: true,
-          ),
-          body: new FoodDetailScreen(food: food,)
+          //body: new FoodDetailScreen()
         );
       }),
     );

@@ -10,6 +10,7 @@ import './food.view.dart';
 import './account.view.dart';
 import './dashboard.view.dart';
 
+
 import './../Constants/theme.dart';
 
 class MainPage extends StatefulWidget {
@@ -79,11 +80,22 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
+            leading: new Icon(Icons.invoice, color: fontColorLight, size: 19.0,),
+            title: new Text('Bill', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
+            onTap: () {
+              setState(() {
+                this._screenNumber = 1;
+                this._screenName = 'BILL';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          new ListTile(
             leading: new Icon(Icons.fastfood, color: fontColorLight, size: 19.0,),
             title: new Text('Food', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 1;
+                this._screenNumber = 2;
                 this._screenName = 'FOOD';
               });
               Navigator.pop(context);
@@ -94,7 +106,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Food Category', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 2;
+                this._screenNumber = 3;
                 this._screenName = 'FOOD CATEGORY';
               });
               Navigator.pop(context);
@@ -105,7 +117,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Table', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 3;
+                this._screenNumber = 4;
                 this._screenName = 'TABLE';
               });
               Navigator.pop(context);
@@ -116,7 +128,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Account', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 4;
+                this._screenNumber = 5;
                 this._screenName = 'ACCOUNT';
               });
               Navigator.pop(context);
@@ -127,7 +139,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Account Type', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 5;
+                this._screenNumber = 6;
                 this._screenName = 'ACCOUNT TYPE';
               });
               Navigator.pop(context);
@@ -143,7 +155,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('My Profile', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 6;
+                this._screenNumber = 7;
                 this._screenName = 'MY PROFILE';
               });
               Navigator.pop(context);
@@ -154,7 +166,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 7;
+                this._screenNumber = 8;
                 this._screenName = 'SETTINGS';
               });
               Navigator.pop(context);
@@ -173,7 +185,7 @@ class _MainPageState extends State<MainPage> {
             title: new Text('About', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {
-                this._screenNumber = 8;
+                this._screenNumber = 9;
                 this._screenName = 'ABOUT';
               });
               Navigator.pop(context);
@@ -186,12 +198,13 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 0: return new DashBoardScreen();
-      case 1: return new FoodScreen();
-      case 2: return new CategoryScreen();
-      case 3: return new TableScreen();
-      case 4: return new AccountScreen();
-      case 5: return new AccountTypeScreen();
-      case 6: return new ProfileScreen(account: widget.account,);
+      case 1: 
+      case 2: return new FoodScreen();
+      case 3: return new CategoryScreen();
+      case 4: return new TableScreen();
+      case 5: return new AccountScreen();
+      case 6: return new AccountTypeScreen();
+      case 7: return new ProfileScreen(account: widget.account,);
       default: return null;
     }
   }
