@@ -56,23 +56,6 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "1.14.11"
-  convert:
-    dependency: transitive
-    description:
-      name: convert
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  crypto:
-    dependency: transitive
-    description:
-      name: crypto
-      url: "https://pub.dartlang.org"
-    source: hosted
-=======
->>>>>>> aa8f6c3c5bc1d06a2a25ca2a945b445807a3f319
     version: "2.0.6"
   csslib:
     dependency: transitive
@@ -404,8 +387,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+1"
-<<<<<<< HEAD
-=======
   timeago:
     dependency: "direct main"
     description:
@@ -413,7 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.10"
->>>>>>> aa8f6c3c5bc1d06a2a25ca2a945b445807a3f319
   typed_data:
     dependency: transitive
     description:

@@ -6,7 +6,7 @@
 </h1>
 
 <h4 align="center">
-  <a href="https://github.com/jade28/store-pattern" target="_blank"><code>Store Pattern</code></a> with Flutter, MySql and PHP.
+  <a href="https://github.com/jade28/store-pattern" target="_blank"><code>Store Pattern</code></a> with Flutter, Java, PHP and MySQL.
 </h4>
 
 <p align="center">
@@ -80,7 +80,7 @@ For help getting started with Flutter, view our online [documentation](https://f
 ## Technologies
 
 * [Flutter](https://flutter.io/)
-* [Dart](https://www.dartlang.org/)
+* [Java](https://www.java.com/en/download/)
 * [PHP 7](http://php.net/manual/en/migration70.new-features.php)
 * [MySQL](https://www.mysql.com/)
 
