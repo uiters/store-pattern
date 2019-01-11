@@ -6,7 +6,9 @@ import './../Controllers/account.controller.dart';
 
 import './addAccount.view.dart';
 import './accountDetail.view.dart';
+import './editAccount.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AccountScreen extends StatefulWidget {
@@ -90,16 +92,6 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  List<TableRow> _buildListRow(List<Account> accs) {
-    List<TableRow> listRow = [
-      _buildTableHead()
-    ];
-    for (var item in accs) {
-      listRow.add(_buildTableData(item));
-    }
-    return listRow;
-  }
-
   Widget _buildTable(List<Account> accs) {
     return Expanded(
       child: Container(
@@ -122,6 +114,16 @@ class _AccountScreenState extends State<AccountScreen> {
           )
       ),
     );
+  }
+
+  List<TableRow> _buildListRow(List<Account> accs) {
+    List<TableRow> listRow = [
+      _buildTableHead()
+    ];
+    for (var item in accs) {
+      listRow.add(_buildTableData(item));
+    }
+    return listRow;
   }
 
   TableRow _buildTableHead() {
@@ -170,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.username.toString(), style: theme.contentTable,),
+              new Text(acc.username.toString() ?? '', style: theme.contentTable,),
             ],
           ),
         ),
@@ -178,7 +180,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.displayName, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.displayName ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -186,7 +188,7 @@ class _AccountScreenState extends State<AccountScreen> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(acc.accountType, style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+              new Text(acc.accountType ?? '', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
             ],
           ),
         ),
@@ -196,16 +198,23 @@ class _AccountScreenState extends State<AccountScreen> {
             children: <Widget>[
               new IconButton(
                 color: Colors.redAccent,
+                icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
+                onPressed: () {
+                  _pushEditAccountScreen(acc);
+                },
+              ),
+              new IconButton(
+                color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
-
+                  _deleteAccount(acc.username);
                 },
               ),
               new IconButton(
                 color: Colors.redAccent,
                 icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
                 onPressed: () {
-                  resetAccount();
+                  _resetAccount(acc.username);
                 },
               ),
               new IconButton(
@@ -222,8 +231,97 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  void resetAccount() { // only reset password
-    
+  void _deleteAccount(String username) { 
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this account: ' + username + '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isAccExists(username))) {
+                  if (await Controller.instance.deleteAcc(username)) {
+                    Controller.instance.deleteAccountToLocal(username);
+                    setState(() {
+                      accs = Controller.instance.accs;
+                    });
+                    successDialog(this.context, 'Delete this account: ' + username + ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this account: ' + username + ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this account: ' + username + '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _resetAccount(String username) { // only reset password
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to reset this account: ' + username+ '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (await Controller.instance.resetAcc(username, username)) {
+                  successDialog(this.context, 'Reset this account: ' + username+ ' success!');
+                }
+                else errorDialog(this.context, 'Reset this account: ' + username+ ' failed.' + '\nPlease try again!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
   }
 
   void _pushAddAccountScreen() {
@@ -238,6 +336,27 @@ class _AccountScreenState extends State<AccountScreen> {
             centerTitle: true,
           ),
           body: new AddAccountScreen(),
+        );
+      }),
+    ).then((value) {
+      setState(() {
+        accs = Controller.instance.accs;
+      });
+    });
+  }
+
+   void _pushEditAccountScreen(Account acc) {
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(
+              'Edit Account',
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
+            centerTitle: true,
+          ),
+          body: new EditAccountScreen(acc: acc),
         );
       }),
     ).then((value) {

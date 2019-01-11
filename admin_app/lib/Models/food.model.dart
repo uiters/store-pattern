@@ -30,36 +30,91 @@ class Model {
     );
   }
 
-  Future<bool> updateFood(int id, String name) {
+  Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.UPDATE_FOOD,
-      parameter: [id, name]
+      parameter: [id, name, price, idCategory, image]
     );
   }
 
-  Future<List<Food>> parseFood(Future<List> futureFoods) async  {
+  Future<bool> deleteFood(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_FOOD,
+      parameter: [id]
+    );
+  }
+
+  Future<bool> isFoodExists(int id) async { // check food exists on bill
+    Future<List> futureBillDetails = MySqlConnection.instance.executeQuery(
+      queries.IS_FOOD_EXISTS,
+      parameter: [id]
+    );
+    return (await parseBillDetails(futureBillDetails)).length > 0;
+  }
+
+  Future<int> getIDMax() async {
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.GET_ID_FOOD_MAX
+    );
+    return (await parseFood(futureFoods))[0].id;
+  }
+
+  static Future<List<Food>> parseFood(Future<List> futureFoods) async  {
     List<Food> foods = [];
     await futureFoods.then((values) {
       values.forEach((value) => foods.add(new Food.fromJson(value)));
     });
     return foods;
   }
+
+  Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async  {
+    List<BillDetail> billDetails = [];
+    await futureBillDetails.then((values) {
+      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+    });
+    return billDetails;
+  }
 }
 
 class Food {
   int id;
   String name;
+  int idCategory;
   String category;
   double price;
   int idImange;
   Uint8List image;
 
+  Food(int _id, String _name, int _idCategory, String _category, double _price, Uint8List _image) {
+    id = _id;
+    name = _name;
+    idCategory = _idCategory;
+    category = _category;
+    price = _price;
+    image = _image;
+  }
+
   Food.fromJson(Map<String, dynamic> json) {
-    this.id = int.parse(json['IdFood']);
-    this.name = json['FoodName'];
-    this.category = json['CategoryName'];
-    this.price = double.parse(json['Price']);
-    this.idImange = int.parse(json['IdImage']);
+    this.id = json['IdFood'] != null ? int.parse(json['IdFood']) : int.parse(json['ID']);
+    this.name = json['FoodName'] != null ? json['FoodName'] : '';
+    this.idCategory = json['IDCategory'] != null ? int.parse(json['IDCategory']) : -1;
+    this.category = json['CategoryName'] != null ? json['CategoryName'] : '';
+    this.price = json['Price'] != null ? double.parse(json['Price']) : 0.0;
+    this.idImange = json['IdImage'] != null ? int.parse(json['IdImage']) : -1;
     this.image = json['Image'] != null ? base64.decode(json['Image']) : null;
   }
+}
+
+class BillDetail {
+
+  int idBill;
+  int idFood;
+  int quantity;
+
+  BillDetail.fromJson(Map<String, dynamic> json) {
+    this.idBill = int.parse(json['IDBill']);
+    this.idFood = int.parse(json['IDFood']);
+    this.quantity = int.parse(json['Quantity']);
+  }
+
 }

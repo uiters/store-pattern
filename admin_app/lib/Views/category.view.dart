@@ -7,6 +7,7 @@ import './../Controllers/category.controller.dart';
 import './addCategory.view.dart';
 import './editCategory.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class CategoryScreen extends StatefulWidget {
@@ -201,13 +202,63 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 onPressed: () {
-
+                  _deleteCategory(category);
                 },
               ),
             ],
           ),
         )
       ]
+    );
+  }
+
+  void _deleteCategory(category.Category category) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this category: ' + category.name + '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isCategoryExists(category.id))) {
+                  if (await Controller.instance.deleteCategory(category.id)) {
+                    Controller.instance.deleteCateToLocal(category.id);
+                    setState(() {
+                      categories = Controller.instance.categories;
+                    });
+                    successDialog(this.context, 'Delete this category: ' + category.name + ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this category: ' + category.name + ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this category: ' + category.name + '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 

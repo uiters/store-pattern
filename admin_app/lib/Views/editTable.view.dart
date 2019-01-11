@@ -119,7 +119,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await tableController.Controller.instance.updateTable(widget.table.id, _nameController.text)) {
-                    tableController.Controller.instance.reloadTables();
+                    // reload tables
+                    tableController.Controller.instance.updateTableToLocal(widget.table.id, _nameController.text, -1);
+                    
                     successDialog(this.context, 'Update table success!');
                   }
                   else errorDialog(this.context, 'Update table failed.' + '\nPlease try again!');

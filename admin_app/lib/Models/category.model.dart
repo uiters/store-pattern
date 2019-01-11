@@ -1,5 +1,7 @@
 import './connectServer.dart';
 
+import './food.model.dart' as foodModel;
+
 import './../Constants/queries.dart' as queries;
 
 class Model {
@@ -34,6 +36,28 @@ class Model {
     );
   }
 
+  Future<bool> deleteCategory(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_CATEGORY,
+      parameter: [id]
+    );
+  }
+
+  Future<bool> isCategoryExists(int id) async { // check category exists on food
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.IS_CATEGORY_EXISTS,
+      parameter: [id]
+    );
+    return (await foodModel.Model.parseFood(futureFoods)).length > 0;
+  }
+
+  Future<int> getIDMax() async {
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.GET_ID_CATEGORY_MAX
+    );
+    return (await parseCategory(futureFoods))[0].id;
+  }
+
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {
     List<Category> categories = [];
     await futureCategories.then((values) {
@@ -46,6 +70,11 @@ class Model {
 class Category {
   int id;
   String name;
+
+  Category(int _id, String _name) {
+    id = _id;
+    name = _name;
+  }
 
   Category.fromJson(Map<String, dynamic> json) {
     id = int.parse(json['ID']);
