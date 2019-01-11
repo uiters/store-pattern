@@ -15,6 +15,8 @@ class Controller {
     return Model.instance.deleteBill(id);
   }
 
+  Future<List<Food>> getFoodByBill(int idBill) => Model.instance.getFoodByBill(idBill);
+
   Future<List<Bill>> searchFoods(String keyword) async {
     if(_bills == null) return null;
     List<Bill> items = await _bills;

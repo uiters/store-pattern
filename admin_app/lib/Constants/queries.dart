@@ -88,7 +88,7 @@ const String GET_ID_FOOD_MAX = 'CALL `USP_GetIdFoodMax`();';
 
 ///////////////////////////////////////////////////////////////
 
-//query report
+//Query for Report
 const String QUERY_GET_REPORT_LASTWEEK  = 'CALL USP_TVC12_GetReport_Week()';
 
 const String QUERY_GET_REPORT_MONTH = "CALL USP_TVC12_GetReport_Month()";
@@ -98,13 +98,13 @@ const String QUERY_GET_REPORT_YEAR = "CALL USP_TVC12_GetReport_Year()";
 const String QUERY_GET_REPORT_TODAY = 'CALL USP_TVC12_GetReport_Today()';
 
 ///////////////////////////////////////////////////////////////
-//query bill
+
+//Query for Bill
 
 const String QUERY_GET_BILLS = "CALL USP_TVC12_GetBill()";
 
 const String QUERY_DELETE_BILLS = "CALL USP_TVC12_DeleteBill( @id )";
 
-
-
+const String GET_BILLDETAIL_BY_BILL = 'CALL `USP_GetBillDetailByBill`( @id );';
 
 ///////////////////////////////////////////////////////////////

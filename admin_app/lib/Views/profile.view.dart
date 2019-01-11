@@ -89,10 +89,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             image: new DecorationImage(
               fit: BoxFit.fill,
               image: _image == null 
-              ? new MemoryImage(
-                widget.account.image,
+              ? (
+                widget.account.image.isEmpty
+                ? new AssetImage(
+                  'assets/images/account.png',
+                )
+                : new MemoryImage(
+                  widget.account.image,
+                )
               )
-              : new FileImage(_image)
+              : new FileImage(
+                  _image,
+                ),
             )
           )
         ),

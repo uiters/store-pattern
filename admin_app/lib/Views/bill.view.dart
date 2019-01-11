@@ -372,7 +372,7 @@ class _BillScreenState extends State<BillScreen> {
             iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          //body: new FoodDetailScreen()
+          body: new BillDetailScreen(bill: bill,)
         );
       }),
     );
