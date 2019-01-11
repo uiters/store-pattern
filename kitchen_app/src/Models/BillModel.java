@@ -75,6 +75,8 @@ public class BillModel {
         public int id;
         @SerializedName("IDTable") 
         public int idtable;
+        @SerializedName("Name") 
+        public String table;
         @SerializedName("DateCheckIn") 
         public String checkin;
         @SerializedName("DateCheckOut") 
@@ -91,6 +93,18 @@ public class BillModel {
         {
             this.id = id;
             this.idtable = idtable;
+            this.checkin=checkin;
+            this.checkout=checkout;
+            this.discount=discount;
+            this.price=price;
+            this.username=name;
+        }
+        
+
+        public Bill(int id,String idtable,String checkin,String checkout,Double discount,Double price, String name)
+        {
+            this.id = id;
+            this.table = idtable;
             this.checkin=checkin;
             this.checkout=checkout;
             this.discount=discount;
