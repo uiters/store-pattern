@@ -5,4 +5,7 @@ class Controller {
 
   Future<List<Report>> get reportsWeek => Model.instance.getReports();
   Future<Report> get reportToday => Model.instance.getReportToday();
+  Future<List<Report>> get reportsMonth => Model.instance.getReportsMonth();
+  Future<List<Report>> get reportsYear => Model.instance.getReportsYear();
+
 }

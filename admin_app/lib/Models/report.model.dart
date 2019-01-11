@@ -20,6 +20,20 @@ class Model {
     return _parseReport(futureReport);
   }
 
+  Future<List<Report>>  getReportsMonth() async {
+    Future<List> futureReport = MySqlConnection.instance.executeQuery(
+      queries.QUERY_GET_REPORT_MONTH
+    );
+    return _parseReports(futureReport);
+  }
+
+  Future<List<Report>>  getReportsYear() async {
+    Future<List> futureReport = MySqlConnection.instance.executeQuery(
+      queries.QUERY_GET_REPORT_YEAR
+    );
+    return _parseReports(futureReport);
+  }
+
   Future<Report> _parseReport(Future<List> futureReport) async {
     List<Report> reports = [];
     await futureReport.then((values) {
@@ -46,7 +60,7 @@ class Report {
   Report(this.day, this.totalPrice);
 
   Report.fromJson(Map<String, dynamic> json) {
-    id = int.parse(json['ID']);
+    id = json['ID'] != null ? int.parse(json['ID']) : 0;
     day = DateTime.parse(json['_Date']);
     totalPrice = double.parse(json['TotalPrice']);
   }
