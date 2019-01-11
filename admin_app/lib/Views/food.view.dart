@@ -8,6 +8,7 @@ import './editFood.view.dart';
 
 import './../Controllers/food.controller.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class FoodScreen extends StatefulWidget {
@@ -224,7 +225,7 @@ class _FoodScreenState extends State<FoodScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
-
+                  _deleteFood(food);
                 },
               ),
               new IconButton(
@@ -238,6 +239,56 @@ class _FoodScreenState extends State<FoodScreen> {
           ),
         )
       ]
+    );
+  }
+
+  void _deleteFood(food.Food food) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this food: ' + food.name+ '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isFoodExists(food.id))) {
+                  if (await Controller.instance.deleteFood(food.id)) {
+                    Controller.instance.deleteFoodToLocal(food.id);
+                    setState(() {
+                      foods = Controller.instance.foods;
+                    });
+                    successDialog(this.context, 'Delete this food: ' + food.name + ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this food: ' + food.name + ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this food: ' + food.name + '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 

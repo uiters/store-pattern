@@ -62,6 +62,10 @@ const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory 
 
 const String UPDATE_FOOD = 'CALL `USP_UpdateFood`( @id , @name , @price , @idCategory , @image );';
 
+const String DELETE_FOOD = 'CALL USP_DELETE_FOOD( @id );';
+
+const String IS_FOOD_EXISTS = 'CALL USP_IS_FOOD_EXISTS( @id );';
+
 const String GET_ID_FOOD_MAX = 'CALL `USP_GetIdFoodMax`();';
 
 ///////////////////////////////////////////////////////////////

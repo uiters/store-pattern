@@ -207,14 +207,14 @@ class _AccountScreenState extends State<AccountScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
-                  deleteAccount(acc.username);
+                  _deleteAccount(acc.username);
                 },
               ),
               new IconButton(
                 color: Colors.redAccent,
                 icon: new Icon(Icons.refresh, color: Colors.greenAccent, size: 19.0,),
                 onPressed: () {
-                  resetAccount(acc.username);
+                  _resetAccount(acc.username);
                 },
               ),
               new IconButton(
@@ -231,7 +231,7 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  void deleteAccount(String username) { // only reset password
+  void _deleteAccount(String username) { 
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -241,7 +241,7 @@ class _AccountScreenState extends State<AccountScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to delete this account: ' + username+ '?',
+            'Do you want to delete this account: ' + username + '?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
@@ -259,11 +259,11 @@ class _AccountScreenState extends State<AccountScreen> {
                     setState(() {
                       accs = Controller.instance.accs;
                     });
-                    successDialog(this.context, 'Delete this account: ' + username+ ' success!');
+                    successDialog(this.context, 'Delete this account: ' + username + ' success!');
                   }
-                  else errorDialog(this.context, 'Delete this account: ' + username+ ' failed.' + '\nPlease try again!');
+                  else errorDialog(this.context, 'Delete this account: ' + username + ' failed.' + '\nPlease try again!');
                 }
-                else errorDialog(this.context, 'Can\'t delete this account: ' + username+ '?' + '\nContact with team dev for information!');
+                else errorDialog(this.context, 'Can\'t delete this account: ' + username + '?' + '\nContact with team dev for information!');
               }
             ),
             new FlatButton(
@@ -281,8 +281,7 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-
-  void resetAccount(String username) { // only reset password
+  void _resetAccount(String username) { // only reset password
     showDialog(
       context: context,
       builder: (BuildContext context) {
