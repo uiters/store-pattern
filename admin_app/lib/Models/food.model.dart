@@ -45,11 +45,11 @@ class Model {
   }
 
   Future<bool> isFoodExists(int id) async { // check food exists on bill
-    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
+    Future<List> futureBillDetails = MySqlConnection.instance.executeQuery(
       queries.IS_FOOD_EXISTS,
       parameter: [id]
     );
-    return (await parseBillDetails(futureAccs)).length > 0;
+    return (await parseBillDetails(futureBillDetails)).length > 0;
   }
 
   Future<int> getIDMax() async {

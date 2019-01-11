@@ -48,6 +48,12 @@ const String INSERT_TABLE = 'CALL `USP_InsertTable`( @Nametable );';
 
 const String UPDATE_TABLE = 'CALL `USP_UpdateTable`( @ID , @_Name , @_Status );';
 
+const String DELETE_TABLE = 'CALL `USP_DeleteTable`( @id );';
+
+const String IS_TABLE_EXISTS = 'CALL `USP_IsTableExists`( @id );';
+
+const String GET_ID_TABLE_MAX = 'CALL `USP_GetIdTableMax`();';
+
 ///////////////////////////////////////////////////////////////
 
 // Queries for Account Types

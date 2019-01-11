@@ -45,11 +45,11 @@ class Model {
   }
 
   Future<bool> isAccExists(String username) async {
-    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
+    Future<List> futureBills = MySqlConnection.instance.executeQuery(
       queries.IS_ACC_EXISTS,
       parameter: [username]
     );
-    return (await parseBill(futureAccs)).length > 0;
+    return (await parseBill(futureBills)).length > 0;
   }
 
   Future<bool> resetAcc(String username, String defaultPass) {

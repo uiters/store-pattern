@@ -112,7 +112,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await tableController.Controller.instance.insertTable(_nameController.text)) {
-                    tableController.Controller.instance.reloadTables();
+                    // reload tables
+                    tableController.Controller.instance.insertTableToLocal(_nameController.text, -1);
+
                     successDialog(this.context, 'Create table success!');
                     _nameController.clear();
                   }
