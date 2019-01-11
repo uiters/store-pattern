@@ -207,7 +207,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 color: Colors.redAccent,
                 icon: new Icon(Icons.delete, color: Colors.redAccent, size: 19.0,),
                 onPressed: () {
-
+                  deleteAccount(acc.username);
                 },
               ),
               new IconButton(
@@ -230,6 +230,57 @@ class _AccountScreenState extends State<AccountScreen> {
       ]
     );
   }
+
+  void deleteAccount(String username) { // only reset password
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this account: ' + username+ '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isAccExists(username))) {
+                  if (await Controller.instance.deleteAcc(username)) {
+                    Controller.instance.deleteAccountToLocal(username);
+                    setState(() {
+                      accs = Controller.instance.accs;
+                    });
+                    successDialog(this.context, 'Delete this account: ' + username+ ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this account: ' + username+ ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this account: ' + username+ '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
 
   void resetAccount(String username) { // only reset password
     showDialog(

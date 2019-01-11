@@ -37,6 +37,21 @@ class Model {
     );
   }
 
+  Future<bool> deleteAcc(String username) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_ACC,
+      parameter: [username]
+    );
+  }
+
+  Future<bool> isAccExists(String username) async {
+    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
+      queries.IS_ACC_EXISTS,
+      parameter: [username]
+    );
+    return (await parseBill(futureAccs)).length > 0;
+  }
+
   Future<bool> resetAcc(String username, String defaultPass) {
     return MySqlConnection.instance.executeNoneQuery(
       queries.RESET_ACC,
@@ -50,6 +65,14 @@ class Model {
       values.forEach((value) => accs.add(new Account.fromJson(value)));
     });
     return accs;
+  }
+
+  Future<List<Bill>> parseBill(Future<List> futureBills) async  {
+    List<Bill> bills = [];
+    await futureBills.then((values) {
+      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+    });
+    return bills;
   }
 }
 
@@ -92,6 +115,26 @@ class Account {
     idAccountType = int.parse(json['IDAccountType']);
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
     idImange = int.parse(json['IDImage']);
+  }
+
+}
+
+class Bill {
+
+  int id;
+  int idTable;
+  DateTime dateCheckIn;
+  DateTime dateCheckOut;
+  double discount;
+  double totalPrice;
+  int status;
+
+  Bill.fromJson(Map<String, dynamic> json) {
+    this.id = json['ID'] != null ? int.parse(json['ID']) : -1;
+    this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : -1;
+    this.dateCheckIn = json['DateCheckIn'] != null ? DateTime.parse(json['DateCheckIn']) :DateTime.now();
+    this.dateCheckOut = json['DateCheckOut'] != null ? DateTime.parse(json['DateCheckOut']) : DateTime.now();
+    this.status = json['Status'] !=null ? int.parse(json['Status']) : -1;
   }
 
 }

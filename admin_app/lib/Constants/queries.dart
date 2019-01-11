@@ -4,9 +4,9 @@
 
 const String LOGIN = 'CALL USP_LoginAdmin( @username )';
 
-const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
+const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
 
-const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );';
+const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass( @username , @newPass );';
 
 const String UPDATE_ACC_AVATAR = 'CALL `USP_UpdateAccAvatar`( @username , @image )';
 
@@ -15,6 +15,10 @@ const String GET_ACCS = 'CALL `USP_GetAccounts`();';
 const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
 
 const String UPDATE_ACC = 'CALL `USP_UpdateAccount`( @username , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
+
+const String DELETE_ACC = 'CALL USP_DELETE_ACC( @username );';
+
+const String IS_ACC_EXISTS = 'CALL USP_IS_ACC_EXITS( @username );';
 
 const String RESET_ACC = UPDATE_ACC_PASS;
 
