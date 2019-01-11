@@ -1,5 +1,7 @@
 import './connectServer.dart';
 
+import './food.model.dart' as foodModel;
+
 import './../Constants/queries.dart' as queries;
 
 class Model {
@@ -32,6 +34,28 @@ class Model {
       queries.UPDATE_CATEGORY,
       parameter: [id, name]
     );
+  }
+
+  Future<bool> deleteCategory(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_CATEGORY,
+      parameter: [id]
+    );
+  }
+
+  Future<bool> isCategoryExists(int id) async { // check category exists on food
+    Future<List> futureCates = MySqlConnection.instance.executeQuery(
+      queries.IS_CATEGORY_EXISTS,
+      parameter: [id]
+    );
+    return (await foodModel.Model.parseFood(futureCates)).length > 0;
+  }
+
+  Future<int> getIDMax() async {
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
+      queries.GET_ID_CATEGORY_MAX
+    );
+    return (await parseCategory(futureFoods))[0].id;
   }
 
   Future<List<Category>> parseCategory(Future<List> futureCategories) async  {

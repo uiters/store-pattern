@@ -112,7 +112,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await cateController.Controller.instance.insertCategory(_nameController.text)) {
-                    cateController.Controller.instance.reloadCategories();
+                    // reload categories
+                    cateController.Controller.instance.insertCateToLocal(_nameController.text);
+
                     successDialog(this.context, 'Create food category success!');
                     _nameController.clear();
                   }

@@ -44,7 +44,7 @@ class Model {
     );
   }
 
-  Future<bool> isFoodExists(int id) async {
+  Future<bool> isFoodExists(int id) async { // check food exists on bill
     Future<List> futureAccs = MySqlConnection.instance.executeQuery(
       queries.IS_FOOD_EXISTS,
       parameter: [id]
@@ -59,7 +59,7 @@ class Model {
     return (await parseFood(futureFoods))[0].id;
   }
 
-  Future<List<Food>> parseFood(Future<List> futureFoods) async  {
+  static Future<List<Food>> parseFood(Future<List> futureFoods) async  {
     List<Food> foods = [];
     await futureFoods.then((values) {
       values.forEach((value) => foods.add(new Food.fromJson(value)));

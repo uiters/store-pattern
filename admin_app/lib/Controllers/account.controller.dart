@@ -74,10 +74,6 @@ class Controller {
     return false;
   }
 
-  void reloadAccs() {
-    _accs = Model.instance.getAccs();
-  }
-
   Future<List<Account>> searchAccs(String keyword) async {
     List<Account> items = await accs;
     if (keyword.trim() == '') return items;

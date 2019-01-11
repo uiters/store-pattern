@@ -33,10 +33,6 @@ class Controller {
 
   Future<bool> isFoodExists(int id) => Model.instance.isFoodExists(id);
 
-  void reloadFoods() {
-    _foods = Model.instance.getFoods();
-  }
-
   Future<List<Food>> searchFoods(String keyword) async {
     List<Food> items = await foods;
     if (keyword.trim() == '') return items;

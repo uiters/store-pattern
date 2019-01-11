@@ -252,7 +252,7 @@ class _FoodScreenState extends State<FoodScreen> {
             style: theme.titleStyle
           ),
           content: new Text(
-            'Do you want to delete this food: ' + food.name+ '?',
+            'Do you want to delete this food: ' + food.name + '?',
             style: theme.contentStyle 
           ),
           actions: <Widget>[
