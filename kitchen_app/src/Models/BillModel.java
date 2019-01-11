@@ -10,8 +10,11 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -61,7 +64,9 @@ public class BillModel {
     
     public void Print(int index) throws IOException
     {
-        String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index });
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        JOptionPane.showMessageDialog(null, timeStamp);
+        String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index , timeStamp  });
         if (raw.equals("1")==true) JOptionPane.showMessageDialog(null, "Đã cập nhật thành công");
     }
     public class Bill
@@ -70,6 +75,8 @@ public class BillModel {
         public int id;
         @SerializedName("IDTable") 
         public int idtable;
+        @SerializedName("Name") 
+        public String table;
         @SerializedName("DateCheckIn") 
         public String checkin;
         @SerializedName("DateCheckOut") 
@@ -86,6 +93,18 @@ public class BillModel {
         {
             this.id = id;
             this.idtable = idtable;
+            this.checkin=checkin;
+            this.checkout=checkout;
+            this.discount=discount;
+            this.price=price;
+            this.username=name;
+        }
+        
+
+        public Bill(int id,String idtable,String checkin,String checkout,Double discount,Double price, String name)
+        {
+            this.id = id;
+            this.table = idtable;
             this.checkin=checkin;
             this.checkout=checkout;
             this.discount=discount;

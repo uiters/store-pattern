@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -98,7 +100,7 @@ public class KitchenView extends View {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
         bills.forEach((item) -> {
-            model.addRow(new Object[] { item.id,  item.idtable,item.checkin,item.checkout,item.discount,item.price,item.username});
+            model.addRow(new Object[] { item.id,  item.table,item.checkin,item.checkout,item.discount,item.price,item.username});
         });
         
         table.setModel(model);
@@ -121,15 +123,15 @@ public class KitchenView extends View {
     
     private void initBillHeader()
     {
-        txtbill.setText("Starbucks – The Best Coffee and Espresso Drinks"+"\n"
-        +"Contact 0123xxxxxx"+"\n"
-        +"Adress - mPlaza Saigon, 39 Lê Duẩn, Quận 1, TP.HCM"+"\n"
+        txtbill.setText("Store Pattern - The prototype for management applications"+"\n"
+        +"Contact 0123125482"+"\n"
+        +"Adress - Sir Matt Busby Way, Stretford, Manchester M16 0RA, UK"+"\n"
         +"******************************"+"\n");
     
     }
     private void initComponent() {
         // Jframe
-        jf=new JFrame("Cafe Management || Kitchen App");
+        jf=new JFrame("Store Pattern • Kitchen App");
         jf.setSize(new Dimension(1600, 800));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setLocationRelativeTo(null);
@@ -141,16 +143,17 @@ public class KitchenView extends View {
         
         /* MAIN TABLE */
         main = new JPanel();
-        main.setBackground(Color.green);
+        main.setBackground(new Color(209, 228, 252));
        
         
         /* INFO */
         info = new JPanel();
-        info.setBackground(Color.yellow);
+
+        info.setBackground(new Color(209, 228, 252));
         
          /* FOOTER */
         footer = new JPanel();
-        footer.setBackground(Color.cyan);
+        footer.setBackground(new Color(209, 228, 252));
         
         createHeader(header);
         createMain(main);
@@ -166,19 +169,22 @@ public class KitchenView extends View {
     private void createHeader(JPanel header)
     {
          header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
-         header.setBackground(new Color(228,249,245));
+         header.setBackground(new Color(209, 228, 252));
          
           /* BRAND */
         JPanel brandSection = new JPanel();
-        brandSection.setBackground(new Color(228,249,245));
+        brandSection.setBackground(new Color(209, 228, 252));
+
         
         JLabel brandImage = new JLabel();
         URL imgURL = getClass().getResource("../image/logo.png");
         brandImage.setIcon(new ImageIcon(imgURL));
         
-        JLabel brandText = new JLabel("Starbucks – The Best Coffee and Espresso Drinks");
-        brandText.setForeground(new Color(0,107,68));
-        brandText.setBackground(new Color(228,249,245));
+
+        JLabel brandText = new JLabel("Store Pattern - The prototype for management applications.");
+        brandText.setForeground(new Color( 72, 0, 250));
+        brandText.setBackground(new Color(209, 228, 252));
+
         brandText.setFont(new Font("SansSerif", Font.PLAIN, 20));
         
         brandSection.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -190,7 +196,8 @@ public class KitchenView extends View {
         /*DASHBOARD*/
         JPanel dashboard = new JPanel();
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.Y_AXIS));
-        dashboard.setBackground(new Color(228,249,245));
+
+        dashboard.setBackground(new Color(209, 228, 252));
         
         dashboardTitle = new JLabel("Refesh");
         dashboardTitle.setForeground(new Color(41,55,72));
@@ -236,7 +243,8 @@ public class KitchenView extends View {
         /*DASHBOARD*/
         JPanel help = new JPanel();
         help.setLayout(new BoxLayout(help, BoxLayout.Y_AXIS));
-        help.setBackground(new Color(228,249,245));
+
+        help.setBackground(new Color(209, 228, 252));
         
         helpTitle = new JLabel("Help");
         helpTitle.setForeground(new Color(41,55,72));
@@ -256,7 +264,7 @@ public class KitchenView extends View {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  setForeColor();
                  helpTitle.setForeground(Color.red);
-                JOptionPane.showMessageDialog(null, "Bạn có thể chọn auto, sau đó click refresh để app có thể tự động reload sau thời gian quy định!");
+                JOptionPane.showMessageDialog(null, "You can select the auto button, then click the refresh button so that the app can automatically reload after the specified time!");
                  setForeColor();
              }
             
@@ -265,7 +273,8 @@ public class KitchenView extends View {
         
         /*OPTIONS*/
         JPanel options = new JPanel();
-        options.setBackground(new Color(228,249,245));
+        options.setBackground(new Color(209, 228, 252));
+
         options.setLayout(new BoxLayout(options, BoxLayout.X_AXIS));
         
         options.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -308,7 +317,9 @@ public class KitchenView extends View {
                 }
             }
         };
-        detailtable.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
+
+        detailtable.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.TRUETYPE_FONT, 18));
+
         detailtable.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         detailtable.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         detailtable.setModel(model);
@@ -343,7 +354,9 @@ public class KitchenView extends View {
         
         /*LOAD TABLE*/
          //Table
-        String []title=new String[]{"ID","IDTable","CheckIn","Checkout","Discount","Total Price","Username"};
+
+        String []title=new String[]{"ID","Table","CheckIn","Checkout","Discount","Total Price","Username"};
+
         DefaultTableModel model= new DefaultTableModel(null,title){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -351,9 +364,12 @@ public class KitchenView extends View {
             }
         };
         table=new JTable();
-        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
+
+        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.TRUETYPE_FONT, 18));
         table.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         table.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
+        table.setForeground(new Color(38, 54, 70));
+
         table.setModel(model);
         table.setSelectionMode(0);
         table.setRowHeight(80); // chỉnh độ cao của hàng
@@ -396,7 +412,9 @@ public class KitchenView extends View {
         footer.setPreferredSize(new Dimension(footer.getWidth(), 50));
         JPanel btn = new JPanel();
         btn.setLayout(new BoxLayout(btn, BoxLayout.X_AXIS));
-        btn.setBackground(Color.cyan);
+
+        btn.setBackground(new Color(209, 228, 252));
+
 
         JButton btnAdd = new JButton("Print");
         btn.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -406,7 +424,8 @@ public class KitchenView extends View {
         JPanel auto= new JPanel();
         auto.setLayout(new BoxLayout(auto, BoxLayout.X_AXIS));
         auto.setMaximumSize(new Dimension(300, 50));
-        auto.setBackground(Color.cyan);
+        auto.setBackground(new Color(209, 228, 252));
+
         
         JLabel timeTitle = new JLabel("Refresh After");
         timeTitle.setForeground(new Color(41,55,72));
@@ -430,7 +449,9 @@ public class KitchenView extends View {
 });
         check=new JRadioButton("Auto");
         //check.setMaximumSize(new Dimension(40, 40
-        check.setBackground(Color.cyan);
+
+        check.setBackground(new Color(209, 228, 252));
+
         
         auto.add(timeTitle);
         auto.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -448,6 +469,8 @@ public class KitchenView extends View {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                //JOptionPane.showMessageDialog(null, timeStamp);
                 //JOptionPane.showMessageDialog(null, "Reload database ");
                int index=table.getSelectedRow();
                if(index>=0)
@@ -462,7 +485,7 @@ public class KitchenView extends View {
                    }
                }
                else
-                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn hóa đơn nào để in");
+                    JOptionPane.showMessageDialog(null, "You have not selected any invoices to print!");
                 
             }
         });

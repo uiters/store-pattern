@@ -16,7 +16,7 @@ public class Query {
     //bill
     public static String getOrder="call USP_Admin_GetOrders() ";
     public static String getBillInfo="call USP_Admin_GetFoodFromBill( @ID ) ";
-    public static String updateBill="call USP_Admin_UpdateBill( @ID ) ";
+    public static String updateBill="call USP_Admin_UpdateBill( @ID , @Time ) ";
 
     //login
     public static String checkLogin="call USP_Admin_CheckLogin( @username  )";
