@@ -119,7 +119,7 @@ class _EditAccountTypeScreenState extends State<EditAccountTypeScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await Controller.instance.updateAccType(widget.accType.id, _nameController.text)) {
-                    Controller.instance.reloadAccTypes();
+                    Controller.instance.updateAccTypeToLocal(widget.accType.id, _nameController.text);
                     successDialog(this.context, 'Update account type success!');
                   }
                   else errorDialog(this.context, 'Update account type failed.' + '\nPlease try again!');

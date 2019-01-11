@@ -112,7 +112,7 @@ class _AddAccountTypeScreenState extends State<AddAccountTypeScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await Controller.instance.insertAccType(_nameController.text)) {
-                    Controller.instance.reloadAccTypes();
+                    Controller.instance.insertAccTypeToLocal(_nameController.text);
                     successDialog(this.context, 'Create new account type success!');
                     _nameController.clear();
                   }

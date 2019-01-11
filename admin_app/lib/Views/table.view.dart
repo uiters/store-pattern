@@ -7,6 +7,7 @@ import './../Controllers/table.controller.dart';
 import './addTable.view.dart';
 import './editTable.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class TableScreen extends StatefulWidget {
@@ -202,13 +203,63 @@ class _TableScreenState extends State<TableScreen> {
                   ],
                 ),
                 onPressed: () {
-
+                  _deleteTable(table);
                 },
               ),
             ],
           ),
         )
       ]
+    );
+  }
+
+  void _deleteTable(model.Table table) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this table: ' + table.name + '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isTableExists(table.id))) {
+                  if (await Controller.instance.deleteTable(table.id)) {
+                    Controller.instance.deleteTableToLocal(table.id);
+                    setState(() {
+                      tables = Controller.instance.tables;
+                    });
+                    successDialog(this.context, 'Delete this table: ' + table.name + ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this table: ' + table.name + ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this table: ' + table.name + '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 

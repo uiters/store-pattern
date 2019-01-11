@@ -7,6 +7,7 @@ import './../Controllers/accountType.controller.dart';
 import './addAccountType.view.dart';
 import './editAccountType.view.dart';
 
+import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class AccountTypeScreen extends StatefulWidget {
@@ -201,7 +202,7 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                   ],
                 ),
                 onPressed: () {
-
+                  _deleteAccType(accType);
                 },
               ),
             ],
@@ -210,6 +211,57 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
       ]
     );
   }
+
+  void _deleteAccType(AccountType accType) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to delete this account type: ' + accType.name + '?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (!(await Controller.instance.isAccTypeExists(accType.id))) {
+                  if (await Controller.instance.deleteAccType(accType.id)) {
+                    Controller.instance.deleteAccTypeToLocal(accType.id);
+                    setState(() {
+                      accTypes = Controller.instance.accTypes;
+                    });
+                    successDialog(this.context, 'Delete this account type: ' + accType.name + ' success!');
+                  }
+                  else errorDialog(this.context, 'Delete this account type: ' + accType.name + ' failed.' + '\nPlease try again!');
+                }
+                else errorDialog(this.context, 'Can\'t delete this account type: ' + accType.name + '?' + '\nContact with team dev for information!');
+              }
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
 
   void _pushAddAccountTypeScreen() {
     Navigator.of(context).push(

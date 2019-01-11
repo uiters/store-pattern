@@ -44,11 +44,11 @@ class Model {
   }
 
   Future<bool> isCategoryExists(int id) async { // check category exists on food
-    Future<List> futureCates = MySqlConnection.instance.executeQuery(
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
       queries.IS_CATEGORY_EXISTS,
       parameter: [id]
     );
-    return (await foodModel.Model.parseFood(futureCates)).length > 0;
+    return (await foodModel.Model.parseFood(futureFoods)).length > 0;
   }
 
   Future<int> getIDMax() async {

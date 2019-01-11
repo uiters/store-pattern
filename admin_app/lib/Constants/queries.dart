@@ -48,6 +48,12 @@ const String INSERT_TABLE = 'CALL `USP_InsertTable`( @Nametable );';
 
 const String UPDATE_TABLE = 'CALL `USP_UpdateTable`( @ID , @_Name , @_Status );';
 
+const String DELETE_TABLE = 'CALL `USP_DeleteTable`( @id );';
+
+const String IS_TABLE_EXISTS = 'CALL `USP_IsTableExists`( @id );';
+
+const String GET_ID_TABLE_MAX = 'CALL `USP_GetIdTableMax`();';
+
 ///////////////////////////////////////////////////////////////
 
 // Queries for Account Types
@@ -57,6 +63,12 @@ const String GET_ACCTYPES = 'CALL `USP_GetAccountTypes`();';
 const String INSERT_ACCTYPE = 'CALL `USP_InsertAccType`( @_Name );';
 
 const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
+
+const String DELETE_ACCTYPE = 'CALL `USP_DeleteAccType`( @id );';
+
+const String IS_ACCTYPE_EXISTS = 'CALL `USP_IsAccTypeExists`( @id );';
+
+const String GET_ID_ACCTYPE_MAX = 'CALL `USP_GetIdAccTypeMax`();';
 
 ///////////////////////////////////////////////////////////////
 
