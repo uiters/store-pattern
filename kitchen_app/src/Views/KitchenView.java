@@ -100,7 +100,7 @@ public class KitchenView extends View {
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.setRowCount(0);
         bills.forEach((item) -> {
-            model.addRow(new Object[] { item.id,  item.idtable,item.checkin,item.checkout,item.discount,item.price,item.username});
+            model.addRow(new Object[] { item.id,  item.table,item.checkin,item.checkout,item.discount,item.price,item.username});
         });
         
         table.setModel(model);
@@ -345,7 +345,7 @@ public class KitchenView extends View {
         
         /*LOAD TABLE*/
          //Table
-        String []title=new String[]{"ID","IDTable","CheckIn","Checkout","Discount","Total Price","Username"};
+        String []title=new String[]{"ID","Table","CheckIn","Checkout","Discount","Total Price","Username"};
         DefaultTableModel model= new DefaultTableModel(null,title){
             @Override
             public boolean isCellEditable(int row, int column) {
