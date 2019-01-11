@@ -80,7 +80,7 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           new ListTile(
-            leading: new Icon(Icons.invoice, color: fontColorLight, size: 19.0,),
+            leading: new Icon(Icons.info, color: fontColorLight, size: 19.0,),
             title: new Text('Bill', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
             onTap: () {
               setState(() {

@@ -17,7 +17,19 @@ class BillScreen extends StatefulWidget {
 class _BillScreenState extends State<BillScreen> {
   Future<List<Bill>> bills = Controller.instance.bills;
   TextEditingController _keywordController = new TextEditingController();
-  var format = DateFormat('MM/dd/yy hh:mm');
+  var format = DateFormat('MM/dd/yyyy \nhh:mm:ss');
+  static var formatDate = DateFormat.yMd();
+  static  DateTime now = DateTime.now();
+  String txbDayStart = formatDate.format(now);
+  String txbDayEnd = formatDate.format(now);
+
+  
+
+  TextStyle _itemStyleDay = new TextStyle(
+    color: theme.accentColor,
+    fontFamily: 'Dosis',
+    fontSize: 16.0,
+  );
   @override
   Widget build(BuildContext context) {
     const TextStyle _itemStyle = TextStyle(
@@ -34,9 +46,10 @@ class _BillScreenState extends State<BillScreen> {
       margin: EdgeInsets.only(top: 10.0, bottom: 2.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          new Container(width: 30.0,),
+          //new Container(width: 30.0,),
           new Flexible(
             child: new TextField(
               controller: _keywordController,
@@ -53,6 +66,21 @@ class _BillScreenState extends State<BillScreen> {
               )
             )
           ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Text('$txbDayStart', style: _itemStyleDay),
+              new Text('-', style: _itemStyleDay,),
+              new Text('$txbDayEnd', style: _itemStyleDay,),
+              new IconButton(
+                icon: new Icon(Icons.edit, color: Colors.orangeAccent, size: 19.0,),
+                onPressed: () {
+                    _selectDate();
+                },
+              )
+            ],
+          )
         ],
       ),
     );
@@ -102,11 +130,11 @@ class _BillScreenState extends State<BillScreen> {
                 columnWidths: MediaQuery.of(context).orientation == Orientation.landscape ? {
                   0: FlexColumnWidth(0.5),
                   1: FlexColumnWidth(1.0),
-                  2: FlexColumnWidth(1.6),
-                  3: FlexColumnWidth(1.6),
-                  4: FlexColumnWidth(1.0),
+                  2: FlexColumnWidth(1.3),
+                  3: FlexColumnWidth(1.3),
+                  4: FlexColumnWidth(0.9),
                   5: FlexColumnWidth(1.0),
-                  6: FlexColumnWidth(0.8),
+                  6: FlexColumnWidth(1.0),
                   7: FlexColumnWidth(0.9),
                   8: FlexColumnWidth(1.7),
                 } : {
@@ -250,7 +278,7 @@ class _BillScreenState extends State<BillScreen> {
       new TableCell(
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new IconButton(
               color: Colors.redAccent,
@@ -313,6 +341,27 @@ class _BillScreenState extends State<BillScreen> {
       children: tableCell
     );
   }
+
+
+  Future _selectDate() async {
+    DateTime pickedStart = await showDatePicker(
+        context: context,
+        initialDate: formatDate.parse(txbDayStart),
+        firstDate: new DateTime(1975),
+        lastDate: DateTime.now(),
+    );
+    if (pickedStart != null) setState(() => txbDayStart = formatDate.format(pickedStart));
+    else return;
+    DateTime pickedEnd = await showDatePicker(
+      context: context,
+      initialDate: formatDate.parse(txbDayEnd),
+      firstDate: formatDate.parse(txbDayStart),
+      lastDate: DateTime.now(),
+    );
+    if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
+
+  }
+
 
   void _deleteBill(Bill bill) {
     showDialog(

@@ -164,9 +164,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     )
     );
     return Container(
-      padding: EdgeInsets.only(left: 12.0, right: 12.0),
+      padding: EdgeInsets.only(left: 8.0, right: 8.0),
       child: new ListView(
-        padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         children: <Widget>[
