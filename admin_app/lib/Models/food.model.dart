@@ -37,6 +37,21 @@ class Model {
     );
   }
 
+  Future<bool> deleteFood(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.DELETE_FOOD,
+      parameter: [id]
+    );
+  }
+
+  Future<bool> isFoodExists(int id) async { // check food exists on bill
+    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
+      queries.IS_FOOD_EXISTS,
+      parameter: [id]
+    );
+    return (await parseBillDetails(futureAccs)).length > 0;
+  }
+
   Future<int> getIDMax() async {
     Future<List> futureFoods = MySqlConnection.instance.executeQuery(
       queries.GET_ID_FOOD_MAX
@@ -44,12 +59,20 @@ class Model {
     return (await parseFood(futureFoods))[0].id;
   }
 
-  Future<List<Food>> parseFood(Future<List> futureFoods) async  {
+  static Future<List<Food>> parseFood(Future<List> futureFoods) async  {
     List<Food> foods = [];
     await futureFoods.then((values) {
       values.forEach((value) => foods.add(new Food.fromJson(value)));
     });
     return foods;
+  }
+
+  Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async  {
+    List<BillDetail> billDetails = [];
+    await futureBillDetails.then((values) {
+      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+    });
+    return billDetails;
   }
 }
 
@@ -80,4 +103,18 @@ class Food {
     this.idImange = json['IdImage'] != null ? int.parse(json['IdImage']) : -1;
     this.image = json['Image'] != null ? base64.decode(json['Image']) : null;
   }
+}
+
+class BillDetail {
+
+  int idBill;
+  int idFood;
+  int quantity;
+
+  BillDetail.fromJson(Map<String, dynamic> json) {
+    this.idBill = int.parse(json['IDBill']);
+    this.idFood = int.parse(json['IDFood']);
+    this.quantity = int.parse(json['Quantity']);
+  }
+
 }

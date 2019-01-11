@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import './connectServer.dart';
 
 import './../Constants/queries.dart' as queries;
@@ -22,6 +19,13 @@ class Model {
       values.forEach((value) => foods.add(new Bill.fromJson(value)));
     });
     return foods;
+  }
+
+  Future<bool> deleteBill(int id) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.QUERY_DELETE_BILLS,
+      parameter: [id]
+    );
   }
 }
 

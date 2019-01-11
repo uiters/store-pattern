@@ -119,7 +119,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                 Navigator.of(context).pop();
                 if (_nameController.text.trim() != '') {
                   if (await cateController.Controller.instance.updateCategory(widget.category.id, _nameController.text)) {
-                    cateController.Controller.instance.reloadCategories();
+                    // reload categories
+                    cateController.Controller.instance.updateCateToLocal(widget.category.id, _nameController.text);
+
                     successDialog(this.context, 'Update food category success!');
                   }
                   else errorDialog(this.context, 'Update food category failed.' + '\nPlease try again!');
