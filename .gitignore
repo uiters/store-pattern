@@ -1,0 +1,12 @@
+**/nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+**/nbproject/private/
+admin_app/build/
+admin_app/nbbuild/
+admin_app/dist/
+admin_app/nbdist/
+admin_app/.nb-gradle/
