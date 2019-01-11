@@ -123,9 +123,9 @@ public class KitchenView extends View {
     
     private void initBillHeader()
     {
-        txtbill.setText("Store Pattern - The best prototype for management applications"+"\n"
+        txtbill.setText("Store Pattern - The prototype for management applications"+"\n"
         +"Contact 0123125482"+"\n"
-        +"Adress - mPlaza Saigon, 39 Lê Duẩn, Quận 1, TP.HCM"+"\n"
+        +"Adress - Sir Matt Busby Way, Stretford, Manchester M16 0RA, UK"+"\n"
         +"******************************"+"\n");
     
     }
@@ -181,7 +181,7 @@ public class KitchenView extends View {
         brandImage.setIcon(new ImageIcon(imgURL));
         
 
-        JLabel brandText = new JLabel("Store Pattern - The best prototype for management applications.");
+        JLabel brandText = new JLabel("Store Pattern - The prototype for management applications.");
         brandText.setForeground(new Color( 72, 0, 250));
         brandText.setBackground(new Color(209, 228, 252));
 
@@ -264,7 +264,7 @@ public class KitchenView extends View {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  setForeColor();
                  helpTitle.setForeground(Color.red);
-                JOptionPane.showMessageDialog(null, "Bạn có thể chọn auto, sau đó click refresh để app có thể tự động reload sau thời gian quy định!");
+                JOptionPane.showMessageDialog(null, "You can select the auto button, then click the refresh button so that the app can automatically reload after the specified time!");
                  setForeColor();
              }
             
@@ -485,7 +485,7 @@ public class KitchenView extends View {
                    }
                }
                else
-                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn hóa đơn nào để in");
+                    JOptionPane.showMessageDialog(null, "You have not selected any invoices to print!");
                 
             }
         });
