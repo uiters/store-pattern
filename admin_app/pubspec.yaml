@@ -21,9 +21,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   http: ^0.11.3+17
   flutter_local_notifications: ^0.4.0
+  timeago: ^2.0.9
+  intl: ^0.15.7
   dbcrypt: ^1.0.0
+  path_provider: ^0.4.1
   image_picker: ^0.4.10
-  charts_flutter: ^0.5.0
   test: ^1.5.1+1
 
 dev_dependencies:
@@ -44,9 +46,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/logo.png
-    - assets/images/food.png
-    - assets/images/account.png
+      - assets/images/logo.png
+      - assets/images/food.png
+      - assets/images/account.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
