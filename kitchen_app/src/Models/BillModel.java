@@ -10,8 +10,11 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -61,7 +64,9 @@ public class BillModel {
     
     public void Print(int index) throws IOException
     {
-        String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index });
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        JOptionPane.showMessageDialog(null, timeStamp);
+        String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index , timeStamp  });
         if (raw.equals("1")==true) JOptionPane.showMessageDialog(null, "Đã cập nhật thành công");
     }
     public class Bill

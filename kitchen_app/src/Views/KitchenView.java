@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -448,6 +450,8 @@ public class KitchenView extends View {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                //JOptionPane.showMessageDialog(null, timeStamp);
                 //JOptionPane.showMessageDialog(null, "Reload database ");
                int index=table.getSelectedRow();
                if(index>=0)
