@@ -64,6 +64,12 @@ const String INSERT_ACCTYPE = 'CALL `USP_InsertAccType`( @_Name );';
 
 const String UPDATE_ACCTYPE = 'CALL `USP_UpdateAccType`( @_ID , @_Name );';
 
+const String DELETE_ACCTYPE = 'CALL `USP_DeleteAccType`( @id );';
+
+const String IS_ACCTYPE_EXISTS = 'CALL `USP_IsAccTypeExists`( @id );';
+
+const String GET_ID_ACCTYPE_MAX = 'CALL `USP_GetIdAccTypeMax`();';
+
 ///////////////////////////////////////////////////////////////
 
 // Queries for Food

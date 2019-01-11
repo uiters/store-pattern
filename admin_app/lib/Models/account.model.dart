@@ -59,7 +59,7 @@ class Model {
     );
   }
 
-  Future<List<Account>> parseAcc(Future<List> futureAccs) async  {
+  static Future<List<Account>> parseAcc(Future<List> futureAccs) async  {
     List<Account> accs = [];
     await futureAccs.then((values) {
       values.forEach((value) => accs.add(new Account.fromJson(value)));
