@@ -63,4 +63,12 @@ const String INSERT_FOOD = 'CALL `USP_InsertFood`( @name , @price , @idCategory 
 const String UPDATE_FOOD = 'CALL `USP_UpdateFood`( @id , @name , @price , @idCategory , @image );';
 
 const String GET_ID_FOOD_MAX = 'CALL `USP_GetIdFoodMax`();';
+
+///////////////////////////////////////////////////////////////
+
+//query report
+const String QUERY_GET_REPORT_LASTWEEK  = 'CALL USP_TVC12_GetReport_WEEK()';
+
+const String QUERY_GET_REPORT_TODAY = 'CALL USP_TVC12_GetReport_Today()';
+
 ///////////////////////////////////////////////////////////////
