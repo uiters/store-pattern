@@ -218,20 +218,7 @@ public class KitchenView extends View {
                  table.clearSelection();
                  DefaultTableModel model=(DefaultTableModel)detailtable.getModel();
                  model.setRowCount(0);         
-                 if(check.isSelected()==false)
-                 {
-                     if(flag==true) timer.cancel(); // if timer is running then stop
-                     timeText.setEditable(true);
-                    controller.loadFull();
-                    flag=false; // reset flag
-                    
-                 }
-                 else
-                 {
-                     if(flag==true) timer.cancel();
-                     timeText.setEditable(false);
-                     Auto();
-                 }
+                 controller.loadFull();
                  Wait(2); // wait 2 seconds to set forecolor
     
              }
@@ -262,7 +249,7 @@ public class KitchenView extends View {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  setForeColor();
                  helpTitle.setForeground(Color.red);
-                JOptionPane.showMessageDialog(null, "Bạn có thể chọn auto, sau đó click refresh để app có thể tự động reload sau thời gian quy định!");
+                JOptionPane.showMessageDialog(null, "Bạn có thể chọn auto, để app có thể tự động reload sau thời gian quy định!");
                  setForeColor();
              }
             
@@ -471,6 +458,26 @@ public class KitchenView extends View {
                }
                else
                     JOptionPane.showMessageDialog(null, "Bạn chưa chọn hóa đơn nào để in");
+                
+            }
+        });
+        
+        check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(check.isSelected()==true)
+                {
+                    setForeColor();
+                    timeText.setEditable(false);
+                    dashboardTitle.setForeground(Color.red);
+                    Auto();
+                }
+                else
+                {
+                    timeText.setEditable(true);
+                    setForeColor();
+                    timer.cancel();
+                }
                 
             }
         });
