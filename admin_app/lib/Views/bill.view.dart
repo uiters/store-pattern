@@ -55,13 +55,13 @@ class _BillScreenState extends State<BillScreen> {
               controller: _keywordController,
               onChanged: (keyword) {
                 setState(() {
-                  bills = Controller.instance.searchFoods(keyword);
+                  bills = Controller.instance.searchFoods(keyword, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                 });
               },
               onSubmitted: null,
               style: _itemStyle,
               decoration: InputDecoration.collapsed(
-                  hintText: 'Enter your bill...',
+                  hintText: 'Enter your table...',
                   hintStyle: _itemStyle,
               )
             )
@@ -142,7 +142,7 @@ class _BillScreenState extends State<BillScreen> {
                   1: FlexColumnWidth(1.0),
                   2: FlexColumnWidth(1.5),
                   3: FlexColumnWidth(1.0),
-                  //4: FlexColumnWidth(1.0),
+                  4: FlexColumnWidth(1.0),
                 },
                 border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                 children: _buildListRow(foods)
@@ -188,7 +188,14 @@ class _BillScreenState extends State<BillScreen> {
           ],
         ),
       ),
-
+      new TableCell(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('Status', style: theme.headTable,),
+          ],
+        ),
+      ),
       new TableCell(
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -222,19 +229,10 @@ class _BillScreenState extends State<BillScreen> {
           ],
         ),
       );
-    var status = new TableCell(
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text('Status', style: theme.headTable,),
-          ],
-        ),
-      );
       if(MediaQuery.of(context).orientation == Orientation.landscape) {
-        table.insert(table.length - 3, checkin);
+        table.insert(table.length - 4, checkin);
         table.insert(table.length - 2, discount);
-        table.insert(table.length - 1, staff);
-        table.insert(table.length - 1, status);
+        table.insert(table.length - 2, staff);
       }
     return new TableRow(
       children: table
@@ -277,8 +275,16 @@ class _BillScreenState extends State<BillScreen> {
       ),
       new TableCell(
         child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text('${bill.status}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
+          ]
+        ),
+      ),
+      new TableCell(
+        child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new IconButton(
               color: Colors.redAccent,
@@ -323,19 +329,10 @@ class _BillScreenState extends State<BillScreen> {
         ],
       ),
     );
-    var status = new TableCell(
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Text('${bill.status}', style: theme.contentTable, overflow: TextOverflow.ellipsis,),
-        ],
-      ),
-    );
     if(MediaQuery.of(context).orientation == Orientation.landscape) {
-        tableCell.insert(tableCell.length - 3, checkin);
+        tableCell.insert(tableCell.length - 4, checkin);
         tableCell.insert(tableCell.length - 2, discount);
-        tableCell.insert(tableCell.length - 1, staff);
-        tableCell.insert(tableCell.length - 1, status);
+        tableCell.insert(tableCell.length - 2, staff);
       }
     return new TableRow(
       children: tableCell
@@ -350,16 +347,19 @@ class _BillScreenState extends State<BillScreen> {
         firstDate: new DateTime(1975),
         lastDate: DateTime.now(),
     );
-    if (pickedStart != null) setState(() => txbDayStart = formatDate.format(pickedStart));
-    else return;
-    DateTime pickedEnd = await showDatePicker(
-      context: context,
-      initialDate: formatDate.parse(txbDayEnd),
-      firstDate: formatDate.parse(txbDayStart),
-      lastDate: DateTime.now(),
-    );
-    if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
-
+    if (pickedStart != null){
+      setState(() => txbDayStart = formatDate.format(pickedStart));
+      DateTime pickedEnd = await showDatePicker(
+        context: context,
+        initialDate: formatDate.parse(txbDayEnd),
+        firstDate: formatDate.parse(txbDayStart),
+        lastDate: DateTime.now(),
+      );
+      if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
+    }
+    setState(() {
+      bills = Controller.instance.searchFoods(_keywordController.text, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
+    });
   }
 
 
@@ -388,7 +388,7 @@ class _BillScreenState extends State<BillScreen> {
                   if (await Controller.instance.deleteBill(bill.id)) {
                     Controller.instance.deleteLocal(bill.id);
                     setState(() {
-                      bills = Controller.instance.bills;
+                      bills = Controller.instance.searchFoods(_keywordController.text, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                     });
                     successDialog(this.context, 'Delete this bill: ${bill.id} success!');
                   }

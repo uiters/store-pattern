@@ -17,20 +17,24 @@ class Controller {
 
   Future<List<Food>> getFoodByBill(int idBill) => Model.instance.getFoodByBill(idBill);
 
-  Future<List<Bill>> searchFoods(String keyword) async {
+  Future<List<Bill>> searchFoods(String keyword, DateTime dateStart, DateTime dateEnd) async {
     if(_bills == null) return null;
     List<Bill> items = await _bills;
     if (keyword.trim() == '') return items;
-    return items.where((item) => item.nameTable.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
+    return items.where((item) => 
+      item.nameTable.toUpperCase().indexOf(keyword.toUpperCase()) != -1 && (
+      (item.dateCheckIn.compareTo(dateStart) >= 0 && item.dateCheckIn.compareTo(dateEnd) <= 0) || 
+      (item.dateCheckOut.compareTo(dateStart) >= 0 && item.dateCheckOut.compareTo(dateEnd) <= 0))).toList();
   }
 
   void deleteLocal(int id) async {
     int index = await findIndex(id);
-    (await bills).removeAt(index);
+    if(index == -1) return;
+    (await _bills).removeAt(index);
   }
 
   Future<int> findIndex(int id) async {
-    var bill = (await bills);
+    var bill = (await _bills);
     for (var i = 0; i < bill.length; ++i) {
         if (bill[i].id == id) return i;
     }

@@ -16,7 +16,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Future<List<Report>> reports = Controller.instance.reportsWeek;
   Future<Report> report = Controller.instance.reportToday;
-  
+  int currentI = 0;
   TextStyle _itemStyle =
       TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
@@ -98,8 +98,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             body: new BillScreen()
           );
         }),
-      );
-    }
+      ).then((value) { 
+          setState(() {
+            print('here');
+            _reloadData(currentI);
+          });
+        });
+      }
     );
 
     Widget boxChart = _buildTile(Padding(
@@ -135,6 +140,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           for (var i = 0; i < chartDropdownItems.length; ++i) {
                             if (value == chartDropdownItems[i]) {
                               _reloadData(i);
+                              currentI = i;
                             }
                           }
                         }),
