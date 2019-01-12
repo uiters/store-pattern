@@ -164,6 +164,8 @@ public class KitchenView extends View {
         jf.add(main, BorderLayout.CENTER);
         jf.add(info, BorderLayout.LINE_END);
         jf.add(footer, BorderLayout.PAGE_END);
+        
+        controller.loadFull();
         jf.setVisible(true);
     }
     
