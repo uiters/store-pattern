@@ -454,6 +454,8 @@ public class KitchenView extends View {
                        int id=Integer.parseInt(table.getValueAt(index, 0).toString());
                        controller.delete(id);
                        delete(index);
+                       DefaultTableModel model=(DefaultTableModel)detailtable.getModel();
+                       model.setRowCount(0);
                    }
                }
                else
