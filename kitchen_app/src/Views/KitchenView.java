@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -65,6 +66,7 @@ public class KitchenView extends View {
     private JTextField timeText;
     private JRadioButton check;
     private Timer timer;
+    private Timer wait;
     private JTextArea txtbill;
     JPanel header;
     JPanel main;
@@ -215,13 +217,14 @@ public class KitchenView extends View {
                  dashboardTitle.setForeground(Color.red);
                  table.clearSelection();
                  DefaultTableModel model=(DefaultTableModel)detailtable.getModel();
-                 model.setRowCount(0);
+                 model.setRowCount(0);         
                  if(check.isSelected()==false)
                  {
                      if(flag==true) timer.cancel(); // if timer is running then stop
                      timeText.setEditable(true);
                     controller.loadFull();
                     flag=false; // reset flag
+                    
                  }
                  else
                  {
@@ -229,7 +232,8 @@ public class KitchenView extends View {
                      timeText.setEditable(false);
                      Auto();
                  }
-                     
+                 Wait(2); // wait 2 seconds to set forecolor
+    
              }
             
 });
@@ -494,6 +498,31 @@ public class KitchenView extends View {
                 }      
             };
            timer.scheduleAtFixedRate(task, 1000, timewait*1000);
+    }
+    
+    private void Wait(int x)
+    {
+            //long timewait=Long.parseLong(timeText.getText()); // convert string to long
+            wait=new Timer();
+            //flag=true; //set flag to recognize timer is started
+            TimerTask task=new TimerTask() {
+                long second=0;
+                @Override
+                public void run() {               
+                    //JOptionPane.showMessageDialog(null, "Refresh!");
+                    second=second+1;
+                    System.out.println(second);
+                    if(second==x)
+                    {
+                        //controller.loadFull();
+                        second=0;
+                        setForeColor();
+                        wait.cancel();
+                        wait.purge();
+                    }
+                }      
+            };
+           wait.scheduleAtFixedRate(task, 1000, x*1000);
     }
     
     private void setForeColor()
