@@ -224,19 +224,7 @@ public class KitchenView extends View {
                  table.clearSelection();
                  DefaultTableModel model=(DefaultTableModel)detailtable.getModel();
                  model.setRowCount(0);
-                 if(check.isSelected()==false)
-                 {
-                     if(flag==true) timer.cancel(); // if timer is running then stop
-                     timeText.setEditable(true);
-                    controller.loadFull();
-                    flag=false; // reset flag
-                 }
-                 else
-                 {
-                     if(flag==true) timer.cancel();
-                     timeText.setEditable(false);
-                     Auto();
-                 }
+                 controller.loadFull();
                  Wait(2); //wait 2 second to set forecolor
                      
              }
@@ -490,6 +478,26 @@ public class KitchenView extends View {
                }
                else
                     JOptionPane.showMessageDialog(null, "You have not selected any invoices to print!");
+                
+            }
+        });
+        
+        check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(check.isSelected()==true)
+                {
+                    setForeColor();
+                    timeText.setEditable(false);
+                    dashboardTitle.setForeground(Color.red);
+                    Auto();
+                }
+                else
+                {
+                    timeText.setEditable(true);
+                    setForeColor();
+                    timer.cancel();
+                }
                 
             }
         });
