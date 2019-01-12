@@ -39,6 +39,7 @@
   <h4>
     <a href="#features">Features</a> |
     <a href="#install">Install</a> |
+    <a href="#usage">Usage</a> |
     <a href="#documents">Documents</a> |
     <a href="#technologies">Technologies</a> |
     <a href="#some-screens">Some Screens</a> |
@@ -47,8 +48,6 @@
     <a href="#license">License</a>
   </h4>
 </div>
-
-`Store Pattern` is suitable for restaurants, coffee store.
 
 ## Features
 
@@ -74,6 +73,12 @@ Install packages for `flutter` apps:
 ```
 $ flutter packages get
 ```
+
+## Usage
+
+Using this account for testing:</br>
+**`username`**: `test`</br>
+**`password`**: `test`</br>
 
 Enjoy 👍
 
