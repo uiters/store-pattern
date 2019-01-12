@@ -256,7 +256,7 @@ public class KitchenView extends View {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  setForeColor();
                  helpTitle.setForeground(Color.red);
-                JOptionPane.showMessageDialog(null, "You can select the auto button, then click the refresh button so that the app can automatically reload after the specified time!");
+                JOptionPane.showMessageDialog(null, "You can select the auto button, so that the app can automatically reload after the specified time!");
                  setForeColor();
              }
             
