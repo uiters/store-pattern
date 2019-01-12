@@ -64,10 +64,10 @@ public class BillModel {
     
     public void Print(int index) throws IOException
     {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        JOptionPane.showMessageDialog(null, timeStamp);
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        //JOptionPane.showMessageDialog(null, timeStamp);
         String raw= mySqlConnection.executeNoneQuery(Query.updateBill, new Object[] { index , timeStamp  });
-        if (raw.equals("1")==true) JOptionPane.showMessageDialog(null, "Đã cập nhật thành công");
+        if (raw.equals("1")==true) JOptionPane.showMessageDialog(null, "Printed successfully!");
     }
     public class Bill
     {

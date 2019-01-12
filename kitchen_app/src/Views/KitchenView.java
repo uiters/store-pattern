@@ -77,6 +77,7 @@ public class KitchenView extends View {
     {
         controller=BillController.getInstance(this);
         initComponent();
+        
     }
     
      //---------------------------------------------------------------------------------------------------------
@@ -424,7 +425,7 @@ public class KitchenView extends View {
         timeTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         timeText=new JTextField();
-        timeText.setText("10");
+        timeText.setText("30");
         timeText.setMaximumSize(new Dimension(100, 40));
         
         //numeric
@@ -443,7 +444,7 @@ public class KitchenView extends View {
         //check.setMaximumSize(new Dimension(40, 40
 
         check.setBackground(new Color(209, 228, 252));
-
+        
         
         auto.add(timeTitle);
         auto.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -482,6 +483,7 @@ public class KitchenView extends View {
             }
         });
         
+        //check.setSelected(true);
         check.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
