@@ -65,6 +65,7 @@ public class KitchenView extends View {
     private JTextField timeText;
     private JRadioButton check;
     private Timer timer;
+    private Timer wait;
     private JTextArea txtbill;
     JPanel header;
     JPanel main;
@@ -163,6 +164,8 @@ public class KitchenView extends View {
         jf.add(main, BorderLayout.CENTER);
         jf.add(info, BorderLayout.LINE_END);
         jf.add(footer, BorderLayout.PAGE_END);
+        
+        controller.loadFull();
         jf.setVisible(true);
     }
     
@@ -221,19 +224,8 @@ public class KitchenView extends View {
                  table.clearSelection();
                  DefaultTableModel model=(DefaultTableModel)detailtable.getModel();
                  model.setRowCount(0);
-                 if(check.isSelected()==false)
-                 {
-                     if(flag==true) timer.cancel(); // if timer is running then stop
-                     timeText.setEditable(true);
-                    controller.loadFull();
-                    flag=false; // reset flag
-                 }
-                 else
-                 {
-                     if(flag==true) timer.cancel();
-                     timeText.setEditable(false);
-                     Auto();
-                 }
+                 controller.loadFull();
+                 Wait(2); //wait 2 second to set forecolor
                      
              }
             
@@ -264,7 +256,7 @@ public class KitchenView extends View {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  setForeColor();
                  helpTitle.setForeground(Color.red);
-                JOptionPane.showMessageDialog(null, "You can select the auto button, then click the refresh button so that the app can automatically reload after the specified time!");
+                JOptionPane.showMessageDialog(null, "You can select the auto button, so that the app can automatically reload after the specified time!");
                  setForeColor();
              }
             
@@ -489,6 +481,26 @@ public class KitchenView extends View {
                 
             }
         });
+        
+        check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(check.isSelected()==true)
+                {
+                    setForeColor();
+                    timeText.setEditable(false);
+                    dashboardTitle.setForeground(Color.red);
+                    Auto();
+                }
+                else
+                {
+                    timeText.setEditable(true);
+                    setForeColor();
+                    timer.cancel();
+                }
+                
+            }
+        });
        
     }
     
@@ -513,6 +525,31 @@ public class KitchenView extends View {
                 }      
             };
            timer.scheduleAtFixedRate(task, 1000, timewait*1000);
+    }
+    
+    private void Wait(int x)
+    {
+            //long timewait=Long.parseLong(timeText.getText()); // convert string to long
+            wait=new Timer();
+            //flag=true; //set flag to recognize timer is started
+            TimerTask task=new TimerTask() {
+                long second=0;
+                @Override
+                public void run() {               
+                    //JOptionPane.showMessageDialog(null, "Refresh!");
+                    second=second+1;
+                    System.out.println(second);
+                    if(second==x)
+                    {
+                        //controller.loadFull();
+                        second=0;
+                        setForeColor();
+                        wait.cancel();
+                        wait.purge();
+                    }
+                }      
+            };
+           wait.scheduleAtFixedRate(task, 1000, x*1000);
     }
     
     private void setForeColor()
