@@ -145,16 +145,15 @@ public class KitchenView extends View {
         
         /* MAIN TABLE */
         main = new JPanel();
-        main.setBackground(Color.green);
-       
+        main.setBackground(new Color(228,249,245));
         
         /* INFO */
         info = new JPanel();
-        info.setBackground(Color.yellow);
+        info.setBackground(new Color(228,249,245));
         
          /* FOOTER */
         footer = new JPanel();
-        footer.setBackground(Color.cyan);
+        footer.setBackground(new Color(228,249,245));
         
         createHeader(header);
         createMain(main);
@@ -301,7 +300,7 @@ public class KitchenView extends View {
                 }
             }
         };
-        detailtable.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
+        detailtable.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.TRUETYPE_FONT, 19));
         detailtable.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         detailtable.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         detailtable.setModel(model);
@@ -344,7 +343,7 @@ public class KitchenView extends View {
             }
         };
         table=new JTable();
-        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
+        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.TRUETYPE_FONT, 19));
         table.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         table.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         table.setModel(model);
@@ -389,7 +388,7 @@ public class KitchenView extends View {
         footer.setPreferredSize(new Dimension(footer.getWidth(), 50));
         JPanel btn = new JPanel();
         btn.setLayout(new BoxLayout(btn, BoxLayout.X_AXIS));
-        btn.setBackground(Color.cyan);
+        btn.setBackground(new Color(228,249,245));
 
         JButton btnAdd = new JButton("Print");
         btn.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -399,7 +398,7 @@ public class KitchenView extends View {
         JPanel auto= new JPanel();
         auto.setLayout(new BoxLayout(auto, BoxLayout.X_AXIS));
         auto.setMaximumSize(new Dimension(300, 50));
-        auto.setBackground(Color.cyan);
+        auto.setBackground(new Color(228,249,245));
         
         JLabel timeTitle = new JLabel("Refresh After");
         timeTitle.setForeground(new Color(41,55,72));
@@ -423,7 +422,7 @@ public class KitchenView extends View {
 });
         check=new JRadioButton("Auto");
         //check.setMaximumSize(new Dimension(40, 40
-        check.setBackground(Color.cyan);
+        check.setBackground(new Color(228,249,245));
         
         auto.add(timeTitle);
         auto.add(Box.createRigidArea(new Dimension(5, 0)));
