@@ -1,4 +1,4 @@
-<h1 align="center">
+<h1 align="center" id="home">
   <a href="https://github.com/jade28/store-pattern">
     <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50757659-a7211880-1292-11e9-9e41-6621e988fff8.png" width="400">
   </a>
@@ -211,6 +211,8 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 | [![Cuong Nguyen](https://github.com/jade28.png?size=100)](https://github.com/jade28) | [![Thien Chi Vi](https://github.com/tvc12.png?size=100)](https://github.com/tvc12) | [![Thang Huu Le](https://github.com/lhthang1998.png?size=100)](https://github.com/lhthang1998) |
 | :---: | :---: | :---: |
 | [Cuong Nguyen](https://github.com/jade28) | [Thien Chi Vi](https://github.com/tvc12) | [Thang Huu Le](https://github.com/lhthang1998) |
+
+**[⬆ back to top](#home)**
 
 ## License
 
