@@ -15,15 +15,15 @@
   </a>
   
    <a href="#">
-    <img src="https://img.shields.io/badge/platform-android-red.svg"/>
+    <img src="https://img.shields.io/badge/platform-android-lightgreen.svg"/>
   </a>
   
    <a href="#">
-    <img src="https://img.shields.io/badge/platform-ios-red.svg"/>
+    <img src="https://img.shields.io/badge/platform-ios-lightgreen.svg"/>
   </a>
   
   <a href="#">
-    <img src="https://img.shields.io/badge/platform-fuchsia-red.svg"/>
+    <img src="https://img.shields.io/badge/platform-fuchsia-lightgreen.svg"/>
   </a>
   
   <a href="https://github.com/jade28/store-pattern/blob/master/LICENSE">
@@ -38,6 +38,7 @@
 <div align="center">
   <h4>
     <a href="#features">Features</a> |
+    <a href="#structure">Structure</a> |
     <a href="#install">Install</a> |
     <a href="#usage">Usage</a> |
     <a href="#documents">Documents</a> |
@@ -58,6 +59,12 @@
 * Manage table.
 * Manage account.
 * Sales report.
+
+## Structure
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/34389409/51081838-39f70280-172c-11e9-9475-21eba19e7fe2.png" width="500"/>
+</p>
 
 ## Install
 
@@ -207,4 +214,4 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## License
 
-MIT © [jade28](https://github.com/jade28)🐢
+MIT © [jade28](https://github.com/jade28) 🐢
