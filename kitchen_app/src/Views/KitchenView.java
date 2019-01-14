@@ -389,6 +389,26 @@ public class KitchenView {
                         return String.class;
                 }
             }
+            @Override
+        public Component prepareRenderer(TableCellRenderer renderer,int row,int column)
+        {
+            int index=row;
+           Component comp=super.prepareRenderer(renderer,row, column);
+           int modelRow=convertRowIndexToModel(row);
+           if((Boolean)getValueAt(row,2))
+           {
+               comp.setBackground(Constants.CColor.defcolor);
+               food.setSelectionBackground(Constants.CColor.defcolor);
+           } 
+           else
+           {
+               comp.setBackground(Color.WHITE);
+               food.setSelectionBackground(Color.WHITE);
+               
+
+           }
+           return comp;
+        }
         };
         food.getTableHeader().setFont(new java.awt.Font(food.getFont().toString(), Font.BOLD, 22));
         food.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
@@ -656,6 +676,7 @@ public class KitchenView {
                 BillModel.BillInfo billInfo = (BillModel.BillInfo)model.getValueAt(row, 3);
                 //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
                 billInfo.setDone(checked);
+
                 //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
             }
         }
