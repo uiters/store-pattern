@@ -42,7 +42,6 @@ import javax.swing.table.TableModel;
 import Controllers.BillController;
 import Controllers.StructBill;
 import Models.BillModel;
-import java.util.Date;
 /**
  *
  * @author Thang Le
@@ -383,6 +382,26 @@ public class KitchenView {
                         return String.class;
                 }
             }
+            @Override
+        public Component prepareRenderer(TableCellRenderer renderer,int row,int column)
+        {
+            int index=row;
+           Component comp=super.prepareRenderer(renderer,row, column);
+           int modelRow=convertRowIndexToModel(row);
+           if((Boolean)getValueAt(row,2))
+           {
+               comp.setBackground(Constants.CColor.defcolor);
+               food.setSelectionBackground(Constants.CColor.defcolor);
+           } 
+           else
+           {
+               comp.setBackground(Color.WHITE);
+               food.setSelectionBackground(Color.WHITE);
+               
+
+           }
+           return comp;
+        }
         };
         food.getTableHeader().setFont(new java.awt.Font(food.getFont().toString(), Font.BOLD, 22));
         food.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
@@ -647,6 +666,7 @@ public class KitchenView {
                 billInfo.setDone(checked);
                 model.setValueAt(billInfo.quantityNow, row, 1);   
                 controller.loadCombine();
+
             }
         }
     }

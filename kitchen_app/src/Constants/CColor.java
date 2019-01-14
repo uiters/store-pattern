@@ -18,4 +18,6 @@ public class CColor {
     public static Color greenLigth = new Color(0xC9D7F8);
     public static Color green = new Color(0x70C1B3);
     public static Color blue = new Color(0x247BA0);
+    
+    public static Color defcolor=new Color(64,181,138);
 }

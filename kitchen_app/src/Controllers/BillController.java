@@ -109,6 +109,10 @@ public class BillController {
             }else
                 selectedRow(idSelected2, doneTable, view.donetable);
             loadCombine();
+            if(listBills.size() == 0){
+                detail.setRowCount(0);
+                view.detailfood.setText("Detail of");
+            }
             System.out.println("done");
             lock = false;
        });
