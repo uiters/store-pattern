@@ -68,4 +68,18 @@ public class StructBill {
         BillInfo billInfo = billsInfo.stream().filter(item -> item.getDone() == false).findFirst().orElse(null);//find item has value false
         return billInfo == null;// no false => return true;
     }
+    
+    @Override
+    public String toString(){
+        String str = bill.toString();
+        str += "=========================================================\n";
+        str += "Bill Detail:\n";
+        for(BillInfo billInfo : billsInfo)
+        {
+            str += billInfo.toString();
+        }
+        str += "=========================================================\n";
+        str += "Total Price: " + bill.price + "\n";
+        return str;
+    }
 }

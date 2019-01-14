@@ -47,6 +47,13 @@ import Models.BillModel;
  * @author Thang Le
  */
 public class KitchenView {
+    private JTextField idText; //ID text
+    private JTextField idtableText; //IDtable text
+    private JTextField dateinText; //DateCheckIn text
+    private JTextField dateoutText; //DateCheckout text
+    private JTextField discountText; //Discount text
+    private JTextField totalText; //Total text
+    
     public JTable table;
     public JTable donetable;
     
@@ -524,9 +531,7 @@ public class KitchenView {
         btn.setLayout(new BoxLayout(btn, BoxLayout.X_AXIS));
         btn.setBackground(Color.cyan);
 
-        JButton btnAdd = new JButton("Print");
         btn.add(Box.createRigidArea(new Dimension(5, 0)));
-        btn.add(btnAdd);
         
         /*Auto Refresh*/
         JPanel auto= new JPanel();
@@ -553,7 +558,7 @@ public class KitchenView {
                     e.consume();
                 }
             }
-});
+        });
         check=new JRadioButton("Auto");
         //check.setMaximumSize(new Dimension(40, 40
         check.setBackground(Color.cyan);
@@ -570,25 +575,6 @@ public class KitchenView {
         footer.add(auto);
         footer.add(Box.createRigidArea(new Dimension(25, 0)));
         
-        /*Sự kiện print*/
-        btnAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               int index=table.getSelectedRow();
-               if(index>=0)
-               {
-                   LoadBill(index);
-                   
-                   if(Print()==true)
-                   {
-                       int id=Integer.parseInt(table.getValueAt(index, 0).toString());
-                   }
-               }
-               else
-                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn hóa đơn nào để in");
-                
-            }
-        });
         
         check.addActionListener(new ActionListener() {
             @Override
@@ -761,77 +747,6 @@ class ButtonEditor extends DefaultCellEditor
   }
 }
 
-/*IN BILL*/
-private void LoadBill(int index)
-    {
-        jd=new JDialog(jf,"Bill");
-        jd.setModal(true);
-        jd.setSize(450, 600);
-        jd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // đóng frame hiện hành
-        jd.setResizable(false);
-
-        jd.setLocationRelativeTo(null);
-        
-        /*info detail*/
-        JPanel detail=new JPanel();
-        detail.setLayout(new BoxLayout(detail,BoxLayout.Y_AXIS));
-        detail.setBackground(Color.yellow);
-        detail.setPreferredSize(new Dimension(jd.getWidth(),jd.getHeight()));
-        
-         txtbill=new JTextArea();
-         txtbill.setEditable(false);
-         txtbill.setFont(new Font("Arial", Font.PLAIN, 17));
-         txtbill.setColumns(20);
-         txtbill.setRows(5);
-         if(table.getRowCount()>0)
-         {
-             initBillHeader();
-             initBill(index);
-         }
-         
-         JScrollPane jsp=new JScrollPane();
-         jsp.setViewportView(txtbill);
-         
-        detail.add(Box.createRigidArea(new Dimension(0,5)));
-        detail.add(jsp);
-        detail.add(Box.createRigidArea(new Dimension(0,5)));
-         
-        jd.getContentPane().add(detail,BorderLayout.CENTER);
-        jd.setVisible(true);
-    }
-
- private void initBillHeader()
-    {
-        txtbill.setText("Starbucks – The Best Coffee and Espresso Drinks"+"\n"
-        +"Contact 0123xxxxxx"+"\n"
-        +"Adress - mPlaza Saigon, 39 Lê Duẩn, Quận 1, TP.HCM"+"\n"
-        +"******************************"+"\n");
-    
-    }
- 
- private void initBill(int index)
-    {
-        txtbill.setText(txtbill.getText()+"BILL : "+table.getValueAt(index, 0).toString()+"\n");
-        txtbill.setText(txtbill.getText()+"Date Checkin : "+table.getValueAt(index, 2).toString()+"\n");
-        txtbill.setText(txtbill.getText()+"Table : "+table.getValueAt(index, 1).toString()+"\n"+"******************************"+"\n");
-        txtbill.setText(txtbill.getText()+"Detail Bill \n");     
-        //xu ly bill food detail
-        //txtbill.setText(txtbill.getText()+"Discount : "+table.getValueAt(index, 4).toString()+"\n");
-        //txtbill.setText(txtbill.getText()+"Total Price : "+table.getValueAt(index, 5)+"\n");
-        txtbill.setText(txtbill.getText()+"******************************"+"\n");
-        txtbill.setText(txtbill.getText()+"Signature : "+table.getValueAt(index, 3).toString()+"\n");
-    }
- 
-private boolean Print()
-    {
-        boolean flag=false;
-        try {
-            flag=txtbill.print();
-            return flag;
-        } catch (Exception e) {
-        }
-        return false;
-    }
 
 public static void main(String[] args)
     {

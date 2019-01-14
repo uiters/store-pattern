@@ -10,16 +10,21 @@ import Models.BillModel.Bill;
 import Models.BillModel.BillInfo;
 import Views.KitchenView;
 import java.awt.Rectangle;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -41,7 +46,8 @@ public class BillController {
     private final KitchenView view;
     private final BillModel model;
     private boolean lock = false;
-    
+    private List<StructBill> structWrie = new ArrayList<>();
+     private List<StructBill> structWrieSwap = new ArrayList<>();
     private List<StructBill> structBills = new ArrayList<>();
     private List<StructBill> structBillsSwap = new ArrayList<>();
     private final DefaultTableModel table;
@@ -91,8 +97,9 @@ public class BillController {
                 StructBill structBill = getBillInfo(item);
                 }
             );
-
             cleanBill();//clean bill don't exists
+
+                
             countTable = 0;
             table.setRowCount(0);
             doneTable.setRowCount(0);
@@ -103,16 +110,27 @@ public class BillController {
                     addViewWaiting(item);  
                 }
             });
-            if(idSelected1 >= 0){
-                selectedRow(idSelected1, table, view.table);
-                selectedRow(idSelected1, doneTable, view.donetable);
-            }else
-                selectedRow(idSelected2, doneTable, view.donetable);
-            loadCombine();
-            if(listBills.size() == 0){
+            if(structBills.size() == 0)
+            {
                 detail.setRowCount(0);
                 view.detailfood.setText("Detail of");
+            }else
+            {
+                final int idselect = idSelected1 >= 0 ? idSelected1 : idSelected2;
+                StructBill bill = structBills.stream().filter(item ->item.getBill().id == idselect).findFirst().orElse(null);
+                if(bill == null)
+                    detail.setRowCount(0);
+                else
+                {
+                    if(idSelected1 >= 0){
+                        selectedRow(idSelected1, table, view.table);
+                        selectedRow(idSelected1, doneTable, view.donetable);
+                    }else
+                        selectedRow(idSelected2, doneTable, view.donetable);
+                }
             }
+
+            loadCombine();
             System.out.println("done");
             lock = false;
        });
@@ -122,10 +140,15 @@ public class BillController {
         if(id >= 0) {
             int index = find(id, tableModel, 0);
             if(index == -1) return;
-            table.setRowSelectionInterval(index, index);
-            table.scrollRectToVisible(new Rectangle(table.getCellRect(index, 0, true)));
-            StructBill structBill = (StructBill)tableModel.getValueAt(index, 4);
-            addViewDetail(structBill);
+            try {
+                table.setRowSelectionInterval(index, index);
+                table.scrollRectToVisible(new Rectangle(table.getCellRect(index, 0, true)));
+                StructBill structBill = (StructBill)tableModel.getValueAt(index, 4);
+                addViewDetail(structBill);
+            }catch (Exception e)
+            {
+                
+            }
         }
     }
     
@@ -177,8 +200,23 @@ public class BillController {
     clean bill don't exists
     */
     private void cleanBill() {
+        structBills.removeAll(structBillsSwap);
+        structBills.stream().forEach(item -> {
+            try {
+                writeText(item.getBill().id, item.toString());
+            } catch (IOException ex) {
+                Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         structBills = structBillsSwap;
         structBillsSwap = new ArrayList<>();
+    }
+    
+    public void writeBill(){
+        if(structWrie == null) return;
+
+        structWrie = null;
     }
     
     private int find(int id, DefaultTableModel table, int col){
@@ -277,5 +315,32 @@ public class BillController {
         }else
             selectedRow(idSelected2, doneTable, view.donetable);
         loadCombine();
+    }
+     private String initBillHeader()
+    {
+        String txb = 
+        "Starbucks – The Best Coffee and Espresso Drinks"+"\n"
+        + "Contact 0123xxxxxx" + "\n"
+        + "Adress - mPlaza Saigon, 39 Lê Duẩn, Quận 1, TP.HCM"+ "\n"
+        + "******************************" + "\n";
+        return txb;
+    }
+
+    private void writeText(int id, String text) throws IOException {
+        System.out.println(text);
+        BufferedWriter output = null;
+
+        File file = new File(id + ".txt");
+        try {
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch (IOException ex) {
+            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+          if ( output != null ) {
+            output.close();
+          }
+        }
     }
 }

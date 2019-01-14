@@ -42,7 +42,6 @@ public class BillModel {
         Bill[] bills = json.fromJson(rawJson, Bill[].class); // convert json to foodcategory[]
         List<Bill> listBill = new LinkedList<>(Arrays.asList(bills));
         return listBill;
-        
     }
      
     public List<BillInfo> getBillInfo(int id) throws IOException
@@ -66,6 +65,12 @@ public class BillModel {
         public String table;
         @SerializedName("DateCheckIn") 
         public String checkin;
+        @SerializedName("DateCheckOut") 
+        public String checkout;
+        @SerializedName("Discount") 
+        public Double discount;
+        @SerializedName("TotalPrice") 
+        public double price;
         @SerializedName("Username") 
         public String username;
         
@@ -74,14 +79,29 @@ public class BillModel {
         {
             this.id = id;
             this.idtable = idtable;
-            this.checkin=checkin;
-            this.username=name;
+            this.checkin = checkin;
+            this.checkout = checkout;
+            this.discount = discount;
+            this.price = price;
+            this.username = name;
         }
 
         public Bill(){}
         public Bill (int id)
         {
-            this.id=id;
+            this.id = id;
+        }
+        @Override
+        public String toString()
+        {
+            String str = 
+                    "BILL : " + id + "\n" +
+                    "Table: " + table + "\n" +
+                    "Date Checkin: " + checkin + "\n" +
+                    "Date Checkout: " + checkout + "\n" +
+                    "Staff: " + username + "\n" +
+                    "Discount: " + discount + "\n";
+            return str;      
         }
     }
     
@@ -113,6 +133,10 @@ public class BillModel {
                 quantityNow = quantityPre;
                 quantityPre = 0;
             }
+        }
+        @Override
+        public String toString() {
+            return name + ": " + quantityDatabase + "\n";
         }
     }
 }
