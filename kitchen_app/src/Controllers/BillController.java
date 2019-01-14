@@ -11,9 +11,15 @@ import Models.BillModel.BillInfo;
 import Views.KitchenView;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -41,7 +47,9 @@ public class BillController {
     private final DefaultTableModel table;
     private final DefaultTableModel doneTable;
     private final DefaultTableModel detail;
-    
+    private int countTable = 0;
+    private Date time;
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private BillController(KitchenView view) {
         this.view = view;
         this.model = BillModel.getInstance();
@@ -83,21 +91,24 @@ public class BillController {
                 StructBill structBill = getBillInfo(item);
                 }
             );
+
             cleanBill();//clean bill don't exists
-            
+            countTable = 0;
             table.setRowCount(0);
             doneTable.setRowCount(0);
             structBills.stream().forEach(item -> {
                 if(item.isDone())
                     addViewDone(item);
-                else
+                else {
                     addViewWaiting(item);  
+                }
             });
             if(idSelected1 >= 0){
                 selectedRow(idSelected1, table, view.table);
                 selectedRow(idSelected1, doneTable, view.donetable);
             }else
                 selectedRow(idSelected2, doneTable, view.donetable);
+            loadCombine();
             System.out.println("done");
             lock = false;
        });
@@ -151,8 +162,7 @@ public class BillController {
             bill.id, bill.table, bill.checkin, bill.username, structBill
         });
     }
-    
-    
+        
     private void addViewDone(StructBill structBill){
         Bill bill = structBill.getBill();
         doneTable.addRow(new Object[] {
@@ -181,5 +191,87 @@ public class BillController {
         structBill.getBillsInfo().forEach(item -> detail.addRow(new Object[] {
             item.name, item.quantityNow, item.getDone(), item
         }));
+    }
+
+    public void loadCombine()
+    {
+        DefaultTableModel model = (DefaultTableModel)view.combine.getModel();
+        model.setRowCount(0);
+        countTable = 0;
+        structBills.stream().forEach(item -> {
+            if(!item.isDone()){
+                if(countTable == 0)
+                try 
+                {
+                    time = format.parse(item.getBill().checkin);
+
+                } catch (ParseException ex) 
+                {
+                    ex.printStackTrace();
+                }
+                if(countTable < 3)
+                    addViewCombine(item);
+                ++countTable;
+            }
+        });
+    }
+    
+    private void addViewCombine(StructBill item) {
+        try {
+            Date timeEnd = format.parse(item.getBill().checkin);
+            long diff = time.getTime() - timeEnd.getTime();
+            long minutes = diff / (60 * 1000) % 60;
+            if(minutes > 5) return;
+            
+            DefaultTableModel model = (DefaultTableModel)view.combine.getModel();
+            item.getBillsInfo().stream().forEach(billInfo -> {
+                
+                if(billInfo.getDone()) return;
+                
+                int row = find(billInfo.idFood, model, 3);
+                if(row >= 0)
+                {
+                    int num = Integer.parseInt(model.getValueAt(row, 1).toString());
+                    num += billInfo.quantityNow;
+                    model.setValueAt(num, row, 1);
+                }else
+                {
+                    model.addRow(new Object[] {
+                        billInfo.name, billInfo.quantityNow, "Done", billInfo.idFood
+                    });
+                }
+            });
+        } catch (ParseException ex) {
+            Logger.getLogger(BillController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void doneBills(int id) {
+        countTable = 0;
+        structBills.stream().forEach(item -> {
+            if(countTable < 3)
+                item.getBillsInfo().stream().forEach(billInfo -> {
+                    if(!billInfo.getDone() && billInfo.idFood == id)
+                        billInfo.setDone(true);
+                });
+            ++countTable;
+        });
+        int row = view.table.getSelectedRow();
+        int idSelected1 = -1;
+        int idSelected2 = -1;
+        
+        if(row >= 0)
+            idSelected1 = (int)table.getValueAt(row, 0);
+        else {
+            row = view.donetable.getSelectedRow();
+            if(row >= 0)
+            idSelected2 = (int)doneTable.getValueAt(row, 0);
+        }
+        if(idSelected1 >= 0){
+            selectedRow(idSelected1, table, view.table);
+            selectedRow(idSelected1, doneTable, view.donetable);
+        }else
+            selectedRow(idSelected2, doneTable, view.donetable);
+        loadCombine();
     }
 }

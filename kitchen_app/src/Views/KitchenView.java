@@ -48,17 +48,11 @@ import java.util.Date;
  * @author Thang Le
  */
 public class KitchenView {
-     private JTextField idText; //ID text
-    private JTextField idtableText; //IDtable text
-    private JTextField dateinText; //DateCheckIn text
-    private JTextField dateoutText; //DateCheckout text
-    private JTextField discountText; //Discount text
-    private JTextField totalText; //Total text
     public JTable table;
     public JTable donetable;
     
     public JTable food;
-    private JTable combine;
+    public JTable combine;
     private JLabel dashboardTitle;
     private JLabel helpTitle;
     private JFrame jf;
@@ -74,7 +68,7 @@ public class KitchenView {
     private JLabel done;
     public JLabel detailfood;
     private JLabel combinefood;
-    private boolean flag=false;
+    private boolean flag = false;
     JPanel header;
     JPanel main;
     JPanel info;
@@ -366,7 +360,7 @@ public class KitchenView {
         detailfood=new JLabel("Detail of");
         detailfood.setFont(new java.awt.Font(detailfood.getFont().toString(), Font.BOLD, 25));
         detailfood.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String []title2=new String[]{"Name","Quantity","Status", ""};
+        String []title2=new String[]{"Name","Quantity","Done", ""};
         DefaultTableModel model3= new DefaultTableModel(null,title2){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -429,7 +423,7 @@ public class KitchenView {
         combinefood=new JLabel("Combined food");
         combinefood.setFont(new java.awt.Font(combinefood.getFont().toString(), Font.BOLD, 25));
         combinefood.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String []title3=new String[]{"Name","Quantity","Action"};
+        String []title3=new String[]{"Name","Quantity","Action", ""};
         DefaultTableModel model4= new DefaultTableModel(null,title3){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -443,13 +437,13 @@ public class KitchenView {
             public Class getColumnClass(int column) {
                 switch (column) {
                     case 3:
-                        return BillModel.BillInfo.class;
+                        return int.class;
                     case 2:
-                        return JButton.class;
-                    case 1:
-                        return Double.class;
-                    default:
                         return String.class;
+                    case 1:
+                        return int.class;//so luong
+                    default:
+                        return String.class;//name
                 }
             }
         };
@@ -460,7 +454,8 @@ public class KitchenView {
         combine.setSelectionMode(0);
         combine.setRowHeight(80); // chỉnh độ cao của hàng
          //SET CUSTOM RENDERER TO TEAMS COLUMN
-        combine.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());;
+        combine.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+        combine.removeColumn(combine.getColumnModel().getColumn(3));
 
         //SET CUSTOM EDITOR TO TEAMS COLUMN
         combine.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JTextField()));
@@ -560,9 +555,6 @@ public class KitchenView {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-                //JOptionPane.showMessageDialog(null, timeStamp);
-                //JOptionPane.showMessageDialog(null, "Reload database ");
                int index=table.getSelectedRow();
                if(index>=0)
                {
@@ -571,8 +563,6 @@ public class KitchenView {
                    if(Print()==true)
                    {
                        int id=Integer.parseInt(table.getValueAt(index, 0).toString());
-                       //controller.delete(id);
-                       //delete(index);
                    }
                }
                else
@@ -654,9 +644,9 @@ public class KitchenView {
                 TableModel model = (TableModel) e.getSource();
                 Boolean checked = (Boolean) model.getValueAt(row, column);
                 BillModel.BillInfo billInfo = (BillModel.BillInfo)model.getValueAt(row, 3);
-                //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
                 billInfo.setDone(checked);
-                //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
+                model.setValueAt(billInfo.quantityNow, row, 1);   
+                controller.loadCombine();
             }
         }
     }
@@ -686,7 +676,7 @@ class ButtonRenderer extends JButton implements  TableCellRenderer
 //BUTTON EDITOR CLASS
 class ButtonEditor extends DefaultCellEditor
 {
-  protected JButton btn;
+   protected JButton btn;
    private String lbl;
    private Boolean clicked;
 
@@ -700,7 +690,11 @@ class ButtonEditor extends DefaultCellEditor
     btn.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Clicked "+combine.getSelectedRow());
+            int result = JOptionPane.showConfirmDialog(null, "Are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
+            if(result == JOptionPane.YES_OPTION){
+                int id = (int)combine.getModel().getValueAt(combine.getSelectedRow(), 3);
+                controller.doneBills(id);
+            }
         }
         });
    }
@@ -708,8 +702,8 @@ class ButtonEditor extends DefaultCellEditor
 
    //OVERRIDE A COUPLE OF METHODS
         @Override
-        public Component getTableCellEditorComponent(JTable table, Object obj,
-      boolean selected, int row, int col) {
+    public Component getTableCellEditorComponent(JTable table, Object obj,
+    boolean selected, int row, int col) {
 
       //SET TEXT TO BUTTON,SET CLICKED TO TRUE,THEN RETURN THE BTN OBJECT
      lbl=(obj==null) ? "":obj.toString();
