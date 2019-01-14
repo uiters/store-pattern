@@ -42,6 +42,7 @@ class Controller {
     );
 
     await this.bills.then((values) {
+      if (findIndex(values, bill.id) == -1)
       values.insert(0, bill);
     });
   }

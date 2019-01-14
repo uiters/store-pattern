@@ -339,7 +339,7 @@ class _CartScreenState extends State<CartScreen> {
                   int idBill = await Controller.instance.getIdBillByTable(table.id);
                   if (await Controller.instance.updateBill(
                     idBill,
-                    table.id, 
+                    table.id,
                     table.dateCheckIn, 
                     DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
                     _discount, 
@@ -348,7 +348,7 @@ class _CartScreenState extends State<CartScreen> {
                     widget.account.username
                   )) {
                     historyController.Controller.instance.addBill(
-                      idBill, 
+                      idBill,
                       table,
                       DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
                       _discount, 
