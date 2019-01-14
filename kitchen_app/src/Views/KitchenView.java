@@ -94,11 +94,11 @@ public class KitchenView {
         
         /* MAIN TABLE */
         main = new JPanel();
-        main.setBackground(Color.green);
+        main.setBackground(new Color(228,249,245));
        
         /* FOOTER */
         footer = new JPanel();
-        footer.setBackground(Color.cyan);
+        footer.setBackground(new Color(228,249,245));
         
         createHeader(header);
         createMain(main);
@@ -158,7 +158,7 @@ public class KitchenView {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  //JOptionPane.showMessageDialog(null, "Load Database");
                  setForeColor();
-                 dashboardTitle.setForeground(Color.red);
+                 dashboardTitle.setForeground(new Color(228,249,245));
                  controller.loadFull();
                  Wait(2); // wait 2 seconds to set forecolor
              }
@@ -188,7 +188,7 @@ public class KitchenView {
              public void mouseClicked(MouseEvent e) {
                  super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                  //setForeColor();
-                 helpTitle.setForeground(Color.red);
+                 helpTitle.setForeground(new Color(228,249,245));
                 //JOptionPane.showMessageDialog(null, "Bạn có thể chọn auto, để app có thể tự động reload sau thời gian quy định!");
                  //setForeColor();
              }
@@ -218,16 +218,17 @@ public class KitchenView {
         
         /*LEFT*/
         JPanel left=new JPanel();
-        left.setBackground(Color.red);
+        left.setBackground(new Color(228,249,245));
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
         left.setPreferredSize(new Dimension(500, main.getHeight()));
         
         /*waiting*/
         JPanel lefttop=new JPanel();
-        lefttop.setBackground(Color.gray);
+        lefttop.setBackground(new Color(209,228,252));
         lefttop.setLayout(new BoxLayout(lefttop, BoxLayout.Y_AXIS));
         
         waiting=new JLabel("WAITING");
+        waiting.setForeground(new Color(0,107,68));
         waiting.setFont(new java.awt.Font(waiting.getFont().toString(), Font.BOLD, 25));
         waiting.setAlignmentX(Component.CENTER_ALIGNMENT);
          //Table
@@ -255,7 +256,7 @@ public class KitchenView {
                 }
             }
         };
-        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
+        table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.TRUETYPE_FONT, 19));
         table.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         table.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         table.setModel(model);
@@ -285,10 +286,11 @@ public class KitchenView {
         lefttop.add(jsp);
         /*done*/
         JPanel leftbottom=new JPanel();
-        leftbottom.setBackground(Color.yellow);
+        leftbottom.setBackground(new Color(209,228,252));
         leftbottom.setLayout(new BoxLayout(leftbottom, BoxLayout.Y_AXIS));
         
         done=new JLabel("DONE");
+        done.setForeground(new Color(0,107,68));
         done.setFont(new java.awt.Font(done.getFont().toString(), Font.BOLD, 25));
         done.setAlignmentX(Component.CENTER_ALIGNMENT);
          //Table
@@ -315,7 +317,7 @@ public class KitchenView {
                 }
             }
         };
-        donetable.getTableHeader().setFont(new java.awt.Font(donetable.getFont().toString(), Font.BOLD, 22));
+        donetable.getTableHeader().setFont(new java.awt.Font(donetable.getFont().toString(), Font.TRUETYPE_FONT, 19));
         donetable.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         donetable.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         donetable.setModel(model2);
@@ -348,16 +350,17 @@ public class KitchenView {
         
          /*RIGHT*/
         JPanel right=new JPanel();
-        right.setBackground(Color.green);
+        right.setBackground(new Color(228,249,245));
         right.setLayout(new BoxLayout(right, BoxLayout.X_AXIS));
         
         
         JPanel righttop=new JPanel();
-        righttop.setBackground(Color.gray);
+        righttop.setBackground(new Color(209,228,252));
         righttop.setLayout(new BoxLayout(righttop, BoxLayout.Y_AXIS));
         
-        detailfood=new JLabel("Detail of");
+        detailfood=new JLabel("DETAIL OF");
         detailfood.setFont(new java.awt.Font(detailfood.getFont().toString(), Font.BOLD, 25));
+        detailfood.setForeground(new Color(0,107,68));
         detailfood.setAlignmentX(Component.CENTER_ALIGNMENT);
         String []title2=new String[]{"Name","Quantity","Done", ""};
         DefaultTableModel model3= new DefaultTableModel(null,title2){
@@ -403,7 +406,7 @@ public class KitchenView {
            return comp;
         }
         };
-        food.getTableHeader().setFont(new java.awt.Font(food.getFont().toString(), Font.BOLD, 22));
+        food.getTableHeader().setFont(new java.awt.Font(food.getFont().toString(), Font.TRUETYPE_FONT, 19));
         food.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         food.setFont(new java.awt.Font(food.getFont().toString(), Font.PLAIN, 18));
         food.setModel(model3);
@@ -436,10 +439,11 @@ public class KitchenView {
         righttop.add(jsp3);
          
         JPanel rightbottom=new JPanel();
-        rightbottom.setBackground(Color.yellow);
+        rightbottom.setBackground(new Color(209,228,252));
         rightbottom.setLayout(new BoxLayout(rightbottom, BoxLayout.Y_AXIS));
         
-        combinefood=new JLabel("Combined food");
+        combinefood=new JLabel("COMBINED FOOD");
+        combinefood.setForeground(new Color(0,107,68));
         combinefood.setFont(new java.awt.Font(combinefood.getFont().toString(), Font.BOLD, 25));
         combinefood.setAlignmentX(Component.CENTER_ALIGNMENT);
         String []title3=new String[]{"Name","Quantity","Action", ""};
@@ -466,7 +470,7 @@ public class KitchenView {
                 }
             }
         };
-        combine.getTableHeader().setFont(new java.awt.Font(combine.getFont().toString(), Font.BOLD, 22));
+        combine.getTableHeader().setFont(new java.awt.Font(combine.getFont().toString(), Font.TRUETYPE_FONT, 19));
         combine.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         combine.setFont(new java.awt.Font(combine.getFont().toString(), Font.PLAIN, 18));
         combine.setModel(model4);
@@ -522,9 +526,10 @@ public class KitchenView {
         footer.setPreferredSize(new Dimension(footer.getWidth(), 50));
         JPanel btn = new JPanel();
         btn.setLayout(new BoxLayout(btn, BoxLayout.X_AXIS));
-        btn.setBackground(Color.cyan);
+        btn.setBackground(new Color(228,249,245));
 
         JButton btnAdd = new JButton("Print");
+        btnAdd.setForeground(new Color(0,107,68));
         btn.add(Box.createRigidArea(new Dimension(5, 0)));
         btn.add(btnAdd);
         
@@ -532,7 +537,7 @@ public class KitchenView {
         JPanel auto= new JPanel();
         auto.setLayout(new BoxLayout(auto, BoxLayout.X_AXIS));
         auto.setMaximumSize(new Dimension(300, 50));
-        auto.setBackground(Color.cyan);
+        auto.setBackground(new Color(228,249,245));
         
         JLabel timeTitle = new JLabel("Refresh After");
         timeTitle.setForeground(new Color(41,55,72));
@@ -556,7 +561,7 @@ public class KitchenView {
 });
         check=new JRadioButton("Auto");
         //check.setMaximumSize(new Dimension(40, 40
-        check.setBackground(Color.cyan);
+        check.setBackground(new Color(228,249,245));
         
         auto.add(timeTitle);
         auto.add(Box.createRigidArea(new Dimension(5, 0)));
@@ -597,7 +602,7 @@ public class KitchenView {
                 {
                     setForeColor();
                     timeText.setEditable(false);
-                    dashboardTitle.setForeground(Color.red);
+                    dashboardTitle.setForeground(new Color(228,249,245));
                     Auto();
                 }
                 else
@@ -775,7 +780,7 @@ private void LoadBill(int index)
         /*info detail*/
         JPanel detail=new JPanel();
         detail.setLayout(new BoxLayout(detail,BoxLayout.Y_AXIS));
-        detail.setBackground(Color.yellow);
+        detail.setBackground(new Color(228,249,245));
         detail.setPreferredSize(new Dimension(jd.getWidth(),jd.getHeight()));
         
          txtbill=new JTextArea();
