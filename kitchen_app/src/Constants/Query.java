@@ -10,20 +10,7 @@ package Constants;
  * @author thienlan
  */
 public class Query {
-    
-     
-    
     //bill
-    public static String getOrder="call USP_Admin_GetOrders() ";
-    public static String getBillInfo="call USP_Admin_GetFoodFromBill( @ID ) ";
-    public static String updateBill="call USP_Admin_UpdateBill( @ID , @Time ) ";
-
-    //login
-    public static String checkLogin="call USP_Admin_CheckLogin( @username  )";
-    
-    //report
-    public static String getReport="call USP_Admin_GetReport( @date  )";
-    
-    
-            
+    public static String getOrder="call USP_TVC12_GetOrders() ";
+    public static String getBillInfo="call USP_TVC12_GetFoodFromBill( @ID ) ";    
 }

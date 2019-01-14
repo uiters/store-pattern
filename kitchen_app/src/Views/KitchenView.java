@@ -39,7 +39,10 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-
+import Controllers.BillController;
+import Controllers.StructBill;
+import Models.BillModel;
+import java.util.Date;
 /**
  *
  * @author Thang Le
@@ -51,10 +54,10 @@ public class KitchenView {
     private JTextField dateoutText; //DateCheckout text
     private JTextField discountText; //Discount text
     private JTextField totalText; //Total text
-    private JTable table;
-    private JTable donetable;
+    public JTable table;
+    public JTable donetable;
     
-    private JTable food;
+    public JTable food;
     private JTable combine;
     private JLabel dashboardTitle;
     private JLabel helpTitle;
@@ -69,22 +72,25 @@ public class KitchenView {
     private JTextArea txtbill;
     private JLabel waiting;
     private JLabel done;
-    private JLabel detailfood;
+    public JLabel detailfood;
     private JLabel combinefood;
     private boolean flag=false;
     JPanel header;
     JPanel main;
     JPanel info;
     JPanel footer;
+    BillController controller;
     
     public KitchenView()
     {
         initComponent();
+        controller = BillController.getInstance(this);
+        controller.loadFull();
     }
     
     public void initComponent()
     {
-        jf=new JFrame("Cafe Management || Kitchen App");
+        jf=new JFrame("Cafe Management \u2022 Kitchen App");
         jf.setSize(new Dimension(1600, 800));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setLocationRelativeTo(null);
@@ -160,17 +166,8 @@ public class KitchenView {
                  //JOptionPane.showMessageDialog(null, "Load Database");
                  setForeColor();
                  dashboardTitle.setForeground(Color.red);
-                 /*add row for test*/
-                 DefaultTableModel modelx=(DefaultTableModel)table.getModel();
-                 modelx.addRow(new Object[]{"01","02","1998-01-01","admin"});
-                 DefaultTableModel model=(DefaultTableModel)food.getModel();
-                 model.addRow(new Object[]{"A",2,true});
-                 JButton btn=new JButton("a");
-                 DefaultTableModel model2=(DefaultTableModel)combine.getModel();
-                 model2.addRow(new Object[]{"A",2,"Action"});
-                 /*end*/
+                 controller.loadFull();
                  Wait(2); // wait 2 seconds to set forecolor
-    
              }
             
 });
@@ -241,21 +238,37 @@ public class KitchenView {
         waiting.setFont(new java.awt.Font(waiting.getFont().toString(), Font.BOLD, 25));
         waiting.setAlignmentX(Component.CENTER_ALIGNMENT);
          //Table
-        String []title=new String[]{"ID","Table","CheckIn","Username"};
+        String []title=new String[]{"ID","Table","CheckIn","Username", ""};
         DefaultTableModel model= new DefaultTableModel(null,title){
             @Override
             public boolean isCellEditable(int row, int column) {
             return false;
             }
         };
-        table=new JTable();
+        table = new JTable() {
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return int.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    case 4:
+                        return StructBill.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
         table.getTableHeader().setFont(new java.awt.Font(table.getFont().toString(), Font.BOLD, 22));
         table.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         table.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         table.setModel(model);
         table.setSelectionMode(0);
         table.setRowHeight(80); // chỉnh độ cao của hàng
-        
+        table.removeColumn(table.getColumnModel().getColumn(4));
         //controller.loadFull();
         JScrollPane jsp=new JScrollPane(table);
         
@@ -266,15 +279,13 @@ public class KitchenView {
             {
                     //goi detail
                 int index=table.getSelectedRow();
-                if(index>=0)
+                if(index >= 0)
                 {
-
-                    
+                    StructBill structBill = (StructBill)table.getModel().getValueAt(index, 4);
+                    controller.addViewDetail(structBill);
                 }
-                
-                    
             }    
-});
+        });
          /*End click table event*/
         lefttop.add(waiting);
         lefttop.add(Box.createRigidArea(new Dimension(0,5)));
@@ -294,14 +305,30 @@ public class KitchenView {
                 return false;
             }
         };
-        donetable=new JTable();
+        donetable=new JTable(){
+                        @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return int.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                    case 4:
+                        return StructBill.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
         donetable.getTableHeader().setFont(new java.awt.Font(donetable.getFont().toString(), Font.BOLD, 22));
         donetable.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
         donetable.setFont(new java.awt.Font(table.getFont().toString(), Font.PLAIN, 18));
         donetable.setModel(model2);
         donetable.setSelectionMode(0);
         donetable.setRowHeight(80); // chỉnh độ cao của hàng
-        
+        donetable.removeColumn(donetable.getColumnModel().getColumn(4));
         //controller.loadFull();
         JScrollPane jsp2=new JScrollPane(donetable);
         
@@ -314,13 +341,11 @@ public class KitchenView {
                 int index=donetable.getSelectedRow();
                 if(index>=0)
                 {
-
-                    
-                }
-                
-                    
+                    StructBill structBill = (StructBill)donetable.getModel().getValueAt(index, 4);
+                    controller.addViewDetail(structBill);
+                } 
             }    
-});
+        });
          /*End click table event*/
         leftbottom.add(done);
         leftbottom.add(Box.createRigidArea(new Dimension(0,5)));
@@ -341,11 +366,11 @@ public class KitchenView {
         detailfood=new JLabel("Detail of");
         detailfood.setFont(new java.awt.Font(detailfood.getFont().toString(), Font.BOLD, 25));
         detailfood.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String []title2=new String[]{"Name","Quantity","Status"};
+        String []title2=new String[]{"Name","Quantity","Status", ""};
         DefaultTableModel model3= new DefaultTableModel(null,title2){
             @Override
             public boolean isCellEditable(int row, int column) {
-            if(column==2) return true;
+            if(column == 2) return true;
                 return false;
             }
         };
@@ -354,6 +379,8 @@ public class KitchenView {
             @Override
             public Class getColumnClass(int column) {
                 switch (column) {
+                    case 3:
+                        return BillModel.BillInfo.class;
                     case 2:
                         return Boolean.class;
                     case 1:
@@ -362,7 +389,6 @@ public class KitchenView {
                         return String.class;
                 }
             }
-            
         };
         food.getTableHeader().setFont(new java.awt.Font(food.getFont().toString(), Font.BOLD, 22));
         food.getTableHeader().setReorderingAllowed(false); // khong cho di chuyen thu tu cac column
@@ -370,9 +396,10 @@ public class KitchenView {
         food.setModel(model3);
         food.setSelectionMode(0);
         food.setRowHeight(80); // chỉnh độ cao của hàng
-        
+        food.removeColumn(food.getColumnModel().getColumn(3));
+
         //controller.loadFull();
-        JScrollPane jsp3=new JScrollPane(food);
+        JScrollPane jsp3 = new JScrollPane(food);
         
         /*Sự kiện click ở table*/
         food.addMouseListener(new MouseAdapter() {
@@ -385,11 +412,9 @@ public class KitchenView {
                 {
 
                     
-                }
-                
-                    
+                }   
             }    
-});
+        });
         
         food.getModel().addTableModelListener(new CheckBoxModelListener());
          /*End click table event*/
@@ -408,8 +433,8 @@ public class KitchenView {
         DefaultTableModel model4= new DefaultTableModel(null,title3){
             @Override
             public boolean isCellEditable(int row, int column) {
-            if(column==2) return true;
-            return false;
+            if(column == 2) return true;
+                return false;
             }
         };
         
@@ -417,6 +442,10 @@ public class KitchenView {
             @Override
             public Class getColumnClass(int column) {
                 switch (column) {
+                    case 3:
+                        return BillModel.BillInfo.class;
+                    case 2:
+                        return JButton.class;
                     case 1:
                         return Double.class;
                     default:
@@ -449,11 +478,9 @@ public class KitchenView {
                 {
 
                     
-                }
-                
-                    
+                }  
             }    
-});
+        });
          /*End click table event*/
         rightbottom.add(combinefood);
         rightbottom.add(Box.createRigidArea(new Dimension(0,5)));
@@ -504,13 +531,13 @@ public class KitchenView {
         //numeric
         timeText.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                    char c = e.getKeyChar();
-                    if (!((c >= '0') && (c <= '9') ||
-                    (c == KeyEvent.VK_BACK_SPACE) ||
-                    (c == KeyEvent.VK_DELETE))) 
-                    {
-                        e.consume();
-                    }
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                (c == KeyEvent.VK_BACK_SPACE) ||
+                (c == KeyEvent.VK_DELETE))) 
+                {
+                    e.consume();
+                }
             }
 });
         check=new JRadioButton("Auto");
@@ -579,25 +606,17 @@ public class KitchenView {
     //AUTO LOAD
     private void Auto()
     {
-            
-            long timewait=Long.parseLong(timeText.getText()); // convert string to long
-            timer=new Timer();
-            flag=true; //set flag to recognize timer is started
-            TimerTask task=new TimerTask() {
-                long second=0;
-                @Override
-                public void run() {               
-                    //JOptionPane.showMessageDialog(null, "Refresh!");
-                    second=second+1;
-                    System.out.println(second);
-                    if(second==Integer.parseInt(timeText.getText()))
-                    {
-                        //controller.loadFull();
-                        second=0;
-                    }
-                }      
-            };
-           timer.scheduleAtFixedRate(task, 1000, timewait*1000);
+        long timewait = Long.parseLong(timeText.getText()); // convert string to long
+        timer = new Timer();
+        flag = true; //set flag to recognize timer is started
+        TimerTask task = new TimerTask() {
+            long second = 0;
+            @Override
+            public void run() {               
+                controller.loadFull();
+            }      
+        };
+       timer.scheduleAtFixedRate(task, 1000, timewait * 1000);
     }
     
      private void setForeColor()
@@ -616,17 +635,10 @@ public class KitchenView {
                 long second=0;
                 @Override
                 public void run() {               
-                    //JOptionPane.showMessageDialog(null, "Refresh!");
-                    second=second+1;
-                    System.out.println(second);
-                    if(second==x)
-                    {
-                        //controller.loadFull();
-                        second=0;
-                        setForeColor();
-                        wait.cancel();
-                        wait.purge();
-                    }
+                    second=0;
+                    setForeColor();
+                    wait.cancel();
+                    wait.purge();
                 }      
             };
            wait.scheduleAtFixedRate(task, 1000, x*1000);
@@ -640,13 +652,11 @@ public class KitchenView {
             int column = e.getColumn();
             if (column == 2) {
                 TableModel model = (TableModel) e.getSource();
-                String columnName = model.getColumnName(column);
                 Boolean checked = (Boolean) model.getValueAt(row, column);
-                if (checked) {
-                    System.out.println(columnName + ": " + true);
-                } else {
-                    System.out.println(columnName + ": " + false);
-                }
+                BillModel.BillInfo billInfo = (BillModel.BillInfo)model.getValueAt(row, 3);
+                //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
+                billInfo.setDone(checked);
+                //System.out.println("done: " + billInfo.totalDone + " now:" + billInfo.quantityNow);
             }
         }
     }
@@ -692,7 +702,7 @@ class ButtonEditor extends DefaultCellEditor
         public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(null, "Clicked "+combine.getSelectedRow());
         }
-            });
+        });
    }
 
 
