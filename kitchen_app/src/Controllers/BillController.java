@@ -75,7 +75,7 @@ public class BillController extends Controller {
                 return null;
             }
         });
-        future.thenAccept(listBills -> view.loadView(listBills));
+        //future.thenAccept(listBills -> view.loadView(listBills));
     }
     
     public void LoadInfo(Object object)
@@ -91,7 +91,7 @@ public class BillController extends Controller {
                 return null;
             }
         });
-        future.thenAccept(listBills -> view.LoadInfo(listBills));
+        //future.thenAccept(listBills -> view.LoadInfo(listBills));
     }
     
  
