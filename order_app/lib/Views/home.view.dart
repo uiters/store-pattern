@@ -27,12 +27,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Future<List<home.Table>> futureTables;
   home.Table _selectedTable;
-  bool isSend;
 
   @override
     void initState() {
       futureTables = Controller.instance.tables;
-      isSend = false;
       super.initState();
     }
 
@@ -159,13 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       }),
-    ).then((value) {
-      if (isSend)
-      setState(() {
-        table.status = -1;
-        table.foods.clear();
-      });
-    });
+    );
   }
 
   void _pushCartScreen(home.Table table, BuildContext menuContext) {
@@ -187,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          body: new CartScreen(table: table, menuContext: context, account: widget.account, isSend: isSend,),
+          body: new CartScreen(table: table, menuContext: context, account: widget.account),
         );
       }),
     );
@@ -213,10 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: theme.okButtonStyle 
               ),
               onPressed: () async {
-
-                /* Pop screens */
                 Navigator.of(context).pop();
-                isSend = true;
+                cartController.Controller.instance.isSend = false;
                 if (await cartController.Controller.instance.hasBillOfTable(table.id)) { // exists bill
                   int idBill = await cartController.Controller.instance.getIdBillByTable(table.id);
                   if (await cartController.Controller.instance.updateBill(
@@ -242,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                       }
                     }
-
+                    cartController.Controller.instance.isSend = true;
                     successDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen successed.');
                   } else errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
                 } else { // not exists bill
@@ -264,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return;
                       }
                     }
-
+                    cartController.Controller.instance.isSend = true;
                     successDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen successed.');
                   } else errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
                 }

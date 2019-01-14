@@ -14,13 +14,11 @@ import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table, this.menuContext, this.account, this.isSend}):super(key: key);
+  CartScreen({key, this.table, this.menuContext, this.account}):super(key: key);
 
   final Account account;
   final home.Table table;
   final BuildContext menuContext;
-  final bool isSend;
-
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -335,7 +333,7 @@ class _CartScreenState extends State<CartScreen> {
 
                 home.Table table = new home.Table(widget.table);
 
-                if (widget.isSend) { // exists bill
+                if (Controller.instance.isSend) { // exists bill
                   Navigator.of(cartContext).pop();
                   Navigator.of(widget.menuContext).pop();
                   int idBill = await Controller.instance.getIdBillByTable(table.id);
@@ -349,7 +347,6 @@ class _CartScreenState extends State<CartScreen> {
                     1,
                     widget.account.username
                   )) {
-
                     historyController.Controller.instance.addBill(
                       idBill, 
                       table,
@@ -358,20 +355,8 @@ class _CartScreenState extends State<CartScreen> {
                       table.getTotalPrice(), 
                       widget.account
                     );
-
-                    for (var food in table.foods) {
-                      if (await Controller.instance.hasBillDetailOfBill(idBill, food.id)) {// exists billdetail
-                        if (await Controller.instance.updateBillDetail(idBill, food.id, food.quantity) == false ) {
-                          errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                          return;
-                        }
-                      } else { // not exists billdetail
-                        if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
-                          errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                          return;
-                        }
-                      }
-                    }
+                    widget.table.status = -1;
+                    widget.table.foods.clear();
                     _showNotification();
                   } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
                 } else errorDialog(this.context, 'Please send the bill to the kitchen before making payment!');

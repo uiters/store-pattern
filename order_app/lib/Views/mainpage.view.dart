@@ -157,6 +157,23 @@ class _MainPageState extends State<MainPage> {
           ),
           iconTheme: new IconThemeData(color: accentColor),
           centerTitle: true,
+          actions: <Widget>[
+            _screenNumber == 0 
+            ? new IconButton(
+              icon: new Icon(Icons.refresh),
+              color: accentColor,
+              onPressed: () {
+                setState(() {});
+              },
+            )
+            : new IconButton(
+              icon: new Icon(Icons.refresh),
+              color: primaryColor,
+              onPressed: () {
+                setState(() {});
+              },
+            )
+          ],
         ),
         resizeToAvoidBottomPadding: false,
         body: _buildScreen(context),

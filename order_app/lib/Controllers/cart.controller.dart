@@ -1,6 +1,7 @@
 import './../Models/cart.model.dart';
 
 class Controller {
+  bool isSend = false;
 
   static Controller _instance;
 
