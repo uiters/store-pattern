@@ -97,7 +97,6 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-
           new ListTile(
             leading: new Icon(Icons.exit_to_app, color: fontColorLight, size: 19.0,),
             title: new Text('Logout', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
@@ -106,11 +105,9 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(widget.context);
             },
           ),
-
           new Divider(
             indent: 16.0,
           ),
-
           new ListTile(
             leading: new Icon(Icons.settings, color: fontColorLight, size: 19.0,),
             title: new Text('Settings', style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),),
@@ -157,6 +154,23 @@ class _MainPageState extends State<MainPage> {
           ),
           iconTheme: new IconThemeData(color: accentColor),
           centerTitle: true,
+          actions: <Widget>[
+            _screenNumber == 0 
+            ? new IconButton(
+              icon: new Icon(Icons.refresh),
+              color: accentColor,
+              onPressed: () {
+                setState(() {});
+              },
+            )
+            : new IconButton(
+              icon: new Icon(Icons.refresh),
+              color: primaryColor,
+              onPressed: () {
+                setState(() {});
+              },
+            )
+          ],
         ),
         resizeToAvoidBottomPadding: false,
         body: _buildScreen(context),

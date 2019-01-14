@@ -17,9 +17,54 @@ class Model {
     ); 
   }
 
+  Future<bool> updateBill(int id, int idTable, DateTime dateCheckIn, DateTime dateCheckOut, double discount, double totalPrice, int status, String username) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_BILL,
+      parameter: [id, idTable, dateCheckIn, dateCheckOut, discount, totalPrice, status, username]
+    ); 
+  }
+
   Future<int> getIdBillMax() async { // check again
     Future<List> futureId = MySqlConnection.instance.executeQuery(queries.GET_ID_MAX);
     return parse(futureId);
+  }
+
+  Future<bool> hasBillOfTable(int idTable) async {
+    Future<List> futureBills = MySqlConnection.instance.executeQuery(
+      queries.HAS_BILL_OF_TABLE,
+      parameter: [idTable]
+    );
+    return (await parseBill(futureBills)).length > 0;
+  }
+
+  Future<int> getIdBillByTable(int idTable) async {
+    Future<List> futureBills = MySqlConnection.instance.executeQuery(
+      queries.HAS_BILL_OF_TABLE,
+      parameter: [idTable]
+    );
+    return (await parseBill(futureBills))[0].id;
+  }
+
+  Future<bool> insertBillDetail(int idBill, int idFood, int quantity) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.INSERT_BILL_DETAIL,
+      parameter: [idBill, idFood, quantity]
+    );
+  }
+
+  Future<bool> updateBillDetail(int idBill, int idFood, int quantity) {
+    return MySqlConnection.instance.executeNoneQuery(
+      queries.UPDATE_BILL_DETAIL,
+      parameter: [idBill, idFood, quantity]
+    );
+  }
+
+  Future<bool> hasBillDetailOfBill(int idBill, int idFood) async {
+    Future<List> futureBillDetails = MySqlConnection.instance.executeQuery(
+      queries.HAS_BILLDETAIL_OF_BILL,
+      parameter: [idBill, idFood]
+    );
+    return (await parseBill(futureBillDetails)).length > 0;
   }
 
   Future<int> parse(Future<List> id) async  {
@@ -30,11 +75,20 @@ class Model {
     return futureId;
   }
 
-  Future<bool> insertBillDetail(int idBill, int idFood, int quantity) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.INSERT_BILL_DETAIL,
-      parameter: [idBill, idFood, quantity]
-    );
+  static Future<List<Bill>> parseBill(Future<List> futureBills) async  {
+    List<Bill> bills = [];
+    await futureBills.then((values) {
+      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+    });
+    return bills;
+  }
+
+  static Future<List<BillDetail>> parseBillDetail(Future<List> futureBillDetails) async  {
+    List<BillDetail> billDetails = [];
+    await futureBillDetails.then((values) {
+      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+    });
+    return billDetails;
   }
 
 }
@@ -54,7 +108,7 @@ class Bill {
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : -1;
     this.dateCheckIn = json['DateCheckIn'] != null ? DateTime.parse(json['DateCheckIn']) :DateTime.now();
     this.dateCheckOut = json['DateCheckOut'] != null ? DateTime.parse(json['DateCheckOut']) : DateTime.now();
-    this.status = json['Status'] !=null ? int.parse(json['Status']) : -1;
+    this.status = json['Status'] != null ? int.parse(json['Status']) : -1;
   }
 
 }
@@ -66,9 +120,9 @@ class BillDetail {
   int quantity;
 
   BillDetail.fromJson(Map<String, dynamic> json) {
-    this.idBill = int.parse(json['IDBill']);
-    this.idFood = int.parse(json['IDFood']);
-    this.quantity = int.parse(json['Quantity']);
+    this.idBill = json['IDBill'] != null ? int.parse(json['IDBill']) : -1;
+    this.idFood = json['IDFood'] != null ? int.parse(json['IDFood']) : -1;
+    this.quantity = json['Quantity'] != null ? int.parse(json['Quantity']) : -1;
   }
 
 }
