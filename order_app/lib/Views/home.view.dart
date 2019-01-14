@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './../Models/login.model.dart';
 import './../Models/home.model.dart' as home;
 
 import './../Controllers/home.controller.dart';
+import './../Controllers/cart.controller.dart' as cartController;
 
-import './../Constants/theme.dart';
+import './../Constants/dialog.dart';
+import './../Constants/theme.dart' as theme;
 
 import './menu.view.dart';
 import './cart.view.dart';
@@ -101,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
         child: new Card(
-          color: primaryColor,
+          color: theme.primaryColor,
           child: new Row(
             children: <Widget>[
               Padding(
@@ -121,8 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     table.name,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                        color: fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
-
+                        color: theme.fontColorLight, fontFamily: 'Dosis', fontSize: 20.0
                     ),
                   ),
                 ),
@@ -140,10 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text('Menu • ' + _selectedTable.name,
-              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
               overflow: TextOverflow.ellipsis,
             ),
-            iconTheme: new IconThemeData(color: accentColor),
+            iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
           body: new MenuScreen(table: table),
@@ -153,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: new Icon(Icons.add_shopping_cart),
             tooltip: 'Add To Cart',
-            backgroundColor: fontColor,
+            backgroundColor: theme.fontColor,
           ),
         );
       }),
@@ -166,13 +168,113 @@ class _HomeScreenState extends State<HomeScreen> {
         return new Scaffold(
           appBar: new AppBar(
             title: new Text('Cart • ' + _selectedTable.name,
-              style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),),
-            iconTheme: new IconThemeData(color: accentColor),
+              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+            iconTheme: new IconThemeData(color: theme.accentColor),
             centerTitle: true,
+            actions: <Widget>[
+              new IconButton(
+                icon: new Icon(Icons.send),
+                color: theme.accentColor,
+                onPressed: () {
+                  _sendBillToKitchen(table);
+                },
+              )
+            ],
           ),
           body: new CartScreen(table: table, menuContext: context, account: widget.account,),
         );
       }),
+    );
+  }
+
+  void _sendBillToKitchen(home.Table table) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(
+            'Confirm',
+            style: theme.titleStyle
+          ),
+          content: new Text(
+            'Do you want to send bill of table ' + table.name + ' for kitchen?',
+            style: theme.contentStyle 
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(
+                'Ok',
+                style: theme.okButtonStyle 
+              ),
+              onPressed: () async {
+
+                /* Pop screens */
+                Navigator.of(context).pop();
+                if (await cartController.Controller.instance.hasBillOfTable(table.id)) { // exists bill
+                  int idBill = await cartController.Controller.instance.getIdBillByTable(table.id);
+                  if (await cartController.Controller.instance.updateBill(
+                    idBill,
+                    table.id, 
+                    table.dateCheckIn,
+                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                    0,
+                    table.getTotalPrice(),
+                    0,
+                    widget.account.username
+                  )) {
+                    for (var food in table.foods) {
+                      if (await cartController.Controller.instance.hasBillDetailOfBill(idBill, food.id)) {// exists billdetail
+                        if (await cartController.Controller.instance.updateBillDetail(idBill, food.id, food.quantity) == false ) {
+                          errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
+                          return;
+                        }
+                      } else { // not exists billdetail
+                        if (await cartController.Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
+                          errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
+                          return;
+                        }
+                      }
+                    }
+
+                    successDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen successed.');
+                  } else errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
+                } else { // not exists bill
+                  if (await cartController.Controller.instance.insertBill(
+                    table.id, 
+                    table.dateCheckIn,
+                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                    0,
+                    table.getTotalPrice(),
+                    0,
+                    widget.account.username
+                  )) {
+
+                    int idBill = await cartController.Controller.instance.getIdBillMax();
+
+                    for (var food in table.foods) {
+                      if (await cartController.Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
+                        errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
+                        return;
+                      }
+                    }
+
+                    successDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen successed.');
+                  } else errorDialog(this.context, 'Send bill of table ' + table.name + ' for kitchen failed.\nPlease try again!');
+                }
+              },
+            ),
+            new FlatButton(
+              child: new Text(
+                'Cancel',
+                style: theme.cancelButtonStyle  
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 }

@@ -338,39 +338,82 @@ class _CartScreenState extends State<CartScreen> {
 
                 home.Table table = new home.Table(widget.table);
 
-                if (await Controller.instance.insertBill(
-                  table.id, 
-                  table.dateCheckIn, 
-                  DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                  _discount, 
-                  table.getTotalPrice(),
-                  0,
-                  widget.account.username
-                )) {
-
-                  int idBill = await Controller.instance.getIdBillMax();
-
-                  historyController.Controller.instance.addBill(
-                    idBill, 
-                    table, 
+                if (await Controller.instance.hasBillOfTable(table.id)) { // exists bill
+                  int idBill = await Controller.instance.getIdBillByTable(table.id);
+                  if (await Controller.instance.updateBill(
+                    idBill,
+                    table.id, 
+                    table.dateCheckIn, 
                     DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
                     _discount, 
-                    table.getTotalPrice(), 
-                    widget.account
-                  );
+                    table.getTotalPrice(),
+                    1,
+                    widget.account.username
+                  )) {
 
-                  for (var food in table.foods) {
-                    if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
-                      errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                      return;
+                    historyController.Controller.instance.addBill(
+                      idBill, 
+                      table,
+                      DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                      _discount, 
+                      table.getTotalPrice(), 
+                      widget.account
+                    );
+
+                    for (var food in table.foods) {
+                      if (await Controller.instance.hasBillDetailOfBill(idBill, food.id)) {// exists billdetail
+                        if (await Controller.instance.updateBillDetail(idBill, food.id, food.quantity) == false ) {
+                          errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                          return;
+                        }
+                      } else { // not exists billdetail
+                        if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
+                          errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                          return;
+                        }
+                      }
                     }
-                  }
 
-                  widget.table.status = -1;
-                  widget.table.foods.clear();
+                    widget.table.status = -1;
+                    widget.table.foods.clear();
 
-                  _showNotification();
-                } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                    _showNotification();
+                  } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                } else { // not exists bill
+                  if (await Controller.instance.insertBill(
+                    table.id, 
+                    table.dateCheckIn, 
+                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                    _discount, 
+                    table.getTotalPrice(),
+                    1,
+                    widget.account.username
+                  )) {
+
+                    int idBill = await Controller.instance.getIdBillMax();
+
+                    historyController.Controller.instance.addBill(
+                      idBill,
+                      table,
+                      DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
+                      _discount, 
+                      table.getTotalPrice(), 
+                      widget.account
+                    );
+
+                    for (var food in table.foods) {
+                      if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
+                        errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                        return;
+                      }
+                    }
+
+                    widget.table.status = -1;
+                    widget.table.foods.clear();
+
+                    _showNotification();
+                  } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
+                }
 
               },
             ),
