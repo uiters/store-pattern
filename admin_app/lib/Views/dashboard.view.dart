@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import './../Controllers/report.controller.dart';
 import './../Models/report.model.dart';
-
+import './../Views/bill.view.dart';
 import './../Constants/theme.dart' as theme;
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -13,15 +13,19 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+
   Future<List<Report>> reports = Controller.instance.reportsWeek;
   Future<Report> report = Controller.instance.reportToday;
+  int currentI = 0;
   TextStyle _itemStyle =
       TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+
   TextStyle _itemStyle2 = TextStyle(
       color: theme.accentColor,
       fontFamily: 'Dosis',
       fontSize: 34.0,
       fontWeight: FontWeight.w600);
+
   TextStyle _itemStytle3 = TextStyle(
       color: theme.accentColor,
       fontFamily: 'Dosis',
@@ -30,12 +34,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   static final List<String> chartDropdownItems = [
     'Last 7 days',
-    'Last month',
-    'Last year'
+    'Months',
+    'Years'
   ];
   String totalMoneyToday = '';
   String totalMoney = '';
   String currentItem = chartDropdownItems[0];
+  DateFormat format = new DateFormat.Md();
   @override
   Widget build(BuildContext context) {
     Widget boxToday = _buildTile(Padding(
@@ -78,7 +83,29 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           )
         ],
       ),
-    ));
+    ),
+    func: () {
+      Navigator.of(context).push(
+        new MaterialPageRoute(builder: (context) {
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text(
+                'Bill',
+                style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),),
+              iconTheme: new IconThemeData(color: theme.accentColor),
+              centerTitle: true,
+            ),
+            body: new BillScreen()
+          );
+        }),
+      ).then((value) { 
+          setState(() {
+            print('here');
+            _reloadData(currentI);
+          });
+        });
+      }
+    );
 
     Widget boxChart = _buildTile(Padding(
       padding: const EdgeInsets.all(24.0),
@@ -95,7 +122,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new Text('Revenue', style: _itemStyle),
-                      new Text('$totalMoney', style: _itemStyle2),
+                      new FutureBuilder(
+                        future: reports,
+                        builder: (context, snapshot) {
+                          if(snapshot.hasError) print(snapshot.error);
+                          if(snapshot.hasData) 
+                            _buildTotalMoney(snapshot.data);
+                          return new Text('$totalMoney', style: _itemStyle2);
+                        },
+                      )
                     ]),
                 new DropdownButton(
                     isDense: true,
@@ -105,6 +140,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           for (var i = 0; i < chartDropdownItems.length; ++i) {
                             if (value == chartDropdownItems[i]) {
                               _reloadData(i);
+                              currentI = i;
                             }
                           }
                         }),
@@ -127,15 +163,16 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   return new Center(child: new CircularProgressIndicator(),);
               },
             ),
-            height: 550,
+            height: 250,
           )
         ],
       ),
-    ));
+    )
+    );
     return Container(
-      padding: EdgeInsets.only(left: 12.0, right: 12.0),
+      padding: EdgeInsets.only(left: 8.0, right: 8.0),
       child: new ListView(
-        padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0),
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         children: <Widget>[
@@ -152,41 +189,60 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     );
   }
 
-  Widget _buildTile(Widget child) {
+  Widget _buildTile(Widget child, {Function() func}) {
     return Material(
-        elevation: 14.0,
-        borderRadius: BorderRadius.circular(12.0),
-        shadowColor: Color(0x802196F3),
-        child: child);
+      elevation: 14.0,
+      borderRadius: BorderRadius.circular(12.0),
+      shadowColor: Color(0x802196F3),
+      child: new InkWell(
+        child: child,
+        onTap: func != null ? func  : () => {},
+      ) 
+    );
   }
 
   Widget _buildChart(List<Report> rp) {
+    return new charts.BarChart(
+      _parseSeries(rp),
+      animate: true,
+      //dateTimeFactory: const charts.LocalDateTimeFactory(),
+      //defaultRenderer: new charts.LineRendererConfig(includePoints: true, includeArea: true),
+    );
+  }
+
+  void _buildTotalMoney(List<Report> rp) {
+
     double sum = 0;
     for (var i = 0; i < rp.length; ++i) {
       sum += rp[i].totalPrice;
     }
+
     totalMoney = '\$' + _roundMoney(sum);
-    return new charts.BarChart(
-      _parseSeries(rp),
-      animate: true,
-    );
   }
 
   void _reloadData(int id) {
+
     report = Controller.instance.reportToday;
+
+
     switch(id) {
       case 0: 
         reports = Controller.instance.reportsWeek;
+        format= new DateFormat.Md();
         break;
       case 1:
+        reports = Controller.instance.reportsMonth;
+        format= new DateFormat.yMMM();
       break;
       default:
+        reports = Controller.instance.reportsYear;
+        format= new DateFormat.y();
       break;
     }
+
   }
 
   List<charts.Series<Report, String>> _parseSeries(List<Report> reports) {
-    DateFormat format = new DateFormat.Md();
     return [
       new charts.Series<Report, String>(
         id: 'Report',
