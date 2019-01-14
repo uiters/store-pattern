@@ -14,11 +14,12 @@ import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
 
 class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table, this.menuContext, this.account}):super(key: key);
+  CartScreen({key, this.table, this.menuContext, this.account, this.isSend}):super(key: key);
 
   final Account account;
   final home.Table table;
   final BuildContext menuContext;
+  final bool isSend;
 
 
   @override
@@ -330,15 +331,13 @@ class _CartScreenState extends State<CartScreen> {
                 style: theme.okButtonStyle 
               ),
               onPressed: () async {
-
-                /* Pop screens */
                 Navigator.of(context).pop();
-                Navigator.of(cartContext).pop();
-                Navigator.of(widget.menuContext).pop();
 
                 home.Table table = new home.Table(widget.table);
 
-                if (await Controller.instance.hasBillOfTable(table.id)) { // exists bill
+                if (widget.isSend) { // exists bill
+                  Navigator.of(cartContext).pop();
+                  Navigator.of(widget.menuContext).pop();
                   int idBill = await Controller.instance.getIdBillByTable(table.id);
                   if (await Controller.instance.updateBill(
                     idBill,
@@ -373,48 +372,9 @@ class _CartScreenState extends State<CartScreen> {
                         }
                       }
                     }
-
-                    widget.table.status = -1;
-                    widget.table.foods.clear();
-
                     _showNotification();
                   } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                } else { // not exists bill
-                  if (await Controller.instance.insertBill(
-                    table.id, 
-                    table.dateCheckIn, 
-                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                    _discount, 
-                    table.getTotalPrice(),
-                    1,
-                    widget.account.username
-                  )) {
-
-                    int idBill = await Controller.instance.getIdBillMax();
-
-                    historyController.Controller.instance.addBill(
-                      idBill,
-                      table,
-                      DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                      _discount, 
-                      table.getTotalPrice(), 
-                      widget.account
-                    );
-
-                    for (var food in table.foods) {
-                      if (await Controller.instance.insertBillDetail(idBill, food.id, food.quantity) == false ) {
-                        errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                        return;
-                      }
-                    }
-
-                    widget.table.status = -1;
-                    widget.table.foods.clear();
-
-                    _showNotification();
-                  } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                }
-
+                } else errorDialog(this.context, 'Please send the bill to the kitchen before making payment!');
               },
             ),
             new FlatButton(
