@@ -36,6 +36,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
+  charts_common:
+    dependency: transitive
+    description:
+      name: charts_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
+  charts_flutter:
+    dependency: "direct main"
+    description:
+      name: charts_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   collection:
     dependency: transitive
     description:
@@ -145,7 +159,7 @@ packages:
     source: hosted
     version: "0.4.10"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -242,13 +256,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
-  path_provider:
-    dependency: "direct main"
-    description:
-      name: path_provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1"
   platform:
     dependency: transitive
     description:
@@ -387,13 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+1"
-  timeago:
-    dependency: "direct main"
-    description:
-      name: timeago
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.10"
   typed_data:
     dependency: transitive
     description:
