@@ -24,7 +24,6 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,7 +31,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -47,13 +45,7 @@ import Models.BillModel;
  * @author Thang Le
  */
 public class KitchenView {
-    private JTextField idText; //ID text
-    private JTextField idtableText; //IDtable text
-    private JTextField dateinText; //DateCheckIn text
-    private JTextField dateoutText; //DateCheckout text
-    private JTextField discountText; //Discount text
-    private JTextField totalText; //Total text
-    
+   
     public JTable table;
     public JTable donetable;
     
@@ -62,14 +54,10 @@ public class KitchenView {
     private JLabel dashboardTitle;
     private JLabel helpTitle;
     private JFrame jf;
-    private JDialog jd;
-    private JPanel panelYetPrint;
-    private JPanel panelPrint;
     private JTextField timeText;
     private JRadioButton check;
     private Timer timer;
     private Timer wait;
-    private JTextArea txtbill;
     private JLabel waiting;
     private JLabel done;
     public JLabel detailfood;
@@ -90,7 +78,7 @@ public class KitchenView {
     
     public void initComponent()
     {
-        jf=new JFrame("Cafe Management \u2022 Kitchen App");
+        jf=new JFrame("Store Pattern \u2022 Kitchen App");
         jf.setSize(new Dimension(1600, 800));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setLocationRelativeTo(null);
@@ -131,7 +119,7 @@ public class KitchenView {
         URL imgURL = getClass().getResource("../image/logo.png");
         brandImage.setIcon(new ImageIcon(imgURL));
         
-        JLabel brandText = new JLabel("Starbucks – The Best Coffee and Espresso Drinks");
+        JLabel brandText = new JLabel("Store Pattern - The prototype for management applications");
         brandText.setForeground(new Color(0,107,68));
         brandText.setBackground(new Color(228,249,245));
         brandText.setFont(new Font("SansSerif", Font.PLAIN, 20));
