@@ -199,7 +199,7 @@ For help getting started with Flutter, view our online [documentation](https://f
 ### `Kitchen App`
 
  <a href="https://github.com/cuongw/store-pattern/tree/master/kitchen_app">
-<img src="Images/kitchen.png" width="900"/>
+<img src="https://user-images.githubusercontent.com/34389409/51789162-b5d75d00-21b8-11e9-9e3f-b419ff3daf2f.png" width="900"/>
   </a>
 
 ## Bugs and Issues
