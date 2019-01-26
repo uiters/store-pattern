@@ -70,7 +70,7 @@
 
 Clone this project:
 ```
-$ git clone https://github.com/jade28/store-pattern.git
+$ git clone https://github.com/cuongw/store-pattern.git
 ```
 cd `store-pattern`:
 ```
@@ -216,4 +216,4 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## License
 
-MIT © [jade28](https://github.com/cuongw) 🐢
+MIT © [cuongw](https://github.com/cuongw) 🐢
