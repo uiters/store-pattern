@@ -80,6 +80,24 @@ Install packages for `flutter` apps:
 ```
 $ flutter packages get
 ```
+Setup API:
+
+* Upload file: ```index.php``` at ```store-pattern/server/Normal``` to your host.
+* Edit ```index.php```
+  ```
+  $servername = "Your servername";
+  $username = "your username";
+  $password = "your password";
+  $dbname = "database name";
+  ```
+* Edit line 1 ```evn.dart``` at ```store-pattern/admin_app/lib/Constants/```
+and ```store-pattern/order_app/lib/Constants/```
+
+    ```const String URL_EXECUTE = "your domain/index.php";```
+
+* Edit line 17 ```store-pattern/kitchen_app/src/Constants/Constant.java```
+
+    ```public static String urlConnect = "your domain/index.php";```
 
 ## Usage
 
