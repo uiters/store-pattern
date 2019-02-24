@@ -98,7 +98,7 @@ and ```store-pattern/order_app/lib/Constants/```
 * Edit line 17 ```store-pattern/kitchen_app/src/Constants/Constant.java```
 
     ```public static String urlConnect = "your domain/index.php";```
-
+* Run script sql in your PhpMyAdmin ```store-pattern/database/script/mysql.sql```
 ## Usage
 
 Using this account for testing:</br>
