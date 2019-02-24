@@ -69,22 +69,22 @@
 ## Install
 
 Clone this project:
-```
-$ git clone https://github.com/cuongw/store-pattern.git
+```sh
+~$ git clone https://github.com/cuongw/store-pattern.git
 ```
 cd `store-pattern`:
-```
-$ cd store-pattern
+```sh
+~$ cd store-pattern
 ```
 Install packages for `flutter` apps:
-```
-$ flutter packages get
+```sh
+~$ flutter packages get
 ```
 Setup API:
 
 * Upload file: ```index.php``` at ```store-pattern/server/Normal``` to your host.
 * Edit ```index.php```
-  ```
+  ```php
   $servername = "Your servername";
   $username = "your username";
   $password = "your password";
@@ -93,12 +93,45 @@ Setup API:
 * Edit line 1 ```evn.dart``` at ```store-pattern/admin_app/lib/Constants/```
 and ```store-pattern/order_app/lib/Constants/```
 
-    ```const String URL_EXECUTE = "your domain/index.php";```
+    ```dart
+    const String URL_EXECUTE = "your domain/index.php";
+    ```
 
 * Edit line 17 ```store-pattern/kitchen_app/src/Constants/Constant.java```
 
-    ```public static String urlConnect = "your domain/index.php";```
+    ```java
+    public static String urlConnect = "your domain/index.php";
+    ```
 * Run script sql in your PhpMyAdmin ```store-pattern/database/script/mysql.sql```
+
+Run:
+
+* Requrie install ```ant```
+
+	```sh
+  ~$ sudo apt install ant
+  ```
+
+* Run admin_app:
+
+	```sh
+	~$ cd admin_app
+	~$ flutter run
+	```
+
+* Run kitchen_app
+
+	```sh
+	~$ cd kitchen_app
+	~$ ant run
+	```
+
+* Run order_app
+	```sh
+	~$ cd order_app
+	~$ flutter run
+	```
+  
 ## Usage
 
 Using this account for testing:</br>
