@@ -138,6 +138,10 @@ Using this account for testing:</br>
 **`username`**: `test`</br>
 **`password`**: `test`</br>
 
+Using this account admin for testing:</br>
+**`username`**: `tvc12`</br>
+**`password`**: `tvc12`</br>
+
 Enjoy 👍
 
 ## Documents
