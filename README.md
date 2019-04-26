@@ -262,18 +262,6 @@ For help getting started with Flutter, view our online [documentation](https://f
 
 Have a bug or an issue with this project? [Open a new issue](https://github.com/cuongw/store-pattern/issues) here on GitHub.
 
-## Team
-
-| [![Cuong Duy Nguyen](https://github.com/cuongw.png?size=120)](https://github.com/cuongw) | [![Thien Chi Vi](https://github.com/tvc12.png?size=120)](https://github.com/tvc12) | [![Thang Huu Le](https://github.com/lhthang1998.png?size=120)](https://github.com/lhthang1998) |
-| :---: | :---: | :---: |
-| [Cuong Duy Nguyen](https://github.com/cuongw) | [Thien Chi Vi](https://github.com/tvc12) | [Thang Huu Le](https://github.com/lhthang1998) |
-
-**[⬆ back to top](#home)**
-
-## License
-
-MIT © [cuongw](https://github.com/cuongw) 🐢
-
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -288,3 +276,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+**[⬆ back to top](#home)**
+
+## License
+
+MIT © [cuongw](https://github.com/cuongw) 🐢
