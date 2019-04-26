@@ -1,4 +1,5 @@
 <h1 align="center" id="home">
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
   <a href="https://github.com/cuongw/store-pattern">
     <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50757659-a7211880-1292-11e9-9e41-6621e988fff8.png" width="400">
   </a>
@@ -272,3 +273,18 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 ## License
 
 MIT © [cuongw](https://github.com/cuongw) 🐢
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="http://cuongw.me"><img src="https://avatars0.githubusercontent.com/u/34389409?v=4" width="100px;" alt="Cuong Duy Nguyen"/><br /><sub><b>Cuong Duy Nguyen</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=cuongw" title="Code">💻</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
