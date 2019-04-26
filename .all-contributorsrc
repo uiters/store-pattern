@@ -32,6 +32,15 @@
         "bug",
         "maintenance"
       ]
+    },
+    {
+      "login": "lhthang1998",
+      "name": "ThangLe",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/36944931?v=4",
+      "profile": "https://github.com/lhthang1998",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
