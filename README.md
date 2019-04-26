@@ -1,5 +1,4 @@
 <h1 align="center" id="home">
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
   <a href="https://github.com/cuongw/store-pattern">
     <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50757659-a7211880-1292-11e9-9e41-6621e988fff8.png" width="400">
   </a>
@@ -11,6 +10,10 @@
 </h4>
 
 <p align="center">
+  <a href="https://travis-ci.org/cuongw/store-pattern">
+    <img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square"/>
+  </a>
+
   <a href="https://travis-ci.org/cuongw/store-pattern">
     <img src="https://travis-ci.org/cuongw/store-pattern.svg?branch=master"/>
   </a>
@@ -46,7 +49,7 @@
     <a href="#technologies">Technologies</a> |
     <a href="#some-screens">Some Screens</a> |
     <a href="#bugs-and-issues">Bugs and Issues</a> |
-    <a href="#team">Team</a> |
+    <a href="#contributors">Contributors</a> |
     <a href="#license">License</a>
   </h4>
 </div>
@@ -266,7 +269,7 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="http://cuongw.me"><img src="https://avatars0.githubusercontent.com/u/34389409?v=4" width="100px;" alt="Cuong Duy Nguyen"/><br /><sub><b>Cuong Duy Nguyen</b></sub></a><br /><a href="#review-cuongw" title="Reviewed Pull Requests">👀</a> <a href="#design-cuongw" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/commits?author=cuongw" title="Documentation">📖</a></td><td align="center"><a href="https://www.facebook.com/tvc1212"><img src="https://avatars2.githubusercontent.com/u/35712888?v=4" width="100px;" alt="Thien Chi Vi"/><br /><sub><b>Thien Chi Vi</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=tvc12" title="Code">💻</a> <a href="https://github.com/cuongw/store-pattern/commits?author=tvc12" title="Documentation">📖</a> <a href="https://github.com/cuongw/store-pattern/issues?q=author%3Atvc12" title="Bug reports">🐛</a> <a href="#maintenance-tvc12" title="Maintenance">🚧</a></td><td align="center"><a href="https://github.com/lhthang1998"><img src="https://avatars2.githubusercontent.com/u/36944931?v=4" width="100px;" alt="ThangLe"/><br /><sub><b>ThangLe</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=lhthang1998" title="Code">💻</a> <a href="#design-lhthang1998" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/issues?q=author%3Alhthang1998" title="Bug reports">🐛</a></td><td align="center"><a href="https://triet1213.github.io"><img src="https://avatars1.githubusercontent.com/u/33017913?v=4" width="100px;" alt="Triet"/><br /><sub><b>Triet</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Code">💻</a> <a href="#design-triet1213" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Documentation">📖</a> <a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Tests">⚠️</a></td></tr></table>
+<table><tr><td align="center"><a href="http://cuongw.me"><img src="https://avatars0.githubusercontent.com/u/34389409?v=4" width="100px;" alt="Cuong Duy Nguyen"/><br /><sub><b>Cuong Duy Nguyen</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=cuongw" title="Code">💻</a> <a href="#review-cuongw" title="Reviewed Pull Requests">👀</a> <a href="#design-cuongw" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/commits?author=cuongw" title="Documentation">📖</a> <a href="#maintenance-cuongw" title="Maintenance">🚧</a></td><td align="center"><a href="https://www.facebook.com/tvc1212"><img src="https://avatars2.githubusercontent.com/u/35712888?v=4" width="100px;" alt="Thien Chi Vi"/><br /><sub><b>Thien Chi Vi</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=tvc12" title="Code">💻</a> <a href="#review-tvc12" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/cuongw/store-pattern/commits?author=tvc12" title="Documentation">📖</a> <a href="https://github.com/cuongw/store-pattern/issues?q=author%3Atvc12" title="Bug reports">🐛</a> <a href="#maintenance-tvc12" title="Maintenance">🚧</a></td><td align="center"><a href="https://triet1213.github.io"><img src="https://avatars1.githubusercontent.com/u/33017913?v=4" width="100px;" alt="Triet"/><br /><sub><b>Triet</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Code">💻</a> <a href="#design-triet1213" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Documentation">📖</a> <a href="https://github.com/cuongw/store-pattern/commits?author=triet1213" title="Tests">⚠️</a></td><td align="center"><a href="https://github.com/lhthang1998"><img src="https://avatars2.githubusercontent.com/u/36944931?v=4" width="100px;" alt="ThangLe"/><br /><sub><b>ThangLe</b></sub></a><br /><a href="https://github.com/cuongw/store-pattern/commits?author=lhthang1998" title="Code">💻</a> <a href="#design-lhthang1998" title="Design">🎨</a> <a href="https://github.com/cuongw/store-pattern/issues?q=author%3Alhthang1998" title="Bug reports">🐛</a> <a href="https://github.com/cuongw/store-pattern/commits?author=lhthang1998" title="Tests">⚠️</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
