@@ -42,6 +42,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "triet1213",
+      "name": "Triet",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33017913?v=4",
+      "profile": "https://triet1213.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
