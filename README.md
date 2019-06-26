@@ -89,7 +89,7 @@ Setup API:
 * Upload file: ```index.php``` at ```store-pattern/server/Normal``` to your host.
 * Edit ```index.php```
   ```php
-  $servername = "Your servername";
+  $servername = "Your servername"; //recommend localhost
   $username = "your username";
   $password = "your password";
   $dbname = "database name";
