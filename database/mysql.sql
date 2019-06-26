@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `restaurant`
+-- Cơ sở dữ liệu: `storepattern`
 --
 CREATE DATABASE IF NOT EXISTS `storepattern` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `storepattern`;
