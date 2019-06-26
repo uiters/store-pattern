@@ -106,7 +106,7 @@ and ```store-pattern/order_app/lib/Constants/```
     ```java
     public static String urlConnect = "your domain/index.php";
     ```
-* Run script sql in your PhpMyAdmin ```store-pattern/database/script/mysql.sql```
+* Run script sql in your PhpMyAdmin ```store-pattern/database/mysql.sql```
 
 Run:
 
