@@ -689,7 +689,7 @@ INSERT INTO `account` (`Username`, `Password`, `DisplayName`, `Sex`, `IDCard`, `
 
 DROP TABLE IF EXISTS `accounttype`;
 CREATE TABLE `accounttype` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -722,7 +722,7 @@ CREATE TABLE `authentication` (
 
 DROP TABLE IF EXISTS `bill`;
 CREATE TABLE `bill` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `IDTable` int(11) NOT NULL,
   `DateCheckIn` datetime DEFAULT NULL,
   `DateCheckOut` datetime DEFAULT NULL,
@@ -793,7 +793,7 @@ CREATE TABLE `billinfo` (
 
 DROP TABLE IF EXISTS `food`;
 CREATE TABLE `food` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `IDCategory` int(11) NOT NULL,
   `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT 'No Name',
   `Price` double DEFAULT '0',
@@ -829,7 +829,7 @@ INSERT INTO `food` (`ID`, `IDCategory`, `Name`, `Price`, `IDImage`) VALUES
 
 DROP TABLE IF EXISTS `foodcategory`;
 CREATE TABLE `foodcategory` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT 'No Name'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -846,7 +846,7 @@ INSERT INTO `foodcategory` (`ID`, `Name`) VALUES
 (6, 'Dessert Bar'),
 (7, 'Meat'),
 (8, 'Tapas'),
-(49, 'Sea Food');
+(9, 'Sea Food');
 
 -- --------------------------------------------------------
 
@@ -856,7 +856,7 @@ INSERT INTO `foodcategory` (`ID`, `Name`) VALUES
 
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Data` longblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -875,7 +875,7 @@ INSERT INTO `image` (`ID`, `Data`) VALUES
 
 DROP TABLE IF EXISTS `report`;
 CREATE TABLE `report` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `_Date` date NOT NULL,
   `TotalPrice` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -888,7 +888,7 @@ CREATE TABLE `report` (
 
 DROP TABLE IF EXISTS `table`;
 CREATE TABLE `table` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT 'No Name',
   `Status` int(11) DEFAULT '-1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -898,21 +898,21 @@ CREATE TABLE `table` (
 --
 
 INSERT INTO `table` (`ID`, `Name`, `Status`) VALUES
-(1, 'Bàn 1', -1),
-(2, 'Bàn 2', -1),
-(3, 'Bàn 3', -1),
-(4, 'Bàn 4', -1),
-(5, 'Bàn 5', -1),
-(6, 'Bàn 6', -1),
-(7, 'Bàn 7', -1),
+(1, 'Table 1', -1),
+(2, 'Table 2', -1),
+(3, 'Table 3', -1),
+(4, 'Table 4', -1),
+(5, 'Table 5', -1),
+(6, 'Table 6', -1),
+(7, 'Table 7', -1),
 (8, 'Table 8', -1),
-(73, 'Table 9', -1),
-(74, 'Table 10', -1),
-(75, 'Table 11', -1),
-(76, 'Table 12', -1),
-(78, 'Table 14', -1),
-(80, 'Table 15', -1),
-(84, 'Table 17', -1);
+(9, 'Table 9', -1),
+(10, 'Table 10', -1),
+(11, 'Table 11', -1),
+(12, 'Table 12', -1),
+(13, 'Table 14', -1),
+(14, 'Table 15', -1),
+(15, 'Table 17', -1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -994,7 +994,7 @@ ALTER TABLE `table`
 -- AUTO_INCREMENT cho bảng `accounttype`
 --
 ALTER TABLE `accounttype`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT cho bảng `bill`
 --
