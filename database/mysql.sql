@@ -804,23 +804,6 @@ CREATE TABLE `food` (
 -- Đang đổ dữ liệu cho bảng `food`
 --
 
-INSERT INTO `food` (`ID`, `IDCategory`, `Name`, `Price`, `IDImage`) VALUES
-(1, 1, 'Seafood paella', 120, 123),
-(2, 2, 'Som tam', 50, 2),
-(3, 4, 'Chicken rice', 25, 4),
-(4, 3, 'Poutine', 10, 5),
-(5, 2, 'Tacos', 20, 6),
-(6, 2, 'Stinky tofu', 100, 7),
-(7, 3, 'Marzipan', 200, 8),
-(8, 4, 'French toast', 400, 9),
-(10, 3, 'Chicken parm', 125, 10),
-(11, 2, 'Hummus', 413, 11),
-(12, 2, 'Chili crab', 12, 12),
-(76, 6, 'Sushi', 25, 119),
-(77, 2, 'Burguer Cool', 4.5, 124),
-(78, 7, 'satu', 25000, 125),
-(79, 6, 'Bánh Mì Pewpew', 30000, 128);
-
 -- --------------------------------------------------------
 
 --
@@ -922,27 +905,27 @@ INSERT INTO `table` (`ID`, `Name`, `Status`) VALUES
 -- Chỉ mục cho bảng `account`
 --
 ALTER TABLE `account`
-  ADD PRIMARY KEY (`Username`),
+--   ADD PRIMARY KEY (`Username`),
   ADD KEY `IDAccountType` (`IDAccountType`),
   ADD KEY `IDImage` (`IDImage`);
 
 --
 -- Chỉ mục cho bảng `accounttype`
 --
-ALTER TABLE `accounttype`
-  ADD PRIMARY KEY (`ID`);
+-- ALTER TABLE `accounttype`
+--   ADD PRIMARY KEY (`ID`);
 
 --
 -- Chỉ mục cho bảng `authentication`
 --
-ALTER TABLE `authentication`
-  ADD PRIMARY KEY (`Username`);
+-- ALTER TABLE `authentication`
+--   ADD PRIMARY KEY (`Username`);
 
 --
 -- Chỉ mục cho bảng `bill`
 --
 ALTER TABLE `bill`
-  ADD PRIMARY KEY (`ID`),
+--   ADD PRIMARY KEY (`ID`),
   ADD KEY `IDTable` (`IDTable`),
   ADD KEY `Username` (`Username`);
 
@@ -957,34 +940,34 @@ ALTER TABLE `billinfo`
 -- Chỉ mục cho bảng `food`
 --
 ALTER TABLE `food`
-  ADD PRIMARY KEY (`ID`),
+--   ADD PRIMARY KEY (`ID`),
   ADD KEY `IDImage` (`IDImage`),
   ADD KEY `IDCategory` (`IDCategory`);
 
 --
 -- Chỉ mục cho bảng `foodcategory`
 --
-ALTER TABLE `foodcategory`
-  ADD PRIMARY KEY (`ID`);
+-- ALTER TABLE `foodcategory`
+--   ADD PRIMARY KEY (`ID`);
 
 --
 -- Chỉ mục cho bảng `image`
 --
-ALTER TABLE `image`
-  ADD PRIMARY KEY (`ID`);
+-- ALTER TABLE `image`
+--   ADD PRIMARY KEY (`ID`);
 
 --
 -- Chỉ mục cho bảng `report`
 --
-ALTER TABLE `report`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `_Date` (`_Date`);
+-- ALTER TABLE `report`
+--   ADD PRIMARY KEY (`ID`),
+--   ADD UNIQUE KEY `_Date` (`_Date`);
 
 --
 -- Chỉ mục cho bảng `table`
 --
-ALTER TABLE `table`
-  ADD PRIMARY KEY (`ID`);
+-- ALTER TABLE `table`
+--   ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
