@@ -89,7 +89,7 @@ Setup API:
 * Upload file: ```index.php``` at ```store-pattern/server/Normal``` to your host.
 * Edit ```index.php```
   ```php
-  $servername = "Your servername";
+  $servername = "Your servername"; //recommend localhost
   $username = "your username";
   $password = "your password";
   $dbname = "database name";
@@ -106,7 +106,7 @@ and ```store-pattern/order_app/lib/Constants/```
     ```java
     public static String urlConnect = "your domain/index.php";
     ```
-* Run script sql in your PhpMyAdmin ```store-pattern/database/script/mysql.sql```
+* Run script sql in your PhpMyAdmin ```store-pattern/database/mysql.sql```
 
 Run:
 
