@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:path_provider/path_provider.dart';
 
-import './connectServer.dart';
 import './../Constants/queries.dart';
+import './connectServer.dart';
 
 class Model {
   static Model _instance;
@@ -17,22 +18,28 @@ class Model {
 
   Future<String> _localPath;
 
-  Future<List<FoodCategory>>  get foodCategories => getFoodCategories();
-  Future<List<Food>>          get foods          => getFoods();
-  Future<List>                get idImagesMySQL  => _getIDImagesFromMySQL();
-  Future<Map<int, Uint8List>> get imagesFile     => _getImagesFromFile();
+  Future<List<FoodCategory>> get foodCategories => getFoodCategories();
 
-  Future<Uint8List> getImageById(int id)          => _parseImage(_getImagesById(id));
+  Future<List<Food>> get foods => getFoods();
+
+  Future<List> get idImagesMySQL => _getIDImagesFromMySQL();
+
+  Future<Map<int, Uint8List>> get imagesFile => _getImagesFromFile();
+
+  Future<Uint8List> getImageById(int id) => _parseImage(_getImagesById(id));
+
   Future<void> saveImage(int id, Uint8List image) => _saveImage(id, image);
-  Future<void> delete(int id)                     => _delete(id);
+
+  Future<void> delete(int id) => _delete(id);
 
   ///get from database
-  Future<List> _getIDImagesFromMySQL()  => MySqlConnection.instance.executeQuery(QUERY_GET_ID_IMAGES);
-  Future<List> _getImagesById(int id)   => MySqlConnection.instance.executeQuery(QUERY_GET_IMAGE_BY_ID, parameter: [id]);
+  Future<List> _getIDImagesFromMySQL() => MySqlConnection.instance.executeQuery(QUERY_GET_ID_IMAGES);
+
+  Future<List> _getImagesById(int id) =>
+      MySqlConnection.instance.executeQuery(QUERY_GET_IMAGE_BY_ID, parameter: [id]);
 
   Future<String> get localPath {
-    if(_localPath == null)
-      _localPath = _getLocalPath();
+    if (_localPath == null) _localPath = _getLocalPath();
     return _localPath;
   }
 
@@ -42,10 +49,10 @@ class Model {
     Map<int, Uint8List> futureImages = {};
     int idImage;
     Uint8List image;
-    if(directory.existsSync()) {
+    if (directory.existsSync()) {
       directory.listSync().forEach((enity) {
-        if(enity is File){
-          File file = enity; 
+        if (enity is File) {
+          File file = enity;
           idImage = parseID(basename(file.path));
           image = file.readAsBytesSync();
           futureImages[idImage] = image;
@@ -55,10 +62,10 @@ class Model {
     return futureImages;
   }
 
-  Future<void> _saveImage(int id Uint8List image) async {
+  Future<void> _saveImage(int id, Uint8List image) async {
     String pathLocal = await this.localPath + '/image';
     new Directory(pathLocal).createSync(recursive: true);
-    
+
     final file = new File('$pathLocal/$id.png');
     file.writeAsBytesSync(image, mode: FileMode.write, flush: true);
   }
@@ -66,30 +73,26 @@ class Model {
   Future<void> _delete(int id) async {
     String pathLocal = await this.localPath + '/image';
     final file = new File('$pathLocal/$id.png');
-    if(file.existsSync())
-      file.deleteSync(recursive: false);//false is deleted currently image in this path
+    if (file.existsSync()) file.deleteSync(recursive: false); //false is deleted currently image in this path
   }
 
   Future<Uint8List> _parseImage(Future<List> images) async {
     List image = await images;
     return base64.decode(image[0]['Image']);
-  }  
+  }
 
   //-------------------------------------------------------------------------
   Future<List<FoodCategory>> getFoodCategories() async {
-    Future<List> futureFoodCategories =
-        MySqlConnection.instance.executeQuery(GET_FOOD_CATEGORIES);
+    Future<List> futureFoodCategories = MySqlConnection.instance.executeQuery(GET_FOOD_CATEGORIES);
     return parseFoodCate(futureFoodCategories);
   }
 
   Future<List<Food>> getFoods() {
-    Future<List> futureFoods =
-        MySqlConnection.instance.executeQuery(QUERY_GET_FOODS);
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(QUERY_GET_FOODS);
     return parseFood(futureFoods);
   }
 
-  static Future<List<FoodCategory>> parseFoodCate(
-      Future<List> foodCategories) async {
+  static Future<List<FoodCategory>> parseFoodCate(Future<List> foodCategories) async {
     List<FoodCategory> futureFoodCategories = [];
     await foodCategories.then((values) {
       values.forEach((value) {
@@ -161,7 +164,7 @@ Future<String> _getLocalPath() async {
 
 ///
 /// *Parse [name] -> [int]*
-/// 
+///
 /// Return [0] if name contains [characters]
 ///
 

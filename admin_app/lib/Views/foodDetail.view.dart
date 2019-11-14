@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './../Models/food.model.dart';
-
 import './../Constants/theme.dart' as theme;
+import './../Models/food.model.dart';
 
 class FoodDetailScreen extends StatefulWidget {
   FoodDetailScreen({key, this.food}) : super(key: key);
@@ -13,7 +12,6 @@ class FoodDetailScreen extends StatefulWidget {
 }
 
 class _FoodDetailScreenState extends State<FoodDetailScreen> {
-
   TextEditingController _idController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _categoryController = new TextEditingController();
@@ -22,46 +20,38 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
   @override
   void initState() {
     Food food = widget.food;
-   
+
     _idController.text = food.id.toString();
     _nameController.text = food.name;
     _categoryController.text = food.category;
     _priceController.text = food.price.toString();
-    
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: theme.accentColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 18.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
         widget.food.image.isEmpty
-        ? new Image.asset(
-          'assets/images/food.png',
-          width: 122.0,
-          height: 122.0,
-          fit: BoxFit.fill,
-        )
-        : new Image.memory(
-          widget.food.image,
-          width: 122.0,
-          height: 122.0,
-          fit: BoxFit.fill,
-        ),
+            ? new Image.asset(
+                'assets/images/food.png',
+                width: 122.0,
+                height: 122.0,
+                fit: BoxFit.fill,
+              )
+            : new Image.memory(
+                widget.food.image,
+                width: 122.0,
+                height: 122.0,
+                fit: BoxFit.fill,
+              ),
       ],
     );
 
@@ -69,40 +59,28 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
       enabled: false,
       controller: _idController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'ID:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'ID:', labelStyle: _itemStyle2),
     );
 
     Widget name = new TextField(
       enabled: false,
       controller: _nameController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Name:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
     );
 
     Widget category = new TextField(
       enabled: false,
       controller: _categoryController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Category:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Category:', labelStyle: _itemStyle2),
     );
 
     Widget price = new TextField(
       enabled: false,
       controller: _priceController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Price:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Price:', labelStyle: _itemStyle2),
     );
 
     Widget exit = Container(
@@ -137,13 +115,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  children: <Widget>[
-                    id,
-                    name,
-                    category,
-                    price,
-                    exit
-                  ],
+                  children: <Widget>[id, name, category, price, exit],
                 ),
               ),
             ),
@@ -152,5 +124,4 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
       ),
     );
   }
-  
 }

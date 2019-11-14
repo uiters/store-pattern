@@ -1,7 +1,6 @@
 import './../Models/table.model.dart';
 
 class Controller {
-
   static Controller _instance;
 
   static Controller get instance {
@@ -50,9 +49,8 @@ class Controller {
 
   Future<int> findIndex(int id) async {
     for (var i = 0; i < (await tables).length; i++) {
-        if ((await tables)[i].id == id) return i;
+      if ((await tables)[i].id == id) return i;
     }
     return -1;
   }
-
 }

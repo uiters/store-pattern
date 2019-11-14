@@ -1,36 +1,27 @@
 import 'dart:typed_data';
 
+import './../Constants/queries.dart' as queries;
 import './connectServer.dart';
 
-import './../Constants/queries.dart' as queries;
-
 class Model {
-
   static final Model instance = new Model();
-  
+
   Future<List<Bill>> getBills() async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
-      queries.QUERY_GET_BILLS
-    );
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.QUERY_GET_BILLS);
     return parseBill(futureFoods);
   }
 
   Future<bool> deleteBill(int id) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.QUERY_DELETE_BILLS,
-      parameter: [id]
-    );
+    return MySqlConnection.instance.executeNoneQuery(queries.QUERY_DELETE_BILLS, parameter: [id]);
   }
 
   Future<List<Food>> getFoodByBill(int idBill) async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
-      queries.GET_BILLDETAIL_BY_BILL,
-      parameter: [idBill]
-    );
+    Future<List> futureFoods =
+        MySqlConnection.instance.executeQuery(queries.GET_BILLDETAIL_BY_BILL, parameter: [idBill]);
     return parseFood(futureFoods);
   }
 
-  Future<List<Bill>> parseBill(Future<List> futureBills) async  {
+  Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
       values.forEach((value) => bills.add(new Bill.fromJson(value)));
@@ -38,7 +29,7 @@ class Model {
     return bills;
   }
 
-   static Future<List<Food>> parseFood(Future<List> foods) async {
+  static Future<List<Food>> parseFood(Future<List> foods) async {
     List<Food> futureFoods = [];
     await foods.then((values) {
       values.forEach((value) {
@@ -59,7 +50,6 @@ class Bill {
   double totalPrice;
   String status;
   String userName;
-
 
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : 0;

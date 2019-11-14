@@ -6,11 +6,10 @@
 package Constants;
 
 /**
- *
  * @author thienlan
  */
 public class Query {
     //bill
-    public static String getOrder="call USP_TVC12_GetOrders() ";
-    public static String getBillInfo="call USP_TVC12_GetFoodFromBill( @ID ) ";    
+    public static String getOrder = "call USP_TVC12_GetOrders() ";
+    public static String getBillInfo = "call USP_TVC12_GetFoodFromBill( @ID ) ";
 }

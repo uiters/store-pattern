@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './Views/login.view.dart';
-
 import './Constants/theme.dart';
+import './Views/login.view.dart';
 
 void main() => runApp(new MyApp());
 

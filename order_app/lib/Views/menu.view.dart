@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import './../Controllers/menu.controller.dart';
-
-import './../Models/menu.model.dart' as menu;
-import './../Models/home.model.dart' as home;
-
 import './../Constants/theme.dart';
+import './../Controllers/menu.controller.dart';
+import './../Models/home.model.dart' as home;
+import './../Models/menu.model.dart' as menu;
 
 class MenuScreen extends StatefulWidget {
-  MenuScreen({key, this.table}):super(key: key);
+  MenuScreen({key, this.table}) : super(key: key);
 
   final home.Table table;
 
@@ -17,7 +15,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
   Future<List<menu.FoodCategory>> futureCategories = Controller.instance.foodCategories;
   Future<List<menu.Food>> futureFoods = Controller.instance.foods;
 
@@ -27,10 +24,10 @@ class _MenuScreenState extends State<MenuScreen> {
   TextEditingController _textController = new TextEditingController();
 
   @override
-    void initState() {
-      _currentCategory = 'All';
-      super.initState();
-    }
+  void initState() {
+    _currentCategory = 'All';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +41,8 @@ class _MenuScreenState extends State<MenuScreen> {
               if (snapshot.hasError) print(snapshot.error);
 
               return snapshot.hasData
-                ? _buildListFoods(context, snapshot.data)
-                : Center(child: CircularProgressIndicator());
+                  ? _buildListFoods(context, snapshot.data)
+                  : Center(child: CircularProgressIndicator());
             },
           ),
         ],
@@ -53,9 +50,7 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-
   Widget _buildListFoods(BuildContext context, List<menu.Food> _foods) {
-
     List<menu.Food> foods = widget.table.combineFoods(_foods);
 
     return Expanded(
@@ -65,8 +60,7 @@ class _MenuScreenState extends State<MenuScreen> {
         child: new ListView.builder(
             itemExtent: 175.0,
             itemCount: (foods.length / 2).ceil(),
-            itemBuilder: (_, index) => _buildFoodRow(context, index, foods)
-        ),
+            itemBuilder: (_, index) => _buildFoodRow(context, index, foods)),
       ),
     );
   }
@@ -75,7 +69,7 @@ class _MenuScreenState extends State<MenuScreen> {
     List<menu.Food> indexes = [];
 
     int end = (index + 1) * 2;
-    if (end > foods.length -1) end = foods.length;
+    if (end > foods.length - 1) end = foods.length;
     int begin = index * 2;
 
     for (int i = begin; i < end; i++) {
@@ -83,10 +77,8 @@ class _MenuScreenState extends State<MenuScreen> {
     }
 
     return new Container(
-        child: new Row(
-          children: _generateRow(context, indexes)
-        ),
-      );
+      child: new Row(children: _generateRow(context, indexes)),
+    );
   }
 
   List<Widget> _generateRow(BuildContext context, List<menu.Food> indexes) {
@@ -108,110 +100,99 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
-      child: new Card(
-        color: primaryColor,
-        child: new Column(
-          children: <Widget>[
-            new Text(
-              food.name,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                  color: fontColor, fontFamily: 'Dosis', fontSize: 20.0
+        padding: EdgeInsets.zero,
+        margin: EdgeInsets.zero,
+        child: new Card(
+          color: primaryColor,
+          child: new Column(
+            children: <Widget>[
+              new Text(
+                food.name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: fontColor, fontFamily: 'Dosis', fontSize: 20.0),
               ),
-            ),
-            new Expanded(child: new Container(),),
-            new Row(
-              children: <Widget>[
-                new Expanded(child: new Container()),
-                food.image.isEmpty
-                ? new Image.asset(
-                  'assets/images/food.png',
-                  width: 122.0,
-                  height: 122.0,
-                  fit: BoxFit.fill,
-                )
-                : new Image.memory(
-                  food.image,
-                  width: 122.0,
-                  height: 122.0,
-                  fit: BoxFit.fill,
-                ),
-                new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Icon(
-                        Icons.remove, 
-                        size: 16.0, 
-                        color: fontColorLight,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          widget.table.subFood(food);
-                        });
-                      },
-                    ),
-                    new Container(
-                        decoration: new BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: fontColor
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                          child: new Text(
-                            food.quantity.toString(),
-                            style: new TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Dosis',
-                              fontSize: 16.0,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+              new Expanded(
+                child: new Container(),
+              ),
+              new Row(
+                children: <Widget>[
+                  new Expanded(child: new Container()),
+                  food.image.isEmpty
+                      ? new Image.asset(
+                          'assets/images/food.png',
+                          width: 122.0,
+                          height: 122.0,
+                          fit: BoxFit.fill,
                         )
-                    ),
-                    new IconButton(
-                      icon: new Icon(
-                        Icons.add, 
-                        size: 16.0, 
-                        color: fontColorLight,
+                      : new Image.memory(
+                          food.image,
+                          width: 122.0,
+                          height: 122.0,
+                          fit: BoxFit.fill,
+                        ),
+                  new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new IconButton(
+                        icon: new Icon(
+                          Icons.remove,
+                          size: 16.0,
+                          color: fontColorLight,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            widget.table.subFood(food);
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          widget.table.addFood(food);
-                        });
-                      },
-                    ),
-                  ],
-                ),                
-                new Expanded(child: new Container())
-              ],
-            ),
-            new Text(
-              '\$' + food.price.toString(),
-              style: const TextStyle(
-                  color: fontColor,
-                  fontFamily: 'Dosis',
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold
+                      new Container(
+                          decoration:
+                              new BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: fontColor),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
+                            child: new Text(
+                              food.quantity.toString(),
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Dosis',
+                                fontSize: 16.0,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
+                      new IconButton(
+                        icon: new Icon(
+                          Icons.add,
+                          size: 16.0,
+                          color: fontColorLight,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            widget.table.addFood(food);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  new Expanded(child: new Container())
+                ],
               ),
-            ),
-          ],
-        ),
-      )
-    );
+              new Text(
+                '\$' + food.price.toString(),
+                style: const TextStyle(
+                    color: fontColor, fontFamily: 'Dosis', fontSize: 14.0, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ));
   }
 
   Widget _buildFilterFood(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(
-      color: fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(color: fontColor, fontFamily: 'Dosis', fontSize: 16.0);
     return new Container(
       decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: fontColorLight.withOpacity(0.2))
-      ),
+          border: Border.all(color: fontColorLight.withOpacity(0.2))),
       margin: EdgeInsets.only(top: 10.0, bottom: 2.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: new Row(
@@ -221,21 +202,19 @@ class _MenuScreenState extends State<MenuScreen> {
             child: new Row(
               children: <Widget>[
                 new Flexible(
-                  child: new TextField(
-                    controller: _textController,
-                    onChanged: (keyword) {
-                      setState(() {
-                        futureFoods = Controller.instance.searchFoods(_selectedCategory, keyword);
-                      });
-                    },
-                    onSubmitted: null,
-                    style: _itemStyle,
-                    decoration: InputDecoration.collapsed(
-                        hintText: 'Enter your food...',
-                        hintStyle: _itemStyle,
-                    )
-                  )
-                ),
+                    child: new TextField(
+                        controller: _textController,
+                        onChanged: (keyword) {
+                          setState(() {
+                            futureFoods = Controller.instance.searchFoods(_selectedCategory, keyword);
+                          });
+                        },
+                        onSubmitted: null,
+                        style: _itemStyle,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Enter your food...',
+                          hintStyle: _itemStyle,
+                        ))),
               ],
             ),
           ),
@@ -247,11 +226,10 @@ class _MenuScreenState extends State<MenuScreen> {
                 if (snapshot.hasError) print(snapshot.error);
 
                 return snapshot.hasData
-                  ? _buildFoodCategories(snapshot.data, _itemStyle)
-                  : Center(child: CircularProgressIndicator());
+                    ? _buildFoodCategories(snapshot.data, _itemStyle)
+                    : Center(child: CircularProgressIndicator());
               },
             ),
-             
           )
         ],
       ),
@@ -293,8 +271,6 @@ class _MenuScreenState extends State<MenuScreen> {
             // clear keyword
             _textController.text = '';
           });
-        }
-    );
+        });
   }
-
 }

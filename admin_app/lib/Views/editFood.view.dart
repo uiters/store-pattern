@@ -3,14 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import './../Models/category.model.dart' as cate;
-import './../Models/food.model.dart';
-
-import './../Controllers/food.controller.dart' as foodController;
-import './../Controllers/category.controller.dart' as cateController;
-
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
+import './../Controllers/category.controller.dart' as cateController;
+import './../Controllers/food.controller.dart' as foodController;
+import './../Models/category.model.dart' as cate;
+import './../Models/food.model.dart';
 
 class EditFoodScreen extends StatefulWidget {
   EditFoodScreen({key, this.food}) : super(key: key);
@@ -30,57 +28,49 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
   File _image;
 
   @override
-    void initState() {
-      Food food = widget.food;
+  void initState() {
+    Food food = widget.food;
 
-      _idController.text = food.id.toString();
-      _nameController.text = food.name;
-      _priceController.text = food.price.toString();
-      _category = new cate.Category(food.idCategory, food.category);
-      super.initState();
-    }
+    _idController.text = food.id.toString();
+    _nameController.text = food.name;
+    _priceController.text = food.price.toString();
+    _category = new cate.Category(food.idCategory, food.category);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: theme.accentColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 18.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
-        _image == null 
-        ? (
-          widget.food.image.isEmpty
-          ? new Image.asset(
-            'assets/images/food.png',
-            width: 122.0,
-            height: 122.0,
-            fit: BoxFit.fill,
-          )
-          : new Image.memory(
-            widget.food.image,
-            width: 122.0,
-            height: 122.0,
-            fit: BoxFit.fill,
-          )
-        )
-        : new Image.file(
-            _image,
-            width: 122.0,
-            height: 122.0,
-            fit: BoxFit.fill,
-          ),
-        new Container(height: 15.0,),
+        _image == null
+            ? (widget.food.image.isEmpty
+                ? new Image.asset(
+                    'assets/images/food.png',
+                    width: 122.0,
+                    height: 122.0,
+                    fit: BoxFit.fill,
+                  )
+                : new Image.memory(
+                    widget.food.image,
+                    width: 122.0,
+                    height: 122.0,
+                    fit: BoxFit.fill,
+                  ))
+            : new Image.file(
+                _image,
+                width: 122.0,
+                height: 122.0,
+                fit: BoxFit.fill,
+              ),
+        new Container(
+          height: 15.0,
+        ),
         new RaisedButton(
           color: Colors.lightBlueAccent,
           child: new Text(
@@ -101,19 +91,13 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       enabled: false,
       controller: _idController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Auto-ID:*',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Auto-ID:*', labelStyle: _itemStyle2),
     );
 
     Widget name = new TextField(
       controller: _nameController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Name:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
     );
 
     Widget category = new Row(
@@ -121,22 +105,18 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
         new Text(
           'Category:  ',
           style: new TextStyle(
-            color: theme.accentColor, 
-            fontFamily: 'Dosis', 
-            fontSize: 13.0,
-            fontWeight: FontWeight.w500
-          ),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
-        future: categories,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          if (snapshot.hasData) {
-            return _buildCategory(_itemStyle, snapshot.data);
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+          future: categories,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasData) {
+              return _buildCategory(_itemStyle, snapshot.data);
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ],
     );
 
@@ -144,10 +124,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       controller: _priceController,
       keyboardType: TextInputType.number,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Price:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Price:', labelStyle: _itemStyle2),
     );
 
     Widget editFood = Container(
@@ -182,13 +159,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  children: <Widget>[
-                    id,
-                    name,
-                    category,
-                    price,
-                    editFood
-                  ],
+                  children: <Widget>[id, name, category, price, editFood],
                 ),
               ),
             ),
@@ -218,75 +189,60 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
           setState(() {
             _category = value;
           });
-        }
-    );
+        });
   }
 
   void _editFood() async {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Confirm',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Do you want to update this food?',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () async {
-                /* Pop screens */
-                Navigator.of(context).pop();
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Confirm', style: theme.titleStyle),
+            content: new Text('Do you want to update this food?', style: theme.contentStyle),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Ok', style: theme.okButtonStyle),
+                onPressed: () async {
+                  /* Pop screens */
+                  Navigator.of(context).pop();
 
-                if (_nameController.text.trim() != '' && _priceController.text.trim() != '' && _category.name.trim() != '') {
-                  if (await foodController.Controller.instance.updateFood(
-                    widget.food.id,
-                    _nameController.text.trim(),
-                    double.parse(_priceController.text.trim()),
-                    _category.id,
-                    _image != null ? base64Encode(_image.readAsBytesSync()) : ''
-                  )) {
-                    // reload foods
-                    foodController.Controller.instance.updateFoodToLocal(
-                      widget.food.id,
-                      _nameController.text.trim(), 
-                      _category.id, 
-                      _category.name, 
-                      double.parse(_priceController.text.trim()), 
-                      _image != null ? base64Encode(_image.readAsBytesSync()) : ''
-                    );
+                  if (_nameController.text.trim() != '' &&
+                      _priceController.text.trim() != '' &&
+                      _category.name.trim() != '') {
+                    if (await foodController.Controller.instance.updateFood(
+                        widget.food.id,
+                        _nameController.text.trim(),
+                        double.parse(_priceController.text.trim()),
+                        _category.id,
+                        _image != null ? base64Encode(_image.readAsBytesSync()) : '')) {
+                      // reload foods
+                      foodController.Controller.instance.updateFoodToLocal(
+                          widget.food.id,
+                          _nameController.text.trim(),
+                          _category.id,
+                          _category.name,
+                          double.parse(_priceController.text.trim()),
+                          _image != null ? base64Encode(_image.readAsBytesSync()) : '');
 
-                    successDialog(this.context, 'Update food success!');
-                    setState(() {
-                      _image = null;
-                    });
+                      successDialog(this.context, 'Update food success!');
+                      setState(() {
+                        _image = null;
+                      });
+                    } else
+                      errorDialog(this.context, 'Update food failed.' + '\nPlease try again!');
+                    return;
                   }
-                  else errorDialog(this.context, 'Update food failed.' + '\nPlease try again!');
-                  return;
-                }
-                errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
-              },
-            ),
-            new FlatButton(
-              child: new Text(
-                'Cancel',
-                style: theme.cancelButtonStyle  
+                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                },
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+              new FlatButton(
+                child: new Text('Cancel', style: theme.cancelButtonStyle),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
-
 }

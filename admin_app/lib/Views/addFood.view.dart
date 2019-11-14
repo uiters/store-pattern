@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import './../Models/category.model.dart' as cate;
-
-import './../Controllers/food.controller.dart' as foodController;
-import './../Controllers/category.controller.dart' as cateController;
-
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
+import './../Controllers/category.controller.dart' as cateController;
+import './../Controllers/food.controller.dart' as foodController;
+import './../Models/category.model.dart' as cate;
 
 class AddFoodScreen extends StatefulWidget {
   _AddFoodScreenState createState() => _AddFoodScreenState();
@@ -27,43 +25,37 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   File _image;
 
   @override
-    void initState() {
-      _idController.text = ' ';
-      super.initState();
-    }
+  void initState() {
+    _idController.text = ' ';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: theme.accentColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 18.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
-        _image == null 
-        ? new Image.asset(
-            'assets/images/food.png',
-            width: 122.0,
-            height: 122.0,
-            fit: BoxFit.fill,
-        )
-        : new Image.file(
-            _image,
-            width: 122.0,
-            height: 122.0,
-            fit: BoxFit.fill,
-          ),
-        new Container(height: 15.0,),
+        _image == null
+            ? new Image.asset(
+                'assets/images/food.png',
+                width: 122.0,
+                height: 122.0,
+                fit: BoxFit.fill,
+              )
+            : new Image.file(
+                _image,
+                width: 122.0,
+                height: 122.0,
+                fit: BoxFit.fill,
+              ),
+        new Container(
+          height: 15.0,
+        ),
         new RaisedButton(
           color: Colors.lightBlueAccent,
           child: new Text(
@@ -84,19 +76,13 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       enabled: false,
       controller: _idController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Auto-ID:*',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Auto-ID:*', labelStyle: _itemStyle2),
     );
 
     Widget name = new TextField(
       controller: _nameController,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Name:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
     );
 
     Widget category = new Row(
@@ -104,22 +90,18 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         new Text(
           'Category:  ',
           style: new TextStyle(
-            color: theme.accentColor, 
-            fontFamily: 'Dosis', 
-            fontSize: 13.0,
-            fontWeight: FontWeight.w500
-          ),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
-        future: categories,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          if (snapshot.hasData) {
-            return _buildCategory(_itemStyle, snapshot.data);
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+          future: categories,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasData) {
+              return _buildCategory(_itemStyle, snapshot.data);
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ],
     );
 
@@ -127,10 +109,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       controller: _priceController,
       keyboardType: TextInputType.number,
       style: _itemStyle,
-      decoration: new InputDecoration(
-        labelText: 'Price:',
-        labelStyle: _itemStyle2
-      ),
+      decoration: new InputDecoration(labelText: 'Price:', labelStyle: _itemStyle2),
     );
 
     Widget addFood = Container(
@@ -165,13 +144,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  children: <Widget>[
-                    id,
-                    name,
-                    category,
-                    price,
-                    addFood
-                  ],
+                  children: <Widget>[id, name, category, price, addFood],
                 ),
               ),
             ),
@@ -201,75 +174,60 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
           setState(() {
             _category = value;
           });
-        }
-    );
+        });
   }
 
   void _createFood() async {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Confirm',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Do you want to create new food?',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () async {
-                /* Pop screens */
-                Navigator.of(context).pop();
-                if (_nameController.text.trim() != '' && _priceController.text.trim() != '' && _category.name.trim() != '') {
-                  if (await foodController.Controller.instance.insertFood(
-                    _nameController.text.trim(),
-                    double.parse(_priceController.text.trim()),
-                    _category.id,
-                    _image != null ? base64Encode(_image.readAsBytesSync()) : ''
-                  )) {
-                    // reload foods
-                    foodController.Controller.instance.insertFoodToLocal(
-                      _nameController.text.trim(), 
-                      _category.id, 
-                      _category.name, 
-                      double.parse(_priceController.text.trim()), 
-                      _image != null ? base64Encode(_image.readAsBytesSync()) : ''
-                    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Confirm', style: theme.titleStyle),
+            content: new Text('Do you want to create new food?', style: theme.contentStyle),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Ok', style: theme.okButtonStyle),
+                onPressed: () async {
+                  /* Pop screens */
+                  Navigator.of(context).pop();
+                  if (_nameController.text.trim() != '' &&
+                      _priceController.text.trim() != '' &&
+                      _category.name.trim() != '') {
+                    if (await foodController.Controller.instance.insertFood(
+                        _nameController.text.trim(),
+                        double.parse(_priceController.text.trim()),
+                        _category.id,
+                        _image != null ? base64Encode(_image.readAsBytesSync()) : '')) {
+                      // reload foods
+                      foodController.Controller.instance.insertFoodToLocal(
+                          _nameController.text.trim(),
+                          _category.id,
+                          _category.name,
+                          double.parse(_priceController.text.trim()),
+                          _image != null ? base64Encode(_image.readAsBytesSync()) : '');
 
-                    successDialog(this.context, 'Create food success!');
-                    // clear data widget
-                    _nameController.clear();
-                    _priceController.clear();
-                    setState(() {
-                      _image = null;
-                    });
+                      successDialog(this.context, 'Create food success!');
+                      // clear data widget
+                      _nameController.clear();
+                      _priceController.clear();
+                      setState(() {
+                        _image = null;
+                      });
+                    } else
+                      errorDialog(this.context, 'Create new food failed.' + '\nPlease try again!');
+                    return;
                   }
-                  else errorDialog(this.context, 'Create new food failed.' + '\nPlease try again!');
-                  return;
-                }
-                errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
-              },
-            ),
-            new FlatButton(
-              child: new Text(
-                'Cancel',
-                style: theme.cancelButtonStyle  
+                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                },
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+              new FlatButton(
+                child: new Text('Cancel', style: theme.cancelButtonStyle),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
-  
 }

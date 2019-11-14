@@ -22,22 +22,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: theme.fontColorLight, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColorLight, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle3 = new TextStyle(
-      color: theme.accentColor, 
-      fontFamily: 'Dosis', 
+      color: theme.accentColor,
+      fontFamily: 'Dosis',
       fontSize: 28.0,
       fontWeight: FontWeight.w400,
     );
@@ -109,7 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
             if (await Controller.instance.login(_username.trim(), _password.trim())) {
               Navigator.of(context).push(
                 new MaterialPageRoute(builder: (context) {
-                  return new MainPage(context: context, account: Controller.instance.account,);
+                  return new MainPage(
+                    context: context,
+                    account: Controller.instance.account,
+                  );
                 }),
               );
               _clear();
@@ -130,61 +125,67 @@ class _LoginScreenState extends State<LoginScreen> {
         'Forgot password?',
         style: _itemStyle,
       ),
-      onPressed: () {
-        
-      },
+      onPressed: () {},
     );
 
-    Widget loadingIndicator = _load ? new Container(
-      color: Colors.transparent,
-      width: 180.0,
-      height: 120.0,
-      child: new Card(
-        color: theme.primaryColor,
-        child: Row(
-          children: <Widget>[
-            new Expanded(child: new Container(),),
-            new CircularProgressIndicator(
-              valueColor: new AlwaysStoppedAnimation<Color>(theme.accentColor),
-            ),
-            new Expanded(child: new Container(),),
-            new Text(
-              'Logining...',
-              style: theme.contentStyle,
-            ),
-            new Expanded(child: new Container(),),
-          ],
-        ),
-      )
-    ) : new Container();
+    Widget loadingIndicator = _load
+        ? new Container(
+            color: Colors.transparent,
+            width: 180.0,
+            height: 120.0,
+            child: new Card(
+              color: theme.primaryColor,
+              child: Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: new Container(),
+                  ),
+                  new CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(theme.accentColor),
+                  ),
+                  new Expanded(
+                    child: new Container(),
+                  ),
+                  new Text(
+                    'Logining...',
+                    style: theme.contentStyle,
+                  ),
+                  new Expanded(
+                    child: new Container(),
+                  ),
+                ],
+              ),
+            ))
+        : new Container();
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: new Stack(
-        children: <Widget>[
-          new Center(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(left: 24.0, right: 24.0),
-              children: <Widget>[
-                logo,
-                SizedBox(height: 15.0),
-                title,
-                SizedBox(height: 48.0),
-                email,
-                SizedBox(height: 10.0),
-                password,
-                SizedBox(height: 24.0),
-                loginButton,
-                forgotLabel
-              ],
+        backgroundColor: Colors.white,
+        body: new Stack(
+          children: <Widget>[
+            new Center(
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                children: <Widget>[
+                  logo,
+                  SizedBox(height: 15.0),
+                  title,
+                  SizedBox(height: 48.0),
+                  email,
+                  SizedBox(height: 10.0),
+                  password,
+                  SizedBox(height: 24.0),
+                  loginButton,
+                  forgotLabel
+                ],
+              ),
             ),
-          ),
-          new Align(child: loadingIndicator,alignment: FractionalOffset.center,),
-        ],
-      )
-      
-    );
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
+            ),
+          ],
+        ));
   }
 
   void _clear() {
@@ -196,31 +197,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _notification(String title, String message) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            title,
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            message,
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text(title, style: theme.errorTitleStyle),
+            content: new Text(message, style: theme.contentStyle),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Ok', style: theme.okButtonStyle),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
-
 }
