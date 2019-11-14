@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
-import './../Controllers/cart.controller.dart';
-import './../Controllers/history.controller.dart' as historyController;
-
-import './../Models/login.model.dart';
-import './../Models/home.model.dart' as home;
-import './../Models/menu.model.dart' as menu;
-
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
+import './../Controllers/cart.controller.dart';
+import './../Controllers/history.controller.dart' as historyController;
+import './../Models/home.model.dart' as home;
+import './../Models/login.model.dart';
+import './../Models/menu.model.dart' as menu;
 
 class CartScreen extends StatefulWidget {
-  CartScreen({key, this.table, this.menuContext, this.account}):super(key: key);
+  CartScreen({key, this.table, this.menuContext, this.account}) : super(key: key);
 
   final Account account;
   final home.Table table;
@@ -69,130 +66,114 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildFood(BuildContext context, menu.Food food) {
     return new Container(
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
-      child: new Card(
-        color: theme.primaryColor,
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Expanded(child: new Container()),
-            new Image.memory(
-              food.image,
-              width: 120.0,
-              height: 120.0,
-              fit: BoxFit.cover,
-            ),
-            new Expanded(child: new Container()),
-            new Column(
-              children: <Widget>[
-                new Expanded(child: new Container()),
-                new Text(
-                  food.name,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
-                ),
-                new Text(
-                  '\$' + food.price.toString(),
-                  style: const TextStyle(
-                      color: theme.fontColor,
-                      fontFamily: 'Dosis',
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                new Expanded(child: new Container())
-              ],
-            ),
-            new Expanded(child: new Container()),
-            new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new IconButton(
-                  icon: new Icon(
-                    Icons.remove,
-                    size: 16.0,
-                    color: theme.fontColorLight,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      widget.table.subFood(food);
-                    });
-                  },
-                ),
-                new Container(
-                  decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: theme.fontColor
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                    child: new Text(
-                      food.quantity.toString(),
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Dosis',
-                        fontSize: 16.0,
-                      ),
-                      textAlign: TextAlign.center
-                    ),
-                  )
-                ),
-                new IconButton(
-                  icon: new Icon(
-                    Icons.add,
-                    size: 16.0,
-                    color: theme.fontColorLight,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      widget.table.addFood(food);
-                    });
-                  },
-                ),
-              ],
-            ),
-            new Expanded(child: new Container()),
-            new IconButton(
-              icon: new Icon(
-                Icons.delete,
-                size: 20.0,
-                color: theme.fontColorLight,
+        padding: EdgeInsets.zero,
+        margin: EdgeInsets.zero,
+        child: new Card(
+          color: theme.primaryColor,
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Expanded(child: new Container()),
+              new Image.memory(
+                food.image,
+                width: 120.0,
+                height: 120.0,
+                fit: BoxFit.cover,
               ),
-              onPressed: () {
-                setState(() {
-                  widget.table.deleteFood(food);
-                });
-              },
-            ),
-            new Expanded(child: new Container()),
-          ],
-        ),
-      )
-    );
+              new Expanded(child: new Container()),
+              new Column(
+                children: <Widget>[
+                  new Expanded(child: new Container()),
+                  new Text(
+                    food.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
+                  ),
+                  new Text(
+                    '\$' + food.price.toString(),
+                    style: const TextStyle(
+                        color: theme.fontColor,
+                        fontFamily: 'Dosis',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  new Expanded(child: new Container())
+                ],
+              ),
+              new Expanded(child: new Container()),
+              new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new IconButton(
+                    icon: new Icon(
+                      Icons.remove,
+                      size: 16.0,
+                      color: theme.fontColorLight,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.table.subFood(food);
+                      });
+                    },
+                  ),
+                  new Container(
+                      decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0), color: theme.fontColor),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
+                        child: new Text(food.quantity.toString(),
+                            style: new TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Dosis',
+                              fontSize: 16.0,
+                            ),
+                            textAlign: TextAlign.center),
+                      )),
+                  new IconButton(
+                    icon: new Icon(
+                      Icons.add,
+                      size: 16.0,
+                      color: theme.fontColorLight,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.table.addFood(food);
+                      });
+                    },
+                  ),
+                ],
+              ),
+              new Expanded(child: new Container()),
+              new IconButton(
+                icon: new Icon(
+                  Icons.delete,
+                  size: 20.0,
+                  color: theme.fontColorLight,
+                ),
+                onPressed: () {
+                  setState(() {
+                    widget.table.deleteFood(food);
+                  });
+                },
+              ),
+              new Expanded(child: new Container()),
+            ],
+          ),
+        ));
   }
 
   Widget _buildControls(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-      color: theme.fontColor, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-      color: Colors.redAccent, 
-      fontFamily: 'Dosis', 
-      fontSize: 16.0,
-      fontWeight: FontWeight.w500
-    );
+        color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     return new Container(
       decoration: new BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: theme.fontColorLight.withOpacity(0.2)),
-        color: theme.primaryColor
-      ),
+          borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(color: theme.fontColorLight.withOpacity(0.2)),
+          color: theme.primaryColor),
       margin: EdgeInsets.only(top: 2.0, bottom: 7.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
       child: new Column(
@@ -222,25 +203,22 @@ class _CartScreenState extends State<CartScreen> {
                 width: 35.0,
                 alignment: Alignment(1.0, 0.0),
                 child: new TextField(
-                  controller: _textController,
-                  style: _itemStyle,
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    if (double.parse(value) > 100 || double.parse(value) < 0) {
-                      _textController.clear();
-                      value = '0.0';
-                    }
-                    
-                    setState(() {
-                      _discount = double.parse(value);
-                    }); 
-                  },
-                  onSubmitted: null,
-                  decoration: InputDecoration.collapsed(
-                    hintText: '0%', hintStyle: _itemStyle)
-                  ),
-              ),
+                    controller: _textController,
+                    style: _itemStyle,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      if (double.parse(value) > 100 || double.parse(value) < 0) {
+                        _textController.clear();
+                        value = '0.0';
+                      }
 
+                      setState(() {
+                        _discount = double.parse(value);
+                      });
+                    },
+                    onSubmitted: null,
+                    decoration: InputDecoration.collapsed(hintText: '0%', hintStyle: _itemStyle)),
+              ),
             ],
           ),
           new Divider(),
@@ -252,7 +230,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               new Expanded(child: Container()),
               new Text(
-                '\$' + (widget.table.getTotalPrice()*(100 - _discount)/100).toStringAsFixed(2),
+                '\$' + (widget.table.getTotalPrice() * (100 - _discount) / 100).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],
@@ -269,8 +247,10 @@ class _CartScreenState extends State<CartScreen> {
                   style: _itemStyle,
                 ),
                 onPressed: () {
-                  if (widget.table.foods.length > 0) _checkOut(context);
-                  else _error(context); 
+                  if (widget.table.foods.length > 0)
+                    _checkOut(context);
+                  else
+                    _error(context);
                 },
               ),
             ),
@@ -279,118 +259,95 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+
   void _error(BuildContext cartContext) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Error',
-            style: theme.errorTitleStyle
-          ),
-          content: new Text(
-            'Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(cartContext).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Error', style: theme.errorTitleStyle),
+            content: new Text('Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
+                style: theme.contentStyle),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Ok', style: theme.okButtonStyle),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(cartContext).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   void _checkOut(BuildContext cartContext) async {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(
-            'Confirm',
-            style: theme.titleStyle
-          ),
-          content: new Text(
-            'Do you want to be checkout for ' + widget.table.name + '?',
-            style: theme.contentStyle 
-          ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text(
-                'Ok',
-                style: theme.okButtonStyle 
-              ),
-              onPressed: () async {
-                Navigator.of(context).pop();
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Confirm', style: theme.titleStyle),
+            content: new Text('Do you want to be checkout for ' + widget.table.name + '?',
+                style: theme.contentStyle),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Ok', style: theme.okButtonStyle),
+                onPressed: () async {
+                  Navigator.of(context).pop();
 
-                home.Table table = new home.Table(widget.table);
+                  home.Table table = new home.Table(widget.table);
 
-                if (Controller.instance.isSend) { // exists bill
-                  Navigator.of(cartContext).pop();
-                  Navigator.of(widget.menuContext).pop();
-                  int idBill = await Controller.instance.getIdBillByTable(table.id);
-                  if (await Controller.instance.updateBill(
-                    idBill,
-                    table.id,
-                    table.dateCheckIn, 
-                    DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                    _discount, 
-                    table.getTotalPrice(),
-                    1,
-                    widget.account.username
-                  )) {
-                    historyController.Controller.instance.addBill(
-                      idBill,
-                      table,
-                      DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())), 
-                      _discount, 
-                      table.getTotalPrice(), 
-                      widget.account
-                    );
-                    widget.table.status = -1;
-                    widget.table.foods.clear();
-                    _showNotification();
-                  } else errorDialog(this.context, 'Checkout failed at ' + table.name +'.\nPlease try again!');
-                } else errorDialog(this.context, 'Please send the bill to the kitchen before making payment!');
-              },
-            ),
-            new FlatButton(
-              child: new Text(
-                'Cancel',
-                style: theme.cancelButtonStyle  
+                  if (Controller.instance.isSend) {
+                    // exists bill
+                    Navigator.of(cartContext).pop();
+                    Navigator.of(widget.menuContext).pop();
+                    int idBill = await Controller.instance.getIdBillByTable(table.id);
+                    if (await Controller.instance.updateBill(
+                        idBill,
+                        table.id,
+                        table.dateCheckIn,
+                        DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                        _discount,
+                        table.getTotalPrice(),
+                        1,
+                        widget.account.username)) {
+                      historyController.Controller.instance.addBill(
+                          idBill,
+                          table,
+                          DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                          _discount,
+                          table.getTotalPrice(),
+                          widget.account);
+                      widget.table.status = -1;
+                      widget.table.foods.clear();
+                      _showNotification();
+                    } else
+                      errorDialog(this.context, 'Checkout failed at ' + table.name + '.\nPlease try again!');
+                  } else
+                    errorDialog(this.context, 'Please send the bill to the kitchen before making payment!');
+                },
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+              new FlatButton(
+                child: new Text('Cancel', style: theme.cancelButtonStyle),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   Future _showNotification() async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      'your channel id', 'your channel name', 'your channel description',
-      importance: Importance.Max, priority: Priority.High);
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
-      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    var platformChannelSpecifics =
+        new NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-      0, 
-      'Notification', 
-      'Successful checkout at ' + widget.table.name + '!!!', 
-      platformChannelSpecifics,
-      payload: 'item x'
-    );
+        0, 'Notification', 'Successful checkout at ' + widget.table.name + '!!!', platformChannelSpecifics,
+        payload: 'item x');
   }
 
   Future onSelectNotification(String payload) async {

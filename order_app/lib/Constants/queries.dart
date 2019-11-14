@@ -16,8 +16,10 @@ const String QUERY_GET_FOODS = 'CALL USP_GetFoods1()';
 ///////////////////////////////////////////////////////////////
 
 // Queries for Bill
-const String INSERT_BILL = 'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_TotalPrice , @_Status , @_Username );';
-const String UPDATE_BILL = 'CALL `USP_UpdateBill`( @_ID , @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_TotalPrice , @_Status , @_Username );';
+const String INSERT_BILL =
+    'CALL `USP_InsertBill`( @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_TotalPrice , @_Status , @_Username );';
+const String UPDATE_BILL =
+    'CALL `USP_UpdateBill`( @_ID , @_IDTable , @_DateCheckIn , @_DateCheckOut , @_Discount , @_TotalPrice , @_Status , @_Username );';
 const String GET_ID_MAX = 'CALL `USP_GetIdMax`();';
 const String GET_BILLS = 'CALL `USP_GetBills`( @currentDate );';
 const String DELETE_BILL = 'CALL `USP_DelBill`( @id );';
@@ -35,12 +37,13 @@ const String HAS_BILLDETAIL_OF_BILL = 'CALL USP_HasBillDetailOfBill ( @idBill , 
 
 // Queries for Account
 const String LOGIN = 'CALL USP_Login( @username )';
-const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
+const String UPDATE_ACC_INFO =
+    'CALL USP_UpdateAccInfo ( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
 const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass ( @username , @newPass );';
 const String UPDATE_ACC_AVATAR = 'CALL `USP_UpdateAccAvatar`( @username , @image )';
 
 ///////////////////////////////////////////////////////////////
 
 // Query
-const String  QUERY_GET_ID_IMAGES = 'CALL USP_GetIDImages()';
+const String QUERY_GET_ID_IMAGES = 'CALL USP_GetIDImages()';
 const String QUERY_GET_IMAGE_BY_ID = 'CALL USP_GetImageByID( @id )';

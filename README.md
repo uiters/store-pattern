@@ -138,13 +138,20 @@ Run:
   
 ## Usage
 
+**Please don't change password**
+
 Using this account for testing:</br>
+
 **`username`**: `test`</br>
 **`password`**: `test`</br>
 
-Using this account admin for testing:</br>
+Using this account admin for testing:</br> 
+
 **`username`**: `tvc12`</br>
 **`password`**: `tvc12`</br>
+
+**`username`**: `admin`</br>
+**`password`**: `admin`</br>
 
 Enjoy 👍
 

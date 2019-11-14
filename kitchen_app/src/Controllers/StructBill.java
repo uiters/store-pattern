@@ -7,19 +7,19 @@ package Controllers;
 
 import Models.BillModel.Bill;
 import Models.BillModel.BillInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author thienlan
  */
 public class StructBill {
     private final Bill bill;
     private List<BillInfo> billsInfo = new ArrayList<>();
     private List<BillInfo> billsInfoSwap = new ArrayList<>();//for swap
-    public StructBill(Bill bill)
-    {
+
+    public StructBill(Bill bill) {
         this.bill = bill;
     }
 
@@ -30,25 +30,24 @@ public class StructBill {
     public List<BillInfo> getBillsInfo() {
         return billsInfo;
     }
-    
+
     public int getIDBill() {
         return bill.id;
     }
-    
+
     public void addBillInfo(BillInfo billInfo) {
         //System.out.println("ID BILL INFO = " + billInfo.idFood + " database = " + billInfo.quantityDatabase + " now = " + billInfo.quantityNow);
         BillInfo exists = billsInfo.stream().filter(item -> item.idFood == billInfo.idFood).findFirst().orElse(null);
-        if(exists == null) // don't exists
+        if (exists == null) // don't exists
         {
             billsInfo.add(billInfo);
             billsInfoSwap.add(billInfo);
-        }
-        else // exists
+        } else // exists
         {
-            if(exists.quantityDatabase != billInfo.quantityDatabase){
+            if (exists.quantityDatabase != billInfo.quantityDatabase) {
                 exists.quantityNow = billInfo.quantityDatabase - exists.totalDone;
                 exists.quantityDatabase = billInfo.quantityDatabase;
-                if(exists.quantityNow < 0) {
+                if (exists.quantityNow < 0) {
                     exists.totalDone = 0;
                     exists.quantityNow = billInfo.quantityDatabase;
                 }
@@ -56,26 +55,26 @@ public class StructBill {
             billsInfoSwap.add(exists);
         }
     }
+
     /*
     clear bill info don't exists
     */
-    public void cleanBillInfo(){
+    public void cleanBillInfo() {
         billsInfo = billsInfoSwap;
         billsInfoSwap = new ArrayList<>();
     }
-    
+
     public boolean isDone() {
         BillInfo billInfo = billsInfo.stream().filter(item -> item.getDone() == false).findFirst().orElse(null);//find item has value false
         return billInfo == null;// no false => return true;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         String str = bill.toString();
         str += "=========================================================\n";
         str += "Bill Detail:\n";
-        for(BillInfo billInfo : billsInfo)
-        {
+        for (BillInfo billInfo : billsInfo) {
             str += billInfo.toString();
         }
         str += "=========================================================\n";

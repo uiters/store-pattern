@@ -1,12 +1,11 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
 import './../Models/food.model.dart';
 
 class Controller {
-
   static Controller _instance;
 
   static Controller get instance {
@@ -43,13 +42,15 @@ class Controller {
     return await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
-  void insertFoodToLocal(String _name, int _idCategory, String _category, double _price, String _image) async {
+  void insertFoodToLocal(
+      String _name, int _idCategory, String _category, double _price, String _image) async {
     int idMax = await Model.instance.getIDMax();
     Food food = new Food(idMax, _name, _idCategory, _category, _price, base64.decode(_image));
     (await foods).add(food);
   }
 
-  void updateFoodToLocal(int _id, String _name, int _idCategory, String _category, double _price, String _image) async {
+  void updateFoodToLocal(
+      int _id, String _name, int _idCategory, String _category, double _price, String _image) async {
     int index = await findIndex(_id);
     (await foods)[index].name = _name;
     (await foods)[index].idCategory = _idCategory;
@@ -65,9 +66,8 @@ class Controller {
 
   Future<int> findIndex(int id) async {
     for (var i = 0; i < (await foods).length; i++) {
-        if ((await foods)[i].id == id) return i;
+      if ((await foods)[i].id == id) return i;
     }
     return -1;
   }
-
 }

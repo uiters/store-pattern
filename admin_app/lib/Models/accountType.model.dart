@@ -1,11 +1,8 @@
+import './../Constants/queries.dart' as queries;
+import './account.model.dart' as accModel;
 import './connectServer.dart';
 
-import './account.model.dart' as accModel;
-
-import './../Constants/queries.dart' as queries;
-
 class Model {
-
   static Model _instance;
 
   static Model get instance {
@@ -14,51 +11,37 @@ class Model {
     }
     return _instance;
   }
-  
+
   Future<List<AccountType>> getAccTypes() async {
-    Future<List> futureAccTypes = MySqlConnection.instance.executeQuery(
-      queries.GET_ACCTYPES
-    );
+    Future<List> futureAccTypes = MySqlConnection.instance.executeQuery(queries.GET_ACCTYPES);
     return parseAccType(futureAccTypes);
   }
 
   Future<bool> insertAccType(String name) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.INSERT_ACCTYPE,
-      parameter: [name]
-    );
+    return MySqlConnection.instance.executeNoneQuery(queries.INSERT_ACCTYPE, parameter: [name]);
   }
 
   Future<bool> updateAccType(int id, String name) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.UPDATE_ACCTYPE,
-      parameter: [id, name]
-    );
+    return MySqlConnection.instance.executeNoneQuery(queries.UPDATE_ACCTYPE, parameter: [id, name]);
   }
 
   Future<bool> deleteAccType(int id) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.DELETE_ACCTYPE,
-      parameter: [id]
-    );
+    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_ACCTYPE, parameter: [id]);
   }
 
-  Future<bool> isAccTypeExists(int id) async { // check food exists on bill
-    Future<List> futureAccs = MySqlConnection.instance.executeQuery(
-      queries.IS_ACCTYPE_EXISTS,
-      parameter: [id]
-    );
+  Future<bool> isAccTypeExists(int id) async {
+    // check food exists on bill
+    Future<List> futureAccs =
+        MySqlConnection.instance.executeQuery(queries.IS_ACCTYPE_EXISTS, parameter: [id]);
     return (await accModel.Model.parseAcc(futureAccs)).length > 0;
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureAccTypes = MySqlConnection.instance.executeQuery(
-      queries.GET_ID_ACCTYPE_MAX
-    );
+    Future<List> futureAccTypes = MySqlConnection.instance.executeQuery(queries.GET_ID_ACCTYPE_MAX);
     return (await parseAccType(futureAccTypes))[0].id;
   }
 
-  Future<List<AccountType>> parseAccType(Future<List> futureAccTypes) async  {
+  Future<List<AccountType>> parseAccType(Future<List> futureAccTypes) async {
     List<AccountType> accTypes = [];
     await futureAccTypes.then((values) {
       values.forEach((value) => accTypes.add(new AccountType.fromJson(value)));
@@ -78,6 +61,6 @@ class AccountType {
 
   AccountType.fromJson(Map<String, dynamic> json) {
     id = json['ID'] != null ? int.parse(json['ID']) : -1;
-    name = json['Name'] != null ?json['Name'] : '';
+    name = json['Name'] != null ? json['Name'] : '';
   }
 }

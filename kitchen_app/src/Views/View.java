@@ -6,12 +6,14 @@
 package Views;
 
 /**
- *
  * @author Thang Le
  */
 public abstract class View {
     abstract void insert(Object object); //for add
+
     abstract void delete(int row); //for delete
+
     abstract void update(int row, Object object);//for update
+
     abstract void loadView(Object objects); //load full
 }

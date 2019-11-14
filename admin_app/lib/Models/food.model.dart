@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import './../Constants/queries.dart' as queries;
 import './connectServer.dart';
 
-import './../Constants/queries.dart' as queries;
-
 class Model {
-
   static Model _instance;
 
   static Model get instance {
@@ -15,51 +13,39 @@ class Model {
     }
     return _instance;
   }
-  
+
   Future<List<Food>> getFoods() async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
-      queries.GET_FOODS
-    );
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_FOODS);
     return parseFood(futureFoods);
   }
 
   Future<bool> insertFood(String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.INSERT_FOOD,
-      parameter: [name, price, idCategory, image]
-    );
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.INSERT_FOOD, parameter: [name, price, idCategory, image]);
   }
 
   Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.UPDATE_FOOD,
-      parameter: [id, name, price, idCategory, image]
-    );
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.UPDATE_FOOD, parameter: [id, name, price, idCategory, image]);
   }
 
   Future<bool> deleteFood(int id) {
-    return MySqlConnection.instance.executeNoneQuery(
-      queries.DELETE_FOOD,
-      parameter: [id]
-    );
+    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_FOOD, parameter: [id]);
   }
 
-  Future<bool> isFoodExists(int id) async { // check food exists on bill
-    Future<List> futureBillDetails = MySqlConnection.instance.executeQuery(
-      queries.IS_FOOD_EXISTS,
-      parameter: [id]
-    );
+  Future<bool> isFoodExists(int id) async {
+    // check food exists on bill
+    Future<List> futureBillDetails =
+        MySqlConnection.instance.executeQuery(queries.IS_FOOD_EXISTS, parameter: [id]);
     return (await parseBillDetails(futureBillDetails)).length > 0;
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(
-      queries.GET_ID_FOOD_MAX
-    );
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_ID_FOOD_MAX);
     return (await parseFood(futureFoods))[0].id;
   }
 
-  static Future<List<Food>> parseFood(Future<List> futureFoods) async  {
+  static Future<List<Food>> parseFood(Future<List> futureFoods) async {
     List<Food> foods = [];
     await futureFoods.then((values) {
       values.forEach((value) => foods.add(new Food.fromJson(value)));
@@ -67,7 +53,7 @@ class Model {
     return foods;
   }
 
-  Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async  {
+  Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async {
     List<BillDetail> billDetails = [];
     await futureBillDetails.then((values) {
       values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
@@ -106,7 +92,6 @@ class Food {
 }
 
 class BillDetail {
-
   int idBill;
   int idFood;
   int quantity;
@@ -116,5 +101,4 @@ class BillDetail {
     this.idFood = int.parse(json['IDFood']);
     this.quantity = int.parse(json['Quantity']);
   }
-
 }

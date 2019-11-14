@@ -1,7 +1,6 @@
 import './../Models/category.model.dart';
 
 class Controller {
-
   static Controller _instance;
 
   static Controller get instance {
@@ -48,9 +47,8 @@ class Controller {
 
   Future<int> findIndex(int id) async {
     for (var i = 0; i < (await categories).length; i++) {
-        if ((await categories)[i].id == id) return i;
+      if ((await categories)[i].id == id) return i;
     }
     return -1;
   }
-
 }

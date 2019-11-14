@@ -31,24 +31,22 @@ class Controller {
     return -1;
   }
 
-  void addBill(int id, home.Table table, DateTime dateCheckout, double discount, double totalPrice, login.Account account) async {
+  void addBill(int id, home.Table table, DateTime dateCheckout, double discount, double totalPrice,
+      login.Account account) async {
     history.BillPlus bill = new history.BillPlus(
-      id: id,
-      table: table,
-      dateCheckOut: dateCheckout,
-      discount: discount,
-      totalPrice: totalPrice,
-      account: account
-    );
+        id: id,
+        table: table,
+        dateCheckOut: dateCheckout,
+        discount: discount,
+        totalPrice: totalPrice,
+        account: account);
 
     await this.bills.then((values) {
-      if (findIndex(values, bill.id) == -1)
-      values.insert(0, bill);
+      if (findIndex(values, bill.id) == -1) values.insert(0, bill);
     });
   }
 
   Future<bool> deleteBill(int id) {
     return history.Model.instance.deleteBill(id);
   }
-
 }

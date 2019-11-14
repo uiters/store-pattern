@@ -4,7 +4,8 @@
 
 const String LOGIN = 'CALL USP_LoginAdmin( @username )';
 
-const String UPDATE_ACC_INFO = 'CALL USP_UpdateAccInfo( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
+const String UPDATE_ACC_INFO =
+    'CALL USP_UpdateAccInfo( @username , @displayName , @sex , @birthday , @idCard , @address , @phone );';
 
 const String UPDATE_ACC_PASS = 'CALL USP_UpdateAccPass( @username , @newPass );';
 
@@ -12,9 +13,11 @@ const String UPDATE_ACC_AVATAR = 'CALL `USP_UpdateAccAvatar`( @username , @image
 
 const String GET_ACCS = 'CALL `USP_GetAccounts`();';
 
-const String INSERT_ACC = 'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
+const String INSERT_ACC =
+    'CALL `USP_InsertAccount`( @username , @password , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
 
-const String UPDATE_ACC = 'CALL `USP_UpdateAccount`( @username , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
+const String UPDATE_ACC =
+    'CALL `USP_UpdateAccount`( @username , @displayname , @sex , @idCard , @address , @phoneNumber , @birthday , @idAccountType , @image );';
 
 const String DELETE_ACC = 'CALL `USP_DeleteAcc`( @username );';
 
@@ -89,7 +92,7 @@ const String GET_ID_FOOD_MAX = 'CALL `USP_GetIdFoodMax`();';
 ///////////////////////////////////////////////////////////////
 
 //Query for Report
-const String QUERY_GET_REPORT_LASTWEEK  = 'CALL USP_TVC12_GetReport_Week()';
+const String QUERY_GET_REPORT_LASTWEEK = 'CALL USP_TVC12_GetReport_Week()';
 
 const String QUERY_GET_REPORT_MONTH = "CALL USP_TVC12_GetReport_Month()";
 

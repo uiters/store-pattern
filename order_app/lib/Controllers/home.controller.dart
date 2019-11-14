@@ -1,7 +1,6 @@
 import './../Models/home.model.dart';
 
 class Controller {
-
   static Controller _instance;
 
   static Controller get instance {
