@@ -55,9 +55,6 @@
   </h4>
 </div>
 
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern?ref=badge_large)
-
 ## Features
 
 * Ordering foods by table.
@@ -284,4 +281,4 @@ Have a bug or an issue with this project? [Open a new issue](https://github.com/
 
 ## License
 
-MIT © [cuongw](https://github.com/cuongw) 🐢
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern?ref=badge_large)
