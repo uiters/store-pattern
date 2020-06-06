@@ -1,19 +1,16 @@
 <h1 align="center" id="home">
-  <a href="https://github.com/cuongw/store-pattern">
+  <a href="https://github.com/uiters/store-pattern">
     <img alt="store-pattern" src="https://user-images.githubusercontent.com/34389409/50757659-a7211880-1292-11e9-9e41-6621e988fff8.png" width="400">
   </a>
   <br>Store Pattern<br>
 </h1>
 
 <h4 align="center">
-  👑 The prototype for management applications.
+  👑 The lightweight design pattern for small management applications.
 </h4>
 
 <p align="center">
-  <a href="https://travis-ci.org/cuongw/store-pattern">
-    <img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square"/>
-  </a>
-
+	
   <a href="https://travis-ci.org/cuongw/store-pattern">
     <img src="https://travis-ci.org/cuongw/store-pattern.svg?branch=master"/>
   </a>
@@ -75,15 +72,15 @@
 
 Clone this project:
 ```sh
-~$ git clone https://github.com/cuongw/store-pattern.git
+git clone https://github.com/uiters/store-pattern.git
 ```
 cd `store-pattern`:
 ```sh
-~$ cd store-pattern
+cd store-pattern
 ```
 Install packages for `flutter` apps:
 ```sh
-~$ flutter packages get
+flutter packages get
 ```
 Setup API:
 
@@ -113,29 +110,29 @@ Run:
 
 * Requrie install ```ant```
 
-	```sh
-  ~$ sudo apt install ant
-  ```
+```sh
+sudo apt install ant
+```
 
 * Run admin_app:
 
-	```sh
-	~$ cd admin_app
-	~$ flutter run
-	```
+```sh
+cd admin_app
+flutter run
+```
 
 * Run kitchen_app
 
-	```sh
-	~$ cd kitchen_app
-	~$ ant run
-	```
+```sh
+cd kitchen_app
+ant run
+```
 
 * Run order_app
-	```sh
-	~$ cd order_app
-	~$ flutter run
-	```
+```sh
+order_app
+flutter run
+```
   
 ## Usage
 
