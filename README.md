@@ -11,8 +11,8 @@
 
 <p align="center">
 	
-  <a href="https://travis-ci.org/cuongw/store-pattern">
-    <img src="https://travis-ci.org/cuongw/store-pattern.svg?branch=master"/>
+  <a href="https://travis-ci.org/uiters/store-pattern">
+    <img src="https://travis-ci.org/uiters/store-pattern.svg?branch=master"/>
   </a>
 <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuiters%2Fstore-pattern.svg?type=shield"/></a>
   
