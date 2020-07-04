@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
 
   http: 0.12.1
-  flutter_local_notifications: ^0.4.0
+  flutter_local_notifications: 1.4.4+1
   timeago: 2.0.26
   intl: 0.16.1
   dbcrypt: 1.0.0
