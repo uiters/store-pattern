@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart';
+import 'package:order_app/utils/log.dart';
+import 'package:path_provider/path_provider.dart' as path;
 
 import './../Constants/queries.dart';
 import 'connect_server.dart';
@@ -157,8 +158,10 @@ class Food {
 }
 
 Future<String> _getLocalPath() async {
-  final directory = await getApplicationDocumentsDirectory();
-  return directory.path;
+  return path
+      .getApplicationDocumentsDirectory()
+      .then((value) => value.path)
+      .catchError((ex) => Log.error(ex));
 }
 
 ///

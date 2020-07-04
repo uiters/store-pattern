@@ -174,45 +174,43 @@ class _MainPageState extends State<MainPage> {
       case 1:
         return HistoryScreen();
       case 2:
-        return ProfileScreen(
-          account: widget.account,
-        );
+        return ProfileScreen(account: widget.account);
       default:
-        return null;
+        return SizedBox();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                _screenName,
-                style: TextStyle(color: accentColor, fontFamily: 'Dosis'),
-              ),
-              iconTheme: IconThemeData(color: accentColor),
-              centerTitle: true,
-              actions: <Widget>[
-                _screenNumber == 0
-                    ? IconButton(
-                        icon: Icon(Icons.refresh),
-                        color: accentColor,
-                        onPressed: () {
-                          setState(() {});
-                        },
-                      )
-                    : IconButton(
-                        icon: Icon(Icons.refresh),
-                        color: primaryColor,
-                        onPressed: () {
-                          setState(() {});
-                        },
-                      )
-              ],
-            ),
-            resizeToAvoidBottomPadding: false,
-            body: _buildScreen(context),
-            drawer: this._buildDrawer(context)));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          _screenName,
+          style: TextStyle(color: accentColor, fontFamily: 'Dosis'),
+        ),
+        iconTheme: IconThemeData(color: accentColor),
+        centerTitle: true,
+        actions: <Widget>[
+          _screenNumber == 0
+              ? IconButton(
+                  icon: Icon(Icons.refresh),
+                  color: accentColor,
+                  onPressed: () {
+                    setState(() {});
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  color: primaryColor,
+                  onPressed: () {
+                    setState(() {});
+                  },
+                )
+        ],
+      ),
+      resizeToAvoidBottomPadding: false,
+      body: _buildScreen(context),
+      drawer: this._buildDrawer(context),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:order_app/Controllers/notification.controller.dart';
 import 'package:order_app/utils/log.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -19,18 +19,6 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   Future<List<history.BillPlus>> bills = Controller.instance.bills;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-  @override
-  void initState() {
-    super.initState();
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = AndroidInitializationSettings('app_icon');
-    var ios = IOSInitializationSettings();
-    var initSetting = InitializationSettings(android, ios);
-    flutterLocalNotificationsPlugin.initialize(initSetting);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,18 +184,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Future _showNotification(history.BillPlus bill) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
-        importance: Importance.Max, priority: Priority.High);
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics =
-        NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-        0,
-        'Notification',
-        'Delete the invoice #' + bill.id.toString() + ' • ' + bill.table.name + ' successfully!!!',
-        platformChannelSpecifics,
-        payload: 'item x');
+    NotificationController.show(
+      'Notification',
+      'Delete the invoice #' + bill.id.toString() + ' • ' + bill.table.name + ' successfully!!!',
+    );
   }
 
   Future onSelectNotification(String payload) async {

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:order_app/utils/log.dart';
 
 import '../Constants/evn.dart';
 
@@ -17,6 +18,8 @@ class MySqlConnection {
     if (parameter != null) {
       query = _addParameter(query, parameter);
     }
+
+    Log.debug('Request:: $query');
 
     http.Response response = await http.post(
       URL_EXECUTE,

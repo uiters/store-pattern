@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:order_app/Controllers/image.controller.dart';
 
 import './../Constants/dialog.dart';
@@ -21,8 +20,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _displayNameController = TextEditingController();
   TextEditingController _idCardController = TextEditingController();
@@ -40,8 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    login.Account account = widget.account;
+    super.initState();
 
+    login.Account account = widget.account;
     _usernameController.text = account.username;
     _displayNameController.text = account.displayName;
     _idCardController.text = account.idCard;
@@ -50,14 +48,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _accountTypeController.text = account.accountType;
     _sex = account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
     _birthDayController.text = account.birthday.toString().split(' ')[0];
-
-    super.initState();
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = AndroidInitializationSettings('app_icon');
-    var ios = IOSInitializationSettings();
-    var initSetting = InitializationSettings(android, ios);
-    flutterLocalNotificationsPlugin.initialize(initSetting);
   }
 
   @override
