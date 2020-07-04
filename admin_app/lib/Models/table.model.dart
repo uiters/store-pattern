@@ -1,12 +1,12 @@
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -32,7 +32,7 @@ class Model {
     // check table exists on bill
     Future<List> futureBills =
         MySqlConnection.instance.executeQuery(queries.IS_TABLE_EXISTS, parameter: [id]);
-    return (await parseBill(futureBills)).length > 0;
+    return (await parseBill(futureBills)).isNotEmpty;
   }
 
   Future<int> getIDMax() async {
@@ -43,7 +43,7 @@ class Model {
   Future<List<Table>> parseTable(Future<List> futureTables) async {
     List<Table> tables = [];
     await futureTables.then((values) {
-      values.forEach((value) => tables.add(new Table.fromJson(value)));
+      values.forEach((value) => tables.add(Table.fromJson(value)));
     });
     return tables;
   }
@@ -51,7 +51,7 @@ class Model {
   Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
-      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+      values.forEach((value) => bills.add(Bill.fromJson(value)));
     });
     return bills;
   }
@@ -70,7 +70,7 @@ class Table {
 
   Table.fromJson(Map<String, dynamic> json) {
     id = json['ID'] != null ? int.parse(json['ID']) : -1;
-    name = json['Name'] != null ? json['Name'] : '';
+    name = json['Name'] ?? '';
     status = json['Status'] != null ? int.parse(json['Status']) : -1;
   }
 }

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:admin_app/Controllers/image.controller.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -19,14 +21,15 @@ class EditAccountScreen extends StatefulWidget {
 }
 
 class _EditAccountScreenState extends State<EditAccountScreen> {
-  TextEditingController _usernameController = new TextEditingController();
-  TextEditingController _displayNameController = new TextEditingController();
-  TextEditingController _idCardController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _birthDayController = new TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _displayNameController = TextEditingController();
+  TextEditingController _idCardController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _birthDayController = TextEditingController();
 
-  Future<List<accType.AccountType>> accTypes = accTypeController.Controller.instance.accTypes;
+  Future<List<accType.AccountType>> accTypes =
+      accTypeController.Controller.instance.accTypes;
   accType.AccountType _accType;
   String _sex;
   File _image;
@@ -34,7 +37,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   @override
   void initState() {
     Account account = widget.acc;
-    _accType = new accType.AccountType(account.idAccountType, account.accountType);
+    _accType = accType.AccountType(account.idAccountType, account.accountType);
     _usernameController.text = account.username;
     _displayNameController.text = account.displayName;
     _idCardController.text = account.idCard;
@@ -47,45 +50,51 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle = TextStyle(
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 = TextStyle(
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
-    Widget avatar = new Column(
+    Widget avatar = Column(
       children: <Widget>[
         _image == null
             ? (widget.acc.image.isEmpty
-                ? new Image.asset(
+                ? Image.asset(
                     'assets/images/account.png',
                     width: 122.0,
                     height: 122.0,
                     fit: BoxFit.fill,
                   )
-                : new Image.memory(
+                : Image.memory(
                     widget.acc.image,
                     width: 122.0,
                     height: 122.0,
                     fit: BoxFit.fill,
                   ))
-            : new Image.file(
+            : Image.file(
                 _image,
                 width: 122.0,
                 height: 122.0,
                 fit: BoxFit.fill,
               ),
-        new Container(
+        Container(
           height: 15.0,
         ),
-        new RaisedButton(
+        RaisedButton(
           color: Colors.lightBlueAccent,
-          child: new Text(
+          child: Text(
             'Select Image',
             style: _itemStyle,
           ),
           onPressed: () async {
-            var image = await Controller.instance.getImage();
+            var image = await ImageController.getImageFromGallery();
             setState(() {
               _image = image;
             });
@@ -94,48 +103,51 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       ],
     );
 
-    Widget username = new TextField(
+    Widget username = TextField(
       enabled: false,
       controller: _usernameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Username:*', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Username:*', labelStyle: _itemStyle2),
     );
 
-    Widget displayName = new TextField(
+    Widget displayName = TextField(
       controller: _displayNameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Display name:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Display name:', labelStyle: _itemStyle2),
     );
 
-    Widget idCard = new TextField(
+    Widget idCard = TextField(
       controller: _idCardController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Id card:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Id card:', labelStyle: _itemStyle2),
     );
 
-    Widget address = new TextField(
+    Widget address = TextField(
       controller: _addressController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Address:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Address:', labelStyle: _itemStyle2),
     );
 
-    Widget phone = new TextField(
+    Widget phone = TextField(
       controller: _phoneController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Phone:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Phone:', labelStyle: _itemStyle2),
     );
 
-    Widget accountType = new Row(
+    Widget accountType = Row(
       children: <Widget>[
-        new Text(
+        Text(
           'Account Type:  ',
-          style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+          style: TextStyle(
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<accType.AccountType>>(
           future: accTypes,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasError) Log.error(snapshot.error);
             if (snapshot.hasData) {
               return _buildAccTypes(_itemStyle, snapshot.data);
             }
@@ -145,28 +157,32 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       ],
     );
 
-    Widget sex = new Row(
+    Widget sex = Row(
       children: <Widget>[
-        new Text(
+        Text(
           'Sex:  ',
-          style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+          style: TextStyle(
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         _buildSex(_itemStyle),
       ],
     );
 
-    Widget birthDay = new Row(
+    Widget birthDay = Row(
       children: <Widget>[
         Flexible(
-          child: new TextField(
+          child: TextField(
             controller: _birthDayController,
             style: _itemStyle,
-            decoration: new InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+            decoration: InputDecoration(
+                enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
           ),
         ),
-        new RaisedButton(
-          child: new Text(
+        RaisedButton(
+          child: Text(
             'Change birthday',
             style: _itemStyle,
           ),
@@ -181,9 +197,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
-        child: new RaisedButton(
+        child: RaisedButton(
           color: Colors.redAccent,
-          child: new Text(
+          child: Text(
             'Save Change',
             style: _itemStyle,
           ),
@@ -195,9 +211,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     );
 
     return Container(
-      child: new Container(
+      child: Container(
           padding: const EdgeInsets.all(10.0),
-          child: new ListView(
+          child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
             scrollDirection: Axis.vertical,
@@ -222,12 +238,12 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content:
-                new Text('Do you want to update this account: ' + username + '?', style: theme.contentStyle),
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text('Do you want to update this account: ' + username + '?',
+                style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   /* Pop screens */
                   Navigator.of(context).pop();
@@ -238,7 +254,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     _idCardController.text.trim(),
                     _addressController.text.trim(),
                     _phoneController.text.trim(),
-                    _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                    _birthDayController.text != ''
+                        ? DateTime.parse(_birthDayController.text)
+                        : null,
                     _accType.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                   )) {
@@ -250,19 +268,26 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                       _idCardController.text.trim(),
                       _addressController.text.trim(),
                       _phoneController.text.trim(),
-                      _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                      _birthDayController.text != ''
+                          ? DateTime.parse(_birthDayController.text)
+                          : null,
                       _accType.id,
                       _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                     );
 
-                    successDialog(this.context, 'Update this account: ' + username + ' success!');
+                    successDialog(
+                        this.context, 'Update this account: ' + username + ' success!');
                   } else
-                    errorDialog(this.context,
-                        'Update this account: ' + username + ' failed.' + '\nPlease try again!');
+                    errorDialog(
+                        this.context,
+                        'Update this account: ' +
+                            username +
+                            ' failed.' +
+                            '\nPlease try again!');
                 },
               ),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -276,17 +301,18 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: widget.acc.birthday,
-        firstDate: new DateTime(1975),
-        lastDate: new DateTime(2019));
-    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+        firstDate: DateTime(1975),
+        lastDate: DateTime(2019));
+    if (picked != null)
+      setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {
     List<DropdownMenuItem> items = [];
     for (int i = 0; i < accTypes.length; i++) {
-      DropdownMenuItem item = new DropdownMenuItem(
+      DropdownMenuItem item = DropdownMenuItem(
         value: _accType.id == accTypes[i].id ? _accType : accTypes[i],
-        child: new Text(
+        child: Text(
           accTypes[i].name,
           style: _itemStyle,
         ),
@@ -294,7 +320,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       items.add(item);
     }
 
-    return new DropdownButton(
+    return DropdownButton(
         value: _accType,
         items: items,
         onChanged: (value) {
@@ -308,9 +334,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     List<DropdownMenuItem> items = [];
     List<String> listSex = ['Male', 'Female', 'Other'];
     for (int i = 0; i < listSex.length; i++) {
-      DropdownMenuItem item = new DropdownMenuItem(
+      DropdownMenuItem item = DropdownMenuItem(
         value: listSex[i],
-        child: new Text(
+        child: Text(
           listSex[i],
           style: _itemStyle,
         ),
@@ -319,7 +345,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       items.add(item);
     }
 
-    return new DropdownButton(
+    return DropdownButton(
         value: _sex,
         items: items,
         onChanged: (value) {

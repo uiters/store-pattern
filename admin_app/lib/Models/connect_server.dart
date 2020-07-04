@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import './../Constants/evn.dart';
+import '../Constants/evn.dart';
 
 class MySqlConnection {
   static MySqlConnection _instance;
 
   static MySqlConnection get instance {
-    if (_instance == null) _instance = new MySqlConnection();
+    if (_instance == null) _instance = MySqlConnection();
     return _instance;
   }
 
@@ -36,6 +36,7 @@ class MySqlConnection {
     http.Response response = await http.post(
       URL_EXECUTE,
       body: {ID_EXECUTEQUERY: query},
+      // headers: {'Access-Control-Allow-Origin': '*'},
     );
     if (response.statusCode == 200) return json.decode(response.body);
     return null;
@@ -43,7 +44,7 @@ class MySqlConnection {
 
   static String _addParameter(String query, List parameter) {
     List<String> list = query.split(' ');
-    query = "";
+    query = '';
     int i = 0;
 
     list.forEach((String element) {
@@ -54,7 +55,7 @@ class MySqlConnection {
           query += parameter[i++].toString();
       } else
         query += element;
-      query += " ";
+      query += ' ';
     });
 
     return query;

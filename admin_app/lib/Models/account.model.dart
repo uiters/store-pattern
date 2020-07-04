@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -57,7 +57,7 @@ class Model {
   Future<bool> isAccExists(String username) async {
     Future<List> futureBills =
         MySqlConnection.instance.executeQuery(queries.IS_ACC_EXISTS, parameter: [username]);
-    return (await parseBill(futureBills)).length > 0;
+    return (await parseBill(futureBills)).isNotEmpty;
   }
 
   Future<bool> resetAcc(String username, String defaultPass) {
@@ -67,7 +67,7 @@ class Model {
   static Future<List<Account>> parseAcc(Future<List> futureAccs) async {
     List<Account> accs = [];
     await futureAccs.then((values) {
-      values.forEach((value) => accs.add(new Account.fromJson(value)));
+      values.forEach((value) => accs.add(Account.fromJson(value)));
     });
     return accs;
   }
@@ -75,7 +75,7 @@ class Model {
   Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
-      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+      values.forEach((value) => bills.add(Bill.fromJson(value)));
     });
     return bills;
   }
@@ -110,16 +110,16 @@ class Account {
 
   Account.fromJson(Map<String, dynamic> json) {
     username = json['Username'];
-    displayName = json['DisplayName'] != null ? json['DisplayName'] : '';
+    displayName = json['DisplayName'] ?? '';
     password = json['Password'];
     sex = json['Sex'] != null ? int.parse(json['Sex']) : -1;
-    idCard = json['IDCard'] != null ? json['IDCard'] : '';
-    address = json['Address'] != null ? json['Address'] : '';
-    phone = json['PhoneNumber'] != null ? json['PhoneNumber'] : '';
+    idCard = json['IDCard'] ?? '';
+    address = json['Address'] ?? '';
+    phone = json['PhoneNumber'] ?? '';
     birthday = json['BirthDay'] != null
         ? DateTime.parse(json['BirthDay'])
-        : DateTime.now().subtract(new Duration(days: 365 * 18));
-    accountType = json['Name'] != null ? json['Name'] : '';
+        : DateTime.now().subtract(Duration(days: 365 * 18));
+    accountType = json['Name'] ?? '';
     idAccountType = int.parse(json['IDAccountType']);
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
     idImange = int.parse(json['IDImage']);

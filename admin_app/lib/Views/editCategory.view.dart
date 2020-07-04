@@ -14,8 +14,8 @@ class EditCategoryScreen extends StatefulWidget {
 }
 
 class _EditCategoryScreenState extends State<EditCategoryScreen> {
-  TextEditingController _idController = new TextEditingController();
-  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _idController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -26,32 +26,32 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
-    Widget id = new TextField(
+    Widget id = TextField(
       enabled: false,
       controller: _idController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'ID:*', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'ID:*', labelStyle: _itemStyle2),
     );
 
-    Widget name = new TextField(
+    Widget name = TextField(
       controller: _nameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
     );
 
     Widget saveChange = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
-        child: new RaisedButton(
+        child: RaisedButton(
           color: Colors.redAccent,
-          child: new Text(
+          child: Text(
             'Save Change',
             style: _itemStyle,
           ),
@@ -63,9 +63,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
     );
 
     return Container(
-      child: new Container(
+      child: Container(
           padding: const EdgeInsets.all(10.0),
-          child: new ListView(
+          child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
             scrollDirection: Axis.vertical,
@@ -79,11 +79,11 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to update this category ?', style: theme.contentStyle),
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text('Do you want to update this category ?', style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   /* Pop screens */
                   Navigator.of(context).pop();
@@ -102,8 +102,8 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');
                 },
               ),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

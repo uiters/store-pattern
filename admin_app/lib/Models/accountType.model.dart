@@ -1,13 +1,13 @@
 import './../Constants/queries.dart' as queries;
 import './account.model.dart' as accModel;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -33,7 +33,7 @@ class Model {
     // check food exists on bill
     Future<List> futureAccs =
         MySqlConnection.instance.executeQuery(queries.IS_ACCTYPE_EXISTS, parameter: [id]);
-    return (await accModel.Model.parseAcc(futureAccs)).length > 0;
+    return (await accModel.Model.parseAcc(futureAccs)).isNotEmpty;
   }
 
   Future<int> getIDMax() async {
@@ -44,7 +44,7 @@ class Model {
   Future<List<AccountType>> parseAccType(Future<List> futureAccTypes) async {
     List<AccountType> accTypes = [];
     await futureAccTypes.then((values) {
-      values.forEach((value) => accTypes.add(new AccountType.fromJson(value)));
+      values.forEach((value) => accTypes.add(AccountType.fromJson(value)));
     });
     return accTypes;
   }
@@ -61,6 +61,6 @@ class AccountType {
 
   AccountType.fromJson(Map<String, dynamic> json) {
     id = json['ID'] != null ? int.parse(json['ID']) : -1;
-    name = json['Name'] != null ? json['Name'] : '';
+    name = json['Name'] ?? '';
   }
 }

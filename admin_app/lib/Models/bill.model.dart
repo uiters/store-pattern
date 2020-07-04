@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
-  static final Model instance = new Model();
+  static final Model instance = Model();
 
   Future<List<Bill>> getBills() async {
     Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.QUERY_GET_BILLS);
@@ -24,7 +24,7 @@ class Model {
   Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
-      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+      values.forEach((value) => bills.add(Bill.fromJson(value)));
     });
     return bills;
   }
@@ -54,7 +54,7 @@ class Bill {
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : 0;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : 0;
-    this.nameTable = json['Name'] != null ? json['Name'] : '';
+    this.nameTable = json['Name'] ?? '';
     this.dateCheckIn = DateTime.parse(json['DateCheckIn']);
     this.dateCheckOut = DateTime.parse(json['DateCheckOut']);
     this.discount = double.parse(json['Discount']);

@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -37,7 +37,7 @@ class Model {
     // check food exists on bill
     Future<List> futureBillDetails =
         MySqlConnection.instance.executeQuery(queries.IS_FOOD_EXISTS, parameter: [id]);
-    return (await parseBillDetails(futureBillDetails)).length > 0;
+    return (await parseBillDetails(futureBillDetails)).isNotEmpty;
   }
 
   Future<int> getIDMax() async {
@@ -48,7 +48,7 @@ class Model {
   static Future<List<Food>> parseFood(Future<List> futureFoods) async {
     List<Food> foods = [];
     await futureFoods.then((values) {
-      values.forEach((value) => foods.add(new Food.fromJson(value)));
+      values.forEach((value) => foods.add(Food.fromJson(value)));
     });
     return foods;
   }
@@ -56,7 +56,7 @@ class Model {
   Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async {
     List<BillDetail> billDetails = [];
     await futureBillDetails.then((values) {
-      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+      values.forEach((value) => billDetails.add(BillDetail.fromJson(value)));
     });
     return billDetails;
   }
@@ -82,9 +82,9 @@ class Food {
 
   Food.fromJson(Map<String, dynamic> json) {
     this.id = json['IdFood'] != null ? int.parse(json['IdFood']) : int.parse(json['ID']);
-    this.name = json['FoodName'] != null ? json['FoodName'] : '';
+    this.name = json['FoodName'] ?? '';
     this.idCategory = json['IDCategory'] != null ? int.parse(json['IDCategory']) : -1;
-    this.category = json['CategoryName'] != null ? json['CategoryName'] : '';
+    this.category = json['CategoryName'] ?? '';
     this.price = json['Price'] != null ? double.parse(json['Price']) : 0.0;
     this.idImange = json['IdImage'] != null ? int.parse(json['IdImage']) : -1;
     this.image = json['Image'] != null ? base64.decode(json['Image']) : null;

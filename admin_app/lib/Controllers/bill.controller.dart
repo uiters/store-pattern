@@ -1,7 +1,7 @@
 import './../Models/bill.model.dart';
 
 class Controller {
-  static final Controller instance = new Controller();
+  static final Controller instance = Controller();
 
   Future<List<Bill>> _bills;
 

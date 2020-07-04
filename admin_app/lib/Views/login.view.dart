@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
-import './../Controllers/login.controller.dart';
-
-import './mainPage.view.dart';
-
 import './../Constants/theme.dart' as theme;
+import './../Controllers/login.controller.dart';
+import './mainPage.view.dart';
 
 class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _usernameController = new TextEditingController();
-  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   String _username = '';
   String _password = '';
@@ -21,13 +19,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
+    TextStyle _itemStyle2 = TextStyle(
         color: theme.fontColorLight, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle3 = new TextStyle(
+    TextStyle _itemStyle3 = TextStyle(
       color: theme.accentColor,
       fontFamily: 'Dosis',
       fontSize: 28.0,
@@ -43,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    final title = new Center(
-      child: new Text(
+    final title = Center(
+      child: Text(
         'Admin App',
         style: _itemStyle3,
       ),
@@ -81,12 +79,12 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    final loginButton = new Container(
+    final loginButton = Container(
       child: SizedBox(
         width: double.infinity,
-        child: new RaisedButton(
+        child: RaisedButton(
           color: Colors.redAccent,
-          child: new Text(
+          child: Text(
             'Login',
             style: _itemStyle,
           ),
@@ -100,8 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
             });
             if (await Controller.instance.login(_username.trim(), _password.trim())) {
               Navigator.of(context).push(
-                new MaterialPageRoute(builder: (context) {
-                  return new MainPage(
+                MaterialPageRoute(builder: (context) {
+                  return MainPage(
                     context: context,
                     account: Controller.instance.account,
                   );
@@ -129,40 +127,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     Widget loadingIndicator = _load
-        ? new Container(
+        ? Container(
             color: Colors.transparent,
             width: 180.0,
             height: 120.0,
-            child: new Card(
+            child: Card(
               color: theme.primaryColor,
               child: Row(
                 children: <Widget>[
-                  new Expanded(
-                    child: new Container(),
+                  Expanded(
+                    child: Container(),
                   ),
-                  new CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(theme.accentColor),
+                  CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(theme.accentColor),
                   ),
-                  new Expanded(
-                    child: new Container(),
+                  Expanded(
+                    child: Container(),
                   ),
-                  new Text(
+                  Text(
                     'Logining...',
                     style: theme.contentStyle,
                   ),
-                  new Expanded(
-                    child: new Container(),
+                  Expanded(
+                    child: Container(),
                   ),
                 ],
               ),
             ))
-        : new Container();
+        : Container();
 
     return Scaffold(
         backgroundColor: Colors.white,
-        body: new Stack(
+        body: Stack(
           children: <Widget>[
-            new Center(
+            Center(
               child: ListView(
                 shrinkWrap: true,
                 padding: EdgeInsets.only(left: 24.0, right: 24.0),
@@ -180,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            new Align(
+            Align(
               child: loadingIndicator,
               alignment: FractionalOffset.center,
             ),
@@ -200,11 +198,11 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text(title, style: theme.errorTitleStyle),
-            content: new Text(message, style: theme.contentStyle),
+            title: Text(title, style: theme.errorTitleStyle),
+            content: Text(message, style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

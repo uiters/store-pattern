@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
-  static final instance = new Model();
+  static final instance = Model();
 
   Future<List<Report>> getReports() async {
     Future<List> futureReports = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_LASTWEEK);
@@ -29,7 +29,7 @@ class Model {
   Future<Report> _parseReport(Future<List> futureReport) async {
     List<Report> reports = [];
     await futureReport.then((values) {
-      values.forEach((value) => reports.add(new Report.fromJson(value)));
+      values.forEach((value) => reports.add(Report.fromJson(value)));
     });
     return reports[0];
   }
@@ -37,7 +37,7 @@ class Model {
   Future<List<Report>> _parseReports(Future<List> futureReports) async {
     List<Report> reports = [];
     await futureReports.then((values) {
-      values.forEach((value) => reports.add(new Report.fromJson(value)));
+      values.forEach((value) => reports.add(Report.fromJson(value)));
     });
     return reports;
   }

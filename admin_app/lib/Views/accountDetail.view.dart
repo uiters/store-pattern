@@ -12,14 +12,14 @@ class AccountDetailScreen extends StatefulWidget {
 }
 
 class _AccountDetailScreenState extends State<AccountDetailScreen> {
-  TextEditingController _usernameController = new TextEditingController();
-  TextEditingController _displayNameController = new TextEditingController();
-  TextEditingController _idCardController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _accountTypeController = new TextEditingController();
-  TextEditingController _birthDayController = new TextEditingController();
-  TextEditingController _sexController = new TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _displayNameController = TextEditingController();
+  TextEditingController _idCardController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _accountTypeController = TextEditingController();
+  TextEditingController _birthDayController = TextEditingController();
+  TextEditingController _sexController = TextEditingController();
 
   @override
   void initState() {
@@ -38,22 +38,22 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
-    Widget avatar = new Column(
+    Widget avatar = Column(
       children: <Widget>[
         widget.account.image.isEmpty
-            ? new Image.asset(
+            ? Image.asset(
                 'assets/images/account.png',
                 width: 122.0,
                 height: 122.0,
                 fit: BoxFit.fill,
               )
-            : new Image.memory(
+            : Image.memory(
                 widget.account.image,
                 width: 122.0,
                 height: 122.0,
@@ -62,62 +62,62 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
       ],
     );
 
-    Widget username = new TextField(
+    Widget username = TextField(
       enabled: false,
       controller: _usernameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Username:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Username:', labelStyle: _itemStyle2),
     );
 
-    Widget displayName = new TextField(
+    Widget displayName = TextField(
       controller: _displayNameController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Display name:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Display name:', labelStyle: _itemStyle2),
     );
 
-    Widget idCard = new TextField(
+    Widget idCard = TextField(
       controller: _idCardController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Id card:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Id card:', labelStyle: _itemStyle2),
     );
 
-    Widget address = new TextField(
+    Widget address = TextField(
       controller: _addressController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Address:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Address:', labelStyle: _itemStyle2),
     );
 
-    Widget phone = new TextField(
+    Widget phone = TextField(
       controller: _phoneController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Phone:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Phone:', labelStyle: _itemStyle2),
     );
 
-    Widget accountType = new TextField(
+    Widget accountType = TextField(
       controller: _accountTypeController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
     );
 
-    Widget sex = new TextField(
+    Widget sex = TextField(
       controller: _sexController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Sex:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Sex:', labelStyle: _itemStyle2),
     );
 
-    Widget birthDay = new TextField(
+    Widget birthDay = TextField(
       controller: _birthDayController,
       style: _itemStyle,
-      decoration: new InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
     );
 
     Widget exit = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
-        child: new RaisedButton(
+        child: RaisedButton(
           color: Colors.redAccent,
-          child: new Text(
+          child: Text(
             'Exit',
             style: _itemStyle,
           ),
@@ -130,7 +130,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
 
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: new ListView(
+      child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
         scrollDirection: Axis.vertical,
@@ -138,7 +138,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
           avatar,
           Container(
             margin: const EdgeInsets.only(top: 10.0),
-            child: new Card(
+            child: Card(
               color: theme.primaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

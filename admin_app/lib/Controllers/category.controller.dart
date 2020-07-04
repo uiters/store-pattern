@@ -4,7 +4,7 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
@@ -31,7 +31,7 @@ class Controller {
 
   void insertCateToLocal(String name) async {
     int idMax = await Model.instance.getIDMax();
-    Category cate = new Category(idMax, name);
+    Category cate = Category(idMax, name);
     (await categories).add(cate);
   }
 

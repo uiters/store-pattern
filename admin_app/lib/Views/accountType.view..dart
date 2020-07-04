@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -13,32 +14,33 @@ class AccountTypeScreen extends StatefulWidget {
 
 class _AccountTypeScreenState extends State<AccountTypeScreen> {
   Future<List<AccountType>> accTypes = Controller.instance.accTypes;
-  TextEditingController _keywordController = new TextEditingController();
+  TextEditingController _keywordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
-    Widget controls = new Container(
-      decoration: new BoxDecoration(
+    Widget controls = Container(
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: theme.fontColorLight.withOpacity(0.2))),
       margin: EdgeInsets.only(top: 10.0, bottom: 2.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          new RaisedButton(
+          RaisedButton(
             color: Colors.greenAccent,
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                new Icon(
+                Icon(
                   Icons.add,
                   color: theme.fontColorLight,
                   size: 19.0,
                 ),
-                new Text(
+                Text(
                   'Add',
                   style: theme.contentTable,
                 )
@@ -48,15 +50,16 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
               _pushAddAccountTypeScreen();
             },
           ),
-          new Container(
+          Container(
             width: 30.0,
           ),
-          new Flexible(
-              child: new TextField(
+          Flexible(
+              child: TextField(
                   controller: _keywordController,
                   onChanged: (text) {
                     setState(() {
-                      accTypes = Controller.instance.searchAccTypes(_keywordController.text);
+                      accTypes =
+                          Controller.instance.searchAccTypes(_keywordController.text);
                     });
                   },
                   onSubmitted: null,
@@ -69,10 +72,10 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
       ),
     );
 
-    Widget table = new FutureBuilder<List<AccountType>>(
+    Widget table = FutureBuilder<List<AccountType>>(
       future: accTypes,
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) Log.error(snapshot.error);
         if (snapshot.hasData) {
           return _buildTable(snapshot.data);
         }
@@ -100,11 +103,11 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
       child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(7.0),
-          child: new ListView(
+          child: ListView(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: <Widget>[
-              new Table(
+              Table(
                   defaultColumnWidth: FlexColumnWidth(4.0),
                   columnWidths: {0: FlexColumnWidth(1.0), 2: FlexColumnWidth(5.0)},
                   border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
@@ -115,34 +118,34 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
   }
 
   TableRow _buildTableHead() {
-    return new TableRow(children: [
-      new TableCell(
-        child: new Row(
+    return TableRow(children: [
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'ID',
               style: theme.headTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'Name',
               style: theme.headTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'Actions',
               style: theme.headTable,
             ),
@@ -153,23 +156,23 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
   }
 
   TableRow _buildTableData(AccountType accType) {
-    return new TableRow(children: [
-      new TableCell(
-        child: new Row(
+    return TableRow(children: [
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               accType.id.toString(),
               style: theme.contentTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               accType.name,
               style: theme.contentTable,
               overflow: TextOverflow.ellipsis,
@@ -177,21 +180,21 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            new RaisedButton(
+            RaisedButton(
               color: Colors.lightBlueAccent,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  new Icon(
+                  Icon(
                     Icons.edit,
                     color: theme.fontColorLight,
                     size: 19.0,
                   ),
-                  new Text(
+                  Text(
                     'Edit',
                     style: theme.contentTable,
                   )
@@ -201,17 +204,17 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                 _pushEditAccountTypeScreen(accType);
               },
             ),
-            new RaisedButton(
+            RaisedButton(
               color: Colors.redAccent,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  new Icon(
+                  Icon(
                     Icons.delete,
                     color: theme.fontColorLight,
                     size: 19.0,
                   ),
-                  new Text(
+                  Text(
                     'Delete',
                     style: theme.contentTable,
                   )
@@ -232,12 +235,13 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to delete this account type: ' + accType.name + '?',
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text(
+                'Do you want to delete this account type: ' + accType.name + '?',
                 style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                  child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                  child: Text('Ok', style: theme.okButtonStyle),
                   onPressed: () async {
                     /* Pop screens */
                     Navigator.of(context).pop();
@@ -247,11 +251,15 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                         setState(() {
                           accTypes = Controller.instance.accTypes;
                         });
-                        successDialog(
-                            this.context, 'Delete this account type: ' + accType.name + ' success!');
+                        successDialog(this.context,
+                            'Delete this account type: ' + accType.name + ' success!');
                       } else
-                        errorDialog(this.context,
-                            'Delete this account type: ' + accType.name + ' failed.' + '\nPlease try again!');
+                        errorDialog(
+                            this.context,
+                            'Delete this account type: ' +
+                                accType.name +
+                                ' failed.' +
+                                '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,
@@ -260,8 +268,8 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                               '?' +
                               '\nContact with team dev for information!');
                   }),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -273,17 +281,17 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
 
   void _pushAddAccountTypeScreen() {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Add Account Type',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new AddAccountTypeScreen(),
+          body: AddAccountTypeScreen(),
         );
       }),
     ).then((value) {
@@ -295,17 +303,17 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
 
   void _pushEditAccountTypeScreen(AccountType accType) {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Edit Account Type',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditAccountTypeScreen(accType: accType),
+          body: EditAccountTypeScreen(accType: accType),
         );
       }),
     ).then((value) {
