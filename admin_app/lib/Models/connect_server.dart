@@ -36,6 +36,7 @@ class MySqlConnection {
     http.Response response = await http.post(
       URL_EXECUTE,
       body: {ID_EXECUTEQUERY: query},
+      // headers: {'Access-Control-Allow-Origin': '*'},
     );
     if (response.statusCode == 200) return json.decode(response.body);
     return null;

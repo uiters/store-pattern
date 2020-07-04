@@ -23,6 +23,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic: 1.9.0
+  flutter_launcher_icons: 0.7.5
+  flutter_native_splash: 0.1.9
+
+
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'assets/launcher_icons/app_icon.png'
+  build_runner: ^1.0.0
 
 flutter:
   uses-material-design: true

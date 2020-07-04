@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './Constants/theme.dart';
 import './Views/login.view.dart';
 
-void main() => runApp(MyApp());
+void main() => {
+      WidgetsFlutterBinding.ensureInitialized(),
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: primaryColor),
+      ),
+      runApp(MyApp()),
+    };
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -16,7 +23,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         accentColor: accentColor,
       ),
-      debugShowCheckedModeBanner: false,
+      color: primaryColor,
       home: LoginScreen(),
     );
   }
