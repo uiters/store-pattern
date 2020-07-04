@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:order_app/Controllers/image.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -41,10 +42,16 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
@@ -78,7 +85,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
             style: _itemStyle,
           ),
           onPressed: () async {
-            var image = await foodController.Controller.instance.getImage();
+            var image = await ImageController.getImageFromGallery();
             setState(() {
               _image = image;
             });
@@ -105,7 +112,10 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
         new Text(
           'Category:  ',
           style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
           future: categories,
@@ -198,7 +208,8 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to update this food?', style: theme.contentStyle),
+            content:
+                new Text('Do you want to update this food?', style: theme.contentStyle),
             actions: <Widget>[
               new FlatButton(
                 child: new Text('Ok', style: theme.okButtonStyle),
@@ -229,10 +240,12 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
                         _image = null;
                       });
                     } else
-                      errorDialog(this.context, 'Update food failed.' + '\nPlease try again!');
+                      errorDialog(
+                          this.context, 'Update food failed.' + '\nPlease try again!');
                     return;
                   }
-                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  errorDialog(
+                      this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
               new FlatButton(

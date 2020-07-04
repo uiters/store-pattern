@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:order_app/Controllers/image.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -26,7 +27,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   TextEditingController _phoneController = new TextEditingController();
   TextEditingController _birthDayController = new TextEditingController();
 
-  Future<List<accType.AccountType>> accTypes = accTypeController.Controller.instance.accTypes;
+  Future<List<accType.AccountType>> accTypes =
+      accTypeController.Controller.instance.accTypes;
   accType.AccountType _accType;
   String _sex;
   File _image;
@@ -48,10 +50,16 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
@@ -85,7 +93,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
             style: _itemStyle,
           ),
           onPressed: () async {
-            var image = await Controller.instance.getImage();
+            var image = await ImageController.getImageFromGallery();
             setState(() {
               _image = image;
             });
@@ -104,7 +112,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     Widget displayName = new TextField(
       controller: _displayNameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Display name:', labelStyle: _itemStyle2),
+      decoration:
+          new InputDecoration(labelText: 'Display name:', labelStyle: _itemStyle2),
     );
 
     Widget idCard = new TextField(
@@ -130,7 +139,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         new Text(
           'Account Type:  ',
           style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<accType.AccountType>>(
           future: accTypes,
@@ -150,7 +162,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         new Text(
           'Sex:  ',
           style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         _buildSex(_itemStyle),
       ],
@@ -162,7 +177,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           child: new TextField(
             controller: _birthDayController,
             style: _itemStyle,
-            decoration: new InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+            decoration: new InputDecoration(
+                enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
           ),
         ),
         new RaisedButton(
@@ -223,8 +239,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: new Text('Confirm', style: theme.titleStyle),
-            content:
-                new Text('Do you want to update this account: ' + username + '?', style: theme.contentStyle),
+            content: new Text('Do you want to update this account: ' + username + '?',
+                style: theme.contentStyle),
             actions: <Widget>[
               new FlatButton(
                 child: new Text('Ok', style: theme.okButtonStyle),
@@ -238,7 +254,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     _idCardController.text.trim(),
                     _addressController.text.trim(),
                     _phoneController.text.trim(),
-                    _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                    _birthDayController.text != ''
+                        ? DateTime.parse(_birthDayController.text)
+                        : null,
                     _accType.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                   )) {
@@ -250,15 +268,22 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                       _idCardController.text.trim(),
                       _addressController.text.trim(),
                       _phoneController.text.trim(),
-                      _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
+                      _birthDayController.text != ''
+                          ? DateTime.parse(_birthDayController.text)
+                          : null,
                       _accType.id,
                       _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                     );
 
-                    successDialog(this.context, 'Update this account: ' + username + ' success!');
+                    successDialog(
+                        this.context, 'Update this account: ' + username + ' success!');
                   } else
-                    errorDialog(this.context,
-                        'Update this account: ' + username + ' failed.' + '\nPlease try again!');
+                    errorDialog(
+                        this.context,
+                        'Update this account: ' +
+                            username +
+                            ' failed.' +
+                            '\nPlease try again!');
                 },
               ),
               new FlatButton(
@@ -278,7 +303,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         initialDate: widget.acc.birthday,
         firstDate: new DateTime(1975),
         lastDate: new DateTime(2019));
-    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+    if (picked != null)
+      setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {

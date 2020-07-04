@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:order_app/Controllers/image.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -25,18 +26,18 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   File _image;
 
   @override
-  void initState() {
-    _idController.text = ' ';
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = new TextStyle(
-        color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
     Widget avatar = new Column(
       children: <Widget>[
@@ -63,7 +64,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
             style: _itemStyle,
           ),
           onPressed: () async {
-            var image = await foodController.Controller.instance.getImage();
+            var image = await ImageController.getImageFromGallery();
             setState(() {
               _image = image;
             });
@@ -90,7 +91,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         new Text(
           'Category:  ',
           style: new TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
           future: categories,
@@ -154,6 +158,12 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
   }
 
+  @override
+  void initState() {
+    _idController.text = ' ';
+    super.initState();
+  }
+
   Widget _buildCategory(TextStyle _itemStyle, List<cate.Category> categories) {
     List<DropdownMenuItem> items = [];
     for (int i = 0; i < categories.length; i++) {
@@ -183,7 +193,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to create new food?', style: theme.contentStyle),
+            content:
+                new Text('Do you want to create new food?', style: theme.contentStyle),
             actions: <Widget>[
               new FlatButton(
                 child: new Text('Ok', style: theme.okButtonStyle),
@@ -214,10 +225,12 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                         _image = null;
                       });
                     } else
-                      errorDialog(this.context, 'Create new food failed.' + '\nPlease try again!');
+                      errorDialog(this.context,
+                          'Create new food failed.' + '\nPlease try again!');
                     return;
                   }
-                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  errorDialog(
+                      this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
               new FlatButton(
