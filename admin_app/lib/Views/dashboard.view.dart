@@ -1,7 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:order_app/utils/log.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/theme.dart' as theme;
 import './../Controllers/report.controller.dart';
@@ -16,13 +16,20 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Future<List<Report>> reports = Controller.instance.reportsWeek;
   Future<Report> report = Controller.instance.reportToday;
   int currentI = 0;
-  TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+  TextStyle _itemStyle =
+      TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
-  TextStyle _itemStyle2 =
-      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 34.0, fontWeight: FontWeight.w600);
+  TextStyle _itemStyle2 = TextStyle(
+      color: theme.accentColor,
+      fontFamily: 'Dosis',
+      fontSize: 34.0,
+      fontWeight: FontWeight.w600);
 
-  TextStyle _itemStytle3 =
-      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontWeight: FontWeight.w400, fontSize: 14.0);
+  TextStyle _itemStytle3 = TextStyle(
+      color: theme.accentColor,
+      fontFamily: 'Dosis',
+      fontWeight: FontWeight.w400,
+      fontSize: 14.0);
 
   static final List<String> chartDropdownItems = ['Last 7 days', 'Months', 'Years'];
   String totalMoneyToday = '';

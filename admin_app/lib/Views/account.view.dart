@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_app/utils/log.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -19,7 +19,8 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -262,7 +263,8 @@ class _AccountScreenState extends State<AccountScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this account: ' + username + '?', style: theme.contentStyle),
+            content: Text('Do you want to delete this account: ' + username + '?',
+                style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -275,10 +277,15 @@ class _AccountScreenState extends State<AccountScreen> {
                         setState(() {
                           accs = Controller.instance.listAccount;
                         });
-                        successDialog(this.context, 'Delete this account: ' + username + ' success!');
+                        successDialog(this.context,
+                            'Delete this account: ' + username + ' success!');
                       } else
-                        errorDialog(this.context,
-                            'Delete this account: ' + username + ' failed.' + '\nPlease try again!');
+                        errorDialog(
+                            this.context,
+                            'Delete this account: ' +
+                                username +
+                                ' failed.' +
+                                '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,
@@ -305,7 +312,8 @@ class _AccountScreenState extends State<AccountScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to reset this account: ' + username + '?', style: theme.contentStyle),
+            content: Text('Do you want to reset this account: ' + username + '?',
+                style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -313,10 +321,15 @@ class _AccountScreenState extends State<AccountScreen> {
                     /* Pop screens */
                     Navigator.of(context).pop();
                     if (await Controller.instance.resetAcc(username, username)) {
-                      successDialog(this.context, 'Reset this account: ' + username + ' success!');
+                      successDialog(
+                          this.context, 'Reset this account: ' + username + ' success!');
                     } else
-                      errorDialog(this.context,
-                          'Reset this account: ' + username + ' failed.' + '\nPlease try again!');
+                      errorDialog(
+                          this.context,
+                          'Reset this account: ' +
+                              username +
+                              ' failed.' +
+                              '\nPlease try again!');
                   }),
               FlatButton(
                 child: Text('Cancel', style: theme.cancelButtonStyle),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_app/utils/log.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -18,7 +18,8 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -57,7 +58,8 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                   controller: _keywordController,
                   onChanged: (text) {
                     setState(() {
-                      accTypes = Controller.instance.searchAccTypes(_keywordController.text);
+                      accTypes =
+                          Controller.instance.searchAccTypes(_keywordController.text);
                     });
                   },
                   onSubmitted: null,
@@ -234,7 +236,8 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this account type: ' + accType.name + '?',
+            content: Text(
+                'Do you want to delete this account type: ' + accType.name + '?',
                 style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
@@ -248,11 +251,15 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                         setState(() {
                           accTypes = Controller.instance.accTypes;
                         });
-                        successDialog(
-                            this.context, 'Delete this account type: ' + accType.name + ' success!');
+                        successDialog(this.context,
+                            'Delete this account type: ' + accType.name + ' success!');
                       } else
-                        errorDialog(this.context,
-                            'Delete this account type: ' + accType.name + ' failed.' + '\nPlease try again!');
+                        errorDialog(
+                            this.context,
+                            'Delete this account type: ' +
+                                accType.name +
+                                ' failed.' +
+                                '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,

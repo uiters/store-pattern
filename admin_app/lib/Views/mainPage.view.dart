@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:order_app/Views/table.view.dart';
+import 'package:admin_app/Views/table.view.dart';
 
 import './../Constants/theme.dart';
 import './../Models/login.model.dart';
@@ -51,7 +51,8 @@ class _MainPageState extends State<MainPage> {
                     Text(
                       widget.account.displayName,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
+                      style: TextStyle(
+                          color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
                     ),
                   ],
                 ),

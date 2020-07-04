@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:order_app/Controllers/image.controller.dart';
+import 'package:admin_app/Controllers/image.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -21,8 +20,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _displayNameController = TextEditingController();
   TextEditingController _idCardController = TextEditingController();
@@ -52,21 +49,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _birthDayController.text = account.birthday.toString().split(' ')[0];
 
     super.initState();
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = AndroidInitializationSettings('app_icon');
-    var ios = IOSInitializationSettings();
-    var initSetting = InitializationSettings(android, ios);
-    flutterLocalNotificationsPlugin.initialize(initSetting);
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle = TextStyle(
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 =
-        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 = TextStyle(
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -104,13 +101,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               _image = image;
             });
             if (_image != null) {
-              if (await Controller.instance
-                  .updateAvatar(widget.account.username, base64Encode(_image.readAsBytesSync()))) {
+              if (await Controller.instance.updateAvatar(
+                  widget.account.username, base64Encode(_image.readAsBytesSync()))) {
                 successDialog(context, 'Upload avatar successfully!');
 
                 setState(() {
                   widget.account.image = _image.readAsBytesSync();
-                  loginController.Controller.instance.account.image = _image.readAsBytesSync();
+                  loginController.Controller.instance.account.image =
+                      _image.readAsBytesSync();
                 });
               } else
                 errorDialog(context, 'Upload avatar failed!');
@@ -155,7 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Widget accountType = TextField(
       controller: _accountTypeController,
       style: _itemStyle,
-      decoration: InputDecoration(enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(
+          enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
     );
 
     Widget sex = Row(
@@ -163,7 +162,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Text(
           'Sex:  ',
           style: TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         _buildSex(_itemStyle),
       ],
@@ -175,7 +177,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: TextField(
             controller: _birthDayController,
             style: _itemStyle,
-            decoration: InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+            decoration: InputDecoration(
+                enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
           ),
         ),
         RaisedButton(
@@ -225,7 +228,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       obscureText: true,
       controller: _newPassConfirmController,
       style: _itemStyle,
-      decoration: InputDecoration(labelText: 'Confirm  password:', labelStyle: _itemStyle2),
+      decoration:
+          InputDecoration(labelText: 'Confirm  password:', labelStyle: _itemStyle2),
     );
 
     Widget changePass = Container(
@@ -239,7 +243,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: _itemStyle,
           ),
           onPressed: () {
-            if (Controller.instance.equalPass(widget.account.password, _oldPassController.text))
+            if (Controller.instance
+                .equalPass(widget.account.password, _oldPassController.text))
               _changePass();
             else {
               _oldPassController.clear();
@@ -303,7 +308,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to change infomations for this account?', style: theme.contentStyle),
+            content: Text('Do you want to change infomations for this account?',
+                style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -329,7 +335,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ..address = _addressController.text
                       ..phone = _phoneController.text;
                   } else
-                    errorDialog(this.context, 'Change information failed.' + '\nPlease try again!');
+                    errorDialog(this.context,
+                        'Change information failed.' + '\nPlease try again!');
                 },
               ),
               FlatButton(
@@ -349,7 +356,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to change password for this account?', style: theme.contentStyle),
+            content: Text('Do you want to change password for this account?',
+                style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -359,21 +367,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   if (_newPassConfirmController.text == _newPassController.text &&
                       _newPassController.text == '') {
-                    errorDialog(this.context, 'Invalid  password.' + '\nPlease try again!');
+                    errorDialog(
+                        this.context, 'Invalid  password.' + '\nPlease try again!');
                     return;
                   }
 
                   if (_newPassConfirmController.text == _newPassController.text) {
                     // Check updatePassword
-                    if (await Controller.instance
-                        .updatePassword(widget.account.username, _newPassController.text)) {
-                      widget.account.password = Controller.instance.toHashPass(_newPassController.text);
+                    if (await Controller.instance.updatePassword(
+                        widget.account.username, _newPassController.text)) {
+                      widget.account.password =
+                          Controller.instance.toHashPass(_newPassController.text);
                       successDialog(this.context, 'Change password success!');
                     } else
-                      errorDialog(this.context, 'Change password failed.' + '\nPlease try again!');
+                      errorDialog(this.context,
+                          'Change password failed.' + '\nPlease try again!');
                   } else
-                    errorDialog(this.context,
-                        ' password does not match the confirm password.' + '\nPlease try again!');
+                    errorDialog(
+                        this.context,
+                        ' password does not match the confirm password.' +
+                            '\nPlease try again!');
 
                   _oldPassController.clear();
                   _newPassConfirmController.clear();
@@ -397,7 +410,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         initialDate: widget.account.birthday,
         firstDate: DateTime(1975),
         lastDate: DateTime(2019));
-    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+    if (picked != null)
+      setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildSex(TextStyle _itemStyle) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:order_app/utils/log.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -29,7 +29,8 @@ class _BillScreenState extends State<BillScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -47,8 +48,8 @@ class _BillScreenState extends State<BillScreen> {
                   controller: _keywordController,
                   onChanged: (keyword) {
                     setState(() {
-                      bills = Controller.instance
-                          .searchFoods(keyword, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
+                      bills = Controller.instance.searchFoods(keyword,
+                          formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                     });
                   },
                   onSubmitted: null,
@@ -123,25 +124,26 @@ class _BillScreenState extends State<BillScreen> {
             children: <Widget>[
               Table(
                   defaultColumnWidth: FlexColumnWidth(2.0),
-                  columnWidths: MediaQuery.of(context).orientation == Orientation.landscape
-                      ? {
-                          0: FlexColumnWidth(0.5),
-                          1: FlexColumnWidth(1.0),
-                          2: FlexColumnWidth(1.3),
-                          3: FlexColumnWidth(1.3),
-                          4: FlexColumnWidth(0.9),
-                          5: FlexColumnWidth(1.0),
-                          6: FlexColumnWidth(1.0),
-                          7: FlexColumnWidth(0.9),
-                          8: FlexColumnWidth(1.7),
-                        }
-                      : {
-                          0: FlexColumnWidth(0.5),
-                          1: FlexColumnWidth(1.0),
-                          2: FlexColumnWidth(1.5),
-                          3: FlexColumnWidth(1.0),
-                          4: FlexColumnWidth(1.0),
-                        },
+                  columnWidths:
+                      MediaQuery.of(context).orientation == Orientation.landscape
+                          ? {
+                              0: FlexColumnWidth(0.5),
+                              1: FlexColumnWidth(1.0),
+                              2: FlexColumnWidth(1.3),
+                              3: FlexColumnWidth(1.3),
+                              4: FlexColumnWidth(0.9),
+                              5: FlexColumnWidth(1.0),
+                              6: FlexColumnWidth(1.0),
+                              7: FlexColumnWidth(0.9),
+                              8: FlexColumnWidth(1.7),
+                            }
+                          : {
+                              0: FlexColumnWidth(0.5),
+                              1: FlexColumnWidth(1.0),
+                              2: FlexColumnWidth(1.5),
+                              3: FlexColumnWidth(1.0),
+                              4: FlexColumnWidth(1.0),
+                            },
                   border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                   children: _buildListRow(foods)),
             ],
@@ -401,7 +403,8 @@ class _BillScreenState extends State<BillScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this bill: ${bill.id}?', style: theme.contentStyle),
+            content: Text('Do you want to delete this bill: ${bill.id}?',
+                style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -414,10 +417,11 @@ class _BillScreenState extends State<BillScreen> {
                         bills = Controller.instance.searchFoods(_keywordController.text,
                             formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                       });
-                      successDialog(this.context, 'Delete this bill: ${bill.id} success!');
+                      successDialog(
+                          this.context, 'Delete this bill: ${bill.id} success!');
                     } else
-                      errorDialog(
-                          this.context, 'Delete this bill: ${bill.id} failed.' + '\nPlease try again!');
+                      errorDialog(this.context,
+                          'Delete this bill: ${bill.id} failed.' + '\nPlease try again!');
                   }),
               FlatButton(
                 child: Text('Cancel', style: theme.cancelButtonStyle),
@@ -467,8 +471,8 @@ class _BillScreenState extends State<BillScreen> {
       if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
     }
     setState(() {
-      bills = Controller.instance
-          .searchFoods(_keywordController.text, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
+      bills = Controller.instance.searchFoods(_keywordController.text,
+          formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
     });
   }
 }

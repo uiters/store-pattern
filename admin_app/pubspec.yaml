@@ -1,5 +1,8 @@
-name: order_app
-description: A new Flutter application.
+name: admin_app
+description: Admin for management
+author: Store pattern team <meomeocf98@gmail.com>
+homepage: https://github.com/uiters/store-pattern
+repository: https://github.com/uiters/store-pattern
 
 version: 1.0.1
 
@@ -11,7 +14,6 @@ dependencies:
     sdk: flutter
 
   http: 0.12.1
-  flutter_local_notifications: 1.4.4+1
   dbcrypt: 1.0.0
   image_picker: 0.6.7+3
   charts_flutter: 0.9.0

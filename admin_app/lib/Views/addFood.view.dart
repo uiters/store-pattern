@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:order_app/Controllers/image.controller.dart';
-import 'package:order_app/utils/log.dart';
+import 'package:admin_app/Controllers/image.controller.dart';
+import 'package:admin_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -28,11 +28,17 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle = TextStyle(
+        color: theme.fontColor,
+        fontFamily: 'Dosis',
+        fontSize: 16.0,
+        fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 =
-        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 = TextStyle(
+        color: theme.accentColor,
+        fontFamily: 'Dosis',
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -86,7 +92,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         Text(
           'Category:  ',
           style: TextStyle(
-              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
+              color: theme.accentColor,
+              fontFamily: 'Dosis',
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
           future: categories,
@@ -216,10 +225,12 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                         _image = null;
                       });
                     } else
-                      errorDialog(this.context, 'Create  food failed.' + '\nPlease try again!');
+                      errorDialog(
+                          this.context, 'Create  food failed.' + '\nPlease try again!');
                     return;
                   }
-                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  errorDialog(
+                      this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
               FlatButton(
