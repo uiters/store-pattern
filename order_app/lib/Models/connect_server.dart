@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import './../Constants/evn.dart';
+import '../Constants/evn.dart';
 
 class MySqlConnection {
   static MySqlConnection _instance;
 
   static MySqlConnection get instance {
-    if (_instance == null) _instance = new MySqlConnection();
+    if (_instance == null) _instance = MySqlConnection();
     return _instance;
   }
 
@@ -52,7 +52,7 @@ class MySqlConnection {
      * so result query = "call USP_Proc( '123' , '123' , 123 )"
      * */
     List<String> list = query.split(' ');
-    query = "";
+    query = '';
     int i = 0;
     list.forEach((String element) {
       if (element.contains('@')) {
@@ -62,7 +62,7 @@ class MySqlConnection {
           query += parameter[i++].toString();
       } else
         query += element;
-      query += " ";
+      query += ' ';
     });
     return query;
   }

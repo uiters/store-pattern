@@ -1,12 +1,12 @@
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
 import './menu.model.dart' as menu;
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
-    if (_instance == null) _instance = new Model();
+    if (_instance == null) _instance = Model();
     getTables();
     return _instance;
   }
@@ -22,7 +22,7 @@ class Model {
     List<Table> futureTables = [];
     await tables.then((values) {
       values.forEach((value) {
-        futureTables.add(new Table.fromJson(value));
+        futureTables.add(Table.fromJson(value));
       });
     });
     return futureTables;
@@ -40,7 +40,7 @@ class Table {
     this.id = -1;
     this.name = '';
     this.status = -1;
-    this._foods = new List<menu.Food>();
+    this._foods = List<menu.Food>();
     this.dateCheckIn = DateTime.now();
   }
 
@@ -48,7 +48,7 @@ class Table {
     this.id = clone.id;
     this.name = clone.name;
     this.status = clone.status;
-    this._foods = clone.foods.map((food) => new menu.Food(food)).toList();
+    this._foods = clone.foods.map((food) => menu.Food(food)).toList();
     this.dateCheckIn = clone.dateCheckIn;
   }
 
@@ -56,11 +56,11 @@ class Table {
     this.id = int.parse(json['ID']);
     this.name = json['Name'];
     this.status = int.parse(json['Status']);
-    this._foods = new List<menu.Food>();
+    this._foods = List<menu.Food>();
   }
 
   List<menu.Food> get foods {
-    if (_foods == null) _foods = new List<menu.Food>();
+    if (_foods == null) _foods = List<menu.Food>();
     return _foods;
   }
 
@@ -92,15 +92,14 @@ class Table {
     int index = findIndexFood(food);
     if (index == -1) {
       //add to foods
-      menu.Food _food = new menu.Food(food);
-      _food.quantity = 1;
+      menu.Food _food = menu.Food(food)..quantity = 1;
       foods.add(_food);
     } else {
       // update food
       foods[index].quantity++;
     }
 
-    if (foods.length > 0) {
+    if (foods.isNotEmpty) {
       this.status = 1;
     }
 
@@ -119,7 +118,7 @@ class Table {
       }
     }
 
-    if (foods.length == 0) {
+    if (foods.isEmpty) {
       this.status = -1;
     }
   }
@@ -130,7 +129,7 @@ class Table {
       foods.remove(foods[index]);
     }
 
-    if (foods.length == 0) {
+    if (foods.isEmpty) {
       this.status = -1;
     }
   }

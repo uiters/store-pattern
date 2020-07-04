@@ -1,77 +1,54 @@
 name: order_app
-description: A new Flutter application.
+description: Oder application.
+author: Store pattern team <meomeocf98@gmail.com>
+homepage: https://github.com/uiters/store-pattern
+repository: https://github.com/uiters/store-pattern
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  http: ^0.11.3+17
+  http: 0.12.1
   flutter_local_notifications: ^0.4.0
-  timeago: ^2.0.9
-  intl: ^0.15.7
-  dbcrypt: ^1.0.0
-  path_provider: ^0.4.1
-  image_picker: ^0.4.10
-  test: ^1.5.1+1
+  timeago: 2.0.26
+  intl: 0.16.1
+  dbcrypt: 1.0.0
+  path_provider: 1.6.11
+  image_picker: 0.6.7+3
+  ansicolor: 1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: 0.7.5
+  flutter_native_splash: 0.1.9
+  pedantic: 1.9.0
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher_icons/app_icon.png"
+  build_runner: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/images/logo.png
-      - assets/images/food.png
-      - assets/images/account.png
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.io/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+    - assets/images/
   fonts:
-     - family: Dosis
-       fonts:
-         - asset: assets/fonts/Dosis/Dosis-Regular.ttf
-           weight: 400
-         - asset: assets/fonts/Dosis/Dosis-Medium.ttf
-           weight: 500
-         - asset: assets/fonts/Dosis/Dosis-SemiBold.ttf
-           weight: 600
-         - asset: assets/fonts/Dosis/Dosis-Bold.ttf
-           weight: 800
-         - asset: assets/fonts/Dosis/Dosis-ExtraBold.ttf
-           weight: 900
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.io/custom-fonts/#from-packages
+    - family: Dosis
+      fonts:
+        - asset: assets/fonts/Dosis/Dosis-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Dosis/Dosis-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Dosis/Dosis-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Dosis/Dosis-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Dosis/Dosis-ExtraBold.ttf
+          weight: 900

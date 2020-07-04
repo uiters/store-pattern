@@ -6,7 +6,7 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
