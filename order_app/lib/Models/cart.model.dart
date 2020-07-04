@@ -1,11 +1,11 @@
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
-    if (_instance == null) _instance = new Model();
+    if (_instance == null) _instance = Model();
     return _instance;
   }
 
@@ -30,7 +30,7 @@ class Model {
   Future<bool> hasBillOfTable(int idTable) async {
     Future<List> futureBills =
         MySqlConnection.instance.executeQuery(queries.HAS_BILL_OF_TABLE, parameter: [idTable]);
-    return (await parseBill(futureBills)).length > 0;
+    return (await parseBill(futureBills)).isNotEmpty;
   }
 
   Future<int> getIdBillByTable(int idTable) async {
@@ -52,13 +52,13 @@ class Model {
   Future<bool> hasBillDetailOfBill(int idBill, int idFood) async {
     Future<List> futureBillDetails =
         MySqlConnection.instance.executeQuery(queries.HAS_BILLDETAIL_OF_BILL, parameter: [idBill, idFood]);
-    return (await parseBill(futureBillDetails)).length > 0;
+    return (await parseBill(futureBillDetails)).isNotEmpty;
   }
 
   Future<int> parse(Future<List> id) async {
     int futureId = 0;
     await id.then((values) {
-      futureId = new Bill.fromJson(values[0]).id;
+      futureId = Bill.fromJson(values[0]).id;
     });
     return futureId;
   }
@@ -66,7 +66,7 @@ class Model {
   static Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
-      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+      values.forEach((value) => bills.add(Bill.fromJson(value)));
     });
     return bills;
   }
@@ -74,7 +74,7 @@ class Model {
   static Future<List<BillDetail>> parseBillDetail(Future<List> futureBillDetails) async {
     List<BillDetail> billDetails = [];
     await futureBillDetails.then((values) {
-      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+      values.forEach((value) => billDetails.add(BillDetail.fromJson(value)));
     });
     return billDetails;
   }

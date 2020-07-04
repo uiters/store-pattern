@@ -3,16 +3,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:path_provider/path_provider.dart';
+import 'package:order_app/utils/log.dart';
+import 'package:path_provider/path_provider.dart' as path;
 
 import './../Constants/queries.dart';
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
 
   static Model get instance {
-    if (_instance == null) _instance = new Model();
+    if (_instance == null) _instance = Model();
     return _instance;
   }
 
@@ -45,7 +46,7 @@ class Model {
 
   Future<Map<int, Uint8List>> _getImagesFromFile() async {
     String pathLocal = await this.localPath + '/image';
-    Directory directory = new Directory(pathLocal);
+    Directory directory = Directory(pathLocal);
     Map<int, Uint8List> futureImages = {};
     int idImage;
     Uint8List image;
@@ -64,15 +65,14 @@ class Model {
 
   Future<void> _saveImage(int id, Uint8List image) async {
     String pathLocal = await this.localPath + '/image';
-    new Directory(pathLocal).createSync(recursive: true);
+    Directory(pathLocal).createSync(recursive: true);
 
-    final file = new File('$pathLocal/$id.png');
-    file.writeAsBytesSync(image, mode: FileMode.write, flush: true);
+    File('$pathLocal/$id.png').writeAsBytesSync(image, mode: FileMode.write, flush: true);
   }
 
   Future<void> _delete(int id) async {
     String pathLocal = await this.localPath + '/image';
-    final file = new File('$pathLocal/$id.png');
+    final file = File('$pathLocal/$id.png');
     if (file.existsSync()) file.deleteSync(recursive: false); //false is deleted currently image in this path
   }
 
@@ -158,8 +158,10 @@ class Food {
 }
 
 Future<String> _getLocalPath() async {
-  final directory = await getApplicationDocumentsDirectory();
-  return directory.path;
+  return path
+      .getApplicationDocumentsDirectory()
+      .then((value) => value.path)
+      .catchError((ex) => Log.error(ex));
 }
 
 ///

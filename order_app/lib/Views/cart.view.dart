@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:order_app/Controllers/notification.controller.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -22,21 +22,14 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   double _discount;
-  TextEditingController _textController = new TextEditingController();
+  TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
     _discount = 0.0;
 
     super.initState();
-
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    var android = new AndroidInitializationSettings('app_icon');
-    var ios = new IOSInitializationSettings();
-    var initSetting = new InitializationSettings(android, ios);
-    flutterLocalNotificationsPlugin.initialize(initSetting);
   }
 
   @override
@@ -53,10 +46,10 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildListFoods(BuildContext context) {
     return Expanded(
-      child: new Container(
+      child: Container(
         width: double.infinity,
         margin: EdgeInsets.all(5.0),
-        child: new ListView.builder(
+        child: ListView.builder(
             itemExtent: 130.0,
             itemCount: widget.table.foods.length,
             itemBuilder: (_, index) => _buildFood(context, widget.table.foods[index])),
@@ -65,31 +58,31 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildFood(BuildContext context, menu.Food food) {
-    return new Container(
+    return Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
-        child: new Card(
+        child: Card(
           color: theme.primaryColor,
-          child: new Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Expanded(child: new Container()),
-              new Image.memory(
+              Expanded(child: Container()),
+              Image.memory(
                 food.image,
                 width: 120.0,
                 height: 120.0,
                 fit: BoxFit.cover,
               ),
-              new Expanded(child: new Container()),
-              new Column(
+              Expanded(child: Container()),
+              Column(
                 children: <Widget>[
-                  new Expanded(child: new Container()),
-                  new Text(
+                  Expanded(child: Container()),
+                  Text(
                     food.name,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 20.0),
                   ),
-                  new Text(
+                  Text(
                     '\$' + food.price.toString(),
                     style: const TextStyle(
                         color: theme.fontColor,
@@ -97,15 +90,15 @@ class _CartScreenState extends State<CartScreen> {
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold),
                   ),
-                  new Expanded(child: new Container())
+                  Expanded(child: Container())
                 ],
               ),
-              new Expanded(child: new Container()),
-              new Column(
+              Expanded(child: Container()),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new IconButton(
-                    icon: new Icon(
+                  IconButton(
+                    icon: Icon(
                       Icons.remove,
                       size: 16.0,
                       color: theme.fontColorLight,
@@ -116,21 +109,21 @@ class _CartScreenState extends State<CartScreen> {
                       });
                     },
                   ),
-                  new Container(
-                      decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0), color: theme.fontColor),
+                  Container(
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: theme.fontColor),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 1.0, bottom: 1.0, left: 4.0, right: 4.0),
-                        child: new Text(food.quantity.toString(),
-                            style: new TextStyle(
+                        child: Text(food.quantity.toString(),
+                            style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Dosis',
                               fontSize: 16.0,
                             ),
                             textAlign: TextAlign.center),
                       )),
-                  new IconButton(
-                    icon: new Icon(
+                  IconButton(
+                    icon: Icon(
                       Icons.add,
                       size: 16.0,
                       color: theme.fontColorLight,
@@ -143,9 +136,9 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ],
               ),
-              new Expanded(child: new Container()),
-              new IconButton(
-                icon: new Icon(
+              Expanded(child: Container()),
+              IconButton(
+                icon: Icon(
                   Icons.delete,
                   size: 20.0,
                   color: theme.fontColorLight,
@@ -156,53 +149,53 @@ class _CartScreenState extends State<CartScreen> {
                   });
                 },
               ),
-              new Expanded(child: new Container()),
+              Expanded(child: Container()),
             ],
           ),
         ));
   }
 
   Widget _buildControls(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
-        color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    return new Container(
-      decoration: new BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: theme.fontColorLight.withOpacity(0.2)),
           color: theme.primaryColor),
       margin: EdgeInsets.only(top: 2.0, bottom: 7.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
-      child: new Column(
+      child: Column(
         children: <Widget>[
-          new Row(
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Subtotal: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + widget.table.getTotalPrice().toStringAsFixed(2),
                 style: _itemStyle,
               )
             ],
           ),
-          new Divider(),
-          new Row(
+          Divider(),
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Discount: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Container(
+              Expanded(child: Container()),
+              Container(
                 width: 35.0,
                 alignment: Alignment(1.0, 0.0),
-                child: new TextField(
+                child: TextField(
                     controller: _textController,
                     style: _itemStyle,
                     keyboardType: TextInputType.number,
@@ -221,33 +214,33 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ],
           ),
-          new Divider(),
-          new Row(
+          Divider(),
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Total: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + (widget.table.getTotalPrice() * (100 - _discount) / 100).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],
           ),
-          new Divider(),
+          Divider(),
           Container(
             margin: const EdgeInsets.only(top: 15.0),
             child: SizedBox(
               width: double.infinity,
-              child: new RaisedButton(
+              child: RaisedButton(
                 color: Colors.redAccent,
-                child: new Text(
+                child: Text(
                   'Checkout',
                   style: _itemStyle,
                 ),
                 onPressed: () {
-                  if (widget.table.foods.length > 0)
+                  if (widget.table.foods.isNotEmpty)
                     _checkOut(context);
                   else
                     _error(context);
@@ -265,12 +258,12 @@ class _CartScreenState extends State<CartScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Error', style: theme.errorTitleStyle),
-            content: new Text('Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
+            title: Text('Error', style: theme.errorTitleStyle),
+            content: Text('Can\'t be checkout for ' + widget.table.name + '!' + '\nPlease select foods!',
                 style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(cartContext).pop();
@@ -286,16 +279,16 @@ class _CartScreenState extends State<CartScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to be checkout for ' + widget.table.name + '?',
-                style: theme.contentStyle),
+            title: Text('Confirm', style: theme.titleStyle),
+            content:
+                Text('Do you want to be checkout for ' + widget.table.name + '?', style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   Navigator.of(context).pop();
 
-                  home.Table table = new home.Table(widget.table);
+                  home.Table table = home.Table(widget.table);
 
                   if (Controller.instance.isSend) {
                     // exists bill
@@ -306,7 +299,7 @@ class _CartScreenState extends State<CartScreen> {
                         idBill,
                         table.id,
                         table.dateCheckIn,
-                        DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                        DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
                         _discount,
                         table.getTotalPrice(),
                         1,
@@ -314,7 +307,7 @@ class _CartScreenState extends State<CartScreen> {
                       historyController.Controller.instance.addBill(
                           idBill,
                           table,
-                          DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                          DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
                           _discount,
                           table.getTotalPrice(),
                           widget.account);
@@ -327,8 +320,8 @@ class _CartScreenState extends State<CartScreen> {
                     errorDialog(this.context, 'Please send the bill to the kitchen before making payment!');
                 },
               ),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -339,24 +332,19 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future _showNotification() async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
-        importance: Importance.Max, priority: Priority.High);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics =
-        new NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-        0, 'Notification', 'Successful checkout at ' + widget.table.name + '!!!', platformChannelSpecifics,
-        payload: 'item x');
+    NotificationController.show(
+      'Notification',
+      'Successful checkout at ' + widget.table.name + '!!!',
+    );
   }
 
   Future onSelectNotification(String payload) async {
     showDialog(
       context: context,
       builder: (_) {
-        return new AlertDialog(
-          title: Text("PayLoad"),
-          content: Text("Payload : $payload"),
+        return AlertDialog(
+          title: Text('PayLoad'),
+          content: Text('Payload : $payload'),
         );
       },
     );

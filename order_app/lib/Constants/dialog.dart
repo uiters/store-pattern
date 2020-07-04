@@ -8,11 +8,11 @@ void errorDialog(BuildContext context, String message) {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Error', style: theme.errorTitleStyle),
-            content: new Text(message, style: theme.contentStyle),
+            title: Text('Error', style: theme.errorTitleStyle),
+            content: Text(message, style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -28,11 +28,11 @@ void successDialog(BuildContext context, String message) {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Notification', style: theme.titleStyle),
-            content: new Text(message, style: theme.contentStyle),
+            title: Text('Notification', style: theme.titleStyle),
+            content: Text(message, style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   Navigator.of(context).pop();
                 },

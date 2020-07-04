@@ -20,47 +20,47 @@ class _MainPageState extends State<MainPage> {
   String _screenName = 'HOME';
 
   Drawer _buildDrawer(BuildContext context) {
-    return new Drawer(
-      child: new ListView(
+    return Drawer(
+      child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          new DrawerHeader(
-              child: new Container(
-                child: new Column(
+          DrawerHeader(
+              child: Container(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    new Container(
+                    Container(
                         width: 90.0,
                         height: 90.0,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: new DecorationImage(
+                            image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: widget.account.image.isEmpty
-                                    ? new AssetImage(
+                                    ? AssetImage(
                                         'assets/images/account.png',
                                       )
-                                    : new MemoryImage(
+                                    : MemoryImage(
                                         widget.account.image,
                                       )))),
-                    new Text(
+                    Text(
                       widget.account.displayName,
                       overflow: TextOverflow.ellipsis,
-                      style: new TextStyle(color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
+                      style: TextStyle(color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
                     ),
                   ],
                 ),
               ),
-              decoration: new BoxDecoration(color: primaryColor)),
-          new ListTile(
-            leading: new Icon(
+              decoration: BoxDecoration(color: primaryColor)),
+          ListTile(
+            leading: Icon(
               Icons.home,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Home',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -70,15 +70,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.history,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'History',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -88,15 +88,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.person,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'My Profile',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -106,33 +106,33 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.exit_to_app,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Logout',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               Navigator.pop(context);
               Navigator.pop(widget.context);
             },
           ),
-          new Divider(
+          Divider(
             indent: 16.0,
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.settings,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Settings',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -142,15 +142,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.info,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'About',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -168,51 +168,49 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 0:
-        return new HomeScreen(
+        return HomeScreen(
           account: widget.account,
         );
       case 1:
-        return new HistoryScreen();
+        return HistoryScreen();
       case 2:
-        return new ProfileScreen(
-          account: widget.account,
-        );
+        return ProfileScreen(account: widget.account);
       default:
-        return null;
+        return SizedBox();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: new Scaffold(
-            appBar: new AppBar(
-              title: new Text(
-                _screenName,
-                style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
-              ),
-              iconTheme: new IconThemeData(color: accentColor),
-              centerTitle: true,
-              actions: <Widget>[
-                _screenNumber == 0
-                    ? new IconButton(
-                        icon: new Icon(Icons.refresh),
-                        color: accentColor,
-                        onPressed: () {
-                          setState(() {});
-                        },
-                      )
-                    : new IconButton(
-                        icon: new Icon(Icons.refresh),
-                        color: primaryColor,
-                        onPressed: () {
-                          setState(() {});
-                        },
-                      )
-              ],
-            ),
-            resizeToAvoidBottomPadding: false,
-            body: _buildScreen(context),
-            drawer: this._buildDrawer(context)));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          _screenName,
+          style: TextStyle(color: accentColor, fontFamily: 'Dosis'),
+        ),
+        iconTheme: IconThemeData(color: accentColor),
+        centerTitle: true,
+        actions: <Widget>[
+          _screenNumber == 0
+              ? IconButton(
+                  icon: Icon(Icons.refresh),
+                  color: accentColor,
+                  onPressed: () {
+                    setState(() {});
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  color: primaryColor,
+                  onPressed: () {
+                    setState(() {});
+                  },
+                )
+        ],
+      ),
+      resizeToAvoidBottomPadding: false,
+      body: _buildScreen(context),
+      drawer: this._buildDrawer(context),
+    );
   }
 }

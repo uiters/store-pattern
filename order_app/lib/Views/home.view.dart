@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new _HomeScreenState();
+    return _HomeScreenState();
   }
 }
 
@@ -38,9 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: FutureBuilder<List<home.Table>>(
         future: futureTables,
         builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasError) Log.error(snapshot.error);
           if (snapshot.hasData) {
-            return new ListView.builder(
+            return ListView.builder(
                 itemExtent: 100.0,
                 itemCount: (snapshot.data.length / 3).ceil(),
                 itemBuilder: (context, index) => _buildTableRow(context, index, snapshot.data));
@@ -62,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
       indexes.add(tables[i]);
     }
 
-    return new Container(
-      child: new Row(children: _generateRow(context, indexes)),
+    return Container(
+      child: Row(children: _generateRow(context, indexes)),
     );
   }
 
@@ -71,14 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> items = [];
 
     for (int i = 0; i < indexes.length; i++) {
-      Expanded expanded = new Expanded(
+      Expanded expanded = Expanded(
         child: _buildTable(context, indexes[i]),
       );
       items.add(expanded);
     }
 
     for (int i = 0; i < 3 - indexes.length; i++) {
-      Expanded expanded = new Expanded(child: new Container());
+      Expanded expanded = Expanded(child: Container());
       items.add(expanded);
     }
 
@@ -86,33 +87,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildTable(BuildContext context, home.Table table) {
-    return new GestureDetector(
+    return GestureDetector(
       onTap: () {
         setState(() {
           _selectedTable = table;
         });
         _pushMenuScreen(table);
       },
-      child: new Container(
+      child: Container(
           padding: EdgeInsets.zero,
           margin: EdgeInsets.zero,
-          child: new Card(
+          child: Card(
             color: theme.primaryColor,
-            child: new Row(
+            child: Row(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Icon(
+                  child: Icon(
                     table.status == 1 ? Icons.people : Icons.people_outline,
                     size: 20.0,
                     color: table.status == 1 ? Colors.redAccent : Colors.redAccent,
                   ),
                 ),
-                // new Expanded(child: new Container()),
+                //  Expanded(child:  Container()),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30.0, bottom: 30.0, right: 8.0),
-                    child: new Text(
+                    child: Text(
                       table.name,
                       overflow: TextOverflow.ellipsis,
                       style:
@@ -128,23 +129,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _pushMenuScreen(home.Table table) {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Menu • ' + _selectedTable.name,
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
               overflow: TextOverflow.ellipsis,
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new MenuScreen(table: table),
-          floatingActionButton: new FloatingActionButton(
+          body: MenuScreen(table: table),
+          floatingActionButton: FloatingActionButton(
             onPressed: () {
               _pushCartScreen(table, context);
             },
-            child: new Icon(Icons.add_shopping_cart),
+            child: Icon(Icons.add_shopping_cart),
             tooltip: 'Add To Cart',
             backgroundColor: theme.fontColor,
           ),
@@ -155,18 +156,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _pushCartScreen(home.Table table, BuildContext menuContext) {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Cart • ' + _selectedTable.name,
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
             actions: <Widget>[
-              new IconButton(
-                icon: new Icon(Icons.send),
+              IconButton(
+                icon: Icon(Icons.send),
                 color: theme.accentColor,
                 onPressed: () {
                   _sendBillToKitchen(table);
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          body: new CartScreen(table: table, menuContext: context, account: widget.account),
+          body: CartScreen(table: table, menuContext: context, account: widget.account),
         );
       }),
     );
@@ -185,12 +186,12 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to send bill of table ' + table.name + ' for kitchen?',
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text('Do you want to send bill of table ' + table.name + ' for kitchen?',
                 style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   cartController.Controller.instance.isSend = false;
@@ -201,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         idBill,
                         table.id,
                         table.dateCheckIn,
-                        DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                        DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
                         0,
                         table.getTotalPrice(),
                         0,
@@ -244,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (await cartController.Controller.instance.insertBill(
                         table.id,
                         table.dateCheckIn,
-                        DateTime.parse(new DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
+                        DateTime.parse(DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now())),
                         0,
                         table.getTotalPrice(),
                         0,
@@ -269,8 +270,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

@@ -6,7 +6,7 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
@@ -33,7 +33,7 @@ class Controller {
 
   void addBill(int id, home.Table table, DateTime dateCheckout, double discount, double totalPrice,
       login.Account account) async {
-    history.BillPlus bill = new history.BillPlus(
+    history.BillPlus bill = history.BillPlus(
         id: id,
         table: table,
         dateCheckOut: dateCheckout,

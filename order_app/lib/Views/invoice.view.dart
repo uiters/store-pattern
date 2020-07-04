@@ -17,27 +17,27 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: new Column(
+      child: Column(
         children: <Widget>[_buildHeader(), _buildBody(), _buildFooter()],
       ),
     );
   }
 
   Widget _buildHeader() {
-    return new Padding(
+    return Padding(
       padding: EdgeInsets.only(top: 8.0),
-      child: new Row(
+      child: Row(
         children: <Widget>[
           Expanded(
             child: Container(),
           ),
-          new Card(
+          Card(
               color: Colors.lightBlueAccent,
-              child: new Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: new Text(
+                child: Text(
                   widget.bill.table.name,
-                  style: new TextStyle(
+                  style: TextStyle(
                     color: theme.fontColor,
                     fontFamily: 'Dosis',
                     fontSize: 15.0,
@@ -48,21 +48,21 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           Expanded(
             child: Container(),
           ),
-          new Column(
+          Column(
             children: <Widget>[
-              new Row(
+              Row(
                 children: <Widget>[
-                  new Text(
+                  Text(
                     'ID# ' + widget.bill.id.toString() + '       ',
-                    style: new TextStyle(
+                    style: TextStyle(
                         color: theme.fontColor,
                         fontFamily: 'Dosis',
                         fontSize: 13.0,
                         fontWeight: FontWeight.w500),
                   ),
-                  new Text(
+                  Text(
                     widget.bill.account.displayName,
-                    style: new TextStyle(
+                    style: TextStyle(
                         color: theme.accentColor,
                         fontFamily: 'Dosis',
                         fontSize: 13.0,
@@ -70,9 +70,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                   )
                 ],
               ),
-              new Text(
-                new DateFormat('yyyy-MM-dd HH:mm:ss').format(widget.bill.dateCheckOut),
-                style: new TextStyle(
+              Text(
+                DateFormat('yyyy-MM-dd HH:mm:ss').format(widget.bill.dateCheckOut),
+                style: TextStyle(
                     color: theme.fontColor, fontFamily: 'Dosis', fontSize: 15.0, fontWeight: FontWeight.w500),
               )
             ],
@@ -89,7 +89,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(5.0),
-        child: new ListView.builder(
+        child: ListView.builder(
             itemExtent: 60.0,
             itemCount: widget.bill.table.foods.length,
             itemBuilder: (_, index) => _buildFood(widget.bill.table.foods[index])),
@@ -98,22 +98,22 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
   }
 
   Widget _buildFood(menu.Food food) {
-    return new Container(
+    return Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
-        child: new Card(
+        child: Card(
           color: theme.primaryColor,
-          child: new Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Expanded(child: new Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 food.name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0),
               ),
-              new Expanded(child: new Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + food.price.toString(),
                 style: const TextStyle(
                     color: theme.fontColorLight,
@@ -121,8 +121,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600),
               ),
-              new Expanded(child: new Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 food.quantity.toString(),
                 style: const TextStyle(
                     color: theme.fontColorLight,
@@ -130,8 +130,8 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     fontSize: 15.0,
                     fontWeight: FontWeight.w500),
               ),
-              new Expanded(child: new Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + (food.quantity * food.price).toString(),
                 style: const TextStyle(
                     color: Colors.redAccent,
@@ -139,64 +139,64 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     fontSize: 14.0,
                     fontWeight: FontWeight.w500),
               ),
-              new Expanded(child: new Container()),
+              Expanded(child: Container()),
             ],
           ),
         ));
   }
 
   Widget _buildFooter() {
-    TextStyle _itemStyle = new TextStyle(
-        color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
-        color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    return new Container(
-      decoration: new BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: theme.fontColorLight.withOpacity(0.2)),
           color: theme.primaryColor),
       margin: EdgeInsets.only(top: 2.0, bottom: 7.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 8.0),
-      child: new Column(
+      child: Column(
         children: <Widget>[
-          new Row(
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Subtotal: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + widget.bill.totalPrice.toStringAsFixed(2),
                 style: _itemStyle,
               )
             ],
           ),
-          new Divider(),
-          new Row(
+          Divider(),
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Discount: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 widget.bill.discount.toString() + '%',
                 style: _itemStyle,
               )
             ],
           ),
-          new Divider(),
-          new Row(
+          Divider(),
+          Row(
             children: <Widget>[
-              new Text(
+              Text(
                 'Total: ',
                 style: _itemStyle,
               ),
-              new Expanded(child: Container()),
-              new Text(
+              Expanded(child: Container()),
+              Text(
                 '\$' + (widget.bill.totalPrice * (1 - widget.bill.discount / 100)).toStringAsFixed(2),
                 style: _itemStyle2,
               )
