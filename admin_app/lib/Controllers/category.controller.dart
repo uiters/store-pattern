@@ -17,8 +17,7 @@ class Controller {
 
   Future<bool> insertCategory(String name) => Model.instance.insertCategory(name);
 
-  Future<bool> updateCategory(int id, String name) =>
-      Model.instance.updateCategory(id, name);
+  Future<bool> updateCategory(int id, String name) => Model.instance.updateCategory(id, name);
 
   Future<bool> deleteCategory(int id) => Model.instance.deleteCategory(id);
 
@@ -27,9 +26,7 @@ class Controller {
   Future<List<Category>> searchCategories(String keyword) async {
     List<Category> items = await categories;
     if (keyword.trim() == '') return items;
-    return items
-        .where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1)
-        .toList();
+    return items.where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
   }
 
   void insertCateToLocal(String name) async {

@@ -26,9 +26,7 @@ class Controller {
   Future<List<Table>> searchTables(String keyword) async {
     List<Table> items = await tables;
     if (keyword.trim() == '') return items;
-    return items
-        .where((item) => item.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1)
-        .toList();
+    return items.where((item) => item.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1).toList();
   }
 
   void insertTableToLocal(String name, int status) async {

@@ -1,5 +1,5 @@
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
@@ -17,30 +17,26 @@ class Model {
   }
 
   Future<bool> insertTable(String name) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.INSERT_TABLE, parameter: [name]);
+    return MySqlConnection.instance.executeNoneQuery(queries.INSERT_TABLE, parameter: [name]);
   }
 
   Future<bool> updateTable(int id, String name) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.UPDATE_TABLE, parameter: [id, name, -1]);
+    return MySqlConnection.instance.executeNoneQuery(queries.UPDATE_TABLE, parameter: [id, name, -1]);
   }
 
   Future<bool> deleteTable(int id) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.DELETE_TABLE, parameter: [id]);
+    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_TABLE, parameter: [id]);
   }
 
   Future<bool> isTableExists(int id) async {
     // check table exists on bill
     Future<List> futureBills =
         MySqlConnection.instance.executeQuery(queries.IS_TABLE_EXISTS, parameter: [id]);
-    return (await parseBill(futureBills)).length > 0;
+    return (await parseBill(futureBills)).isNotEmpty;
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureFoods =
-        MySqlConnection.instance.executeQuery(queries.GET_ID_TABLE_MAX);
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_ID_TABLE_MAX);
     return (await parseTable(futureFoods))[0].id;
   }
 
@@ -74,7 +70,7 @@ class Table {
 
   Table.fromJson(Map<String, dynamic> json) {
     id = json['ID'] != null ? int.parse(json['ID']) : -1;
-    name = json['Name'] != null ? json['Name'] : '';
+    name = json['Name'] ?? '';
     status = json['Status'] != null ? int.parse(json['Status']) : -1;
   }
 }
@@ -91,12 +87,8 @@ class Bill {
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : -1;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : -1;
-    this.dateCheckIn = json['DateCheckIn'] != null
-        ? DateTime.parse(json['DateCheckIn'])
-        : DateTime.now();
-    this.dateCheckOut = json['DateCheckOut'] != null
-        ? DateTime.parse(json['DateCheckOut'])
-        : DateTime.now();
+    this.dateCheckIn = json['DateCheckIn'] != null ? DateTime.parse(json['DateCheckIn']) : DateTime.now();
+    this.dateCheckOut = json['DateCheckOut'] != null ? DateTime.parse(json['DateCheckOut']) : DateTime.now();
     this.status = json['Status'] != null ? int.parse(json['Status']) : -1;
   }
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import './../Constants/evn.dart';
+import '../Constants/evn.dart';
 
 class MySqlConnection {
   static MySqlConnection _instance;
@@ -43,7 +43,7 @@ class MySqlConnection {
 
   static String _addParameter(String query, List parameter) {
     List<String> list = query.split(' ');
-    query = "";
+    query = '';
     int i = 0;
 
     list.forEach((String element) {
@@ -54,7 +54,7 @@ class MySqlConnection {
           query += parameter[i++].toString();
       } else
         query += element;
-      query += " ";
+      query += ' ';
     });
 
     return query;

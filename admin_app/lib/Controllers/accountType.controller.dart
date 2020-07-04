@@ -17,8 +17,7 @@ class Controller {
 
   Future<bool> insertAccType(String name) => Model.instance.insertAccType(name);
 
-  Future<bool> updateAccType(int id, String name) =>
-      Model.instance.updateAccType(id, name);
+  Future<bool> updateAccType(int id, String name) => Model.instance.updateAccType(id, name);
 
   Future<bool> deleteAccType(int id) => Model.instance.deleteAccType(id);
 
@@ -27,9 +26,7 @@ class Controller {
   Future<List<AccountType>> searchAccTypes(String keyword) async {
     List<AccountType> items = await accTypes;
     if (keyword.trim() == '') return items;
-    return items
-        .where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1)
-        .toList();
+    return items.where((item) => item.name.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
   }
 
   void insertAccTypeToLocal(String _name) async {

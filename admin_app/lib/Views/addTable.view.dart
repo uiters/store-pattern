@@ -20,17 +20,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget id = TextField(
       enabled: false,
@@ -88,17 +82,14 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                   /* Pop screens */
                   Navigator.of(context).pop();
                   if (_nameController.text.trim() != '') {
-                    if (await tableController.Controller.instance
-                        .insertTable(_nameController.text)) {
+                    if (await tableController.Controller.instance.insertTable(_nameController.text)) {
                       // reload tables
-                      tableController.Controller.instance
-                          .insertTableToLocal(_nameController.text, -1);
+                      tableController.Controller.instance.insertTableToLocal(_nameController.text, -1);
 
                       successDialog(this.context, 'Create table success!');
                       _nameController.clear();
                     } else
-                      errorDialog(
-                          this.context, 'Create table failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Create table failed.' + '\nPlease try again!');
                     return;
                   }
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

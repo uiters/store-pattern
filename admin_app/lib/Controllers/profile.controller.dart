@@ -10,8 +10,7 @@ class Controller {
     return _instance;
   }
 
-  bool equalPass(String hashPass, String passCheck) =>
-      DBCrypt().checkpw(passCheck, hashPass);
+  bool equalPass(String hashPass, String passCheck) => DBCrypt().checkpw(passCheck, hashPass);
 
   String toHashPass(String pass) => DBCrypt().hashpw(pass, DBCrypt().gensalt());
 
@@ -19,14 +18,12 @@ class Controller {
     return Model.instance.updateAvatar(username, image);
   }
 
-  Future<bool> updateInfo(String username, String displayName, int sex, DateTime birthday,
-      String idCard, String address, String phone) {
-    return Model.instance
-        .updateInfo(username, displayName, sex, birthday, idCard, address, phone);
+  Future<bool> updateInfo(String username, String displayName, int sex, DateTime birthday, String idCard,
+      String address, String phone) {
+    return Model.instance.updateInfo(username, displayName, sex, birthday, idCard, address, phone);
   }
 
   Future<bool> updatePassword(String username, String newPass) {
-    return Model.instance
-        .updatePassword(username, DBCrypt().hashpw(newPass, DBCrypt().gensalt()));
+    return Model.instance.updatePassword(username, DBCrypt().hashpw(newPass, DBCrypt().gensalt()));
   }
 }

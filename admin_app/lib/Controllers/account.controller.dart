@@ -37,42 +37,16 @@ class Controller {
     return -1;
   }
 
-  Future<bool> insertAcc(
-      String username,
-      String password,
-      String displayName,
-      int sex,
-      String idCard,
-      String address,
-      String phoneNumber,
-      DateTime birthday,
-      int idAccountType,
-      String image) {
-    return Model.instance.insertAcc(
-        username,
-        DBCrypt().hashpw(password, DBCrypt().gensalt()),
-        displayName,
-        sex,
-        idCard,
-        address,
-        phoneNumber,
-        birthday,
-        idAccountType,
-        image);
+  Future<bool> insertAcc(String username, String password, String displayName, int sex, String idCard,
+      String address, String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return Model.instance.insertAcc(username, DBCrypt().hashpw(password, DBCrypt().gensalt()), displayName,
+        sex, idCard, address, phoneNumber, birthday, idAccountType, image);
   }
 
-  void insertAccountToLocal(
-      String username,
-      String displayName,
-      int sex,
-      String idCard,
-      String address,
-      String phoneNumber,
-      DateTime birthday,
-      int idAccountType,
-      String image) async {
-    Account acc = Account(username, displayName, sex, idCard, address, phoneNumber,
-        birthday, idAccountType, base64.decode(image));
+  void insertAccountToLocal(String username, String displayName, int sex, String idCard, String address,
+      String phoneNumber, DateTime birthday, int idAccountType, String image) async {
+    Account acc = Account(username, displayName, sex, idCard, address, phoneNumber, birthday, idAccountType,
+        base64.decode(image));
     (await listAccount).add(acc);
   }
 
@@ -89,42 +63,23 @@ class Controller {
   }
 
   Future<bool> resetAcc(String username, String defaultPass) {
-    return Model.instance
-        .resetAcc(username, DBCrypt().hashpw(username, DBCrypt().gensalt()));
+    return Model.instance.resetAcc(username, DBCrypt().hashpw(username, DBCrypt().gensalt()));
   }
 
   Future<List<Account>> searchAccs(String keyword) async {
     List<Account> items = await listAccount;
     if (keyword.trim() == '') return items;
-    return items
-        .where((item) => item.username.toUpperCase().indexOf(keyword.toUpperCase()) != -1)
-        .toList();
+    return items.where((item) => item.username.toUpperCase().indexOf(keyword.toUpperCase()) != -1).toList();
   }
 
-  Future<bool> updateAcc(
-      String username,
-      String displayName,
-      int sex,
-      String idCard,
-      String address,
-      String phoneNumber,
-      DateTime birthday,
-      int idAccountType,
-      String image) {
-    return Model.instance.updateAcc(username, displayName, sex, idCard, address,
-        phoneNumber, birthday, idAccountType, image);
+  Future<bool> updateAcc(String username, String displayName, int sex, String idCard, String address,
+      String phoneNumber, DateTime birthday, int idAccountType, String image) {
+    return Model.instance
+        .updateAcc(username, displayName, sex, idCard, address, phoneNumber, birthday, idAccountType, image);
   }
 
-  void updateAccountToLocal(
-      String username,
-      String displayName,
-      int sex,
-      String idCard,
-      String address,
-      String phoneNumber,
-      DateTime birthday,
-      int idAccountType,
-      String image) async {
+  void updateAccountToLocal(String username, String displayName, int sex, String idCard, String address,
+      String phoneNumber, DateTime birthday, int idAccountType, String image) async {
     int index = await findIndex(username);
     (await listAccount)[index].displayName = displayName;
     (await listAccount)[index].sex = sex;

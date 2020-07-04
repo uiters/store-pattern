@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -17,8 +18,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -73,7 +73,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     Widget table = FutureBuilder<List<category.Category>>(
       future: categories,
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) Log.error(snapshot.error);
         if (snapshot.hasData) {
           return _buildTable(snapshot.data);
         }
@@ -248,15 +248,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         setState(() {
                           categories = Controller.instance.categories;
                         });
-                        successDialog(this.context,
-                            'Delete this category: ' + category.name + ' success!');
+                        successDialog(this.context, 'Delete this category: ' + category.name + ' success!');
                       } else
-                        errorDialog(
-                            this.context,
-                            'Delete this category: ' +
-                                category.name +
-                                ' failed.' +
-                                '\nPlease try again!');
+                        errorDialog(this.context,
+                            'Delete this category: ' + category.name + ' failed.' + '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,

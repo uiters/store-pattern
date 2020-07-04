@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './../Controllers/login.controller.dart';
-
-import './mainPage.view.dart';
-
 import './../Constants/theme.dart' as theme;
+import './../Controllers/login.controller.dart';
+import './mainPage.view.dart';
 
 class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
@@ -21,17 +19,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle2 = TextStyle(
-        color: theme.fontColorLight,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+        color: theme.fontColorLight, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     TextStyle _itemStyle3 = TextStyle(
       color: theme.accentColor,

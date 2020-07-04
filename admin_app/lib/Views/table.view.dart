@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -18,8 +19,7 @@ class _TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class _TableScreenState extends State<TableScreen> {
     Widget table = FutureBuilder<List<model.Table>>(
       future: tables,
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) Log.error(snapshot.error);
         if (snapshot.hasData) {
           return _buildTable(snapshot.data);
         }
@@ -235,8 +235,7 @@ class _TableScreenState extends State<TableScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this table: ' + table.name + '?',
-                style: theme.contentStyle),
+            content: Text('Do you want to delete this table: ' + table.name + '?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -249,15 +248,10 @@ class _TableScreenState extends State<TableScreen> {
                         setState(() {
                           tables = Controller.instance.tables;
                         });
-                        successDialog(this.context,
-                            'Delete this table: ' + table.name + ' success!');
+                        successDialog(this.context, 'Delete this table: ' + table.name + ' success!');
                       } else
-                        errorDialog(
-                            this.context,
-                            'Delete this table: ' +
-                                table.name +
-                                ' failed.' +
-                                '\nPlease try again!');
+                        errorDialog(this.context,
+                            'Delete this table: ' + table.name + ' failed.' + '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,

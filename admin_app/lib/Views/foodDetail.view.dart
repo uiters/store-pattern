@@ -31,17 +31,11 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[

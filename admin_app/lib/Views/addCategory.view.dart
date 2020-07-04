@@ -20,17 +20,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget id = TextField(
       enabled: false,
@@ -88,17 +82,14 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                   /* Pop screens */
                   Navigator.of(context).pop();
                   if (_nameController.text.trim() != '') {
-                    if (await cateController.Controller.instance
-                        .insertCategory(_nameController.text)) {
+                    if (await cateController.Controller.instance.insertCategory(_nameController.text)) {
                       // reload categories
-                      cateController.Controller.instance
-                          .insertCateToLocal(_nameController.text);
+                      cateController.Controller.instance.insertCateToLocal(_nameController.text);
 
                       successDialog(this.context, 'Create food category success!');
                       _nameController.clear();
                     } else
-                      errorDialog(this.context,
-                          'Create  category failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Create  category failed.' + '\nPlease try again!');
                     return;
                   }
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

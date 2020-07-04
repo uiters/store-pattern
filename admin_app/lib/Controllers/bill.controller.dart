@@ -16,18 +16,15 @@ class Controller {
 
   Future<List<Food>> getFoodByBill(int idBill) => Model.instance.getFoodByBill(idBill);
 
-  Future<List<Bill>> searchFoods(
-      String keyword, DateTime dateStart, DateTime dateEnd) async {
+  Future<List<Bill>> searchFoods(String keyword, DateTime dateStart, DateTime dateEnd) async {
     if (_bills == null) return null;
     List<Bill> items = await _bills;
     if (keyword.trim() == '') return items;
     return items
         .where((item) =>
             item.nameTable.toUpperCase().indexOf(keyword.toUpperCase()) != -1 &&
-            ((item.dateCheckIn.compareTo(dateStart) >= 0 &&
-                    item.dateCheckIn.compareTo(dateEnd) <= 0) ||
-                (item.dateCheckOut.compareTo(dateStart) >= 0 &&
-                    item.dateCheckOut.compareTo(dateEnd) <= 0)))
+            ((item.dateCheckIn.compareTo(dateStart) >= 0 && item.dateCheckIn.compareTo(dateEnd) <= 0) ||
+                (item.dateCheckOut.compareTo(dateStart) >= 0 && item.dateCheckOut.compareTo(dateEnd) <= 0)))
         .toList();
   }
 

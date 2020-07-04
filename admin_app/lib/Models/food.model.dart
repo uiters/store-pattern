@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static Model _instance;
@@ -20,31 +20,28 @@ class Model {
   }
 
   Future<bool> insertFood(String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance.executeNoneQuery(queries.INSERT_FOOD,
-        parameter: [name, price, idCategory, image]);
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.INSERT_FOOD, parameter: [name, price, idCategory, image]);
   }
 
-  Future<bool> updateFood(
-      int id, String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance.executeNoneQuery(queries.UPDATE_FOOD,
-        parameter: [id, name, price, idCategory, image]);
+  Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.UPDATE_FOOD, parameter: [id, name, price, idCategory, image]);
   }
 
   Future<bool> deleteFood(int id) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.DELETE_FOOD, parameter: [id]);
+    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_FOOD, parameter: [id]);
   }
 
   Future<bool> isFoodExists(int id) async {
     // check food exists on bill
     Future<List> futureBillDetails =
         MySqlConnection.instance.executeQuery(queries.IS_FOOD_EXISTS, parameter: [id]);
-    return (await parseBillDetails(futureBillDetails)).length > 0;
+    return (await parseBillDetails(futureBillDetails)).isNotEmpty;
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureFoods =
-        MySqlConnection.instance.executeQuery(queries.GET_ID_FOOD_MAX);
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_ID_FOOD_MAX);
     return (await parseFood(futureFoods))[0].id;
   }
 
@@ -74,8 +71,7 @@ class Food {
   int idImange;
   Uint8List image;
 
-  Food(int _id, String _name, int _idCategory, String _category, double _price,
-      Uint8List _image) {
+  Food(int _id, String _name, int _idCategory, String _category, double _price, Uint8List _image) {
     id = _id;
     name = _name;
     idCategory = _idCategory;
@@ -86,9 +82,9 @@ class Food {
 
   Food.fromJson(Map<String, dynamic> json) {
     this.id = json['IdFood'] != null ? int.parse(json['IdFood']) : int.parse(json['ID']);
-    this.name = json['FoodName'] != null ? json['FoodName'] : '';
+    this.name = json['FoodName'] ?? '';
     this.idCategory = json['IDCategory'] != null ? int.parse(json['IDCategory']) : -1;
-    this.category = json['CategoryName'] != null ? json['CategoryName'] : '';
+    this.category = json['CategoryName'] ?? '';
     this.price = json['Price'] != null ? double.parse(json['Price']) : 0.0;
     this.idImange = json['IdImage'] != null ? int.parse(json['IdImage']) : -1;
     this.image = json['Image'] != null ? base64.decode(json['Image']) : null;

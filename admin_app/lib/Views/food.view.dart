@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -18,8 +19,7 @@ class _FoodScreenState extends State<FoodScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class _FoodScreenState extends State<FoodScreen> {
     Widget table = FutureBuilder<List<food.Food>>(
       future: foods,
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) Log.error(snapshot.error);
         if (snapshot.hasData) {
           return _buildTable(snapshot.data);
         }
@@ -279,8 +279,7 @@ class _FoodScreenState extends State<FoodScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this food: ' + food.name + '?',
-                style: theme.contentStyle),
+            content: Text('Do you want to delete this food: ' + food.name + '?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -293,15 +292,10 @@ class _FoodScreenState extends State<FoodScreen> {
                         setState(() {
                           foods = Controller.instance.foods;
                         });
-                        successDialog(
-                            this.context, 'Delete this food: ' + food.name + ' success!');
+                        successDialog(this.context, 'Delete this food: ' + food.name + ' success!');
                       } else
-                        errorDialog(
-                            this.context,
-                            'Delete this food: ' +
-                                food.name +
-                                ' failed.' +
-                                '\nPlease try again!');
+                        errorDialog(this.context,
+                            'Delete this food: ' + food.name + ' failed.' + '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,

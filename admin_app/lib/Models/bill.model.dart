@@ -1,25 +1,23 @@
 import 'dart:typed_data';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static final Model instance = Model();
 
   Future<List<Bill>> getBills() async {
-    Future<List> futureFoods =
-        MySqlConnection.instance.executeQuery(queries.QUERY_GET_BILLS);
+    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.QUERY_GET_BILLS);
     return parseBill(futureFoods);
   }
 
   Future<bool> deleteBill(int id) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.QUERY_DELETE_BILLS, parameter: [id]);
+    return MySqlConnection.instance.executeNoneQuery(queries.QUERY_DELETE_BILLS, parameter: [id]);
   }
 
   Future<List<Food>> getFoodByBill(int idBill) async {
-    Future<List> futureFoods = MySqlConnection.instance
-        .executeQuery(queries.GET_BILLDETAIL_BY_BILL, parameter: [idBill]);
+    Future<List> futureFoods =
+        MySqlConnection.instance.executeQuery(queries.GET_BILLDETAIL_BY_BILL, parameter: [idBill]);
     return parseFood(futureFoods);
   }
 
@@ -56,7 +54,7 @@ class Bill {
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : 0;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : 0;
-    this.nameTable = json['Name'] != null ? json['Name'] : '';
+    this.nameTable = json['Name'] ?? '';
     this.dateCheckIn = DateTime.parse(json['DateCheckIn']);
     this.dateCheckOut = DateTime.parse(json['DateCheckOut']);
     this.discount = double.parse(json['Discount']);

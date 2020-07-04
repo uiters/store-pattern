@@ -4,21 +4,23 @@ description: A new Flutter application.
 version: 1.0.1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  http: ^0.12.1
-  flutter_local_notifications: ^1.4.4+1
-  dbcrypt: ^1.0.0
-  image_picker: ^0.6.7+3
-  charts_flutter: ^0.9.0
+  http: 0.12.1
+  flutter_local_notifications: 1.4.4+1
+  dbcrypt: 1.0.0
+  image_picker: 0.6.7+3
+  charts_flutter: 0.9.0
+  ansicolor: 1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: 1.9.0
 
 flutter:
   uses-material-design: true

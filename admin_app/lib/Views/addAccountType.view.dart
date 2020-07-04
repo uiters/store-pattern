@@ -20,17 +20,11 @@ class _AddAccountTypeScreenState extends State<AddAccountTypeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget id = TextField(
       enabled: false,
@@ -80,8 +74,7 @@ class _AddAccountTypeScreenState extends State<AddAccountTypeScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content:
-                Text('Do you want to create  account type ?', style: theme.contentStyle),
+            content: Text('Do you want to create  account type ?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -94,8 +87,7 @@ class _AddAccountTypeScreenState extends State<AddAccountTypeScreen> {
                       successDialog(this.context, 'Create  account type success!');
                       _nameController.clear();
                     } else
-                      errorDialog(this.context,
-                          'Create  account type failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Create  account type failed.' + '\nPlease try again!');
                     return;
                   }
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

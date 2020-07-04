@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:order_app/Controllers/image.controller.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -22,8 +23,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _birthDayController = TextEditingController();
 
-  Future<List<accType.AccountType>> accTypes =
-      accTypeController.Controller.instance.accTypes;
+  Future<List<accType.AccountType>> accTypes = accTypeController.Controller.instance.accTypes;
   accType.AccountType _accType;
   String _sex;
   File _image;
@@ -36,23 +36,14 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle3 = TextStyle(
-        color: Colors.redAccent,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle3 =
+        TextStyle(color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -92,8 +83,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       controller: _usernameController,
       style: _itemStyle,
       decoration: InputDecoration(
-          labelText:
-              _isUsernameExists ? 'Username already exists. Try again.' : 'Username:*',
+          labelText: _isUsernameExists ? 'Username already exists. Try again.' : 'Username:*',
           labelStyle: _isUsernameExists ? _itemStyle3 : _itemStyle2),
       onChanged: (value) async {
         bool result = await Controller.instance.isUsernameExists(value);
@@ -132,15 +122,12 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         Text(
           'Account Type:  ',
           style: TextStyle(
-              color: theme.accentColor,
-              fontFamily: 'Dosis',
-              fontSize: 13.0,
-              fontWeight: FontWeight.w500),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<accType.AccountType>>(
           future: accTypes,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasError) Log.error(snapshot.error);
             if (snapshot.hasData) {
               return _buildAccTypes(_itemStyle, snapshot.data);
             }
@@ -155,10 +142,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         Text(
           'Sex:  ',
           style: TextStyle(
-              color: theme.accentColor,
-              fontFamily: 'Dosis',
-              fontSize: 13.0,
-              fontWeight: FontWeight.w500),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         _buildSex(_itemStyle),
       ],
@@ -261,9 +245,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 onPressed: () async {
                   /* Pop screens */
                   Navigator.of(context).pop();
-                  if (_usernameController.text.trim() != '' &&
-                      _accType != null &&
-                      !_isUsernameExists) {
+                  if (_usernameController.text.trim() != '' && _accType != null && !_isUsernameExists) {
                     if (await Controller.instance.insertAcc(
                       _usernameController.text.trim(),
                       _usernameController.text.trim(),
@@ -272,9 +254,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                       _idCardController.text.trim(),
                       _addressController.text.trim(),
                       _phoneController.text.trim(),
-                      _birthDayController.text != ''
-                          ? DateTime.parse(_birthDayController.text)
-                          : null,
+                      _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
                       _accType.id,
                       _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                     )) {
@@ -286,9 +266,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                         _idCardController.text.trim(),
                         _addressController.text.trim(),
                         _phoneController.text.trim(),
-                        _birthDayController.text != ''
-                            ? DateTime.parse(_birthDayController.text)
-                            : null,
+                        _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
                         _accType.id,
                         _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                       );
@@ -296,12 +274,10 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                       successDialog(this.context, 'Create  account success!');
                       clearDataWidget();
                     } else
-                      errorDialog(this.context,
-                          'Create  account failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Create  account failed.' + '\nPlease try again!');
                     return;
                   }
-                  errorDialog(
-                      this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
               FlatButton(
@@ -332,8 +308,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         initialDate: DateTime.now().subtract(Duration(days: 365 * 18)),
         firstDate: DateTime(1975),
         lastDate: DateTime(2019));
-    if (picked != null)
-      setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildSex(TextStyle _itemStyle) {

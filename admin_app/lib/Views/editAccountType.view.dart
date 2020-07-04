@@ -26,17 +26,11 @@ class _EditAccountTypeScreenState extends State<EditAccountTypeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget id = TextField(
       enabled: false,
@@ -86,8 +80,7 @@ class _EditAccountTypeScreenState extends State<EditAccountTypeScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to update this account type?',
-                style: theme.contentStyle),
+            content: Text('Do you want to update this account type?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -95,14 +88,11 @@ class _EditAccountTypeScreenState extends State<EditAccountTypeScreen> {
                   /* Pop screens */
                   Navigator.of(context).pop();
                   if (_nameController.text.trim() != '') {
-                    if (await Controller.instance
-                        .updateAccType(widget.accType.id, _nameController.text)) {
-                      Controller.instance
-                          .updateAccTypeToLocal(widget.accType.id, _nameController.text);
+                    if (await Controller.instance.updateAccType(widget.accType.id, _nameController.text)) {
+                      Controller.instance.updateAccTypeToLocal(widget.accType.id, _nameController.text);
                       successDialog(this.context, 'Update account type success!');
                     } else
-                      errorDialog(this.context,
-                          'Update account type failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Update account type failed.' + '\nPlease try again!');
                     return;
                   }
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

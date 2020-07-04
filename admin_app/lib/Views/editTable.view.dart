@@ -26,17 +26,11 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget id = TextField(
       enabled: false,
@@ -86,8 +80,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content:
-                Text('Do you want to update this table ?', style: theme.contentStyle),
+            content: Text('Do you want to update this table ?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -103,8 +96,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
 
                       successDialog(this.context, 'Update table success!');
                     } else
-                      errorDialog(
-                          this.context, 'Update table failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Update table failed.' + '\nPlease try again!');
                     return;
                   }
                   errorDialog(this.context, 'Invalid name.' + '\nPlease try again!');

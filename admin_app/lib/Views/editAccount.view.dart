@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:order_app/Controllers/image.controller.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -27,8 +28,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _birthDayController = TextEditingController();
 
-  Future<List<accType.AccountType>> accTypes =
-      accTypeController.Controller.instance.accTypes;
+  Future<List<accType.AccountType>> accTypes = accTypeController.Controller.instance.accTypes;
   accType.AccountType _accType;
   String _sex;
   File _image;
@@ -49,17 +49,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -138,15 +132,12 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         Text(
           'Account Type:  ',
           style: TextStyle(
-              color: theme.accentColor,
-              fontFamily: 'Dosis',
-              fontSize: 13.0,
-              fontWeight: FontWeight.w500),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<accType.AccountType>>(
           future: accTypes,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasError) Log.error(snapshot.error);
             if (snapshot.hasData) {
               return _buildAccTypes(_itemStyle, snapshot.data);
             }
@@ -161,10 +152,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         Text(
           'Sex:  ',
           style: TextStyle(
-              color: theme.accentColor,
-              fontFamily: 'Dosis',
-              fontSize: 13.0,
-              fontWeight: FontWeight.w500),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         _buildSex(_itemStyle),
       ],
@@ -176,8 +164,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           child: TextField(
             controller: _birthDayController,
             style: _itemStyle,
-            decoration: InputDecoration(
-                enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+            decoration: InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
           ),
         ),
         RaisedButton(
@@ -238,8 +225,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to update this account: ' + username + '?',
-                style: theme.contentStyle),
+            content: Text('Do you want to update this account: ' + username + '?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok', style: theme.okButtonStyle),
@@ -253,9 +239,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     _idCardController.text.trim(),
                     _addressController.text.trim(),
                     _phoneController.text.trim(),
-                    _birthDayController.text != ''
-                        ? DateTime.parse(_birthDayController.text)
-                        : null,
+                    _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
                     _accType.id,
                     _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                   )) {
@@ -267,22 +251,15 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                       _idCardController.text.trim(),
                       _addressController.text.trim(),
                       _phoneController.text.trim(),
-                      _birthDayController.text != ''
-                          ? DateTime.parse(_birthDayController.text)
-                          : null,
+                      _birthDayController.text != '' ? DateTime.parse(_birthDayController.text) : null,
                       _accType.id,
                       _image != null ? base64Encode(_image.readAsBytesSync()) : '',
                     );
 
-                    successDialog(
-                        this.context, 'Update this account: ' + username + ' success!');
+                    successDialog(this.context, 'Update this account: ' + username + ' success!');
                   } else
-                    errorDialog(
-                        this.context,
-                        'Update this account: ' +
-                            username +
-                            ' failed.' +
-                            '\nPlease try again!');
+                    errorDialog(this.context,
+                        'Update this account: ' + username + ' failed.' + '\nPlease try again!');
                 },
               ),
               FlatButton(
@@ -302,8 +279,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         initialDate: widget.acc.birthday,
         firstDate: DateTime(1975),
         lastDate: DateTime(2019));
-    if (picked != null)
-      setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
+    if (picked != null) setState(() => _birthDayController.text = picked.toString().split(' ')[0]);
   }
 
   Widget _buildAccTypes(TextStyle _itemStyle, List<accType.AccountType> accTypes) {

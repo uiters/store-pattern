@@ -31,25 +31,18 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
     _addressController.text = account.address;
     _phoneController.text = account.phone;
     _accountTypeController.text = account.accountType;
-    _sexController.text =
-        account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
+    _sexController.text = account.sex == 1 ? 'Male' : (account.sex == 0 ? 'Female' : 'Other');
     _birthDayController.text = account.birthday.toString().split(' ')[0];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -79,50 +72,43 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
     Widget displayName = TextField(
       controller: _displayNameController,
       style: _itemStyle,
-      decoration: InputDecoration(
-          enabled: false, labelText: 'Display name:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Display name:', labelStyle: _itemStyle2),
     );
 
     Widget idCard = TextField(
       controller: _idCardController,
       style: _itemStyle,
-      decoration:
-          InputDecoration(enabled: false, labelText: 'Id card:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Id card:', labelStyle: _itemStyle2),
     );
 
     Widget address = TextField(
       controller: _addressController,
       style: _itemStyle,
-      decoration:
-          InputDecoration(enabled: false, labelText: 'Address:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Address:', labelStyle: _itemStyle2),
     );
 
     Widget phone = TextField(
       controller: _phoneController,
       style: _itemStyle,
-      decoration:
-          InputDecoration(enabled: false, labelText: 'Phone:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Phone:', labelStyle: _itemStyle2),
     );
 
     Widget accountType = TextField(
       controller: _accountTypeController,
       style: _itemStyle,
-      decoration: InputDecoration(
-          enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Account Type:', labelStyle: _itemStyle2),
     );
 
     Widget sex = TextField(
       controller: _sexController,
       style: _itemStyle,
-      decoration:
-          InputDecoration(enabled: false, labelText: 'Sex:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Sex:', labelStyle: _itemStyle2),
     );
 
     Widget birthDay = TextField(
       controller: _birthDayController,
       style: _itemStyle,
-      decoration: InputDecoration(
-          enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(enabled: false, labelText: 'Birthday:', labelStyle: _itemStyle2),
     );
 
     Widget exit = Container(

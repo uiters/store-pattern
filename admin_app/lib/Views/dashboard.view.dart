@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/theme.dart' as theme;
 import './../Controllers/report.controller.dart';
@@ -15,20 +16,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Future<List<Report>> reports = Controller.instance.reportsWeek;
   Future<Report> report = Controller.instance.reportToday;
   int currentI = 0;
-  TextStyle _itemStyle =
-      TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+  TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
-  TextStyle _itemStyle2 = TextStyle(
-      color: theme.accentColor,
-      fontFamily: 'Dosis',
-      fontSize: 34.0,
-      fontWeight: FontWeight.w600);
+  TextStyle _itemStyle2 =
+      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 34.0, fontWeight: FontWeight.w600);
 
-  TextStyle _itemStytle3 = TextStyle(
-      color: theme.accentColor,
-      fontFamily: 'Dosis',
-      fontWeight: FontWeight.w400,
-      fontSize: 14.0);
+  TextStyle _itemStytle3 =
+      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontWeight: FontWeight.w400, fontSize: 14.0);
 
   static final List<String> chartDropdownItems = ['Last 7 days', 'Months', 'Years'];
   String totalMoneyToday = '';
@@ -53,7 +47,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   FutureBuilder(
                     future: report,
                     builder: (context, snapshot) {
-                      if (snapshot.hasError) print(snapshot.error);
+                      if (snapshot.hasError) Log.error(snapshot.error);
                       if (snapshot.hasData) {
                         Report rp = snapshot.data;
                         totalMoneyToday = '\$' + _roundMoney(rp.totalPrice);
@@ -95,7 +89,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         }),
       ).then((value) {
         setState(() {
-          print('here');
+          Log.debug('here');
           _reloadData(currentI);
         });
       });
@@ -119,7 +113,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       FutureBuilder(
                         future: reports,
                         builder: (context, snapshot) {
-                          if (snapshot.hasError) print(snapshot.error);
+                          if (snapshot.hasError) Log.error(snapshot.error);
                           if (snapshot.hasData) _buildTotalMoney(snapshot.data);
                           return Text('$totalMoney', style: _itemStyle2);
                         },
@@ -149,7 +143,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             child: FutureBuilder<List<Report>>(
               future: reports,
               builder: (context, snapShot) {
-                if (snapShot.hasError) print(snapShot.error);
+                if (snapShot.hasError) Log.error(snapShot.error);
                 if (snapShot.hasData)
                   return _buildChart(snapShot.data);
                 else
@@ -184,13 +178,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   Widget _buildTile(Widget child, {Function() func}) {
     return Material(
-        elevation: 14.0,
-        borderRadius: BorderRadius.circular(12.0),
-        shadowColor: Color(0x802196F3),
-        child: InkWell(
-          child: child,
-          onTap: func != null ? func : () => {},
-        ));
+      elevation: 14.0,
+      borderRadius: BorderRadius.circular(12.0),
+      shadowColor: Color(0x802196F3),
+      child: InkWell(
+        child: child,
+        onTap: func,
+      ),
+    );
   }
 
   Widget _buildChart(List<Report> rp) {

@@ -1,32 +1,28 @@
 import 'dart:async';
 
 import './../Constants/queries.dart' as queries;
-import './connectServer.dart';
+import 'connect_server.dart';
 
 class Model {
   static final instance = Model();
 
   Future<List<Report>> getReports() async {
-    Future<List> futureReports =
-        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_LASTWEEK);
+    Future<List> futureReports = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_LASTWEEK);
     return _parseReports(futureReports);
   }
 
   Future<Report> getReportToday() async {
-    Future<List> futureReport =
-        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_TODAY);
+    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_TODAY);
     return _parseReport(futureReport);
   }
 
   Future<List<Report>> getReportsMonth() async {
-    Future<List> futureReport =
-        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_MONTH);
+    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_MONTH);
     return _parseReports(futureReport);
   }
 
   Future<List<Report>> getReportsYear() async {
-    Future<List> futureReport =
-        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_YEAR);
+    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_YEAR);
     return _parseReports(futureReport);
   }
 

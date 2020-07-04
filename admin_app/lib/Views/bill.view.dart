@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import './../Models/bill.model.dart';
-
-import './billDetail.view.dart';
-
-import './../Controllers/bill.controller.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
+import './../Controllers/bill.controller.dart';
+import './../Models/bill.model.dart';
+import './billDetail.view.dart';
 
 class BillScreen extends StatefulWidget {
   _BillScreenState createState() => _BillScreenState();
 }
 
 class _BillScreenState extends State<BillScreen> {
+  static var formatDate = DateFormat.yMd();
+  static DateTime now = DateTime.now();
   Future<List<Bill>> bills = Controller.instance.bills;
   TextEditingController _keywordController = TextEditingController();
   var format = DateFormat('MM/dd/yyyy \nhh:mm:ss');
-  static var formatDate = DateFormat.yMd();
-  static DateTime now = DateTime.now();
   String txbDayStart = formatDate.format(now);
   String txbDayEnd = formatDate.format(now);
 
@@ -31,8 +29,7 @@ class _BillScreenState extends State<BillScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle =
-        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
     Widget controls = Container(
       decoration: BoxDecoration(
@@ -50,8 +47,8 @@ class _BillScreenState extends State<BillScreen> {
                   controller: _keywordController,
                   onChanged: (keyword) {
                     setState(() {
-                      bills = Controller.instance.searchFoods(keyword,
-                          formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
+                      bills = Controller.instance
+                          .searchFoods(keyword, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                     });
                   },
                   onSubmitted: null,
@@ -92,7 +89,7 @@ class _BillScreenState extends State<BillScreen> {
     Widget table = FutureBuilder<List<Bill>>(
       future: bills,
       builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) Log.error(snapshot.error);
         if (snapshot.hasData) {
           return _buildTable(snapshot.data);
         }
@@ -126,141 +123,30 @@ class _BillScreenState extends State<BillScreen> {
             children: <Widget>[
               Table(
                   defaultColumnWidth: FlexColumnWidth(2.0),
-                  columnWidths:
-                      MediaQuery.of(context).orientation == Orientation.landscape
-                          ? {
-                              0: FlexColumnWidth(0.5),
-                              1: FlexColumnWidth(1.0),
-                              2: FlexColumnWidth(1.3),
-                              3: FlexColumnWidth(1.3),
-                              4: FlexColumnWidth(0.9),
-                              5: FlexColumnWidth(1.0),
-                              6: FlexColumnWidth(1.0),
-                              7: FlexColumnWidth(0.9),
-                              8: FlexColumnWidth(1.7),
-                            }
-                          : {
-                              0: FlexColumnWidth(0.5),
-                              1: FlexColumnWidth(1.0),
-                              2: FlexColumnWidth(1.5),
-                              3: FlexColumnWidth(1.0),
-                              4: FlexColumnWidth(1.0),
-                            },
+                  columnWidths: MediaQuery.of(context).orientation == Orientation.landscape
+                      ? {
+                          0: FlexColumnWidth(0.5),
+                          1: FlexColumnWidth(1.0),
+                          2: FlexColumnWidth(1.3),
+                          3: FlexColumnWidth(1.3),
+                          4: FlexColumnWidth(0.9),
+                          5: FlexColumnWidth(1.0),
+                          6: FlexColumnWidth(1.0),
+                          7: FlexColumnWidth(0.9),
+                          8: FlexColumnWidth(1.7),
+                        }
+                      : {
+                          0: FlexColumnWidth(0.5),
+                          1: FlexColumnWidth(1.0),
+                          2: FlexColumnWidth(1.5),
+                          3: FlexColumnWidth(1.0),
+                          4: FlexColumnWidth(1.0),
+                        },
                   border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
                   children: _buildListRow(foods)),
             ],
           )),
     );
-  }
-
-  TableRow _buildTableHead() {
-    List<TableCell> table = [
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'ID',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      ),
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Table',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      ),
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Checkout',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      ),
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Prices',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      ),
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Status',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      ),
-      TableCell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Actions',
-              style: theme.headTable,
-            ),
-          ],
-        ),
-      )
-    ];
-    var checkin = TableCell(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Checkin',
-            style: theme.headTable,
-          ),
-        ],
-      ),
-    );
-    var discount = TableCell(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Discount',
-            style: theme.headTable,
-          ),
-        ],
-      ),
-    );
-    var staff = TableCell(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Staff',
-            style: theme.headTable,
-          ),
-        ],
-      ),
-    );
-    if (MediaQuery.of(context).orientation == Orientation.landscape) {
-      table.insert(table.length - 4, checkin);
-      table.insert(table.length - 2, discount);
-      table.insert(table.length - 2, staff);
-    }
-    return TableRow(children: table);
   }
 
   TableRow _buildTableData(Bill bill) {
@@ -390,34 +276,123 @@ class _BillScreenState extends State<BillScreen> {
       ),
     );
     if (MediaQuery.of(context).orientation == Orientation.landscape) {
-      tableCell.insert(tableCell.length - 4, checkin);
-      tableCell.insert(tableCell.length - 2, discount);
-      tableCell.insert(tableCell.length - 2, staff);
+      tableCell
+        ..insert(tableCell.length - 4, checkin)
+        ..insert(tableCell.length - 2, discount)
+        ..insert(tableCell.length - 2, staff);
     }
     return TableRow(children: tableCell);
   }
 
-  Future _selectDate() async {
-    DateTime pickedStart = await showDatePicker(
-      context: context,
-      initialDate: formatDate.parse(txbDayStart),
-      firstDate: DateTime(1975),
-      lastDate: DateTime.now(),
+  TableRow _buildTableHead() {
+    List<TableCell> table = [
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'ID',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      ),
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Table',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      ),
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Checkout',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      ),
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Prices',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      ),
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Status',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      ),
+      TableCell(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Actions',
+              style: theme.headTable,
+            ),
+          ],
+        ),
+      )
+    ];
+    var checkin = TableCell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Checkin',
+            style: theme.headTable,
+          ),
+        ],
+      ),
     );
-    if (pickedStart != null) {
-      setState(() => txbDayStart = formatDate.format(pickedStart));
-      DateTime pickedEnd = await showDatePicker(
-        context: context,
-        initialDate: formatDate.parse(txbDayEnd),
-        firstDate: formatDate.parse(txbDayStart),
-        lastDate: DateTime.now(),
-      );
-      if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
+    var discount = TableCell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Discount',
+            style: theme.headTable,
+          ),
+        ],
+      ),
+    );
+    var staff = TableCell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Staff',
+            style: theme.headTable,
+          ),
+        ],
+      ),
+    );
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      table
+        ..insert(table.length - 4, checkin)
+        ..insert(table.length - 2, discount)
+        ..insert(table.length - 2, staff);
     }
-    setState(() {
-      bills = Controller.instance.searchFoods(_keywordController.text,
-          formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
-    });
+    return TableRow(children: table);
   }
 
   void _deleteBill(Bill bill) {
@@ -426,8 +401,7 @@ class _BillScreenState extends State<BillScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Confirm', style: theme.titleStyle),
-            content: Text('Do you want to delete this bill: ${bill.id}?',
-                style: theme.contentStyle),
+            content: Text('Do you want to delete this bill: ${bill.id}?', style: theme.contentStyle),
             actions: <Widget>[
               FlatButton(
                   child: Text('Ok', style: theme.okButtonStyle),
@@ -440,11 +414,10 @@ class _BillScreenState extends State<BillScreen> {
                         bills = Controller.instance.searchFoods(_keywordController.text,
                             formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
                       });
-                      successDialog(
-                          this.context, 'Delete this bill: ${bill.id} success!');
+                      successDialog(this.context, 'Delete this bill: ${bill.id} success!');
                     } else
-                      errorDialog(this.context,
-                          'Delete this bill: ${bill.id} failed.' + '\nPlease try again!');
+                      errorDialog(
+                          this.context, 'Delete this bill: ${bill.id} failed.' + '\nPlease try again!');
                   }),
               FlatButton(
                 child: Text('Cancel', style: theme.cancelButtonStyle),
@@ -474,5 +447,28 @@ class _BillScreenState extends State<BillScreen> {
             ));
       }),
     );
+  }
+
+  Future _selectDate() async {
+    DateTime pickedStart = await showDatePicker(
+      context: context,
+      initialDate: formatDate.parse(txbDayStart),
+      firstDate: DateTime(1975),
+      lastDate: DateTime.now(),
+    );
+    if (pickedStart != null) {
+      setState(() => txbDayStart = formatDate.format(pickedStart));
+      DateTime pickedEnd = await showDatePicker(
+        context: context,
+        initialDate: formatDate.parse(txbDayEnd),
+        firstDate: formatDate.parse(txbDayStart),
+        lastDate: DateTime.now(),
+      );
+      if (pickedEnd != null) setState(() => txbDayEnd = formatDate.format(pickedEnd));
+    }
+    setState(() {
+      bills = Controller.instance
+          .searchFoods(_keywordController.text, formatDate.parse(txbDayStart), formatDate.parse(txbDayEnd));
+    });
   }
 }

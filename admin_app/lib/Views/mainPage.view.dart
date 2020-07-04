@@ -51,8 +51,7 @@ class _MainPageState extends State<MainPage> {
                     Text(
                       widget.account.displayName,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
+                      style: TextStyle(color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
                     ),
                   ],
                 ),

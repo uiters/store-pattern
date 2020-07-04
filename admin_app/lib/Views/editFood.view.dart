@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:order_app/Controllers/image.controller.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/dialog.dart';
 import './../Constants/theme.dart' as theme;
@@ -41,17 +42,11 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: theme.accentColor,
-        fontFamily: 'Dosis',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0, fontWeight: FontWeight.w500);
 
     Widget avatar = Column(
       children: <Widget>[
@@ -112,15 +107,12 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
         Text(
           'Category:  ',
           style: TextStyle(
-              color: theme.accentColor,
-              fontFamily: 'Dosis',
-              fontSize: 13.0,
-              fontWeight: FontWeight.w500),
+              color: theme.accentColor, fontFamily: 'Dosis', fontSize: 13.0, fontWeight: FontWeight.w500),
         ),
         FutureBuilder<List<cate.Category>>(
           future: categories,
           builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasError) Log.error(snapshot.error);
             if (snapshot.hasData) {
               return _buildCategory(_itemStyle, snapshot.data);
             }
@@ -239,12 +231,10 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
                         _image = null;
                       });
                     } else
-                      errorDialog(
-                          this.context, 'Update food failed.' + '\nPlease try again!');
+                      errorDialog(this.context, 'Update food failed.' + '\nPlease try again!');
                     return;
                   }
-                  errorDialog(
-                      this.context, 'Invalid infomations.' + '\nPlease try again!');
+                  errorDialog(this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
               FlatButton(

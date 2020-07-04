@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:order_app/utils/log.dart';
 
 import './../Constants/theme.dart' as theme;
 import './../Controllers/bill.controller.dart';
@@ -81,10 +82,7 @@ class _BillDetailScreenState extends State<BillDetailScreen> {
               Text(
                 DateFormat('yyyy-MM-dd HH:mm:ss').format(widget.bill.dateCheckOut),
                 style: TextStyle(
-                    color: theme.fontColor,
-                    fontFamily: 'Dosis',
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.w500),
+                    color: theme.fontColor, fontFamily: 'Dosis', fontSize: 15.0, fontWeight: FontWeight.w500),
               )
             ],
           ),
@@ -103,7 +101,7 @@ class _BillDetailScreenState extends State<BillDetailScreen> {
           child: FutureBuilder<List<Food>>(
             future: foods,
             builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
+              if (snapshot.hasError) Log.error(snapshot.error);
               if (snapshot.hasData) {
                 return ListView.builder(
                     itemExtent: 60.0,
@@ -129,8 +127,7 @@ class _BillDetailScreenState extends State<BillDetailScreen> {
               Text(
                 food.name,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0),
+                style: const TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 18.0),
               ),
               Expanded(child: Container()),
               Text(
@@ -166,17 +163,11 @@ class _BillDetailScreenState extends State<BillDetailScreen> {
   }
 
   Widget _buildFooter() {
-    TextStyle _itemStyle = TextStyle(
-        color: theme.fontColor,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = TextStyle(
-        color: Colors.redAccent,
-        fontFamily: 'Dosis',
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+    TextStyle _itemStyle2 =
+        TextStyle(color: Colors.redAccent, fontFamily: 'Dosis', fontSize: 16.0, fontWeight: FontWeight.w500);
 
     return Container(
       decoration: BoxDecoration(
@@ -223,9 +214,7 @@ class _BillDetailScreenState extends State<BillDetailScreen> {
               ),
               Expanded(child: Container()),
               Text(
-                '\$' +
-                    (widget.bill.totalPrice * (1 - widget.bill.discount / 100))
-                        .toStringAsFixed(2),
+                '\$' + (widget.bill.totalPrice * (1 - widget.bill.discount / 100)).toStringAsFixed(2),
                 style: _itemStyle2,
               )
             ],
