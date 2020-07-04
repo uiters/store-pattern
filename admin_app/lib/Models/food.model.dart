@@ -9,7 +9,7 @@ class Model {
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -20,17 +20,19 @@ class Model {
   }
 
   Future<bool> insertFood(String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.INSERT_FOOD, parameter: [name, price, idCategory, image]);
+    return MySqlConnection.instance.executeNoneQuery(queries.INSERT_FOOD,
+        parameter: [name, price, idCategory, image]);
   }
 
-  Future<bool> updateFood(int id, String name, double price, int idCategory, String image) {
-    return MySqlConnection.instance
-        .executeNoneQuery(queries.UPDATE_FOOD, parameter: [id, name, price, idCategory, image]);
+  Future<bool> updateFood(
+      int id, String name, double price, int idCategory, String image) {
+    return MySqlConnection.instance.executeNoneQuery(queries.UPDATE_FOOD,
+        parameter: [id, name, price, idCategory, image]);
   }
 
   Future<bool> deleteFood(int id) {
-    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_FOOD, parameter: [id]);
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.DELETE_FOOD, parameter: [id]);
   }
 
   Future<bool> isFoodExists(int id) async {
@@ -41,14 +43,15 @@ class Model {
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_ID_FOOD_MAX);
+    Future<List> futureFoods =
+        MySqlConnection.instance.executeQuery(queries.GET_ID_FOOD_MAX);
     return (await parseFood(futureFoods))[0].id;
   }
 
   static Future<List<Food>> parseFood(Future<List> futureFoods) async {
     List<Food> foods = [];
     await futureFoods.then((values) {
-      values.forEach((value) => foods.add(new Food.fromJson(value)));
+      values.forEach((value) => foods.add(Food.fromJson(value)));
     });
     return foods;
   }
@@ -56,7 +59,7 @@ class Model {
   Future<List<BillDetail>> parseBillDetails(Future<List> futureBillDetails) async {
     List<BillDetail> billDetails = [];
     await futureBillDetails.then((values) {
-      values.forEach((value) => billDetails.add(new BillDetail.fromJson(value)));
+      values.forEach((value) => billDetails.add(BillDetail.fromJson(value)));
     });
     return billDetails;
   }
@@ -71,7 +74,8 @@ class Food {
   int idImange;
   Uint8List image;
 
-  Food(int _id, String _name, int _idCategory, String _category, double _price, Uint8List _image) {
+  Food(int _id, String _name, int _idCategory, String _category, double _price,
+      Uint8List _image) {
     id = _id;
     name = _name;
     idCategory = _idCategory;

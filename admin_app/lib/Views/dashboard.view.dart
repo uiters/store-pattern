@@ -15,35 +15,42 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Future<List<Report>> reports = Controller.instance.reportsWeek;
   Future<Report> report = Controller.instance.reportToday;
   int currentI = 0;
-  TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+  TextStyle _itemStyle =
+      TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
-  TextStyle _itemStyle2 =
-      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontSize: 34.0, fontWeight: FontWeight.w600);
+  TextStyle _itemStyle2 = TextStyle(
+      color: theme.accentColor,
+      fontFamily: 'Dosis',
+      fontSize: 34.0,
+      fontWeight: FontWeight.w600);
 
-  TextStyle _itemStytle3 =
-      TextStyle(color: theme.accentColor, fontFamily: 'Dosis', fontWeight: FontWeight.w400, fontSize: 14.0);
+  TextStyle _itemStytle3 = TextStyle(
+      color: theme.accentColor,
+      fontFamily: 'Dosis',
+      fontWeight: FontWeight.w400,
+      fontSize: 14.0);
 
   static final List<String> chartDropdownItems = ['Last 7 days', 'Months', 'Years'];
   String totalMoneyToday = '';
   String totalMoney = '';
   String currentItem = chartDropdownItems[0];
-  DateFormat format = new DateFormat.Md();
+  DateFormat format = DateFormat.Md();
 
   @override
   Widget build(BuildContext context) {
     Widget boxToday = _buildTile(
         Padding(
           padding: const EdgeInsets.all(24.0),
-          child: new Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              new Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Today', style: _itemStyle),
-                  new FutureBuilder(
+                  FutureBuilder(
                     future: report,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) print(snapshot.error);
@@ -56,11 +63,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   )
                 ],
               ),
-              new Material(
+              Material(
                 color: Colors.greenAccent,
                 borderRadius: BorderRadius.circular(24.0),
-                child: new Center(
-                  child: new Padding(
+                child: Center(
+                  child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Icon(
                       Icons.timeline,
@@ -74,17 +81,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ),
         ), func: () {
       Navigator.of(context).push(
-        new MaterialPageRoute(builder: (context) {
-          return new Scaffold(
-              appBar: new AppBar(
-                title: new Text(
+        MaterialPageRoute(builder: (context) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(
                   'Bill',
-                  style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+                  style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
                 ),
-                iconTheme: new IconThemeData(color: theme.accentColor),
+                iconTheme: IconThemeData(color: theme.accentColor),
                 centerTitle: true,
               ),
-              body: new BillScreen());
+              body: BillScreen());
         }),
       ).then((value) {
         setState(() {
@@ -96,29 +103,29 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
     Widget boxChart = _buildTile(Padding(
       padding: const EdgeInsets.all(24.0),
-      child: new Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Row(
+          Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                new Column(
+                Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      new Text('Revenue', style: _itemStyle),
-                      new FutureBuilder(
+                      Text('Revenue', style: _itemStyle),
+                      FutureBuilder(
                         future: reports,
                         builder: (context, snapshot) {
                           if (snapshot.hasError) print(snapshot.error);
                           if (snapshot.hasData) _buildTotalMoney(snapshot.data);
-                          return new Text('$totalMoney', style: _itemStyle2);
+                          return Text('$totalMoney', style: _itemStyle2);
                         },
                       )
                     ]),
-                new DropdownButton(
+                DropdownButton(
                     isDense: true,
                     value: currentItem,
                     onChanged: (String value) => setState(() {
@@ -137,17 +144,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       );
                     }).toList()),
               ]),
-          new Padding(padding: EdgeInsets.only(bottom: 2.0)),
-          new SizedBox(
-            child: new FutureBuilder<List<Report>>(
+          Padding(padding: EdgeInsets.only(bottom: 2.0)),
+          SizedBox(
+            child: FutureBuilder<List<Report>>(
               future: reports,
               builder: (context, snapShot) {
                 if (snapShot.hasError) print(snapShot.error);
                 if (snapShot.hasData)
                   return _buildChart(snapShot.data);
                 else
-                  return new Center(
-                    child: new CircularProgressIndicator(),
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
               },
             ),
@@ -158,17 +165,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     ));
     return Container(
         padding: EdgeInsets.only(left: 8.0, right: 8.0),
-        child: new ListView(
+        child: ListView(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            new Column(
+            Column(
               children: <Widget>[
                 SizedBox(height: 12.0),
                 boxToday,
                 SizedBox(height: 12.0),
-                boxChart, //new charts.LineChart(seriesList, animate: false,)
+                boxChart, // charts.LineChart(seriesList, animate: false,)
               ],
             ),
           ],
@@ -180,18 +187,18 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         elevation: 14.0,
         borderRadius: BorderRadius.circular(12.0),
         shadowColor: Color(0x802196F3),
-        child: new InkWell(
+        child: InkWell(
           child: child,
           onTap: func != null ? func : () => {},
         ));
   }
 
   Widget _buildChart(List<Report> rp) {
-    return new charts.BarChart(
+    return charts.BarChart(
       _parseSeries(rp),
       animate: true,
       //dateTimeFactory: const charts.LocalDateTimeFactory(),
-      //defaultRenderer: new charts.LineRendererConfig(includePoints: true, includeArea: true),
+      //defaultRenderer:  charts.LineRendererConfig(includePoints: true, includeArea: true),
     );
   }
 
@@ -210,22 +217,22 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     switch (id) {
       case 0:
         reports = Controller.instance.reportsWeek;
-        format = new DateFormat.Md();
+        format = DateFormat.Md();
         break;
       case 1:
         reports = Controller.instance.reportsMonth;
-        format = new DateFormat.yMMM();
+        format = DateFormat.yMMM();
         break;
       default:
         reports = Controller.instance.reportsYear;
-        format = new DateFormat.y();
+        format = DateFormat.y();
         break;
     }
   }
 
   List<charts.Series<Report, String>> _parseSeries(List<Report> reports) {
     return [
-      new charts.Series<Report, String>(
+      charts.Series<Report, String>(
           id: 'Report',
           colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
           domainFn: (Report rp, index) => format.format(rp.day),

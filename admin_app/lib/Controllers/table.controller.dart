@@ -4,7 +4,7 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
@@ -26,12 +26,14 @@ class Controller {
   Future<List<Table>> searchTables(String keyword) async {
     List<Table> items = await tables;
     if (keyword.trim() == '') return items;
-    return items.where((item) => item.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1).toList();
+    return items
+        .where((item) => item.name.toLowerCase().indexOf(keyword.toLowerCase()) != -1)
+        .toList();
   }
 
   void insertTableToLocal(String name, int status) async {
     int idMax = await Model.instance.getIDMax();
-    Table table = new Table(idMax, name, status);
+    Table table = Table(idMax, name, status);
     (await tables).add(table);
   }
 

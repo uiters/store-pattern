@@ -9,13 +9,14 @@ class Model {
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
 
   Future<Account> login(String username) async {
-    Future<List> futureAccount = MySqlConnection.instance.executeQuery(queries.LOGIN, parameter: [username]);
+    Future<List> futureAccount =
+        MySqlConnection.instance.executeQuery(queries.LOGIN, parameter: [username]);
     return parseAccount(futureAccount);
   }
 
@@ -50,7 +51,7 @@ class Account {
     phone = json['PhoneNumber'] != null ? json['PhoneNumber'] : '';
     birthday = json['BirthDay'] != null
         ? DateTime.parse(json['BirthDay'])
-        : DateTime.now().subtract(new Duration(days: 365 * 18));
+        : DateTime.now().subtract(Duration(days: 365 * 18));
     accountType = json['Name'] != null ? json['Name'] : '';
     image = json['Data'] != null ? base64.decode(json['Data']) : null;
   }

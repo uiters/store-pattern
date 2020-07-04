@@ -6,14 +6,14 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
   bool equalPass(String hashPass, String passCheck) =>
       DBCrypt().checkpw(passCheck, hashPass);
 
-  String toHashPass(String pass) => new DBCrypt().hashpw(pass, new DBCrypt().gensalt());
+  String toHashPass(String pass) => DBCrypt().hashpw(pass, DBCrypt().gensalt());
 
   Future<bool> updateAvatar(String username, String image) {
     return Model.instance.updateAvatar(username, image);
@@ -27,6 +27,6 @@ class Controller {
 
   Future<bool> updatePassword(String username, String newPass) {
     return Model.instance
-        .updatePassword(username, new DBCrypt().hashpw(newPass, new DBCrypt().gensalt()));
+        .updatePassword(username, DBCrypt().hashpw(newPass, DBCrypt().gensalt()));
   }
 }

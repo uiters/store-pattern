@@ -4,32 +4,36 @@ import './../Constants/queries.dart' as queries;
 import './connectServer.dart';
 
 class Model {
-  static final instance = new Model();
+  static final instance = Model();
 
   Future<List<Report>> getReports() async {
-    Future<List> futureReports = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_LASTWEEK);
+    Future<List> futureReports =
+        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_LASTWEEK);
     return _parseReports(futureReports);
   }
 
   Future<Report> getReportToday() async {
-    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_TODAY);
+    Future<List> futureReport =
+        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_TODAY);
     return _parseReport(futureReport);
   }
 
   Future<List<Report>> getReportsMonth() async {
-    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_MONTH);
+    Future<List> futureReport =
+        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_MONTH);
     return _parseReports(futureReport);
   }
 
   Future<List<Report>> getReportsYear() async {
-    Future<List> futureReport = MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_YEAR);
+    Future<List> futureReport =
+        MySqlConnection.instance.executeQuery(queries.QUERY_GET_REPORT_YEAR);
     return _parseReports(futureReport);
   }
 
   Future<Report> _parseReport(Future<List> futureReport) async {
     List<Report> reports = [];
     await futureReport.then((values) {
-      values.forEach((value) => reports.add(new Report.fromJson(value)));
+      values.forEach((value) => reports.add(Report.fromJson(value)));
     });
     return reports[0];
   }
@@ -37,7 +41,7 @@ class Model {
   Future<List<Report>> _parseReports(Future<List> futureReports) async {
     List<Report> reports = [];
     await futureReports.then((values) {
-      values.forEach((value) => reports.add(new Report.fromJson(value)));
+      values.forEach((value) => reports.add(Report.fromJson(value)));
     });
     return reports;
   }

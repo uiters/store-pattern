@@ -9,7 +9,7 @@ class MySqlConnection {
   static MySqlConnection _instance;
 
   static MySqlConnection get instance {
-    if (_instance == null) _instance = new MySqlConnection();
+    if (_instance == null) _instance = MySqlConnection();
     return _instance;
   }
 

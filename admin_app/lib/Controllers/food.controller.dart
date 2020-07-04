@@ -6,7 +6,7 @@ class Controller {
   static Controller _instance;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
@@ -38,8 +38,7 @@ class Controller {
   void insertFoodToLocal(String _name, int _idCategory, String _category, double _price,
       String _image) async {
     int idMax = await Model.instance.getIDMax();
-    Food food =
-        new Food(idMax, _name, _idCategory, _category, _price, base64.decode(_image));
+    Food food = Food(idMax, _name, _idCategory, _category, _price, base64.decode(_image));
     (await foods).add(food);
   }
 

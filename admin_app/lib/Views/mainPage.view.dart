@@ -25,47 +25,48 @@ class _MainPageState extends State<MainPage> {
   String _screenName = 'DASHBOARD';
 
   Drawer _buildDrawer(BuildContext context) {
-    return new Drawer(
-      child: new ListView(
+    return Drawer(
+      child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          new DrawerHeader(
-              child: new Container(
-                child: new Column(
+          DrawerHeader(
+              child: Container(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    new Container(
+                    Container(
                         width: 90.0,
                         height: 90.0,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: new DecorationImage(
+                            image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: widget.account.image.isEmpty
-                                    ? new AssetImage(
+                                    ? AssetImage(
                                         'assets/images/account.png',
                                       )
-                                    : new MemoryImage(
+                                    : MemoryImage(
                                         widget.account.image,
                                       )))),
-                    new Text(
+                    Text(
                       widget.account.displayName,
                       overflow: TextOverflow.ellipsis,
-                      style: new TextStyle(color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
+                      style: TextStyle(
+                          color: accentColor, fontFamily: 'Dosis', fontSize: 20.0),
                     ),
                   ],
                 ),
               ),
-              decoration: new BoxDecoration(color: primaryColor)),
-          new ListTile(
-            leading: new Icon(
+              decoration: BoxDecoration(color: primaryColor)),
+          ListTile(
+            leading: Icon(
               Icons.dashboard,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Dashboard',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -75,15 +76,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.monetization_on,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Bill',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -93,15 +94,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.fastfood,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Food',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -111,15 +112,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.category,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Food Category',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -129,15 +130,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.table_chart,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Table',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -147,15 +148,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.account_circle,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Account',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -165,15 +166,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.supervisor_account,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Account Type',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -183,18 +184,18 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new Divider(
+          Divider(
             indent: 16.0,
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.person,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'My Profile',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -204,15 +205,15 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.settings,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Settings',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -222,30 +223,30 @@ class _MainPageState extends State<MainPage> {
               Navigator.pop(context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.exit_to_app,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'Logout',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               Navigator.pop(context);
               Navigator.pop(widget.context);
             },
           ),
-          new ListTile(
-            leading: new Icon(
+          ListTile(
+            leading: Icon(
               Icons.info,
               color: fontColorLight,
               size: 19.0,
             ),
-            title: new Text(
+            title: Text(
               'About',
-              style: new TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
+              style: TextStyle(fontFamily: 'Dosis', color: fontColor, fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -263,21 +264,21 @@ class _MainPageState extends State<MainPage> {
   Widget _buildScreen(BuildContext context) {
     switch (this._screenNumber) {
       case 0:
-        return new DashBoardScreen();
+        return DashBoardScreen();
       case 1:
-        return new BillScreen();
+        return BillScreen();
       case 2:
-        return new FoodScreen();
+        return FoodScreen();
       case 3:
-        return new CategoryScreen();
+        return CategoryScreen();
       case 4:
-        return new TableScreen();
+        return TableScreen();
       case 5:
-        return new AccountScreen();
+        return AccountScreen();
       case 6:
-        return new AccountTypeScreen();
+        return AccountTypeScreen();
       case 7:
-        return new ProfileScreen(
+        return ProfileScreen(
           account: widget.account,
         );
       default:
@@ -288,13 +289,13 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: new Scaffold(
-            appBar: new AppBar(
-              title: new Text(
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text(
                 _screenName,
-                style: new TextStyle(color: accentColor, fontFamily: 'Dosis'),
+                style: TextStyle(color: accentColor, fontFamily: 'Dosis'),
               ),
-              iconTheme: new IconThemeData(color: accentColor),
+              iconTheme: IconThemeData(color: accentColor),
               centerTitle: true,
             ),
             body: _buildScreen(context),

@@ -20,9 +20,9 @@ class EditFoodScreen extends StatefulWidget {
 }
 
 class _EditFoodScreenState extends State<EditFoodScreen> {
-  TextEditingController _idController = new TextEditingController();
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _priceController = new TextEditingController();
+  TextEditingController _idController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
 
   Future<List<cate.Category>> categories = cateController.Controller.instance.categories;
   cate.Category _category;
@@ -35,52 +35,52 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
     _idController.text = food.id.toString();
     _nameController.text = food.name;
     _priceController.text = food.price.toString();
-    _category = new cate.Category(food.idCategory, food.category);
+    _category = cate.Category(food.idCategory, food.category);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _itemStyle = new TextStyle(
+    TextStyle _itemStyle = TextStyle(
         color: theme.fontColor,
         fontFamily: 'Dosis',
         fontSize: 16.0,
         fontWeight: FontWeight.w500);
 
-    TextStyle _itemStyle2 = new TextStyle(
+    TextStyle _itemStyle2 = TextStyle(
         color: theme.accentColor,
         fontFamily: 'Dosis',
         fontSize: 18.0,
         fontWeight: FontWeight.w500);
 
-    Widget avatar = new Column(
+    Widget avatar = Column(
       children: <Widget>[
         _image == null
             ? (widget.food.image.isEmpty
-                ? new Image.asset(
+                ? Image.asset(
                     'assets/images/food.png',
                     width: 122.0,
                     height: 122.0,
                     fit: BoxFit.fill,
                   )
-                : new Image.memory(
+                : Image.memory(
                     widget.food.image,
                     width: 122.0,
                     height: 122.0,
                     fit: BoxFit.fill,
                   ))
-            : new Image.file(
+            : Image.file(
                 _image,
                 width: 122.0,
                 height: 122.0,
                 fit: BoxFit.fill,
               ),
-        new Container(
+        Container(
           height: 15.0,
         ),
-        new RaisedButton(
+        RaisedButton(
           color: Colors.lightBlueAccent,
-          child: new Text(
+          child: Text(
             'Select Image',
             style: _itemStyle,
           ),
@@ -94,24 +94,24 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       ],
     );
 
-    Widget id = new TextField(
+    Widget id = TextField(
       enabled: false,
       controller: _idController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Auto-ID:*', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Auto-ID:*', labelStyle: _itemStyle2),
     );
 
-    Widget name = new TextField(
+    Widget name = TextField(
       controller: _nameController,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Name:', labelStyle: _itemStyle2),
     );
 
-    Widget category = new Row(
+    Widget category = Row(
       children: <Widget>[
-        new Text(
+        Text(
           'Category:  ',
-          style: new TextStyle(
+          style: TextStyle(
               color: theme.accentColor,
               fontFamily: 'Dosis',
               fontSize: 13.0,
@@ -130,20 +130,20 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       ],
     );
 
-    Widget price = new TextField(
+    Widget price = TextField(
       controller: _priceController,
       keyboardType: TextInputType.number,
       style: _itemStyle,
-      decoration: new InputDecoration(labelText: 'Price:', labelStyle: _itemStyle2),
+      decoration: InputDecoration(labelText: 'Price:', labelStyle: _itemStyle2),
     );
 
     Widget editFood = Container(
       margin: const EdgeInsets.only(top: 15.0),
       child: SizedBox(
         width: double.infinity,
-        child: new RaisedButton(
+        child: RaisedButton(
           color: Colors.redAccent,
-          child: new Text(
+          child: Text(
             'Update Food',
             style: _itemStyle,
           ),
@@ -156,7 +156,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
 
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: new ListView(
+      child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
         scrollDirection: Axis.vertical,
@@ -164,7 +164,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
           avatar,
           Container(
             margin: const EdgeInsets.only(top: 10.0),
-            child: new Card(
+            child: Card(
               color: theme.primaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -182,9 +182,9 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
   Widget _buildCategory(TextStyle _itemStyle, List<cate.Category> categories) {
     List<DropdownMenuItem> items = [];
     for (int i = 0; i < categories.length; i++) {
-      DropdownMenuItem item = new DropdownMenuItem(
+      DropdownMenuItem item = DropdownMenuItem(
         value: _category.id == categories[i].id ? _category : categories[i],
-        child: new Text(
+        child: Text(
           categories[i].name,
           style: _itemStyle,
         ),
@@ -192,7 +192,7 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
       items.add(item);
     }
 
-    return new DropdownButton(
+    return DropdownButton(
         value: _category,
         items: items,
         onChanged: (value) {
@@ -207,12 +207,11 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content:
-                new Text('Do you want to update this food?', style: theme.contentStyle),
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text('Do you want to update this food?', style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                child: Text('Ok', style: theme.okButtonStyle),
                 onPressed: () async {
                   /* Pop screens */
                   Navigator.of(context).pop();
@@ -248,8 +247,8 @@ class _EditFoodScreenState extends State<EditFoodScreen> {
                       this.context, 'Invalid infomations.' + '\nPlease try again!');
                 },
               ),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

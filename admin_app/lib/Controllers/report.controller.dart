@@ -1,7 +1,7 @@
 import './../Models/report.model.dart';
 
 class Controller {
-  static final instance = new Controller();
+  static final instance = Controller();
 
   Future<List<Report>> get reportsWeek => Model.instance.getReports();
 

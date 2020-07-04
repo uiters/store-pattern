@@ -6,7 +6,7 @@ class Model {
 
   static Model get instance {
     if (_instance == null) {
-      _instance = new Model();
+      _instance = Model();
     }
     return _instance;
   }
@@ -17,15 +17,18 @@ class Model {
   }
 
   Future<bool> insertTable(String name) {
-    return MySqlConnection.instance.executeNoneQuery(queries.INSERT_TABLE, parameter: [name]);
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.INSERT_TABLE, parameter: [name]);
   }
 
   Future<bool> updateTable(int id, String name) {
-    return MySqlConnection.instance.executeNoneQuery(queries.UPDATE_TABLE, parameter: [id, name, -1]);
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.UPDATE_TABLE, parameter: [id, name, -1]);
   }
 
   Future<bool> deleteTable(int id) {
-    return MySqlConnection.instance.executeNoneQuery(queries.DELETE_TABLE, parameter: [id]);
+    return MySqlConnection.instance
+        .executeNoneQuery(queries.DELETE_TABLE, parameter: [id]);
   }
 
   Future<bool> isTableExists(int id) async {
@@ -36,14 +39,15 @@ class Model {
   }
 
   Future<int> getIDMax() async {
-    Future<List> futureFoods = MySqlConnection.instance.executeQuery(queries.GET_ID_TABLE_MAX);
+    Future<List> futureFoods =
+        MySqlConnection.instance.executeQuery(queries.GET_ID_TABLE_MAX);
     return (await parseTable(futureFoods))[0].id;
   }
 
   Future<List<Table>> parseTable(Future<List> futureTables) async {
     List<Table> tables = [];
     await futureTables.then((values) {
-      values.forEach((value) => tables.add(new Table.fromJson(value)));
+      values.forEach((value) => tables.add(Table.fromJson(value)));
     });
     return tables;
   }
@@ -51,7 +55,7 @@ class Model {
   Future<List<Bill>> parseBill(Future<List> futureBills) async {
     List<Bill> bills = [];
     await futureBills.then((values) {
-      values.forEach((value) => bills.add(new Bill.fromJson(value)));
+      values.forEach((value) => bills.add(Bill.fromJson(value)));
     });
     return bills;
   }
@@ -87,8 +91,12 @@ class Bill {
   Bill.fromJson(Map<String, dynamic> json) {
     this.id = json['ID'] != null ? int.parse(json['ID']) : -1;
     this.idTable = json['IDTable'] != null ? int.parse(json['IDTable']) : -1;
-    this.dateCheckIn = json['DateCheckIn'] != null ? DateTime.parse(json['DateCheckIn']) : DateTime.now();
-    this.dateCheckOut = json['DateCheckOut'] != null ? DateTime.parse(json['DateCheckOut']) : DateTime.now();
+    this.dateCheckIn = json['DateCheckIn'] != null
+        ? DateTime.parse(json['DateCheckIn'])
+        : DateTime.now();
+    this.dateCheckOut = json['DateCheckOut'] != null
+        ? DateTime.parse(json['DateCheckOut'])
+        : DateTime.now();
     this.status = json['Status'] != null ? int.parse(json['Status']) : -1;
   }
 }

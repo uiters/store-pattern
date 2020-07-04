@@ -8,12 +8,13 @@ class Controller {
   Account account;
 
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
   Future<bool> login(String username, String password) async {
-    if (account == null || account.username != username) account = await Model.instance.login(username);
+    if (account == null || account.username != username)
+      account = await Model.instance.login(username);
     return account != null ? DBCrypt().checkpw(password, account.password) : false;
   }
 }

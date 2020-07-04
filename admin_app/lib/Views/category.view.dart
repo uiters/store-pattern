@@ -13,32 +13,33 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   Future<List<category.Category>> categories = Controller.instance.categories;
-  TextEditingController _keywordController = new TextEditingController();
+  TextEditingController _keywordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle _itemStyle = TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
+    const TextStyle _itemStyle =
+        TextStyle(color: theme.fontColor, fontFamily: 'Dosis', fontSize: 16.0);
 
-    Widget controls = new Container(
-      decoration: new BoxDecoration(
+    Widget controls = Container(
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(color: theme.fontColorLight.withOpacity(0.2))),
       margin: EdgeInsets.only(top: 10.0, bottom: 2.0, left: 7.0, right: 7.0),
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          new RaisedButton(
+          RaisedButton(
             color: Colors.greenAccent,
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                new Icon(
+                Icon(
                   Icons.add,
                   color: theme.fontColorLight,
                   size: 19.0,
                 ),
-                new Text(
+                Text(
                   'Add',
                   style: theme.contentTable,
                 )
@@ -48,11 +49,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
               _pushAddCategoryScreen();
             },
           ),
-          new Container(
+          Container(
             width: 30.0,
           ),
-          new Flexible(
-              child: new TextField(
+          Flexible(
+              child: TextField(
                   controller: _keywordController,
                   onChanged: (text) {
                     setState(() {
@@ -69,7 +70,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
     );
 
-    Widget table = new FutureBuilder<List<category.Category>>(
+    Widget table = FutureBuilder<List<category.Category>>(
       future: categories,
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
@@ -100,11 +101,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
       child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(7.0),
-          child: new ListView(
+          child: ListView(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: <Widget>[
-              new Table(
+              Table(
                   defaultColumnWidth: FlexColumnWidth(4.0),
                   columnWidths: {0: FlexColumnWidth(1.0), 2: FlexColumnWidth(5.0)},
                   border: TableBorder.all(width: 1.0, color: theme.fontColorLight),
@@ -115,34 +116,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   TableRow _buildTableHead() {
-    return new TableRow(children: [
-      new TableCell(
-        child: new Row(
+    return TableRow(children: [
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'ID',
               style: theme.headTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'Name',
               style: theme.headTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'Actions',
               style: theme.headTable,
             ),
@@ -153,23 +154,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   TableRow _buildTableData(category.Category category) {
-    return new TableRow(children: [
-      new TableCell(
-        child: new Row(
+    return TableRow(children: [
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               category.id.toString(),
               style: theme.contentTable,
             ),
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               category.name,
               style: theme.contentTable,
               overflow: TextOverflow.ellipsis,
@@ -177,21 +178,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-      new TableCell(
-        child: new Row(
+      TableCell(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            new RaisedButton(
+            RaisedButton(
               color: Colors.lightBlueAccent,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  new Icon(
+                  Icon(
                     Icons.edit,
                     color: theme.fontColorLight,
                     size: 19.0,
                   ),
-                  new Text(
+                  Text(
                     'Edit',
                     style: theme.contentTable,
                   )
@@ -201,17 +202,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 _pushEditCategoryScreen(category);
               },
             ),
-            new RaisedButton(
+            RaisedButton(
               color: Colors.redAccent,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  new Icon(
+                  Icon(
                     Icons.delete,
                     color: theme.fontColorLight,
                     size: 19.0,
                   ),
-                  new Text(
+                  Text(
                     'Delete',
                     style: theme.contentTable,
                   )
@@ -232,12 +233,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('Confirm', style: theme.titleStyle),
-            content: new Text('Do you want to delete this category: ' + category.name + '?',
+            title: Text('Confirm', style: theme.titleStyle),
+            content: Text('Do you want to delete this category: ' + category.name + '?',
                 style: theme.contentStyle),
             actions: <Widget>[
-              new FlatButton(
-                  child: new Text('Ok', style: theme.okButtonStyle),
+              FlatButton(
+                  child: Text('Ok', style: theme.okButtonStyle),
                   onPressed: () async {
                     /* Pop screens */
                     Navigator.of(context).pop();
@@ -247,10 +248,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         setState(() {
                           categories = Controller.instance.categories;
                         });
-                        successDialog(this.context, 'Delete this category: ' + category.name + ' success!');
+                        successDialog(this.context,
+                            'Delete this category: ' + category.name + ' success!');
                       } else
-                        errorDialog(this.context,
-                            'Delete this category: ' + category.name + ' failed.' + '\nPlease try again!');
+                        errorDialog(
+                            this.context,
+                            'Delete this category: ' +
+                                category.name +
+                                ' failed.' +
+                                '\nPlease try again!');
                     } else
                       errorDialog(
                           this.context,
@@ -259,8 +265,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               '?' +
                               '\nContact with team dev for information!');
                   }),
-              new FlatButton(
-                child: new Text('Cancel', style: theme.cancelButtonStyle),
+              FlatButton(
+                child: Text('Cancel', style: theme.cancelButtonStyle),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -272,17 +278,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   void _pushAddCategoryScreen() {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Add Category',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new AddCategoryScreen(),
+          body: AddCategoryScreen(),
         );
       }),
     ).then((value) {
@@ -294,17 +300,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   void _pushEditCategoryScreen(category.Category category) {
     Navigator.of(context).push(
-      new MaterialPageRoute(builder: (context) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
               'Edit Category',
-              style: new TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
+              style: TextStyle(color: theme.accentColor, fontFamily: 'Dosis'),
             ),
-            iconTheme: new IconThemeData(color: theme.accentColor),
+            iconTheme: IconThemeData(color: theme.accentColor),
             centerTitle: true,
           ),
-          body: new EditCategoryScreen(category: category),
+          body: EditCategoryScreen(category: category),
         );
       }),
     ).then((value) {

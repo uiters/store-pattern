@@ -8,7 +8,7 @@ import './../Models/account.model.dart';
 class Controller {
   static Controller _instance;
   static Controller get instance {
-    if (_instance == null) _instance = new Controller();
+    if (_instance == null) _instance = Controller();
     return _instance;
   }
 
@@ -50,7 +50,7 @@ class Controller {
       String image) {
     return Model.instance.insertAcc(
         username,
-        new DBCrypt().hashpw(password, new DBCrypt().gensalt()),
+        DBCrypt().hashpw(password, DBCrypt().gensalt()),
         displayName,
         sex,
         idCard,
@@ -71,7 +71,7 @@ class Controller {
       DateTime birthday,
       int idAccountType,
       String image) async {
-    Account acc = new Account(username, displayName, sex, idCard, address, phoneNumber,
+    Account acc = Account(username, displayName, sex, idCard, address, phoneNumber,
         birthday, idAccountType, base64.decode(image));
     (await listAccount).add(acc);
   }
@@ -90,7 +90,7 @@ class Controller {
 
   Future<bool> resetAcc(String username, String defaultPass) {
     return Model.instance
-        .resetAcc(username, new DBCrypt().hashpw(username, new DBCrypt().gensalt()));
+        .resetAcc(username, DBCrypt().hashpw(username, DBCrypt().gensalt()));
   }
 
   Future<List<Account>> searchAccs(String keyword) async {
