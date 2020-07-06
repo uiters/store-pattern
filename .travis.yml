@@ -9,9 +9,10 @@ addons:
     packages:
       - libstdc++6
 before_script:
-  - git clone https://github.com/flutter/flutter.git -b v1.9.1+hotfix.6
+  - git clone --single-branch https://github.com/flutter/flutter.git -b beta
   - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
+  - flutter config --enable-web
 script:
   - cd admin_app
   - flutter test
