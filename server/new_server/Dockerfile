@@ -1,6 +1,7 @@
 FROM google/dart:latest
+WORKDIR /app
 
-COPY ./ ./
+COPY . /app
 
 # Install dependencies, pre-build
 RUN pub get
@@ -11,4 +12,4 @@ RUN pub get
 # Set environment, start server
 ENV ANGEL_ENV=production
 EXPOSE 3000
-CMD dart bin/prod.dart
+CMD dart bin/prod.dart --address=0.0.0.0
