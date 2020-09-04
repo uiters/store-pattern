@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+  mysql_db:
+    restart: always      
+    image: mysql:5.7
+    container_name: mysql
+    command: mysqld --user=root --verbose --lower_case_table_names=1
+    volumes:
+     - ./mysql_init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "storepattern"
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    networks:
+      - store_pattern
+      
+  store_pattern_service:
+    container_name: store_pattern_service
+    restart: always
+    build:
+      context: .
+    environment:
+      MYSQL_HOST: "mysql_db"
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: "storepattern"
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
+    depends_on:
+      - mysql_db
+    ports:
+      - '3000:3000'
+    networks:
+      - store_pattern
+networks:
+  store_pattern:
+
+volumes:
+  mysql_db:

@@ -82,29 +82,9 @@ Install packages for `flutter` apps:
 ```sh
 flutter packages get
 ```
-Setup API:
+### Setup API with php [see here](https://github.com/uiters/store-pattern/blob/e16c6fa32853c6c61a0c1fcbd9cde57d0241f073/README.md)
 
-* Upload file: ```index.php``` at ```store-pattern/server/Normal``` to your host.
-* Edit ```index.php```
-  ```php
-  $servername = "Your servername"; //recommend localhost
-  $username = "your username";
-  $password = "your password";
-  $dbname = "database name";
-  ```
-* Edit line 1 ```evn.dart``` at ```store-pattern/admin_app/lib/Constants/```
-and ```store-pattern/order_app/lib/Constants/```
-
-    ```dart
-    const String URL_EXECUTE = "your domain/index.php";
-    ```
-
-* Edit line 17 ```store-pattern/kitchen_app/src/Constants/Constant.java```
-
-    ```java
-    public static String urlConnect = "your domain/index.php";
-    ```
-* Run script sql in your PhpMyAdmin ```store-pattern/database/mysql.sql```
+### Setup API with docker [see here](./server/README.md)
 
 Run:
 
