@@ -1,60 +1,28 @@
-[![The Angel Framework](https://angel-dart.github.io/assets/images/logo.png)](https://angel-dart.dev)
+### Store pattern server ✈
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angel_dart/discussion)
-[![Pub](https://img.shields.io/pub/v/angel_framework.svg)](https://pub.dartlang.org/packages/angel_framework)
-[![Build status](https://travis-ci.org/angel-dart/framework.svg?branch=master)](https://travis-ci.org/angel-dart/framework)
-![License](https://img.shields.io/github/license/angel-dart/framework.svg)
+#### Getting start 👍
 
-**A polished, production-ready backend framework in Dart.**
++ Step 1: Add username and password of MySQL in file `server/docker-compose.yml`
 
-*Note: This repo is an application boilerplate ,and not the underlying framework library.*
++ Step 2: Run script
 
------
-## About
-Angel is a full-stack Web framework in Dart. It aims to
-streamline development by providing many common features
-out-of-the-box in a consistent manner.
-
-With features like the following, Angel is the all-in-one framework you should choose to build your next project:
-* [GraphQL Support](https://github.com/angel-dart/graphql)
-* [PostgreSQL ORM](https://github.com/angel-dart/orm)
-* [Dependency Injection](https://docs.angel-dart.dev/guides/dependency-injection)
-* And [much more](https://github.com/angel-dart)...
-
-## Installation & Setup
-
-Once you have [Dart](https://www.dartlang.org/) installed, bootstrapping a project is as simple as running a few shell commands:
-
-Install the [Angel CLI](https://github.com/angel-dart/cli):
-
-```bash
-pub global activate angel_cli
+```
+docker-compose up -d
 ```
 
-Bootstrap a project:
++ Step 3:
 
-```bash
-angel init hello
+* Edit line 1 ```evn.dart``` at ```store-pattern/admin_app/lib/Constants/```
+and ```store-pattern/order_app/lib/Constants/```
+
+```dart
+const String URL_EXECUTE = "your domain/";
 ```
 
-You can even have your server run and be *hot-reloaded* on file changes:
+* Edit line 17 ```store-pattern/kitchen_app/src/Constants/Constant.java```
 
-```bash
-dart --observe bin/dev.dart
+```java
+public static String urlConnect = "your domain/";
 ```
 
-Next, check out the [detailed documentation](https://docs.angel-dart.dev/v/2.x) to learn to flesh out your project.
-
-## Examples and Documentation
-Visit the [documentation](https://docs.angel-dart.dev/v/2.x)
-for dozens of guides and resources, including video tutorials,
-to get up and running as quickly as possible with Angel.
-
-Examples and complete projects can be found
-[here](https://github.com/angel-dart/examples-v2).
-
-
-You can also view the [API Documentation](http://www.dartdocs.org/documentation/angel_framework/latest).
-
-There is also an [Awesome Angel :fire:](https://github.com/angel-dart/awesome-angel) list.
-
+⚠ Becareful '/' at the last url
