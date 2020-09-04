@@ -6,10 +6,10 @@ import 'package:mysql1/mysql1.dart';
 
 class MySQLConnector {
   Future<MySqlConnection> _connectMySQL() async {
-    final host = Platform.environment['MYSQL_HOST'] ?? '0.0.0.0';
+    final host = Platform.environment['MYSQL_HOST'];
     final port = int.tryParse(Platform.environment['MYSQL_PORT'] ?? '3306');
-    final user = Platform.environment['MYSQL_USER'] ?? 'tvc12';
-    final password = Platform.environment['MYSQL_PASSWORD'] ?? 'tvc12@222';
+    final user = Platform.environment['MYSQL_USER'];
+    final password = Platform.environment['MYSQL_PASSWORD'];
     final db = Platform.environment['MYSQL_DATABASE'] ?? 'storepattern';
     final settings = ConnectionSettings(
       host: host,

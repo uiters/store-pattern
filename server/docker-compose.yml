@@ -11,9 +11,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: "storepattern"
-      MYSQL_USER: "tvc12"
-      MYSQL_PASSWORD: "tvc12@222"
-      MYSQL_ROOT_PASSWORD: "tvc12@12782389"
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     networks:
       - store_pattern
@@ -27,8 +27,8 @@ services:
       MYSQL_HOST: "mysql_db"
       MYSQL_PORT: 3306
       MYSQL_DATABASE: "storepattern"
-      MYSQL_USER: "tvc12"
-      MYSQL_PASSWORD: "tvc12@222"
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
     depends_on:
       - mysql_db
     ports:

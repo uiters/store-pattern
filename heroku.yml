@@ -1,4 +1,0 @@
-
-build:
-    docker:
-      web: server/new_server/Dockerfile
