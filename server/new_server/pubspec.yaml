@@ -1,14 +1,14 @@
 name: store_pattern_service
-description: An app that's going to be amazing pretty soon.
+description: Service for store pattern
 publish_to: none # Ensure we don't accidentally publish our private code! ;)
 environment:
   sdk: '>=2.0.0-dev <3.0.0'
-homepage: https://github.com/angel-dart/angel
 dependencies:
   angel_configuration: ^2.0.0 # Loads application configuration, along with support for .env files.
   angel_framework: ^2.0.0 # The core server library.
   angel_serialize: ^2.0.0 # Serialization runtime support
   angel_production: ^1.0.0 # Production application runner.
+  mysql1: ^0.17.1
 dev_dependencies:
   angel_hot: ^2.0.0 # Hot-reloading support. :)
   angel_migration_runner: ^2.0.0 # Runs migrations

@@ -2,7 +2,6 @@ library store_pattern_service.src.routes;
 
 import 'package:angel_framework/angel_framework.dart';
 import 'package:file/file.dart';
-import 'controllers/controllers.dart' as controllers;
 
 /// Put your app routes here!
 ///
@@ -11,9 +10,6 @@ import 'controllers/controllers.dart' as controllers;
 /// * https://github.com/angel-dart/angel/wiki/Requests-&-Responses
 AngelConfigurer configureServer(FileSystem fileSystem) {
   return (Angel app) async {
-    // Typically, you want to mount controllers first, after any global middleware.
-    await app.configure(controllers.configureServer);
-
     // Render `views/hello.jl` when a user visits the application root.
     app.get('/', (req, res) => res.json({'data': 'Hello 😍'}));
 

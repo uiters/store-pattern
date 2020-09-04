@@ -4,16 +4,16 @@ services:
     restart: always      
     image: mysql:5.7
     container_name: mysql
-    command: mysqld --user=root --verbose
+    command: mysqld --user=root --verbose --lower_case_table_names=1
     volumes:
      - ./mysql_init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: ""
-      MYSQL_USER: ""
-      MYSQL_PASSWORD: ""
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: "storepattern"
+      MYSQL_USER: "tvc12"
+      MYSQL_PASSWORD: "tvc12@222"
+      MYSQL_ROOT_PASSWORD: "tvc12@12782389"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     networks:
       - store_pattern
@@ -23,6 +23,14 @@ services:
     restart: always
     build:
       context: .
+    environment:
+      MYSQL_HOST: "mysql_db"
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: "storepattern"
+      MYSQL_USER: "tvc12"
+      MYSQL_PASSWORD: "tvc12@222"
+    depends_on:
+      - mysql_db
     ports:
       - '3000:3000'
     networks:
